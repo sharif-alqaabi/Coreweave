@@ -7,3 +7,4 @@ ledger/*.jsonl
 traces/*.json
 kit/.history/
 .DS_Store
+HANDOFF.md
