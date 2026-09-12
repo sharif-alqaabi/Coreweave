@@ -1,0 +1,4 @@
+gene,log2FC,p_value,q_value,cohort,treatment
+GENE_A,1.8,0.0001,0.002,Z,T
+GENE_B,0.3,0.04,0.21,Z,T
+GENE_C,-2.1,0.00005,0.001,Z,T
