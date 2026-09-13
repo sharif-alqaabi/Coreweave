@@ -30,6 +30,13 @@ def _dry_label(payload):
     return "ok", 0.6, "no rule fired"
 
 
+try:
+    import weave
+    traced = weave.op()
+except Exception:                                   # weave missing: plain functions
+    def traced(fn): return fn
+
+
 class Critic:
     def __init__(self, model=None, dry_run=False):
         self.model = model or os.getenv("CRITIC_MODEL", "claude-sonnet-5")
@@ -39,6 +46,7 @@ class Critic:
             import anthropic                                   # lazy: only needed for real runs
             self.client = anthropic.Anthropic()
 
+    @traced
     def judge(self, payload):
         if self.dry_run:
             label, conf, reason = _dry_label(payload)

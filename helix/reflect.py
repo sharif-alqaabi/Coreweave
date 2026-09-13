@@ -58,6 +58,14 @@ def apply_patch(rules_path, patch_text, change_reason="", author="aria", extra_m
     return out
 
 
+try:
+    import weave
+    traced = weave.op()
+except Exception:                                   # weave missing: plain functions
+    def traced(fn): return fn
+
+
+@traced
 def propose_patch_claude(misses, rules_path, model=None):
     """Fallback architect. Returns patch text in the same format ARIA is asked for."""
     import anthropic
