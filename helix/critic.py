@@ -48,9 +48,16 @@ class Critic:
         if self.dry_run:
             label, conf, reason = _dry_label(payload)
         else:
-            text = llm.chat(SYSTEM, json.dumps(payload), model=self.model, max_tokens=300)
-            m = re.search(r"\{.*?\}", text, re.S)
-            out = json.loads(m.group()) if m else {}
+            text = llm.chat(SYSTEM, json.dumps(payload), model=self.model, max_tokens=400)
+            out = {}
+            for m in re.finditer(r"\{.*?\}", text, re.S):          # first parseable JSON object wins
+                try:
+                    out = json.loads(m.group()); break
+                except json.JSONDecodeError:
+                    continue
+            if not out:                                             # truncated / malformed: salvage the label
+                lab = re.search(r'"label"\s*:\s*"(\w+)"', text)
+                out = {"label": lab.group(1) if lab else "ok", "confidence": 0.0, "reason": "unparseable critic output"}
             label, conf, reason = out.get("label", "ok"), float(out.get("confidence", 0.5)), out.get("reason", "")
         if label not in OPTIONS:
             label, conf, reason = "ok", 0.0, f"invalid label from critic: {label}"
