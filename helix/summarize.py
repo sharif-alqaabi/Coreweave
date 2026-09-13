@@ -9,14 +9,18 @@ from collections import Counter, defaultdict
 import pandas as pd
 
 GO_CACHE = "data/go_names.json"
-ANNOT = {"ENSEMBL", "SYMBOL", "GENENAME", "REFSEQ", "ENTREZID", "STRING_id", "GOSLIM_IDS"}
+ANNOT = {"ENSEMBL", "SYMBOL", "GENENAME", "REFSEQ", "ENTREZID", "STRING_id", "GOSLIM_IDS",
+         "ProbesetID", "count_ENSEMBL_mappings"}          # the last two: numeric annotation columns in microarray tables
 
 
 def pick_contrast(lfcs):
     """Prefer treatment-vs-control so +log2fc = up in treatment; else the first contrast."""
     def score(c):
         a, b = re.match(r"Log2fc_\((.*)\)v\((.*)\)", c).groups()
-        return ("control" in b.lower()) + ("flight" in a.lower()) - ("control" in a.lower())
+        a, b = a.lower(), b.lower()
+        shared = len(set(a.split(" & ")) & set(b.split(" & ")))      # multi-factor studies: match the other factors
+        return (("control" in b) + ("flight" in a) - ("control" in a)
+                + 0.5 * ("ground control" in b) - 0.5 * ("centrifug" in a) - 0.5 * ("basal" in b) + 0.1 * shared)
     return max(lfcs, key=score)
 
 

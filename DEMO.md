@@ -301,3 +301,13 @@ critic on these." Bone table: 38 of 60 killed. Not for the 3-minute slot.
 - Diagram screenshot as the one slide. README "Results so far" open as the network-failure fallback.
 - Zoom installed, or share.zoom.us tested, for the final round.
 - Make the repo public before submitting. Every member: signed in, survey done.
+
+
+## Optional bonus after the seven-slide close: TypeSafe
+
+Open tab 8 only if time allows. “We also check whether surviving leads appear in other studies.
+TypeSafe judges comparability; code checks the numbers. In this saved OSD-421 run, all 38 survivors
+were checked: 35 had a replication signal in at least one comparable table and 3 were not replicated
+in the tables checked.” These are evidence checks, not experimental validation.
+The tab uses saved results and needs no live API request. Graph Lab is available separately at
+`marimo run app/graph_lab.py`; keep live rebuilds outside the timed presentation.

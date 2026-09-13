@@ -18,7 +18,8 @@ def _():
     ROOT = Path(__file__).resolve().parents[1] if "__file__" in globals() else Path.cwd()
     sys.path.insert(0, str(ROOT)); os.chdir(ROOT)
     from helix.product import run_pipeline, best_rules
-    return mo, os, json, tempfile, glob, Path, ROOT, run_pipeline, best_rules
+    from helix import replicate
+    return mo, os, json, tempfile, glob, Path, ROOT, run_pipeline, best_rules, replicate
 
 
 @app.cell
@@ -39,19 +40,22 @@ def _(mo, best_rules, glob, os):
 
 
 @app.cell
-def _(mo, versions, best_rules, os):
+def _(mo, versions, best_rules, os, glob):
     upload = mo.ui.file(filetypes=[".csv"], multiple=False, kind="area", max_size=500_000_000, label="Choose a *_differential_expression*.csv")
     best_text = open(best_rules()).read()          # best_rules() may name a copy (e.g. v6 == v4); pick the listed twin
     default = next((v for v in versions if open(v).read() == best_text), versions[-1])
     rules_pick = mo.ui.dropdown(options={os.path.basename(v): v for v in versions}, value=os.path.basename(default), label="Rules version")
     n_leads = mo.ui.slider(12, 60, value=60, step=12, label="Leads to propose")
     run = mo.ui.run_button(label="Run pipeline", kind="success")
-    mo.vstack([upload, mo.hstack([rules_pick, n_leads, run], justify="start")])
-    return upload, rules_pick, n_leads, run
+    products = sorted(glob.glob("results/product_*.json"))                       # saved runs: show one without waiting 90 s
+    product_pick = mo.ui.dropdown(options={os.path.basename(p)[8:-5]: p for p in products},
+                                  value=os.path.basename(products[-1])[8:-5] if products else None, label="or show a saved run")
+    mo.vstack([upload, mo.hstack([rules_pick, n_leads, run, product_pick], justify="start")])
+    return upload, rules_pick, n_leads, run, product_pick
 
 
 @app.cell
-def _(mo, upload, rules_pick, n_leads, run, run_pipeline, tempfile, os):
+def _(mo, upload, rules_pick, n_leads, run, run_pipeline, tempfile, os, json):
     result = None
     if run.value and upload.value:
         f = upload.value[0] if isinstance(upload.value, (list, tuple)) and not hasattr(upload.value, "name") else upload.value
@@ -61,32 +65,155 @@ def _(mo, upload, rules_pick, n_leads, run, run_pipeline, tempfile, os):
         open(tmp, "wb").write(data)
         with mo.status.spinner(title="Running the pipeline (about 90 s): summarize, propose, enrich, judge"):
             result = run_pipeline(tmp, rules_path=rules_pick.value, n_leads=n_leads.value, progress=lambda s: None)
+        os.makedirs("results", exist_ok=True)                                    # saved like the CLI does, so the
+        json.dump(result, open(f"results/product_{result['dataset']}.json", "w"), indent=1)   # novelty check can find it
     elif run.value:
         mo.stop(True, mo.md("_Upload a CSV first._"))
     return (result,)
 
 
 @app.cell
-def _(mo, result, os):
-    if result is None:
+def _(result, product_pick, json):
+    # What the page shows: the run just made, else the saved run picked above.
+    shown = result if result is not None else (json.load(open(product_pick.value)) if product_pick.value else None)
+    return (shown,)
+
+
+@app.cell
+def _(mo, shown, novelty, os):
+    if shown is None:
         out = mo.md("_Results appear here after a run._")
     else:
         def padj(lead):                             # smallest adjusted p-value among the genes the claim cites
             ps = [f["padj"] for f in lead.get("table_facts", {}).values() if isinstance(f, dict) and "padj" in f]
             return f"{min(ps):.2g}" if ps else ""     # pathway / global claims cite no single gene
-        surv = [{"lead": s["id"].split("_", 1)[1], "shape": s["shape"], "claim": s["claim"], "why new": s["why_not_known"][:120],
-                 "next step": s["next_step"][:120], "padj": padj(s), "critic": s["reason"][:120]} for s in result["survivors"]]
+        checked = {l["id"]: l["verdict"] for l in novelty["leads"]} if novelty and novelty["dataset"] == shown["dataset"] else {}
+        rules = shown["rules"] if os.path.exists(shown["rules"]) else os.path.join("kit/critic", os.path.basename(shown["rules"]))  # saved on another machine
+        surv = [{"lead": s["id"].split("_", 1)[1], "shape": s["shape"], "claim": s["claim"],
+                 "OSDR check (TypeSafe)": checked.get(s["id"], "not checked yet"),
+                 "why new": s["why_not_known"][:120], "next step": s["next_step"][:120], "padj": padj(s), "critic": s["reason"][:120]}
+                for s in shown["survivors"]]
         kill = [{"lead": k["id"].split("_", 1)[1], "reason code": k["label"], "claim": k["claim"][:110], "critic": k["reason"][:140],
-                 "padj": padj(k)} for k in result["killed"]]
+                 "padj": padj(k)} for k in shown["killed"]]
         out = mo.vstack([
-            mo.md(f"## {result['dataset']}: **{len(surv)} leads survive**, {len(kill)} killed "
-                  f"(rules {os.path.basename(result['rules'])}, {result['seconds']} s)"),
-            mo.md("### Survivors: hypotheses worth a scientist's time"), mo.ui.table(surv, selection=None, page_size=15),
+            mo.md(f"## {shown['dataset']}: **{len(surv)} leads survive**, {len(kill)} killed "
+                  f"(rules {os.path.basename(rules)}, {shown['seconds']} s)"),
+            mo.md("### Survivors: hypotheses worth a scientist's time" +
+                  ("  \n_**OSDR check** is TypeSafe's verification against every other OSDR dataset (section below); it does not change the critic's verdict._" if checked else "")),
+            mo.ui.table(surv, selection=None, page_size=15),
             mo.md("### Killed, with the reason"), mo.ui.table(kill, selection=None, page_size=15),
-            mo.accordion({"Dataset summary the scout read": mo.md("```\n" + result["summary"] + "\n```"),
-                          "Rules the critic applied": mo.md(open(result["rules"]).read())}),
+            mo.accordion({"Dataset summary the scout read": mo.md("```\n" + shown["summary"] + "\n```"),
+                          "Rules the critic applied": mo.md(open(rules).read())}),
         ])
     out
+    return
+
+
+@app.cell
+def _(mo, shown):
+    check = mo.ui.run_button(label="Verify with TypeSafe", kind="success", disabled=shown is None)
+    mo.vstack([
+        mo.md("---\n# Verification: the survivors against every other OSDR dataset"),
+        mo.md("Every survivor says *why it is new*, usually \"not replicated in other spaceflight studies\". Nobody checks. "
+              "This does, with **TypeSafe (Jev)**, a System One model that returns calibrated probabilities instead of prose. "
+              "**Tier 1** scores how well each same-organism study in the 243-study catalog could replicate or refute the lead "
+              "(no downloads); **Tier 2** looks the lead's genes up in every comparable table on disk and judges what the numbers "
+              "say together. Direction and significance are arithmetic in pandas; Jev supplies the tissue judgment; the verdict is a code rule. "
+              "It verifies the leads above; it does not generate or replace them."),
+        check,
+    ])
+    return (check,)
+
+
+@app.cell
+def _(mo, shown, check, replicate, json, os):
+    # Run on the button; otherwise show the last saved check for this dataset (instant on reload).
+    novelty, note = None, ""
+    if shown is not None:
+        product = f"results/product_{shown['dataset']}.json"
+        cached = f"results/replicate_{shown['dataset']}.json"
+        if check.value:
+            try:
+                with mo.status.spinner(title="Jev is scoring every survivor against the catalog and the tables on disk (about 15 s)"):
+                    novelty = replicate.check_novelty(product, progress=lambda s: None)
+            except Exception as e:                      # no TYPESAFE_API_KEY, network: say so, keep the app up
+                note = f"**Verification failed:** `{type(e).__name__}: {str(e)[:200]}`"
+        elif os.path.exists(cached):
+            novelty = json.load(open(cached)); note = f"_Showing the saved verification `{os.path.basename(cached)}` ({novelty['seconds']} s). Press the button to rerun._"
+    mo.md(note) if note else None
+    return (novelty,)
+
+
+@app.cell
+def _(mo, novelty):
+    if novelty is None:
+        head = mo.md("_Verdicts appear here after verification._"); lead_pick = None; fetch = None
+    else:
+        kind = lambda v: v.split(":")[0].split(" in ")[0].split(" by ")[0]
+        counts = {}
+        for l in novelty["leads"]:
+            counts[kind(l["verdict"])] = counts.get(kind(l["verdict"]), 0) + 1
+        direct = {n["osd_id"] for l in novelty["leads"] for n in l["numeric"] if n["comparable"] >= 2}
+        missing = sorted({w["osd_id"] for l in novelty["leads"] for w in l["where_to_look"] if w["comparable"] >= 2.5 and not w["on_disk"]})
+        rows = [{"lead": l["id"].split("_", 1)[1], "claim": l["claim"][:80], "verdict": l["verdict"],
+                 **{n["osd_id"]: n["verdict"] for n in sorted(l["numeric"], key=lambda n: n["osd_id"]) if n["comparable"] >= 2},
+                 "scout said": l["why_not_known"][:90]} for l in novelty["leads"]]
+        lead_pick = mo.ui.dropdown(options={l["id"].split("_", 1)[1] + "  " + l["claim"][:60]: l["id"] for l in novelty["leads"]},
+                                   value=novelty["leads"][0]["id"].split("_", 1)[1] + "  " + novelty["leads"][0]["claim"][:60], label="Lead")
+        fetch = mo.ui.run_button(label=f"Download {len(missing)} comparable dataset(s) not on disk: {', '.join(missing[:4])}{'...' if len(missing) > 4 else ''}",
+                                 disabled=not missing)
+        head = mo.vstack([
+            mo.md(f"## {novelty['dataset']}: " + ", ".join(f"**{n} {k}**" for k, n in sorted(counts.items(), key=lambda kv: -kv[1]))
+                  + f" of {len(novelty['leads'])} survivors, judged against {novelty['n_studies']} {novelty['organism']} studies "
+                  f"in the catalog and {len(direct)} comparable table(s) on disk ({', '.join(sorted(direct))}), in {novelty['seconds']} s"),
+            mo.md("Columns per comparable dataset: **replicated** (same direction, padj < 0.05), **contradicted** (opposite, padj < 0.05), "
+                  "**not_replicated** (measured, no change), **underpowered**, **not_detected**. Unrelated tissues never count."),
+            mo.ui.table(rows, selection=None, page_size=40),
+            mo.hstack([lead_pick, fetch], justify="start"),
+        ])
+    head
+    return lead_pick, fetch
+
+
+@app.cell
+def _(mo, novelty, lead_pick):
+    if novelty is None or lead_pick is None:
+        detail = None
+    else:
+        _l = next(x for x in novelty["leads"] if x["id"] == lead_pick.value)
+        where = [{"study": w["osd_id"], "tissue": w["material"][:40], "factors": w["factors"][:40], "assay": w["assay"][:25],
+                  "comparable (0-3)": w["comparable"], "P(direct test)": w["p_direct"], "P(same factor)": w["same_factor"],
+                  "on disk": "yes" if w["on_disk"] else ""} for w in _l["where_to_look"]]
+        num = [{"study": n["osd_id"], "tissue": n["material"][:30], "comparable": n["comparable"], "verdict": n["verdict"],
+                "Jev said": n["jev_verdict"], "P(replicated)": n["p_replicated"], "P(contradicted)": n["p_contradicted"],
+                **{k: v for k, v in n["agreement"].items()},
+                "numbers": "; ".join(f"{g}: log2fc {f.get('log2fc')}, padj {f['padj']:.2g}" if isinstance(f.get("padj"), float) and f["padj"] == f["padj"]
+                                     else f"{g}: {f.get('error', 'padj NA')}" for g, f in list(n["facts"].items())[:4] if isinstance(f, dict))[:200]}
+               for n in _l["numeric"]]
+        detail = mo.vstack([
+            mo.md(f"### {_l['id']}: {_l['claim']}\n**Verdict: {_l['verdict']}.** Scout's novelty claim: _{_l['why_not_known']}_"),
+            mo.md("**Tier 1: where to look.** Jev's comparability score for the top catalog studies (all 243 scored, top 12 shown)."),
+            mo.ui.table(where, selection=None, page_size=12),
+            mo.md("**Tier 2: the numbers.** Per-gene direction tally is pandas; Jev's choice is gated by it (no 'contradicted' without a significant opposite gene)."),
+            mo.ui.table(num, selection=None, page_size=8) if num else mo.md("_No comparable table on disk yet: download above._"),
+        ])
+    detail
+    return
+
+
+@app.cell
+def _(mo, novelty, fetch, replicate):
+    # Pull the catalog studies Jev rated as direct tests but that are not on disk, so Tier 2 can use them on the next check.
+    got = []
+    if novelty is not None and fetch is not None and fetch.value:
+        _missing = sorted({w["osd_id"] for l in novelty["leads"] for w in l["where_to_look"] if w["comparable"] >= 2.5 and not w["on_disk"]})
+        with mo.status.spinner(title=f"Downloading {len(_missing)} table(s) from OSDR (about 20-100 MB each)"):
+            for oid in _missing:
+                try:
+                    replicate.fetch_dge(oid, progress=lambda s: None); got.append(oid)
+                except Exception as e:
+                    got.append(f"{oid} failed: {type(e).__name__}")
+    mo.md(f"_Downloaded: {', '.join(got)}. Press **Verify with TypeSafe** again to use them._") if got else None
     return
 
 

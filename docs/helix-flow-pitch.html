@@ -1,0 +1,137 @@
+<title>Helix Pitch Diagram</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --bg: #fbfbf9; --ink: #1c2126; --muted: #5d6670; --line: #d7dbd6;
+    --band: #f1f3ef; --ship: #0f766e; --ship-bg: #d9f0ec; --catch: #b42318; --catch-bg: #fbe1dd;
+    --code-bg: #eceee9;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #15181b; --ink: #e8eae6; --muted: #a2a9b0; --line: #3a4046;
+      --band: #1d2126; --ship: #5ed3c4; --ship-bg: #123c38; --catch: #ff8a7a; --catch-bg: #4a1f1a;
+      --code-bg: #262b30;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #15181b; --ink: #e8eae6; --muted: #a2a9b0; --line: #3a4046;
+    --band: #1d2126; --ship: #5ed3c4; --ship-bg: #123c38; --catch: #ff8a7a; --catch-bg: #4a1f1a;
+    --code-bg: #262b30;
+  }
+  body { background: var(--bg); color: var(--ink); font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+         padding-block: 32px; padding-inline: 24px; }
+  main { max-width: 1440px; margin: 0 auto; display: grid; gap: 20px; }
+  h1 { font-size: 30px; font-weight: 600; margin: 0; letter-spacing: -0.01em; text-wrap: balance; }
+  p.lede { margin: 0; max-width: 60ch; color: var(--muted); font-size: 17px; line-height: 1.5; }
+  figure { margin: 0; overflow-x: auto; }
+  svg { display: block; width: 100%; max-width: 1440px; height: auto; color: var(--ink); font-family: inherit; }
+  svg .box { fill: var(--bg); stroke: currentColor; stroke-width: 2; }
+  svg .code { fill: var(--code-bg); stroke: currentColor; stroke-width: 2; }
+  svg .band { fill: var(--band); stroke: none; }
+  svg .ship { fill: var(--ship-bg); stroke: var(--ship); stroke-width: 2.5; }
+  svg .catch { fill: var(--catch-bg); stroke: var(--catch); stroke-width: 2.5; }
+  svg text { fill: currentColor; font-size: 16px; }
+  svg .t-title { font-size: 22px; font-weight: 600; }
+  svg .t-sub { font-size: 15px; fill: var(--muted); }
+  svg .t-edge { font-size: 14px; fill: var(--muted); }
+  svg .t-band { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; fill: var(--muted); }
+  svg .t-mono { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; }
+  svg .t-ship { fill: var(--ship); font-weight: 600; font-size: 20px; }
+  svg .t-catch { fill: var(--catch); font-weight: 600; font-size: 20px; }
+  svg .edge { fill: none; stroke: currentColor; stroke-width: 2; }
+  svg .edge-ship { fill: none; stroke: var(--ship); stroke-width: 2.5; }
+  svg .edge-catch { fill: none; stroke: var(--catch); stroke-width: 2.5; }
+  figcaption { font-size: 15px; color: var(--muted); max-width: 90ch; line-height: 1.5; margin-top: 12px; }
+</style>
+
+<main>
+  <h1>Helix: a critic that rewrites its own rulebook</h1>
+  <p class="lede">Propose, judge, rewrite the rules, repeat. Every rewrite has to beat the old rules on data it never saw before it ships.</p>
+
+  <figure>
+    <svg viewBox="0 0 1440 640" role="img" aria-label="The loop: a scout proposes leads, a critic judges them against a rulebook, three architects rewrite the rulebook from the critic's mistakes, a tournament promotes the best rewrite back to the critic. Below the loop, a holdout check on unseen leads and published NASA findings decides whether a rulebook ships or is caught.">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+        </marker>
+        <marker id="arrow-ship" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="var(--ship)"/>
+        </marker>
+        <marker id="arrow-catch" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="var(--catch)"/>
+        </marker>
+      </defs>
+
+      <!-- the loop -->
+      <rect class="band" x="20" y="20" width="1400" height="340" rx="8"/>
+      <text class="t-band" x="44" y="50">The loop · every round</text>
+
+      <!-- Scout -->
+      <rect class="box" x="44" y="110" width="220" height="120" rx="6"/>
+      <text x="154" y="150" text-anchor="middle" class="t-title">Scout</text>
+      <text x="154" y="178" text-anchor="middle" class="t-sub">proposes leads</text>
+      <text x="154" y="200" text-anchor="middle" class="t-sub">from a NASA table</text>
+
+      <path class="edge" d="M264,170 L384,170" marker-end="url(#arrow)"/>
+      <text x="324" y="150" text-anchor="middle" class="t-edge">leads, with</text>
+      <text x="324" y="196" text-anchor="middle" class="t-edge">real numbers</text>
+
+      <!-- Critic -->
+      <rect class="box" x="384" y="110" width="270" height="120" rx="6"/>
+      <text x="519" y="150" text-anchor="middle" class="t-title">Critic</text>
+      <text x="519" y="178" text-anchor="middle" class="t-sub">judges each lead against</text>
+      <text x="519" y="200" text-anchor="middle" class="t-sub">a plain-text rulebook</text>
+
+      <path class="edge" d="M654,170 L750,170" marker-end="url(#arrow)"/>
+      <text x="702" y="154" text-anchor="middle" class="t-edge">its mistakes</text>
+
+      <!-- Architects -->
+      <rect class="box" x="750" y="110" width="300" height="120" rx="6"/>
+      <text x="900" y="150" text-anchor="middle" class="t-title">3 Architects</text>
+      <text x="900" y="178" text-anchor="middle" class="t-sub">each rewrites the rulebook</text>
+      <text x="900" y="200" text-anchor="middle" class="t-sub">Qwen · DeepSeek · ARIA</text>
+
+      <path class="edge" d="M1050,170 L1140,170" marker-end="url(#arrow)"/>
+      <text x="1095" y="154" text-anchor="middle" class="t-edge">3 rewrites</text>
+
+      <!-- Tournament -->
+      <rect class="box" x="1140" y="110" width="256" height="120" rx="6"/>
+      <text x="1268" y="150" text-anchor="middle" class="t-title">Tournament</text>
+      <text x="1268" y="178" text-anchor="middle" class="t-sub">best rewrite wins,</text>
+      <text x="1268" y="200" text-anchor="middle" class="t-sub">only if it beats the old rules</text>
+
+      <!-- loop back to critic -->
+      <path class="edge" d="M1268,230 L1268,300 L519,300 L519,230" marker-end="url(#arrow)"/>
+      <text x="894" y="290" text-anchor="middle" class="t-edge">new rulebook → next round</text>
+
+      <text x="44" y="342" class="t-sub">The critic never writes rules. The architects never judge leads. Numbers come from code, never from a model.</text>
+
+      <!-- the check -->
+      <rect class="band" x="20" y="404" width="1400" height="226" rx="8"/>
+      <text class="t-band" x="44" y="434">Outside the loop · what ships</text>
+
+      <path class="edge" d="M1340,230 L1340,376 L300,376 L300,470" marker-end="url(#arrow)"/>
+      <text x="820" y="396" text-anchor="middle" class="t-edge">every promoted rulebook, once</text>
+
+      <!-- Holdout -->
+      <rect class="box" x="44" y="470" width="512" height="120" rx="6"/>
+      <text x="300" y="510" text-anchor="middle" class="t-title">Test on data it never saw</text>
+      <text x="300" y="538" text-anchor="middle" class="t-sub">90 unseen leads + 54 findings from published NASA papers</text>
+      <text x="300" y="560" text-anchor="middle" class="t-sub">a rulebook only ships if it does better here</text>
+
+      <path class="edge-ship" d="M556,510 L660,510" marker-end="url(#arrow-ship)"/>
+      <path class="edge-catch" d="M556,558 L660,558" marker-end="url(#arrow-catch)"/>
+
+      <rect class="ship" x="660" y="470" width="360" height="50" rx="6"/>
+      <text x="840" y="502" text-anchor="middle" class="t-ship">Ships · <tspan class="t-mono">rules_v2</tspan></text>
+
+      <rect class="catch" x="660" y="540" width="360" height="50" rx="6"/>
+      <text x="840" y="572" text-anchor="middle" class="t-catch">Caught · <tspan class="t-mono">rules_v4</tspan></text>
+
+      <text x="1040" y="496" class="t-sub">fewest mistakes on unseen data</text>
+      <text x="1040" y="566" class="t-sub">best on training data, worse on unseen data</text>
+      <text x="1040" y="588" class="t-sub">the loop said no to itself</text>
+    </svg>
+    <figcaption>One scout proposes, one critic judges, three architects compete to rewrite the critic's rulebook. The winner goes back into the critic. Every version is then checked on unseen data, and that check, not the training score, decides what ships.</figcaption>
+  </figure>
+</main>

@@ -373,3 +373,18 @@ MIT. Science wants forks.
 <p align="center">
   <sub>Built for a hackathon. Aimed at a loop that outlives the weekend.</sub>
 </p>
+
+
+## Optional TypeSafe verification and research graph
+
+The core presentation is `app/deck.py`; its eighth tab adds saved TypeSafe results without making API calls.
+Run it with `marimo run app/deck.py -p 2721`. Regenerate the static notebook with
+`python3 scripts/build_deck_site.py`, then run `marimo export html-wasm deck_site.py -o ../site --mode run`
+from `app/` so the stylesheet is included.
+
+`app/lead_lab.py` adds verification of surviving leads against comparable OSDR studies.
+`app/graph_lab.py` explores saved relationships among findings, paper passages, and datasets.
+Both can display saved results; set `TYPESAFE_API_KEY` in `.env` to run new TypeSafe checks.
+Install dependencies from `requirements.txt`. To rebuild the graph, run
+`python3 -m helix.graph.build --no-explain`; this calls TypeSafe and may fetch missing corpus data.
+TypeSafe verification supplements the critic's decisions and does not replace the holdout evaluation.

@@ -1,5 +1,5 @@
-"""Helix demo deck: the whole presentation in one browser tab. Six slides as tabs, three of them
-interactive (a with/without Helix switch, a lead picker, a rulebook-version picker). Everything is
+"""Helix demo deck: the whole presentation in one browser tab. Seven core slides plus an optional TypeSafe bonus tab, with
+interactive lead and rulebook-version pickers. Everything is
 preloaded from results/ and docs/ so nothing spins on stage.
 
     marimo run app/deck.py -p 2721
@@ -56,6 +56,14 @@ def _():
         _seen.add(_t)
         _mp = _v.replace(".md", ".meta.json")
         DATA["rules"].append({"name": os.path.basename(_v), "text": _t, "meta": {"sections": json.load(open(_mp)).get("sections", [])} if os.path.exists(_mp) else {}})
+    _verification = json.load(open("results/replicate_OSD-421.json"))
+    _graph = json.load(open("results/graph.json"))
+    DATA["typesafe"] = {
+        "dataset": _verification["dataset"], "seconds": _verification["seconds"],
+        "n_studies": _verification["n_studies"],
+        "leads": [_slim(l, ("id", "claim", "verdict")) for l in _verification["leads"]],
+        "graph_nodes": _graph["stats"]["nodes"],
+    }
     # DATA-END
     WB = DATA["wb"]
     VERSIONS = [  # scores from the Weave evaluations (holdout) and results/metrics.csv (train)
@@ -281,7 +289,33 @@ def _(mo):
 
 
 @app.cell
-def _(mo, slide1, slide2, slide3, slide4, slide5, slide6, slide7):
+def _(mo, DATA, stat, stats):
+    _t = DATA["typesafe"]
+    _replicated = sum(l["verdict"].startswith("replicated in ") for l in _t["leads"])
+    _not_replicated = sum(l["verdict"].startswith("not replicated in ") for l in _t["leads"])
+    _nodes = _t["graph_nodes"]
+    slide8 = mo.vstack([
+        mo.md("# Bonus · TypeSafe checks the survivors across studies"),
+        mo.md(f"**After Helix judges a lead, does the signal appear elsewhere?** "
+              f"This saved check covers the {len(_t['leads'])} survivors from **{_t['dataset']}**, the product example in slide 3. "
+              "TypeSafe (Jev) scores study comparability and cross-study evidence; code checks gene direction and significance."),
+        stats(stat(len(_t["leads"]), "survivors checked", f"against {_t['n_studies']} same-organism catalog studies"),
+              stat(_replicated, "replication signals", "in at least one comparable table on disk", "hx-good"),
+              stat(_not_replicated, "not replicated", "in the comparable tables checked"),
+              stat(f"{_t['seconds']} s", "saved check runtime", "results preloaded for this presentation")),
+        mo.ui.table([{"lead": l["id"], "claim": l["claim"], "cross-study check": l["verdict"]}
+                     for l in _t["leads"]], selection=None, page_size=5),
+        mo.md("_These are cross-study evidence checks, not experimental validation. They supplement the critic’s verdict; "
+              "they do not change the rulebook scores or survival counts shown earlier._"),
+        mo.md(f"**Also implemented: Research Graph Lab.** The saved graph links {_nodes['finding']} findings "
+              f"to evidence from {_nodes['paper']} papers across {_nodes['dataset']} datasets. "
+              "TypeSafe scores relationships such as supports, contradicts, and background; accepted links retain their probabilities."),
+    ])
+    return (slide8,)
+
+
+@app.cell
+def _(mo, slide1, slide2, slide3, slide4, slide5, slide6, slide7, slide8):
     _keys = mo.Html('<iframe style="display:none" srcdoc="<script>'
                     'parent.document.addEventListener(&quot;keydown&quot;, function(e){'
                     'if (e.target && /INPUT|TEXTAREA|SELECT/.test(e.target.tagName)) return;'
@@ -291,7 +325,7 @@ def _(mo, slide1, slide2, slide3, slide4, slide5, slide6, slide7):
                     'var n = Math.min(Math.max(i + d, 0), tabs.length - 1); if (n !== i) { tabs[n].click(); e.preventDefault(); window.parent.scrollTo(0,0); }'
                     '});</script>"></iframe>')
     mo.vstack([_keys, mo.ui.tabs({"1 · The problem": slide1, "2 · How it works": slide2, "3 · The product": slide3, "4 · Does it learn?": slide4,
-                                  "5 · The proof": slide5, "6 · Helix on": slide6, "7 · Close": slide7})])
+                                  "5 · The proof": slide5, "6 · Helix on": slide6, "7 · Close": slide7, "8 · Bonus: TypeSafe": slide8})])
     return
 
 
