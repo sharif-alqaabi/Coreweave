@@ -46,7 +46,7 @@ def _(mo, pd, refresh, json, glob):
 @app.cell
 def _(mo, json, glob, refresh):
     refresh.value
-    files = sorted(glob.glob("results/iter*.json"), key=lambda p: int(p[12:-5]))
+    files = sorted([f for f in glob.glob("results/iter*.json") if ".run." not in f], key=lambda p: int(p[12:-5]))
     latest = json.load(open(files[-1])) if files else {"verdicts": [], "misses": []}
     survivors = [v for v in latest["verdicts"] if v["label"] == "ok"]
     mo.vstack([

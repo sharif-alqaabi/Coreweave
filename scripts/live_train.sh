@@ -1,5 +1,5 @@
 #!/bin/bash
-# Live training for the demo video: one real round from the hand-written rules_v0 on a 30-lead slice,
+# Live training for the demo video: one real round from the hand-written rules_v0 on a 60-lead slice (the two harder studies),
 # inside a throwaway copy of the repo (a git worktree), so nothing in the real kit/ or results/ changes.
 #
 #   bash scripts/live_train.sh            # ~3-4 min; prints the misses, the tournament and the v0 -> v1 diff
@@ -16,12 +16,12 @@ find kit/critic -name 'rules_v*' ! -name 'rules_v0.md' -delete          # start 
 rm -rf results patches/*.md; mkdir -p results                            # no history, no canned patches
 python3 - <<'PY'
 import json
-leads = [l for l in json.load(open("data/golden/train_llm_only.json")) if l["dataset"] == "OSD-255"]
+leads = [l for l in json.load(open("data/golden/train_llm_only.json")) if l["dataset"] in ("OSD-104", "OSD-467")]
 json.dump(leads, open("data/golden/train_video.json", "w"), indent=1)
-from collections import Counter; print(f"training slice: {len(leads)} leads from OSD-255,", dict(Counter(l['label'] for l in leads)))
+from collections import Counter; print(f"training slice: {len(leads)} leads from OSD-104 (soleus) and OSD-467 (bone),", dict(Counter(l['label'] for l in leads)))
 PY
 echo "=== round 0: critic judges with rules_v0, misses go to three architects, tournament, promotion ==="
-python3 -u loop.py --iterations 1 --train data/golden/train_video.json --table data/raw/OSD-255_differential_expression.csv \
+python3 -u loop.py --iterations 1 --train data/golden/train_video.json --table data/raw/OSD-104_rna_seq_differential_expression.csv data/raw/OSD-467_differential_expression.csv \
     --group video --wait-for-aria ${ARIA_WAIT:-45} 2>&1 | grep --line-buffered -v "🍩\|warnings.warn\|RequestsDependency\|Traces will not be logged\|subsequent messages"
 echo; echo "=== what changed: rules_v0 -> rules_v1 ==="
 diff <(cat kit/critic/rules_v0.md) <(cat kit/critic/rules_v1.md) | cut -c1-200 || true
