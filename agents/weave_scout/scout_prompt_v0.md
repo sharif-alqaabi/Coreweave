@@ -8,7 +8,7 @@ Produce 12 leads, with this mix:
 - 2 data-quality leads (something about the samples or measurement that a scientist should check before trusting the results)
 
 Rules:
-- Every claim must cite the gene(s) or section it rests on, with the numbers as written in the summary.
+- Every claim must name the gene symbol(s) or GO id it rests on in `rows`, exactly as written in the summary. Code will attach the real numbers.
 - Include leads of varying strength. Some should be strong, some borderline. Do not filter to only the safest ones; the critic decides.
 - Prefer the flight-vs-ground contrast. +log2fc means higher in flight.
 - Do not invent numbers or genes not present in the summary.
@@ -19,7 +19,7 @@ Output only a JSON array. Each element:
   "id": "lead_001",
   "shape": "single_gene | family | pathway | global | data_quality",
   "claim": "one sentence, specific and falsifiable",
-  "evidence": [{"source": "OSD-104", "rows": ["GeneSymbol", ...], "quote_span": "the numbers copied from the summary"}],
+  "rows": ["GeneSymbol or GO:id the claim rests on", ...],
   "why_not_known": "why this is not already an obvious or published result",
   "next_step": "the cheapest analysis or experiment that could falsify the claim"
 }

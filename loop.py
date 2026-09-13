@@ -1,102 +1,88 @@
 #!/usr/bin/env python3
-"""One iteration = scout → critic → aria → swap kit.
+"""Helix loop: judge -> score -> log -> revise rules, on the same leads each iteration.
 
-    python loop.py --data ./data/shard_01 --iterations 3 [--dry-run]
+    python3 loop.py --iterations 4 --dry-run                    # plumbing test, no keys
+    python3 loop.py --iterations 4 --patch-dir patches/         # apply ARIA patches from files
+    python3 loop.py --holdout                                   # final rules on holdout, once
+
+Rules live in kit/critic/rules_v{n}.md. Iteration n judges with v{n} and produces v{n+1}
+from patches/iter{n}.md (pasted from ARIA) or, if absent, from the Claude fallback.
+Rollback: if precision drops vs. the previous iteration, v{n+1} is built from v{n-1}.
 """
-from __future__ import annotations
-
-import argparse
-import json
+import argparse, csv, glob, json, os
 from pathlib import Path
+from dotenv import load_dotenv
+from helix.critic_payload import Table
+from helix.critic import Critic
+from helix.evaluate import evaluate
+from helix.reflect import apply_patch, propose_patch_claude
+from helix.wandb_log import log_iteration
 
-from agents.aria import Aria
-from agents.critic import Critic
-from agents.weave_scout import Scout
-from helix import telemetry
-from helix.config import load_settings
-from helix.kit import load_kit, promote, rollback, validate_diff
-from helix.ledger import Ledger
-from helix.schema import IterationStats, Verdict
-
-
-def run_iteration(n: int, shard: Path, settings, ledger: Ledger, dry_run: bool) -> IterationStats:
-    # 1. Load current kit
-    kit = load_kit(settings.kit_dir)
-    print(f"\n=== iteration {n} | kit v{kit.version} | rules={len(kit.rules)} skills={len(kit.skills)} tools={kit.tool_names}")
-
-    # 2. Scout
-    prior = ledger.claims()
-    scout = Scout(settings.scout_model, kit, dry_run=dry_run)
-    leads = scout.run(shard, n, prior, ledger.id_allocator())
-    print(f"scout proposed {len(leads)} leads")
-
-    # 3. Critic
-    critic = Critic(settings.critic_model, dry_run=dry_run)
-    for lead in leads:
-        lead.critic = critic.judge(lead, prior)
-        ledger.append(lead)
-        print(f"  {lead.id} → {lead.critic.verdict.value:8s} {lead.critic.score:.2f} {lead.critic.reasons}")
-
-    counts = {v: sum(1 for l in leads if l.critic and l.critic.verdict == v) for v in Verdict}
-    stats = IterationStats(
-        iteration=n, kit_version=kit.version, proposed=len(leads),
-        killed=counts[Verdict.KILL], parked=counts[Verdict.PARK],
-        survived=counts[Verdict.SURVIVE], escalated=counts[Verdict.ESCALATE],
-        duplicate_kills=sum(1 for l in leads if l.critic and "duplicate of prior lead" in l.critic.reasons),
-    )
-    print(f"survive-rate {stats.survive_rate:.2f}")
-
-    # 4. Aria
-    aria = Aria(settings.aria_model, dry_run=dry_run)
-    diff = aria.evolve(leads, stats, kit)
-    print(f"aria: {diff.summary} ({len(diff.patches)} patches)")
-
-    # 5. Validate
-    problems = validate_diff(diff, kit)
-    if problems:
-        print("kit diff rejected:", *problems, sep="\n  ")
-        return stats
-
-    # 6. Promote
-    new_kit = promote(diff, kit)
-    for p in diff.patches:
-        print(f"  + {p.kind.value}: {p.path}")
-    print(f"kit v{kit.version} → v{new_kit.version}")
-
-    (settings.traces_dir / f"iter_{n:03d}.json").write_text(
-        json.dumps({"stats": stats.model_dump(), "diff": diff.model_dump()}, indent=2)
-    )
-    return stats
+load_dotenv()
+RESULTS = Path("results"); RESULTS.mkdir(exist_ok=True)
 
 
-def main() -> None:
-    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--data", type=Path, required=True, help="data shard directory")
-    ap.add_argument("--iterations", type=int, default=3)
-    ap.add_argument("--dry-run", action="store_true", help="stub agents; no models, no W&B")
-    ap.add_argument("--ledger", type=Path, default=None, help="ledger JSONL (default ledger/leads.jsonl)")
-    ap.add_argument("--rollback-threshold", type=float, default=0.0,
-                    help="roll kit back if survive-rate drops by more than this between iterations (0 = off)")
+def latest_rules():
+    return sorted(glob.glob("kit/critic/rules_v*.md"), key=lambda p: int(p.split("_v")[1][:-3]))[-1]
+
+
+def run_iteration(n, leads, table, critic, args, prev_precision):
+    rules = f"kit/critic/rules_v{n}.md"
+    verdicts = critic.judge_all(leads, table, rules)
+    result = evaluate(verdicts, leads)
+    m = result["metrics"]
+    print(f"iter {n} rules_v{n}: kill_precision={m['screening/kill_precision']} "
+          f"false_kill_rate={m['screening/false_kill_rate']} reason_acc={m['screening/reason_accuracy']:.2f} "
+          f"misses={len(result['misses'])}")
+    json.dump({"verdicts": verdicts, "metrics": m, "misses": result["misses"]},
+              open(RESULTS / f"iter{n}.json", "w"), indent=1)
+    with open(RESULTS / "metrics.csv", "a", newline="") as f:
+        w = csv.writer(f)
+        if f.tell() == 0: w.writerow(["iteration", "rules_version", "kill_precision", "false_kill_rate", "reason_accuracy", "misses"])
+        w.writerow([n, n, m["screening/kill_precision"], m["screening/false_kill_rate"], m["screening/reason_accuracy"], len(result["misses"])])
+    log_iteration(n, result, rules, {"critic/model": critic.model, "critic/dry_run": critic.dry_run,
+                                      "architect": "aria" if args.patch_dir else "claude"},
+                  prev_rules_path=f"kit/critic/rules_v{n-1}.md" if n else None)
+    # ---- revise rules for the next iteration ----
+    base = rules
+    if prev_precision is not None and (m["screening/kill_precision"] or 0) < prev_precision:
+        base = f"kit/critic/rules_v{n-1}.md"; print(f"  precision dropped: rolling back to v{n-1} as base")
+    patch_file = Path(args.patch_dir or "patches") / f"iter{n}.md"
+    if patch_file.exists():
+        patch, author = patch_file.read_text(), "aria"
+    elif args.dry_run:
+        print("  dry run, no patch file: copying rules unchanged"); patch, author = "", "none"
+    else:
+        patch, author = propose_patch_claude(result["misses"], base), "claude"
+    if patch.strip():
+        out = apply_patch(base, patch, change_reason=f"iter {n} misses", author=author)
+    else:
+        out = f"kit/critic/rules_v{n+1}.md"; Path(out).write_text(Path(base).read_text())
+    print(f"  -> {out} (author={author})")
+    return m["screening/kill_precision"]
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--iterations", type=int, default=4)
+    ap.add_argument("--train", default="data/golden/train.json")
+    ap.add_argument("--holdout", action="store_true", help="score latest rules on data/golden/holdout.json once")
+    ap.add_argument("--table", default="data/raw/OSD-104_rna_seq_differential_expression.csv")
+    ap.add_argument("--patch-dir", default=None)
+    ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
-
-    settings = load_settings()
-    settings.validate(dry_run=args.dry_run)
-    telemetry.init(settings.wandb_project, enabled=not args.dry_run)
-    settings.traces_dir.mkdir(exist_ok=True)
-
-    ledger = Ledger(args.ledger or settings.ledger_dir / "leads.jsonl")
-    history: list[IterationStats] = []
-    for n in range(1, args.iterations + 1):
-        stats = run_iteration(n, args.data, settings, ledger, args.dry_run)
-        if history and args.rollback_threshold and history[-1].survive_rate - stats.survive_rate > args.rollback_threshold:
-            print(f"survive-rate collapsed ({history[-1].survive_rate:.2f} → {stats.survive_rate:.2f}); rolling back kit")
-            rollback(load_kit(settings.kit_dir), stats.kit_version)
-        history.append(stats)
-
-    print("\n=== summary")
-    for s in history:
-        print(f"iter {s.iteration}: kit v{s.kit_version} proposed={s.proposed} survived={s.survived + s.escalated} "
-              f"killed={s.killed} parked={s.parked} dup_kills={s.duplicate_kills} rate={s.survive_rate:.2f}")
+    table = Table(args.table)
+    critic = Critic(dry_run=args.dry_run)
+    if args.holdout:
+        leads = json.load(open("data/golden/holdout.json"))
+        result = evaluate(critic.judge_all(leads, table, latest_rules()), leads)
+        print("HOLDOUT", {k: v for k, v in result["metrics"].items() if k.startswith("screening/")})
+        json.dump(result["metrics"], open(RESULTS / "holdout.json", "w"), indent=1)
+        return
+    leads = json.load(open(args.train))
+    prev = None
+    for n in range(args.iterations):
+        prev = run_iteration(n, leads, table, critic, args, prev)
 
 
 if __name__ == "__main__":

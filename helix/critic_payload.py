@@ -23,10 +23,10 @@ class Table:
     def facts(self, key):
         if key.startswith("GO:"):
             return go_term_facts(self.df, self.sig, self.lfc, key)
-        hits = self.df[self.df["SYMBOL"] == key]          # symbols can repeat; take the first
-        if hits.empty:
+        hits = self.df[self.df["SYMBOL"] == key]          # symbols can repeat (isoforms):
+        if hits.empty:                                     # take the most significant row
             return {"error": "not in table"}
-        r = hits.iloc[0]
+        r = hits.sort_values(self.padj, na_position="last").iloc[0]
         hi = self.a if r[self.lfc] > 0 else self.b
         carriers = [c.split("_")[-1] for c in self.grp[hi] if r[c] > 1]
         return {"log2fc": round(float(r[self.lfc]), 2), "padj": float(r[self.padj]),
@@ -38,16 +38,16 @@ class Table:
 def enrich(leads, table):
     """Look up every cited gene / GO id once and store the truth on the lead."""
     for lead in leads:
-        keys = [k for ev in lead["evidence"] for k in ev.get("rows", [])]
+        keys = lead.get("rows") or [k for ev in lead.get("evidence", []) for k in ev.get("rows", [])]
         lead["table_facts"] = {k: table.facts(k) for k in keys}
     return leads
 
 
-def build_payload(lead, table, rules_dir="kit/critic"):
-    rules = "\n\n".join(open(p).read() for p in sorted(glob.glob(f"{rules_dir}/*.md")))
+def build_payload(lead, table, rules_dir="kit/critic", rules_file=None):
+    paths = [f"{rules_dir}/{rules_file}"] if rules_file else sorted(glob.glob(f"{rules_dir}/*.md"))[-1:]
+    rules = "\n\n".join(open(p).read() for p in paths)
     facts = lead.get("table_facts") or enrich([lead], table)[0]["table_facts"]
     return {"input": {"claim": lead["claim"],
-                      "scout_evidence": "; ".join(ev.get("quote_span") or "" for ev in lead["evidence"]),
                       "why_not_known": lead.get("why_not_known", ""),
                       "next_step": lead.get("next_step", ""),
                       "table_facts": facts,
