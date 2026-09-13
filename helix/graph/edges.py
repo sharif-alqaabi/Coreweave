@@ -193,3 +193,72 @@ def numeric_edges(f, own_row, tables, comparability, client):
              "p_contradicted": v["p_contradicted"], "confidence": v["confidence"],
              "numbers": {g: {x: fx[x] for x in ("log2fc", "padj", "higher_group", "carriers") if x in fx} for g, fx in v["facts"].items() if isinstance(fx, dict) and "log2fc" in fx}}
             for v in vs]
+
+
+# ---------------------------------------------------------------- driver
+def build_edges(findings, passages, client, progress=print, numeric=True, max_findings=None):
+    go_names = _go_names()
+    by_gene, texts = {}, [p["text"].lower() for p in passages]
+    for i, p in enumerate(passages):
+        for g in p["genes"]:
+            by_gene.setdefault(g, []).append(i)
+    by_text = lambda stems: [i for i, t in enumerate(texts) if all(st in t for st in stems)]
+    by_osd, by_tissue = {}, {}
+    for i, p in enumerate(passages):
+        for o in p["osd_ids"]:
+            by_osd.setdefault(o, []).append(i)
+        for t in p["tissues"]:
+            by_tissue.setdefault(t, []).append(i)
+    gene_index, go_index = {}, {}
+    for i, f in enumerate(findings):
+        f["_i"] = i
+        for g in f["genes"]:
+            gene_index.setdefault(g.upper(), []).append(i)
+        for go in f["go"]:
+            go_index.setdefault(go, []).append(i)
+    tissue = {d: catalog_tissue(d) for d in {f["dataset"] for f in findings}}
+    states = [_finding_state(f, *tissue[f["dataset"]]) for f in findings]
+
+    tables, comp = {}, {}
+    if numeric:
+        rows = {d: R.study(d) for d in tissue}
+        tables = {os.path.basename(p).split("_")[0]: R.Table(p) for p in sorted(R.local_csv_all())}
+        progress(f"{len(tables)} tables on disk for numeric edges")
+        studies_on_disk = [R.study(o) for o in tables if R.study(o)]
+
+        def comp_one(i):                                  # Tier 1 comparability of each on-disk table to this finding
+            f = findings[i]
+            try:
+                return i, {w["osd_id"]: w["comparable"] for w in R.catalog_scores({**f, "rows": f["genes"] + f["go"]}, rows[f["dataset"]], studies_on_disk, client)}
+            except Exception:
+                return i, {}
+        with ThreadPoolExecutor(WORKERS) as ex:
+            for i, c in ex.map(comp_one, range(len(findings) if not max_findings else min(max_findings, len(findings)))):
+                comp[i] = c
+
+    def one(i):
+        f = findings[i]; edges = []
+        t, fac = tissue[f["dataset"]]
+        pool = passage_pool(f, passages, by_gene, by_text, go_names, t, fac, by_osd, by_tissue)
+        pc, rel = rerank(f, states[i], pool, passages, client)
+        rel_by_id = {passages[k]["id"]: round(rel[k], 3) for k in pc}
+        for e in judge_passages(f, states[i], pc, passages, client):
+            e["p_relevant"] = rel_by_id[e["dst"]]
+            edges.append(e)
+        if f["shape"] not in ("global", "data_quality"):              # pattern-level leads make junk peers of single-gene leads
+            edges += judge_peers(f, states[i], peer_candidates(f, findings, gene_index, go_index), findings, states, client)
+        if numeric and tables:
+            edges += numeric_edges(f, R.study(f["dataset"]), tables, comp.get(i, {}), client)
+        return i, edges
+
+    all_edges = []
+    n = len(findings) if not max_findings else min(max_findings, len(findings))
+    with ThreadPoolExecutor(WORKERS) as ex:
+        for k, (i, edges) in enumerate(ex.map(one, range(n))):
+            all_edges += edges
+            if k % 25 == 24:
+                progress(f"  judged {k+1}/{n} findings, {len(all_edges)} edges so far")
+    for f in findings:
+        f.pop("_i", None)
+    progress(f"{len(all_edges)} raw edges")
+    return all_edges
