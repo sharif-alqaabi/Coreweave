@@ -85,7 +85,7 @@ fires ARIA when an iteration's evaluation completes. No RL environment, no A2A.
 
 ## Slide (one, the diagram)
 
-`docs/helix-flow.html`, screenshot. Three bands: once, every round, what ships. Leave it up for the
+`docs/helix-flow-pitch.html`, screenshot. Two bands: the loop, what ships. Leave it up for the
 first 40 seconds, then go to the live screens. No second slide.
 
 ---
