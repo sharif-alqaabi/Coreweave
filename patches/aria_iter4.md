@@ -1,0 +1,2 @@
+## untestable
+Kill claims that merely restate a supplied aggregate, infer a “trend,” “stability,” “technical reliability,” housekeeping status, or pathway absence from non-significance/detection, or generalize from top-hit composition; a suggested reanalysis or power calculation does not rescue them. Require a falsifiable biological or methodological proposition beyond the reported statistic. This fixes OSD-255_lead_060, OSD-255_lead_045, OSD-467_lead_059, OSD-467_lead_033, OSD-467_lead_052, and OSD-467_lead_049.

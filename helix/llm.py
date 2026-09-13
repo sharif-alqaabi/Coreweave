@@ -40,8 +40,14 @@ def chat(system, user, model=None, max_tokens=800, temperature=0.0, json_mode=Fa
     else:
         client = openai.OpenAI(base_url=os.getenv("OPENAI_BASE_URL"), api_key=os.environ["OPENAI_API_KEY"])
         model = model or os.getenv("OPENAI_MODEL", "gpt-4o-mini")
-    r = client.chat.completions.create(model=model, max_tokens=max_tokens, temperature=temperature,
-                                       messages=[{"role": "system", "content": system},
-                                                 {"role": "user", "content": user}])
+    try:
+        r = client.chat.completions.create(model=model, max_tokens=max_tokens, temperature=temperature,
+                                           messages=[{"role": "system", "content": system},
+                                                     {"role": "user", "content": user}])
+    except openai.APIStatusError as e:
+        if e.status_code in (402, 429) and "quota" in str(e).lower():
+            raise SystemExit(f"\n[{p}] model quota exhausted for {model}. Add credits (W&B: https://wandb.ai/subscriptions -> Billing, "
+                             "pay-as-you-go) or set LLM_PROVIDER/OPENAI_BASE_URL/OPENAI_API_KEY to another provider.\n") from None
+        raise
     msg = r.choices[0].message
     return msg.content or getattr(msg, "reasoning_content", None) or ""   # some models put text elsewhere
