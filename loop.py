@@ -59,11 +59,21 @@ def candidate(model, misses, base, critic, table, leads, tmpdir):
             print(f"  architect {model} failed: {str(e)[:80]}"); return None
 
 
-def tournament(misses, base, critic, table, leads, current_acc):
-    """All architects propose in parallel; the best candidate that beats current_acc wins."""
+def tournament(misses, base, critic, table, leads, current_acc, extra_patches=()):
+    """All architects propose in parallel; extra_patches (e.g. ARIA's) join as candidates;
+    the best candidate that beats current_acc wins."""
     tmp = Path("results/_candidates"); tmp.mkdir(parents=True, exist_ok=True)
     with ThreadPoolExecutor(len(ARCHITECTS)) as pool:
         cands = [c for c in pool.map(lambda m: candidate(m, misses, base, critic, table, leads, tmp), ARCHITECTS) if c]
+    for name, patch in extra_patches:
+        try:
+            text, changed = render_patch(base, patch)
+            path = f"{tmp}/rules_v{800 + len(cands)}.md"; Path(path).write_text(text)
+            r = evaluate(critic.judge_all(leads, table, path), leads)
+            cands.append({"model": name, "patch": patch, "sections": changed, "acc": r["metrics"]["screening/reason_accuracy"],
+                          "misses": {m["hypothesis_id"] for m in r["misses"]}})
+        except ValueError as e:
+            print(f"  candidate {name}: rejected by guardrails ({e})")
     before = {m["hypothesis_id"] for m in misses}
     for c in sorted(cands, key=lambda c: -c["acc"]):
         print(f"  candidate {c['model'].split('/')[-1]:34} {c['sections']} -> {c['acc']:.2f} "
@@ -95,8 +105,8 @@ def run_iteration(n, leads, table, critic, args, prev_precision):
     with open(mpath, "w", newline="") as f:
         w = csv.DictWriter(f, list(rows[0].keys())); w.writeheader(); w.writerows(rows)
     result["metrics"]["screening/eval_complete"] = 1          # the automation trigger signal
-    log_iteration(n, result, rules, {"critic/model": critic.model, "critic/dry_run": critic.dry_run,
-                                      "architect": "aria" if args.patch_dir else "claude"},
+    run_id = log_iteration(n, result, rules, {"critic/model": critic.model, "critic/dry_run": critic.dry_run,
+                                      "architect": "tournament"},
                   prev_rules_path=f"kit/critic/rules_v{n-1}.md" if n else None, group=args.group)
     # ---- revise rules for the next iteration ----
     base = rules
@@ -104,22 +114,22 @@ def run_iteration(n, leads, table, critic, args, prev_precision):
     if prev_precision is not None and acc < prev_precision - NOISE:     # prev_precision carries reason accuracy
         base = f"kit/critic/rules_v{n-1}.md"; print(f"  accuracy dropped ({prev_precision:.2f} -> {acc:.2f}): rolling back to v{n-1} as base")
         acc = prev_precision
-    next_rules = Path(f"kit/critic/rules_v{n+1}.md")
-    if args.wait_for_aria and not next_rules.exists():      # ARIA writes it via the MCP tool
-        import time
-        print(f"  waiting up to {args.wait_for_aria}s for ARIA to write {next_rules} ...")
-        deadline = time.time() + args.wait_for_aria
-        while time.time() < deadline and not next_rules.exists():
-            time.sleep(2)
-    if next_rules.exists():
-        print(f"  -> {next_rules} (author=aria via MCP)"); return m["screening/kill_precision"]
+    extra = []
+    if args.wait_for_aria and run_id:                     # ARIA writes its patch back onto the W&B run
+        from helix.aria_channel import fetch_aria_patch
+        print(f"  waiting up to {args.wait_for_aria}s for ARIA's patch on run {run_id} ...")
+        text = fetch_aria_patch(run_id, n, timeout_s=args.wait_for_aria)
+        if text:
+            extra.append(("ARIA", text)); print("  ARIA's patch received; it enters the tournament")
+        else:
+            print("  no ARIA patch in time; continuing with the model architects")
     patch_file = Path(args.patch_dir or "patches") / f"iter{n}.md"
     if patch_file.exists():
         patch, author = patch_file.read_text(), "aria"
     elif args.dry_run:
         print("  dry run, no patch file: copying rules unchanged"); patch, author = "", "none"
     else:
-        best = tournament(result["misses"], base, critic, table, leads, acc)
+        best = tournament(result["misses"], base, critic, table, leads, acc, extra_patches=extra)
         patch, author = (best["patch"], best["model"].split("/")[-1]) if best else ("", "none")
         if not best:
             print(f"  no candidate beat {acc:.2f}: keeping rules unchanged")
@@ -148,7 +158,7 @@ def main():
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--group", default="helix-osd104", help="W&B run group (use e.g. demo-1 for a live run)")
     ap.add_argument("--wait-for-aria", type=int, default=0, metavar="SECONDS",
-                    help="after logging, wait this long for ARIA to write the next rules via MCP before falling back")
+                    help="after logging, wait this long for ARIA to write its patch onto the W&B run; it then competes in the tournament")
     args = ap.parse_args()
     table = Tables(args.table)
     critic = Critic(dry_run=args.dry_run)
