@@ -104,3 +104,66 @@ def catalog_tissue(osd_id):
     text = row["material"] + " " + row["factors"]
     return ([t for t, rx in TISSUES.items() if re.search(rx, text, re.I)],
             [f for f, rx in FACTORS.items() if re.search(rx, text, re.I)])
+
+
+# ---------------------------------------------------------------- tagging passages
+def _gene_hits(text, vocab, words):
+    """(symbol_upper, token, ambiguous) for each distinct vocabulary symbol in the text.
+    Mouse casing (Drd4) or all-caps with a digit (DRD4, H2BC12) is a safe hit; a symbol that is also an English word is ambiguous."""
+    hits = {}
+    for m in _WORD.finditer(text):
+        tok = m.group(); key = tok.upper()
+        if key not in vocab or key in hits:
+            continue
+        display = vocab[key]
+        exact = tok == display
+        capsdigit = tok.isupper() and any(c.isdigit() for c in tok) and len(tok) >= 4
+        if not (exact or capsdigit or (tok.isupper() and len(tok) >= 5)):
+            continue                                    # "cat", "Sag " at sentence start: needs the right casing at least
+        ambiguous = display.lower() in words or (len(display) <= 3 and not any(c.isdigit() for c in display))
+        hits[key] = (tok, ambiguous)
+    return hits
+
+
+def tag_passages(passages, client=None, progress=print, workers=12):
+    vocab, words = gene_vocab(), english_words()
+    todo = []                                           # (passage index, symbol, token) needing Jev
+    for i, p in enumerate(passages):
+        hits = _gene_hits(p["text"], vocab, words)
+        p["genes"] = sorted(k for k, (tok, amb) in hits.items() if not amb)
+        p["tissues"] = [t for t, rx in TISSUES.items() if re.search(rx, p["text"], re.I)]
+        p["factors"] = [f for f, rx in FACTORS.items() if re.search(rx, p["text"], re.I)]
+        for k, (tok, amb) in hits.items():
+            if amb:
+                todo.append((i, k, tok))
+    progress(f"tagged {len(passages)} passages by code; {len(todo)} ambiguous gene mentions for Jev")
+    if not todo or client is None:
+        return passages
+    from typesafe_sdk import Noul
+    by_passage = {}
+    for i, k, tok in todo:
+        by_passage.setdefault(i, []).append((k, tok))
+
+    def one(i):
+        p = passages[i]; items = by_passage[i]
+        qs = {f"g{j}": Noul(instructions=f"In `passage`, is the token \"{tok}\" used as the gene / protein symbol {vocab[k]} "
+                                         f"(a named gene, its transcript or protein), rather than an ordinary English word or another abbreviation?")
+              for j, (k, tok) in enumerate(items)}
+        try:
+            r = client.system_one(state={"passage": p["text"]}, questions=qs)
+            return i, [k for j, (k, tok) in enumerate(items) if r.answers[f"g{j}"].noul >= 0.6]
+        except Exception as e:
+            return i, []
+    with ThreadPoolExecutor(workers) as ex:
+        for n, (i, keep) in enumerate(ex.map(one, sorted(by_passage))):
+            passages[i]["genes"] = sorted(set(passages[i]["genes"]) | set(keep))
+            if n % 500 == 499:
+                progress(f"  Jev disambiguated {n+1}/{len(by_passage)} passages")
+    return passages
+
+
+if __name__ == "__main__":
+    fs = findings()
+    from collections import Counter
+    print(len(fs), "findings:", Counter((f["kind"], f["status"]) for f in fs).most_common(8))
+    print(len(gene_vocab()), "gene symbols in vocab")
