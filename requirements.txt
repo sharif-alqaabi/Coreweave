@@ -7,3 +7,4 @@ marimo
 pydantic
 pytest
 mcp>=2.0
+typesafe-sdk
