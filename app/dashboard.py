@@ -68,6 +68,21 @@ def _(mo, glob, os, json):
         t = open(v).read()
         if t not in seen:
             seen.add(t); versions.append(v)
+    def github_diff(lines):
+        """Unified diff -> GitHub-style HTML: green rows added, red rows removed, gutter with + / -."""
+        import html as _h
+        style = {"+": "background:#e6ffec;color:#1a7f37", "-": "background:#ffebe9;color:#cf222e",
+                 "@": "background:#ddf4ff;color:#0550ae", " ": "color:#57606a"}
+        rows = []
+        for ln in lines:
+            if ln.startswith(("+++", "---")):
+                continue
+            k = ln[:1] if ln[:1] in style else " "
+            rows.append(f'<div style="{style[k]};display:flex;font:12.5px/1.5 ui-monospace,Menlo,monospace">'
+                        f'<span style="width:1.4em;flex:none;text-align:center;user-select:none">{_h.escape(k.strip())}</span>'
+                        f'<span style="white-space:pre-wrap;word-break:break-word">{_h.escape(ln[1:] if k != " " else ln)}</span></div>')
+        return ('<div style="border:1px solid #d0d7de;border-radius:6px;overflow:hidden;background:#fff;color:#1f2328">'
+                + "".join(rows) + "</div>")
     def meta(v):
         mp = v.replace(".md", ".meta.json")
         return json.load(open(mp)) if os.path.exists(mp) else {}
@@ -82,7 +97,7 @@ def _(mo, glob, os, json):
         diff = difflib.unified_diff(open(prev).read().splitlines(), open(v).read().splitlines(),
                                     fromfile=os.path.basename(prev), tofile=name, lineterm="", n=1)
         tabs[name] = mo.vstack([mo.md(head + f" · diff against {os.path.basename(prev)}"),
-                                mo.md("```diff\n" + "\n".join(diff) + "\n```"),
+                                mo.Html(github_diff(diff)),
                                 mo.accordion({"full text": mo.md(open(v).read())})])
     mo.vstack([mo.md("## Rules versions: what each architect changed"), mo.ui.tabs(tabs)])
     return
