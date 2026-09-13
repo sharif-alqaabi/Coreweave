@@ -4,19 +4,19 @@
   .flow-root {
     --bg: #fbfbf9; --ink: #1c2126; --muted: #5d6670; --line: #d7dbd6;
     --band: #f1f3ef; --ship: #0f766e; --ship-bg: #d9f0ec; --catch: #b42318; --catch-bg: #fbe1dd;
-    --code-bg: #eceee9;
+    --code-bg: #eceee9; --ts: #6d28d9; --ts-bg: #ede9fe;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) .flow-root {
       --bg: #15181b; --ink: #e8eae6; --muted: #a2a9b0; --line: #3a4046;
       --band: #1d2126; --ship: #5ed3c4; --ship-bg: #123c38; --catch: #ff8a7a; --catch-bg: #4a1f1a;
-      --code-bg: #262b30;
+      --code-bg: #262b30; --ts: #c4b5fd; --ts-bg: #2e1f5e;
     }
   }
   :root[data-theme="dark"] .flow-root {
     --bg: #15181b; --ink: #e8eae6; --muted: #a2a9b0; --line: #3a4046;
     --band: #1d2126; --ship: #5ed3c4; --ship-bg: #123c38; --catch: #ff8a7a; --catch-bg: #4a1f1a;
-    --code-bg: #262b30;
+    --code-bg: #262b30; --ts: #c4b5fd; --ts-bg: #2e1f5e;
   }
   .flow-root { background: var(--bg); color: var(--ink); font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
          padding-block: 32px; padding-inline: 24px; }
@@ -30,6 +30,9 @@
   .flow-root svg .band { fill: var(--band); stroke: none; }
   .flow-root svg .ship { fill: var(--ship-bg); stroke: var(--ship); stroke-width: 2; }
   .flow-root svg .catch { fill: var(--catch-bg); stroke: var(--catch); stroke-width: 2; }
+  .flow-root svg .ts { fill: var(--ts-bg); stroke: var(--ts); stroke-width: 2; }
+  .flow-root svg .t-ts { fill: var(--ts); font-weight: 600; }
+  .flow-root svg .edge-ts { fill: none; stroke: var(--ts); stroke-width: 2; }
   .flow-root svg text { fill: currentColor; font-size: 13px; }
   .flow-root svg .t-sub { font-size: 11px; fill: var(--muted); }
   .flow-root svg .t-band { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; fill: var(--muted); }
@@ -47,11 +50,11 @@
 </style>
 
 <div class="flow-root"><main>
-  <h1>Helix: how the loop runs, and what decides what ships</h1>
-  <p class="lede">One scout proposes, one critic judges, three architects rewrite the critic's rulebook. Each rewrite is promoted on training data and then checked on data it never saw. The check is the point.</p>
+  <h1>Helix: how the loop runs, what decides what ships, and what checks the survivors</h1>
+  <p class="lede">One scout proposes, one critic judges, three architects rewrite the critic's rulebook. Each rewrite is promoted on training data and then checked on data it never saw. The check is the point. After that, TypeSafe checks every survivor against the rest of OSDR and links every finding to the papers that support or contradict it.</p>
 
   <figure tabindex="0" role="region" aria-label="Helix loop diagram; scroll horizontally to inspect all stages">
-    <svg viewBox="0 0 1440 1000" role="img" aria-label="Three phases: once before training (scout writes 180 leads, jury labels them, split into 90 train and 90 holdout; 54 claims transcribed from NASA papers); every round (critic judges train leads with the current rules, code finds misses, three architects propose patches, the critic re-judges each candidate, best wins only if it beats the current rules); outside the loop (every promoted version is scored on the holdout and on the NASA claims; v2 ships with the best holdout score; v4 is caught as overfit).">
+    <svg viewBox="0 0 1440 1330" role="img" aria-label="Three phases: once before training (scout writes 180 leads, jury labels them, split into 90 train and 90 holdout; 54 claims transcribed from NASA papers); every round (critic judges train leads with the current rules, code finds misses, three architects propose patches, the critic re-judges each candidate, best wins only if it beats the current rules); outside the loop (every promoted version is scored on the holdout and on the NASA claims; v2 ships with the best holdout score; v4 is caught as overfit); after Helix (TypeSafe scores every catalog study's comparability to each survivor, pandas tallies gene direction in the comparable tables, a code gate produces the OSDR check shown in Lead Lab; then all 294 findings are linked to 150 papers by a TypeSafe rerank and typed relationship judgment, gated by code, shown in Graph Lab).">
       <defs>
         <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
           <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
@@ -61,6 +64,9 @@
         </marker>
         <marker id="arrow-catch" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
           <path d="M0,0 L10,5 L0,10 z" fill="var(--catch)"/>
+        </marker>
+        <marker id="arrow-ts" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="var(--ts)"/>
         </marker>
       </defs>
 
@@ -231,12 +237,105 @@
 
       <text x="40" y="880" class="t-sub">The 90 holdout leads test all six kill reasons on production-style input. The 54 paper claims test one thing the holdout cannot: that no real published finding gets killed.</text>
 
+      <!-- band 4 -->
+      <rect class="band" x="20" y="930" width="1400" height="320" rx="6"/>
+      <text class="t-band" x="40" y="956">4 · After Helix: TypeSafe checks the survivors, then links every finding to the literature</text>
+
+      <!-- survivors feed from Lead Lab -->
+      <path class="edge-ship" d="M900,760 L860,760 L860,915 L115,915 L115,990" marker-end="url(#arrow-ship)"/>
+      <text x="490" y="908" text-anchor="middle" class="t-sub">the survivors, each claiming "not replicated in other studies"</text>
+
+      <!-- row A: verify across OSDR -->
+      <rect class="box" x="40" y="990" width="150" height="80" rx="4"/>
+      <text x="115" y="1018" text-anchor="middle" class="t-bold">Survivors · 38</text>
+      <text x="115" y="1036" text-anchor="middle" class="t-sub">OSD-421, thymus</text>
+      <text x="115" y="1051" text-anchor="middle" class="t-sub">nobody checked the claim</text>
+
+      <path class="edge" d="M190,1030 L230,1030" marker-end="url(#arrow)"/>
+
+      <rect class="code" x="230" y="990" width="170" height="80" rx="4"/>
+      <text x="315" y="1018" text-anchor="middle" class="t-bold">OSDR catalog · code</text>
+      <text x="315" y="1036" text-anchor="middle" class="t-sub">243 studies: organism, tissue,</text>
+      <text x="315" y="1051" text-anchor="middle" class="t-sub">factor, assay; 120 are mouse</text>
+
+      <path class="edge-ts" d="M400,1030 L440,1030" marker-end="url(#arrow-ts)"/>
+
+      <rect class="ts" x="440" y="990" width="200" height="80" rx="4"/>
+      <text x="540" y="1018" text-anchor="middle" class="t-ts">Tier 1 · TypeSafe (Jev)</text>
+      <text x="540" y="1036" text-anchor="middle" class="t-sub">could this study replicate or refute</text>
+      <text x="540" y="1051" text-anchor="middle" class="t-sub">the lead? score 0–3 + P(same factor)</text>
+
+      <path class="edge-ts" d="M640,1030 L680,1030" marker-end="url(#arrow-ts)"/>
+      <text x="660" y="1020" text-anchor="middle" class="t-sub">≥2</text>
+
+      <rect class="ts" x="680" y="990" width="200" height="80" rx="4"/>
+      <text x="780" y="1018" text-anchor="middle" class="t-ts">Tier 2 · pandas + Jev</text>
+      <text x="780" y="1036" text-anchor="middle" class="t-sub">code tallies each gene: same, opposite,</text>
+      <text x="780" y="1051" text-anchor="middle" class="t-sub">no change; Jev judges it for this tissue</text>
+
+      <path class="edge" d="M880,1030 L920,1030" marker-end="url(#arrow)"/>
+
+      <rect class="code" x="920" y="990" width="170" height="80" rx="4"/>
+      <text x="1005" y="1018" text-anchor="middle" class="t-bold">Gate · code</text>
+      <text x="1005" y="1036" text-anchor="middle" class="t-sub">unrelated tissue → inconclusive</text>
+      <text x="1005" y="1051" text-anchor="middle" class="t-sub">contradicted needs an opposite gene</text>
+
+      <path class="edge-ship" d="M1090,1030 L1130,1030" marker-end="url(#arrow-ship)"/>
+
+      <rect class="ship" x="1130" y="990" width="270" height="80" rx="4"/>
+      <text x="1265" y="1018" text-anchor="middle" class="t-ship">OSDR check · a column in Lead Lab</text>
+      <text x="1265" y="1036" text-anchor="middle" class="t-sub">35 of 38 replicate in OSD-289 / OSD-515 flights</text>
+      <text x="1265" y="1051" text-anchor="middle" class="t-sub">3 seen nowhere else · 15 s for all 38</text>
+
+      <!-- row B: research graph -->
+      <rect class="box" x="40" y="1110" width="150" height="80" rx="4"/>
+      <text x="115" y="1138" text-anchor="middle" class="t-bold">294 findings</text>
+      <text x="115" y="1156" text-anchor="middle" class="t-sub">every lead, survivor and</text>
+      <text x="115" y="1171" text-anchor="middle" class="t-sub">NASA claim above</text>
+
+      <path class="edge" d="M190,1150 L230,1150" marker-end="url(#arrow)"/>
+
+      <rect class="code" x="230" y="1110" width="170" height="80" rx="4"/>
+      <text x="315" y="1138" text-anchor="middle" class="t-bold">Corpus · code</text>
+      <text x="315" y="1156" text-anchor="middle" class="t-sub">150 papers via OSDR → PubMed → PMC</text>
+      <text x="315" y="1171" text-anchor="middle" class="t-sub">12,152 passages; genes matched exactly</text>
+
+      <path class="edge-ts" d="M400,1150 L440,1150" marker-end="url(#arrow-ts)"/>
+
+      <rect class="ts" x="440" y="1110" width="200" height="80" rx="4"/>
+      <text x="540" y="1138" text-anchor="middle" class="t-ts">Rerank · TypeSafe</text>
+      <text x="540" y="1156" text-anchor="middle" class="t-sub">pool of 120 passages per finding,</text>
+      <text x="540" y="1171" text-anchor="middle" class="t-sub">one P(bears on it) each; keep top 30</text>
+
+      <path class="edge-ts" d="M640,1150 L680,1150" marker-end="url(#arrow-ts)"/>
+
+      <rect class="ts" x="680" y="1110" width="200" height="80" rx="4"/>
+      <text x="780" y="1138" text-anchor="middle" class="t-ts">Type each pair · TypeSafe</text>
+      <text x="780" y="1156" text-anchor="middle" class="t-sub">supports · contradicts · background ·</text>
+      <text x="780" y="1171" text-anchor="middle" class="t-sub">rediscovers · replicates, with probabilities</text>
+
+      <path class="edge" d="M880,1150 L920,1150" marker-end="url(#arrow)"/>
+
+      <rect class="code" x="920" y="1110" width="170" height="80" rx="4"/>
+      <text x="1005" y="1138" text-anchor="middle" class="t-bold">Policy · code</text>
+      <text x="1005" y="1156" text-anchor="middle" class="t-sub">P(supports) ≥ .5, P(contradicts) ≥ .5</text>
+      <text x="1005" y="1171" text-anchor="middle" class="t-sub">thresholds are sliders, not reruns</text>
+
+      <path class="edge-ship" d="M1090,1150 L1130,1150" marker-end="url(#arrow-ship)"/>
+
+      <rect class="ship" x="1130" y="1110" width="270" height="80" rx="4"/>
+      <text x="1265" y="1138" text-anchor="middle" class="t-ship">Research graph · Graph Lab</text>
+      <text x="1265" y="1156" text-anchor="middle" class="t-sub">9,557 pairs in 90 s · 44 contradicted by a paper</text>
+      <text x="1265" y="1171" text-anchor="middle" class="t-sub">5 rediscoveries · an LLM explains accepted links</text>
+
+      <text x="40" y="1228" class="t-sub">Direction and significance stay arithmetic in pandas. TypeSafe supplies the semantic judgment as calibrated probabilities, ~1 s per request. Every verdict is a code rule over the model's distribution, so nothing is parsed out of prose.</text>
+
       <!-- weave band -->
-      <rect class="code" x="20" y="930" width="1400" height="50" rx="6"/>
-      <text x="40" y="951" class="t-bold">W&amp;B Weave, under everything</text>
-      <text x="40" y="969" class="t-sub">every scout, critic and architect call traced (14,380 so far, 5,845 of them verdicts) · each rulebook version a W&amp;B artifact · each version × lead set an Evaluation</text>
+      <rect class="code" x="20" y="1270" width="1400" height="50" rx="6"/>
+      <text x="40" y="1291" class="t-bold">W&amp;B Weave, under everything</text>
+      <text x="40" y="1309" class="t-sub">every scout, critic and architect call traced (14,380 so far, 5,845 of them verdicts) · each rulebook version a W&amp;B artifact · each version × lead set an Evaluation · TypeSafe calls return typed answers, logged with their probabilities</text>
     </svg>
-    <figcaption>Three phases. Data is prepared once. Each round the critic is judged against fixed labels, three architects compete to rewrite its rulebook, and the winner is promoted on training score. Outside the loop, every version is re-scored on unseen leads and on published NASA claims, and that is what decides what ships.</figcaption>
+    <figcaption>Four phases. Data is prepared once. Each round the critic is judged against fixed labels, three architects compete to rewrite its rulebook, and the winner is promoted on training score. Outside the loop, every version is re-scored on unseen leads and on published NASA claims, and that is what decides what ships. After Helix, TypeSafe verifies each survivor against the other 242 OSDR studies and builds a research graph over every finding and 150 papers; the numbers stay in pandas, the judgments are probabilities, the verdicts are code.</figcaption>
   </figure>
 
   <dl>
@@ -244,5 +343,6 @@
     <dt>Critic</dt><dd>Qwen 235B, different prompt. Sees one lead, the real numbers code attached, and the rulebook. One model, run once per lead per rulebook.</dd>
     <dt>Architects</dt><dd>Qwen, DeepSeek, ARIA. Equal contestants. Each turns the misses into a patch; the tournament picks by score.</dd>
     <dt>Jury</dt><dd>DeepSeek, gpt-oss, Kimi. Made the labels once. Separate from the critic on purpose.</dd>
+    <dt>TypeSafe</dt><dd>Jev, a System One model: typed answers and probabilities, no prose. Scores study comparability, reranks passages, types finding–passage and finding–finding pairs. ~10,000 judgments in 90 s; every threshold is code.</dd>
   </dl>
 </main></div>
