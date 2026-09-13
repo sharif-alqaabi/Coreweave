@@ -208,3 +208,69 @@ def _replication_chunk(lead, own, others, client):
                     "p_contradicted": round(a.probabilities.get("contradicted", 0.0), 2),
                     "confidence": round(a.confidence, 2), "facts": facts})
     return out
+
+
+def overall(numeric, where):
+    """Code rule, not a model: contradiction > replication > not replicated > untested > novel."""
+    v = {n["osd_id"]: n["verdict"] for n in numeric}
+    if any(x == "contradicted" for x in v.values()):
+        return "contradicted by " + ", ".join(k for k, x in v.items() if x == "contradicted")
+    if any(x == "replicated" for x in v.values()):
+        return "replicated in " + ", ".join(k for k, x in v.items() if x == "replicated")
+    if any(x == "not_replicated" for x in v.values()):
+        return "not replicated in " + ", ".join(k for k, x in v.items() if x == "not_replicated")
+    direct = [w["osd_id"] for w in where if w["comparable"] >= 2.5 and not w["on_disk"]]
+    if direct:
+        return f"untested: {len(direct)} comparable dataset(s) not on disk ({', '.join(direct[:3])})"
+    return "novel as far as OSDR goes: no comparable dataset contradicts or replicates it"
+
+
+# ---------------------------------------------------------------- driver
+def check_novelty(product_json, max_studies=None, progress=print, client=None, dry_run=False):
+    t0 = time.time()
+    prod = json.load(open(product_json))
+    own = study(prod["dataset"])
+    organism = own["organism"].replace("Not Applicable | ", "")
+    studies = [r for r in catalog() if organism in r["organism"] and r["osd_id"] != prod["dataset"]]
+    others = [(os.path.basename(p).split("_")[0], p) for p in sorted(glob.glob(os.path.join(ROOT, "data/raw/OSD-*.csv")))
+              if not os.path.basename(p).startswith(prod["dataset"] + "_")]
+    if max_studies:                                   # keep the on-disk ones: Tier 2 needs their comparability
+        keep = {o for o, _ in others}
+        studies = [r for r in studies if r["osd_id"] in keep] + [r for r in studies if r["osd_id"] not in keep][:max_studies]
+    progress(f"{len(prod['survivors'])} survivors x {len(studies)} {organism} studies; {len(others)} other tables on disk")
+    tables = {oid: Table(p) for oid, p in others}
+    client = client or (None if dry_run else _client())
+
+    def one(lead):
+        if dry_run:
+            where = [{**_meta(r), "comparable": 0, "p_direct": 0, "confidence": 0, "same_factor": 0, "on_disk": bool(local_csv(r["osd_id"]))} for r in studies[:5]]
+            numeric = [{"osd_id": oid, "material": study(oid)["material"], "factors": study(oid)["factors"], "verdict": "inconclusive",
+                        "jev_verdict": "inconclusive", "comparable": 0, "agreement": agreement(lead.get("table_facts", {}), numeric_facts(lead, t)),
+                        "p_replicated": 0, "p_contradicted": 0, "confidence": 0, "facts": numeric_facts(lead, t)} for oid, t in tables.items()]
+        else:
+            where = catalog_scores(lead, own, studies, client)
+            level = {w["osd_id"]: w["comparable"] for w in where}
+            looked = [(oid, study(oid), numeric_facts(lead, t), level.get(oid, 0)) for oid, t in tables.items()]
+            looked = [(oid, m, f, l) for oid, m, f, l in looked if f and not all("error" in x for x in f.values())]
+            numeric = replication_verdicts(lead, own, looked, client)
+        return {"id": lead["id"], "shape": lead["shape"], "claim": lead["claim"], "genes": lead.get("rows", []),
+                "why_not_known": lead.get("why_not_known", ""), "where_to_look": where[:12], "numeric": numeric,
+                "n_comparable": sum(w["comparable"] >= 2.5 for w in where),
+                "verdict": overall(numeric, where)}
+
+    done = []
+    with ThreadPoolExecutor(WORKERS) as ex:
+        for res in ex.map(one, prod["survivors"]):
+            done.append(res); progress(f"  {res['id']}: {res['verdict']}")
+    out = {"dataset": prod["dataset"], "organism": organism, "n_studies": len(studies), "tables_on_disk": [o for o, _ in others],
+           "leads": done, "seconds": round(time.time() - t0)}
+    path = os.path.join(ROOT, "results", f"replicate_{prod['dataset']}.json")
+    json.dump(out, open(path, "w"), indent=1)
+    progress(f"done in {out['seconds']} s -> {path}")
+    return out
+
+
+if __name__ == "__main__":
+    out = check_novelty(sys.argv[1], max_studies=int(sys.argv[2]) if len(sys.argv) > 2 else None)
+    from collections import Counter
+    print(Counter(l["verdict"].split(":")[0].split(" in ")[0].split(" by ")[0] for l in out["leads"]))
