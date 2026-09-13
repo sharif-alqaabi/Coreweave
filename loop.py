@@ -190,8 +190,9 @@ def main():
             print(f"{tag}: {len(leads)} leads never seen by the loop, judged with {os.path.basename(rules)}" + ("" if args.rules or rules.endswith("v0.md") else " (best train score)"))
             result = evaluate(critic.judge_all(leads, table, rules), leads)
             mm = result["metrics"]
-            print(f"   reason accuracy {mm['screening/reason_accuracy']:.2f} | kill recall {mm['screening/kill_recall']:.2f} | "
-                  f"kill precision {mm['screening/kill_precision']:.2f} | false-kill rate {mm['screening/false_kill_rate']:.2f} | misses {len(result['misses'])}")
+            f2 = lambda x: "n/a" if x is None else f"{x:.2f}"          # a set with only ok leads has no kill recall
+            print(f"   reason accuracy {f2(mm['screening/reason_accuracy'])} | kill recall {f2(mm['screening/kill_recall'])} | "
+                  f"kill precision {f2(mm['screening/kill_precision'])} | false-kill rate {f2(mm['screening/false_kill_rate'])} | misses {len(result['misses'])}")
             payload = {"rules": rules, "n": len(leads), "set": tag, "metrics": mm, "misses": result["misses"]}
             json.dump(payload, open(RESULTS / f"{tag}_{os.path.basename(rules)[:-3]}.json", "w"), indent=1)
             if tag == "holdout":

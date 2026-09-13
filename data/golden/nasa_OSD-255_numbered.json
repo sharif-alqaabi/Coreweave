@@ -1,0 +1,1265 @@
+[
+ {
+  "id": "OSD-255_nasa_01",
+  "shape": "single_gene",
+  "claim": "Drd4 is upregulated in the spaceflight retina compared to ground control (adjusted p-value 4.31e-51; log2 fold-change +0.812).",
+  "rows": [
+   "Drd4"
+  ],
+  "why_not_known": "Drd4, the most significant DEG, is a dopamine receptor that controls circadian rhythm in the mammalian retina; supports spaceflight disrupting circadian rhythm.",
+  "next_step": "Validate by qPCR in an independent set of spaceflight and ground-control retinas.",
+  "dataset": "OSD-255",
+  "group": "supported",
+  "paper": {
+   "padj": 4.31e-51,
+   "log2fc": 0.812
+  },
+  "label": "ok",
+  "label_note": "paper claim; GeneLab agrees at padj<0.05",
+  "table_facts": {
+   "Drd4": {
+    "log2fc": 0.8,
+    "padj": 2.2851932754677802e-58,
+    "higher_group": "Space Flight",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932701",
+     "GSM3932702",
+     "GSM3932703",
+     "GSM3932704",
+     "GSM3932705",
+     "GSM3932706",
+     "GSM3932707",
+     "GSM3932708"
+    ],
+    "mean_count": {
+     "Space Flight": 3082,
+     "Ground Control": 1769
+    }
+   }
+  }
+ },
+ {
+  "id": "OSD-255_nasa_02",
+  "shape": "single_gene",
+  "claim": "H2bc4 is upregulated in the spaceflight retina compared to ground control (adjusted p-value 1.66e-09; log2 fold-change +0.526).",
+  "rows": [
+   "H2bc4"
+  ],
+  "why_not_known": "Hist1h2bc (now H2bc4) was previously shown upregulated in the aging retina; spaceflight as a potential model for aging.",
+  "next_step": "Validate by qPCR in an independent set of spaceflight and ground-control retinas.",
+  "dataset": "OSD-255",
+  "group": "supported",
+  "paper": {
+   "padj": 1.66e-09,
+   "log2fc": 0.526
+  },
+  "label": "ok",
+  "label_note": "paper claim; GeneLab agrees at padj<0.05",
+  "table_facts": {
+   "H2bc4": {
+    "log2fc": 0.51,
+    "padj": 4.09319511499475e-12,
+    "higher_group": "Space Flight",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932701",
+     "GSM3932702",
+     "GSM3932703",
+     "GSM3932704",
+     "GSM3932705",
+     "GSM3932706",
+     "GSM3932707",
+     "GSM3932708"
+    ],
+    "mean_count": {
+     "Space Flight": 2281,
+     "Ground Control": 1605
+    }
+   }
+  }
+ },
+ {
+  "id": "OSD-255_nasa_03",
+  "shape": "single_gene",
+  "claim": "Sag is downregulated in the spaceflight retina compared to ground control (adjusted p-value 3.60e-28; log2 fold-change -0.660).",
+  "rows": [
+   "Sag"
+  ],
+  "why_not_known": "Sag (S-antigen/arrestin) is a retinitis pigmentosa gene; its change in flight links spaceflight to a known retinal disease program.",
+  "next_step": "Validate by qPCR in an independent set of spaceflight and ground-control retinas.",
+  "dataset": "OSD-255",
+  "group": "supported",
+  "paper": {
+   "padj": 3.6e-28,
+   "log2fc": -0.66
+  },
+  "label": "ok",
+  "label_note": "paper claim; GeneLab agrees at padj<0.05",
+  "table_facts": {
+   "Sag": {
+    "log2fc": -0.64,
+    "padj": 1.19968705898491e-21,
+    "higher_group": "Ground Control",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932693",
+     "GSM3932694",
+     "GSM3932695",
+     "GSM3932696",
+     "GSM3932697",
+     "GSM3932698",
+     "GSM3932699",
+     "GSM3932700"
+    ],
+    "mean_count": {
+     "Space Flight": 25362,
+     "Ground Control": 39656
+    }
+   }
+  }
+ },
+ {
+  "id": "OSD-255_nasa_04",
+  "shape": "single_gene",
+  "claim": "Pcare is downregulated in the spaceflight retina compared to ground control (adjusted p-value 6.60e-07; log2 fold-change -0.360).",
+  "rows": [
+   "Pcare"
+  ],
+  "why_not_known": "Pcare (BC027072) is a retinitis pigmentosa gene not previously reported in spaceflight retina.",
+  "next_step": "Validate by qPCR in an independent set of spaceflight and ground-control retinas.",
+  "dataset": "OSD-255",
+  "group": "supported",
+  "paper": {
+   "padj": 6.6e-07,
+   "log2fc": -0.36
+  },
+  "label": "ok",
+  "label_note": "paper claim; GeneLab agrees at padj<0.05",
+  "table_facts": {
+   "Pcare": {
+    "log2fc": -0.36,
+    "padj": 1.15068340124165e-05,
+    "higher_group": "Ground Control",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932693",
+     "GSM3932694",
+     "GSM3932695",
+     "GSM3932696",
+     "GSM3932697",
+     "GSM3932698",
+     "GSM3932699",
+     "GSM3932700"
+    ],
+    "mean_count": {
+     "Space Flight": 3558,
+     "Ground Control": 4570
+    }
+   }
+  }
+ },
+ {
+  "id": "OSD-255_nasa_05",
+  "shape": "single_gene",
+  "claim": "Guca1b is downregulated in the spaceflight retina compared to ground control (adjusted p-value 9.20e-06; log2 fold-change -0.350).",
+  "rows": [
+   "Guca1b"
+  ],
+  "why_not_known": "Guca1b is a retinitis pigmentosa gene in the phototransduction recovery pathway.",
+  "next_step": "Validate by qPCR in an independent set of spaceflight and ground-control retinas.",
+  "dataset": "OSD-255",
+  "group": "supported",
+  "paper": {
+   "padj": 9.2e-06,
+   "log2fc": -0.35
+  },
+  "label": "ok",
+  "label_note": "paper claim; GeneLab agrees at padj<0.05",
+  "table_facts": {
+   "Guca1b": {
+    "log2fc": -0.35,
+    "padj": 0.0003424631407815,
+    "higher_group": "Ground Control",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932693",
+     "GSM3932694",
+     "GSM3932695",
+     "GSM3932696",
+     "GSM3932697",
+     "GSM3932698",
+     "GSM3932699",
+     "GSM3932700"
+    ],
+    "mean_count": {
+     "Space Flight": 5904,
+     "Ground Control": 7530
+    }
+   }
+  }
+ },
+ {
+  "id": "OSD-255_nasa_06",
+  "shape": "single_gene",
+  "claim": "Rbp3 is downregulated in the spaceflight retina compared to ground control (adjusted p-value 2.60e-05; log2 fold-change -0.210).",
+  "rows": [
+   "Rbp3"
+  ],
+  "why_not_known": "Rbp3 is a retinitis pigmentosa gene carrying retinoids between photoreceptors and RPE.",
+  "next_step": "Validate by qPCR in an independent set of spaceflight and ground-control retinas.",
+  "dataset": "OSD-255",
+  "group": "supported",
+  "paper": {
+   "padj": 2.6e-05,
+   "log2fc": -0.21
+  },
+  "label": "ok",
+  "label_note": "paper claim; GeneLab agrees at padj<0.05",
+  "table_facts": {
+   "Rbp3": {
+    "log2fc": -0.22,
+    "padj": 0.0003843044651617,
+    "higher_group": "Ground Control",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932693",
+     "GSM3932694",
+     "GSM3932695",
+     "GSM3932696",
+     "GSM3932697",
+     "GSM3932698",
+     "GSM3932699",
+     "GSM3932700"
+    ],
+    "mean_count": {
+     "Space Flight": 49824,
+     "Ground Control": 58073
+    }
+   }
+  }
+ },
+ {
+  "id": "OSD-255_nasa_07",
+  "shape": "single_gene",
+  "claim": "Ahi1 is upregulated in the spaceflight retina compared to ground control (adjusted p-value 1.30e-03; log2 fold-change +0.210).",
+  "rows": [
+   "Ahi1"
+  ],
+  "why_not_known": "Ahi1 is a retinitis pigmentosa gene required for photoreceptor outer segment formation.",
+  "next_step": "Validate by qPCR in an independent set of spaceflight and ground-control retinas.",
+  "dataset": "OSD-255",
+  "group": "supported",
+  "paper": {
+   "padj": 0.0013,
+   "log2fc": 0.21
+  },
+  "label": "ok",
+  "label_note": "paper claim; GeneLab agrees at padj<0.05",
+  "table_facts": {
+   "Ahi1": {
+    "log2fc": 0.22,
+    "padj": 0.0102355010054923,
+    "higher_group": "Space Flight",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932701",
+     "GSM3932702",
+     "GSM3932703",
+     "GSM3932704",
+     "GSM3932705",
+     "GSM3932706",
+     "GSM3932707",
+     "GSM3932708"
+    ],
+    "mean_count": {
+     "Space Flight": 1941,
+     "Ground Control": 1663
+    }
+   }
+  }
+ },
+ {
+  "id": "OSD-255_nasa_08",
+  "shape": "single_gene",
+  "claim": "Guca1a is downregulated in the spaceflight retina compared to ground control (adjusted p-value 2.90e-03; log2 fold-change -0.220).",
+  "rows": [
+   "Guca1a"
+  ],
+  "why_not_known": "Guca1a is a retinitis pigmentosa gene regulating guanylate cyclase in photoreceptors.",
+  "next_step": "Validate by qPCR in an independent set of spaceflight and ground-control retinas.",
+  "dataset": "OSD-255",
+  "group": "supported",
+  "paper": {
+   "padj": 0.0029,
+   "log2fc": -0.22
+  },
+  "label": "ok",
+  "label_note": "paper claim; GeneLab agrees at padj<0.05",
+  "table_facts": {
+   "Guca1a": {
+    "log2fc": -0.22,
+    "padj": 0.016113262219488,
+    "higher_group": "Ground Control",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932693",
+     "GSM3932694",
+     "GSM3932695",
+     "GSM3932696",
+     "GSM3932697",
+     "GSM3932698",
+     "GSM3932699",
+     "GSM3932700"
+    ],
+    "mean_count": {
+     "Space Flight": 4468,
+     "Ground Control": 5217
+    }
+   }
+  }
+ },
+ {
+  "id": "OSD-255_nasa_09",
+  "shape": "single_gene",
+  "claim": "Prpf8 is downregulated in the spaceflight retina compared to ground control (adjusted p-value 3.80e-03; log2 fold-change -0.160).",
+  "rows": [
+   "Prpf8"
+  ],
+  "why_not_known": "Prpf8 is a splicing-factor retinitis pigmentosa gene, tying the RNA-processing signal to retinal disease.",
+  "next_step": "Validate by qPCR in an independent set of spaceflight and ground-control retinas.",
+  "dataset": "OSD-255",
+  "group": "supported",
+  "paper": {
+   "padj": 0.0038,
+   "log2fc": -0.16
+  },
+  "label": "ok",
+  "label_note": "paper claim; GeneLab agrees at padj<0.05",
+  "table_facts": {
+   "Prpf8": {
+    "log2fc": -0.23,
+    "padj": 0.0038437303984859,
+    "higher_group": "Ground Control",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932693",
+     "GSM3932694",
+     "GSM3932695",
+     "GSM3932696",
+     "GSM3932697",
+     "GSM3932698",
+     "GSM3932699",
+     "GSM3932700"
+    ],
+    "mean_count": {
+     "Space Flight": 4948,
+     "Ground Control": 5791
+    }
+   }
+  }
+ },
+ {
+  "id": "OSD-255_nasa_10",
+  "shape": "single_gene",
+  "claim": "Cacna2d4 is upregulated in the spaceflight retina compared to ground control (adjusted p-value 6.10e-02; log2 fold-change +0.120).",
+  "rows": [
+   "Cacna2d4"
+  ],
+  "why_not_known": "Cacna2d4 is a retinitis pigmentosa gene encoding a photoreceptor calcium-channel subunit.",
+  "next_step": "Validate by qPCR in an independent set of spaceflight and ground-control retinas.",
+  "dataset": "OSD-255",
+  "group": "supported",
+  "paper": {
+   "padj": 0.061,
+   "log2fc": 0.12
+  },
+  "label": "ok",
+  "label_note": "paper claim; GeneLab agrees at padj<0.05",
+  "table_facts": {
+   "Cacna2d4": {
+    "log2fc": 0.17,
+    "padj": 0.0198016239419057,
+    "higher_group": "Space Flight",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932701",
+     "GSM3932702",
+     "GSM3932703",
+     "GSM3932704",
+     "GSM3932705",
+     "GSM3932706",
+     "GSM3932707",
+     "GSM3932708"
+    ],
+    "mean_count": {
+     "Space Flight": 6286,
+     "Ground Control": 5599
+    }
+   }
+  }
+ },
+ {
+  "id": "OSD-255_nasa_11",
+  "shape": "single_gene",
+  "claim": "Hmgb3 is downregulated in the spaceflight retina compared to ground control (adjusted p-value 1.70e-06; log2 fold-change -0.500).",
+  "rows": [
+   "Hmgb3"
+  ],
+  "why_not_known": "Hmgb3 is a differentially expressed transcription factor needed for eye development and maintenance.",
+  "next_step": "Validate by qPCR in an independent set of spaceflight and ground-control retinas.",
+  "dataset": "OSD-255",
+  "group": "supported",
+  "paper": {
+   "padj": 1.7e-06,
+   "log2fc": -0.5
+  },
+  "label": "ok",
+  "label_note": "paper claim; GeneLab agrees at padj<0.05",
+  "table_facts": {
+   "Hmgb3": {
+    "log2fc": -0.5,
+    "padj": 0.0016127806182499,
+    "higher_group": "Ground Control",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932693",
+     "GSM3932694",
+     "GSM3932695",
+     "GSM3932696",
+     "GSM3932697",
+     "GSM3932698",
+     "GSM3932699",
+     "GSM3932700"
+    ],
+    "mean_count": {
+     "Space Flight": 142,
+     "Ground Control": 200
+    }
+   }
+  }
+ },
+ {
+  "id": "OSD-255_nasa_12",
+  "shape": "single_gene",
+  "claim": "Prox1 is downregulated in the spaceflight retina compared to ground control (adjusted p-value 3.70e-03; log2 fold-change -0.160).",
+  "rows": [
+   "Prox1"
+  ],
+  "why_not_known": "Prox1 is a differentially expressed transcription factor needed for retinal development.",
+  "next_step": "Validate by qPCR in an independent set of spaceflight and ground-control retinas.",
+  "dataset": "OSD-255",
+  "group": "supported",
+  "paper": {
+   "padj": 0.0037,
+   "log2fc": -0.16
+  },
+  "label": "ok",
+  "label_note": "paper claim; GeneLab agrees at padj<0.05",
+  "table_facts": {
+   "Prox1": {
+    "log2fc": -0.16,
+    "padj": 0.0132470803907482,
+    "higher_group": "Ground Control",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932693",
+     "GSM3932694",
+     "GSM3932695",
+     "GSM3932696",
+     "GSM3932697",
+     "GSM3932698",
+     "GSM3932699",
+     "GSM3932700"
+    ],
+    "mean_count": {
+     "Space Flight": 3598,
+     "Ground Control": 4008
+    }
+   }
+  }
+ },
+ {
+  "id": "OSD-255_nasa_13",
+  "shape": "single_gene",
+  "claim": "Hif1a is downregulated in the spaceflight retina compared to ground control (adjusted p-value 6.40e-03; log2 fold-change -0.130).",
+  "rows": [
+   "Hif1a"
+  ],
+  "why_not_known": "Hif1a inactivation mitigates photoreceptor degeneration under hypoxia-like stress; its downregulation links to oxidative stress.",
+  "next_step": "Validate by qPCR in an independent set of spaceflight and ground-control retinas.",
+  "dataset": "OSD-255",
+  "group": "borderline",
+  "paper": {
+   "padj": 0.0064,
+   "log2fc": -0.13
+  },
+  "label": "contradicted",
+  "label_note": "paper claim; GeneLab padj just above 0.05",
+  "table_facts": {
+   "Hif1a": {
+    "log2fc": -0.12,
+    "padj": 0.0507797989644757,
+    "higher_group": "Ground Control",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932693",
+     "GSM3932694",
+     "GSM3932695",
+     "GSM3932696",
+     "GSM3932697",
+     "GSM3932698",
+     "GSM3932699",
+     "GSM3932700"
+    ],
+    "mean_count": {
+     "Space Flight": 7372,
+     "Ground Control": 8013
+    }
+   }
+  }
+ },
+ {
+  "id": "OSD-255_nasa_14",
+  "shape": "single_gene",
+  "claim": "Rp1 is upregulated in the spaceflight retina compared to ground control (adjusted p-value 8.60e-03; log2 fold-change +0.150).",
+  "rows": [
+   "Rp1"
+  ],
+  "why_not_known": "Rp1 is a retinitis pigmentosa gene structuring the photoreceptor axoneme.",
+  "next_step": "Validate by qPCR in an independent set of spaceflight and ground-control retinas.",
+  "dataset": "OSD-255",
+  "group": "borderline",
+  "paper": {
+   "padj": 0.0086,
+   "log2fc": 0.15
+  },
+  "label": "contradicted",
+  "label_note": "paper claim; GeneLab padj just above 0.05",
+  "table_facts": {
+   "Rp1": {
+    "log2fc": 0.14,
+    "padj": 0.0535778402886626,
+    "higher_group": "Space Flight",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932701",
+     "GSM3932702",
+     "GSM3932703",
+     "GSM3932704",
+     "GSM3932705",
+     "GSM3932706",
+     "GSM3932707",
+     "GSM3932708"
+    ],
+    "mean_count": {
+     "Space Flight": 28506,
+     "Ground Control": 25876
+    }
+   }
+  }
+ },
+ {
+  "id": "OSD-255_nasa_15",
+  "shape": "single_gene",
+  "claim": "Gucy2e is downregulated in the spaceflight retina compared to ground control (adjusted p-value 1.40e-02; log2 fold-change -0.180).",
+  "rows": [
+   "Gucy2e"
+  ],
+  "why_not_known": "Gucy2e is a retinitis pigmentosa gene, the photoreceptor guanylate cyclase.",
+  "next_step": "Validate by qPCR in an independent set of spaceflight and ground-control retinas.",
+  "dataset": "OSD-255",
+  "group": "borderline",
+  "paper": {
+   "padj": 0.014,
+   "log2fc": -0.18
+  },
+  "label": "contradicted",
+  "label_note": "paper claim; GeneLab padj just above 0.05",
+  "table_facts": {
+   "Gucy2e": {
+    "log2fc": -0.18,
+    "padj": 0.0515592428874835,
+    "higher_group": "Ground Control",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932693",
+     "GSM3932694",
+     "GSM3932695",
+     "GSM3932696",
+     "GSM3932697",
+     "GSM3932698",
+     "GSM3932699",
+     "GSM3932700"
+    ],
+    "mean_count": {
+     "Space Flight": 6627,
+     "Ground Control": 7521
+    }
+   }
+  }
+ },
+ {
+  "id": "OSD-255_nasa_16",
+  "shape": "single_gene",
+  "claim": "Pde8a is upregulated in the spaceflight retina compared to ground control (adjusted p-value 4.40e-03; log2 fold-change +0.220).",
+  "rows": [
+   "Pde8a"
+  ],
+  "why_not_known": "Pde8a is in 'negative regulation of oxidative stress-induced cell death'; phosphodiesterase inhibition attenuates oxidative stress.",
+  "next_step": "Validate by qPCR in an independent set of spaceflight and ground-control retinas.",
+  "dataset": "OSD-255",
+  "group": "not_reproduced",
+  "paper": {
+   "padj": 0.0044,
+   "log2fc": 0.22
+  },
+  "label": "contradicted",
+  "label_note": "paper padj 4.4e-03; GeneLab does not reproduce at padj<0.1",
+  "table_facts": {
+   "Pde8a": {
+    "log2fc": 0.14,
+    "padj": 0.284700715839703,
+    "higher_group": "Space Flight",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932701",
+     "GSM3932702",
+     "GSM3932703",
+     "GSM3932704",
+     "GSM3932705",
+     "GSM3932706",
+     "GSM3932707",
+     "GSM3932708"
+    ],
+    "mean_count": {
+     "Space Flight": 718,
+     "Ground Control": 649
+    }
+   }
+  }
+ },
+ {
+  "id": "OSD-255_nasa_17",
+  "shape": "single_gene",
+  "claim": "Hgf is downregulated in the spaceflight retina compared to ground control (adjusted p-value 9.80e-02; log2 fold-change -0.520).",
+  "rows": [
+   "Hgf"
+  ],
+  "why_not_known": "Hgf activates an antioxidant pathway; its downregulation links to increased oxidative stress in the retina.",
+  "next_step": "Validate by qPCR in an independent set of spaceflight and ground-control retinas.",
+  "dataset": "OSD-255",
+  "group": "not_reproduced",
+  "paper": {
+   "padj": 0.098,
+   "log2fc": -0.52
+  },
+  "label": "contradicted",
+  "label_note": "paper padj 9.8e-02; GeneLab does not reproduce at padj<0.1",
+  "table_facts": {
+   "Hgf": {
+    "log2fc": -0.53,
+    "padj": 0.168053376746242,
+    "higher_group": "Ground Control",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932693",
+     "GSM3932694",
+     "GSM3932695",
+     "GSM3932696",
+     "GSM3932697",
+     "GSM3932698",
+     "GSM3932699",
+     "GSM3932700"
+    ],
+    "mean_count": {
+     "Space Flight": 46,
+     "Ground Control": 66
+    }
+   }
+  }
+ },
+ {
+  "id": "OSD-255_nasa_18",
+  "shape": "single_gene",
+  "claim": "Pde6b is downregulated in the spaceflight retina compared to ground control (adjusted p-value 8.70e-02; log2 fold-change -0.140).",
+  "rows": [
+   "Pde6b"
+  ],
+  "why_not_known": "Pde6b is a retinitis pigmentosa gene, the rod phosphodiesterase.",
+  "next_step": "Validate by qPCR in an independent set of spaceflight and ground-control retinas.",
+  "dataset": "OSD-255",
+  "group": "not_reproduced",
+  "paper": {
+   "padj": 0.087,
+   "log2fc": -0.14
+  },
+  "label": "contradicted",
+  "label_note": "paper padj 8.7e-02; GeneLab does not reproduce at padj<0.1",
+  "table_facts": {
+   "Pde6b": {
+    "log2fc": -0.14,
+    "padj": 0.19074135562709,
+    "higher_group": "Ground Control",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932693",
+     "GSM3932694",
+     "GSM3932695",
+     "GSM3932696",
+     "GSM3932697",
+     "GSM3932698",
+     "GSM3932699",
+     "GSM3932700"
+    ],
+    "mean_count": {
+     "Space Flight": 13542,
+     "Ground Control": 14926
+    }
+   }
+  }
+ },
+ {
+  "id": "OSD-255_nasa_19",
+  "shape": "single_gene",
+  "claim": "Dhdds is upregulated in the spaceflight retina compared to ground control (adjusted p-value 8.80e-02; log2 fold-change +0.140).",
+  "rows": [
+   "Dhdds"
+  ],
+  "why_not_known": "Dhdds is a retinitis pigmentosa gene in dolichol synthesis.",
+  "next_step": "Validate by qPCR in an independent set of spaceflight and ground-control retinas.",
+  "dataset": "OSD-255",
+  "group": "not_reproduced",
+  "paper": {
+   "padj": 0.088,
+   "log2fc": 0.14
+  },
+  "label": "contradicted",
+  "label_note": "paper padj 8.8e-02; GeneLab does not reproduce at padj<0.1",
+  "table_facts": {
+   "Dhdds": {
+    "log2fc": 0.13,
+    "padj": 0.243280955567128,
+    "higher_group": "Space Flight",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932701",
+     "GSM3932702",
+     "GSM3932703",
+     "GSM3932704",
+     "GSM3932705",
+     "GSM3932706",
+     "GSM3932707",
+     "GSM3932708"
+    ],
+    "mean_count": {
+     "Space Flight": 518,
+     "Ground Control": 474
+    }
+   }
+  }
+ },
+ {
+  "id": "OSD-255_nasa_20",
+  "shape": "single_gene",
+  "claim": "Mafg is upregulated in the spaceflight retina compared to ground control (adjusted p-value 7.30e-02; log2 fold-change +0.240).",
+  "rows": [
+   "Mafg"
+  ],
+  "why_not_known": "Mafg is a differentially expressed transcription factor needed for eye development.",
+  "next_step": "Validate by qPCR in an independent set of spaceflight and ground-control retinas.",
+  "dataset": "OSD-255",
+  "group": "not_reproduced",
+  "paper": {
+   "padj": 0.073,
+   "log2fc": 0.24
+  },
+  "label": "contradicted",
+  "label_note": "paper padj 7.3e-02; GeneLab does not reproduce at padj<0.1",
+  "table_facts": {
+   "Mafg": {
+    "log2fc": 0.24,
+    "padj": 0.321803951368115,
+    "higher_group": "Space Flight",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932701",
+     "GSM3932702",
+     "GSM3932703",
+     "GSM3932704",
+     "GSM3932705",
+     "GSM3932706",
+     "GSM3932707",
+     "GSM3932708"
+    ],
+    "mean_count": {
+     "Space Flight": 438,
+     "Ground Control": 371
+    }
+   }
+  }
+ },
+ {
+  "id": "OSD-255_nasa_21",
+  "shape": "single_gene",
+  "claim": "Isl1 is upregulated in the spaceflight retina compared to ground control (adjusted p-value 6.10e-03; log2 fold-change +0.230).",
+  "rows": [
+   "Isl1"
+  ],
+  "why_not_known": "Isl1 is a differentially expressed transcription factor needed for retinal development.",
+  "next_step": "Validate by qPCR in an independent set of spaceflight and ground-control retinas.",
+  "dataset": "OSD-255",
+  "group": "not_reproduced",
+  "paper": {
+   "padj": 0.0061,
+   "log2fc": 0.23
+  },
+  "label": "contradicted",
+  "label_note": "paper padj 6.1e-03; GeneLab does not reproduce at padj<0.1",
+  "table_facts": {
+   "Isl1": {
+    "log2fc": 0.13,
+    "padj": 0.596158366284415,
+    "higher_group": "Space Flight",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932701",
+     "GSM3932702",
+     "GSM3932703",
+     "GSM3932704",
+     "GSM3932705",
+     "GSM3932706",
+     "GSM3932707",
+     "GSM3932708"
+    ],
+    "mean_count": {
+     "Space Flight": 461,
+     "Ground Control": 422
+    }
+   }
+  }
+ },
+ {
+  "id": "OSD-255_nasa_22",
+  "shape": "single_gene",
+  "claim": "Atf5 is downregulated in the spaceflight retina compared to ground control (adjusted p-value 6.10e-02; log2 fold-change -0.580).",
+  "rows": [
+   "Atf5"
+  ],
+  "why_not_known": "Atf5 is a differentially expressed transcription factor needed for eye development.",
+  "next_step": "Validate by qPCR in an independent set of spaceflight and ground-control retinas.",
+  "dataset": "OSD-255",
+  "group": "not_reproduced",
+  "paper": {
+   "padj": 0.061,
+   "log2fc": -0.58
+  },
+  "label": "contradicted",
+  "label_note": "paper padj 6.1e-02; GeneLab does not reproduce at padj<0.1",
+  "table_facts": {
+   "Atf5": {
+    "log2fc": -0.28,
+    "padj": 0.106779144978265,
+    "higher_group": "Ground Control",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932693",
+     "GSM3932694",
+     "GSM3932695",
+     "GSM3932696",
+     "GSM3932697",
+     "GSM3932698",
+     "GSM3932699",
+     "GSM3932700"
+    ],
+    "mean_count": {
+     "Space Flight": 185,
+     "Ground Control": 225
+    }
+   }
+  }
+ },
+ {
+  "id": "OSD-255_nasa_23",
+  "shape": "single_gene",
+  "claim": "Kdm6b is upregulated in the spaceflight retina compared to ground control (adjusted p-value 3.50e-02; log2 fold-change +0.170).",
+  "rows": [
+   "Kdm6b"
+  ],
+  "why_not_known": "Kdm6b regulates H3K27me2/me3, suggesting spaceflight changes chromatin organization.",
+  "next_step": "Validate by qPCR in an independent set of spaceflight and ground-control retinas.",
+  "dataset": "OSD-255",
+  "group": "not_reproduced",
+  "paper": {
+   "padj": 0.035,
+   "log2fc": 0.17
+  },
+  "label": "contradicted",
+  "label_note": "paper padj 3.5e-02; GeneLab does not reproduce at padj<0.1",
+  "table_facts": {
+   "Kdm6b": {
+    "log2fc": 0.14,
+    "padj": 0.243280955567128,
+    "higher_group": "Space Flight",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932701",
+     "GSM3932702",
+     "GSM3932703",
+     "GSM3932704",
+     "GSM3932705",
+     "GSM3932706",
+     "GSM3932707",
+     "GSM3932708"
+    ],
+    "mean_count": {
+     "Space Flight": 2341,
+     "Ground Control": 2128
+    }
+   }
+  }
+ },
+ {
+  "id": "OSD-255_nasa_24",
+  "shape": "single_gene",
+  "claim": "Casz1 is upregulated in the spaceflight retina compared to ground control (adjusted p-value 2.50e-02; log2 fold-change +0.210).",
+  "rows": [
+   "Casz1"
+  ],
+  "why_not_known": "Casz1 is a heterochromatin regulator acting in a splice-variant-specific manner.",
+  "next_step": "Validate by qPCR in an independent set of spaceflight and ground-control retinas.",
+  "dataset": "OSD-255",
+  "group": "not_reproduced",
+  "paper": {
+   "padj": 0.025,
+   "log2fc": 0.21
+  },
+  "label": "contradicted",
+  "label_note": "paper padj 2.5e-02; GeneLab does not reproduce at padj<0.1",
+  "table_facts": {
+   "Casz1": {
+    "log2fc": 0.17,
+    "padj": 0.227791797220821,
+    "higher_group": "Space Flight",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932701",
+     "GSM3932702",
+     "GSM3932703",
+     "GSM3932704",
+     "GSM3932705",
+     "GSM3932706",
+     "GSM3932707",
+     "GSM3932708"
+    ],
+    "mean_count": {
+     "Space Flight": 5388,
+     "Ground Control": 4775
+    }
+   }
+  }
+ },
+ {
+  "id": "OSD-255_nasa_25",
+  "shape": "single_gene",
+  "claim": "Kdm4a is downregulated in the spaceflight retina compared to ground control (adjusted p-value 1.50e-02; log2 fold-change -0.260).",
+  "rows": [
+   "Kdm4a"
+  ],
+  "why_not_known": "Kdm4a regulates H3K9me2/me3, an indicator of constitutive heterochromatin.",
+  "next_step": "Validate by qPCR in an independent set of spaceflight and ground-control retinas.",
+  "dataset": "OSD-255",
+  "group": "not_reproduced",
+  "paper": {
+   "padj": 0.015,
+   "log2fc": -0.26
+  },
+  "label": "contradicted",
+  "label_note": "paper padj 1.5e-02; GeneLab does not reproduce at padj<0.1",
+  "table_facts": {
+   "Kdm4a": {
+    "log2fc": -0.13,
+    "padj": 0.417514190858134,
+    "higher_group": "Ground Control",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932693",
+     "GSM3932694",
+     "GSM3932695",
+     "GSM3932696",
+     "GSM3932697",
+     "GSM3932698",
+     "GSM3932699",
+     "GSM3932700"
+    ],
+    "mean_count": {
+     "Space Flight": 743,
+     "Ground Control": 815
+    }
+   }
+  }
+ },
+ {
+  "id": "OSD-255_nasa_26",
+  "shape": "single_gene",
+  "claim": "Abca4 is upregulated in the spaceflight retina compared to ground control.",
+  "rows": [
+   "Abca4"
+  ],
+  "why_not_known": "Abca4 is shared between retinitis pigmentosa and macular degeneration gene sets.",
+  "next_step": "Validate by qPCR in an independent set of spaceflight and ground-control retinas.",
+  "dataset": "OSD-255",
+  "group": "paper_negative",
+  "paper": {
+   "padj": null,
+   "log2fc": null
+  },
+  "label": "contradicted",
+  "label_note": "paper explicitly reports this gene is NOT differentially expressed",
+  "table_facts": {
+   "Abca4": {
+    "log2fc": -0.02,
+    "padj": 0.902850237165676,
+    "higher_group": "Ground Control",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932693",
+     "GSM3932694",
+     "GSM3932695",
+     "GSM3932696",
+     "GSM3932697",
+     "GSM3932698",
+     "GSM3932699",
+     "GSM3932700"
+    ],
+    "mean_count": {
+     "Space Flight": 11831,
+     "Ground Control": 12009
+    }
+   }
+  }
+ },
+ {
+  "id": "OSD-255_nasa_27",
+  "shape": "single_gene",
+  "claim": "Nmnat1 is upregulated in the spaceflight retina compared to ground control.",
+  "rows": [
+   "Nmnat1"
+  ],
+  "why_not_known": "Nmnat1 is shared between two retinal disease gene sets.",
+  "next_step": "Validate by qPCR in an independent set of spaceflight and ground-control retinas.",
+  "dataset": "OSD-255",
+  "group": "paper_negative",
+  "paper": {
+   "padj": null,
+   "log2fc": null
+  },
+  "label": "contradicted",
+  "label_note": "paper explicitly reports this gene is NOT differentially expressed",
+  "table_facts": {
+   "Nmnat1": {
+    "log2fc": 0.16,
+    "padj": 0.65218802648612,
+    "higher_group": "Space Flight",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932701",
+     "GSM3932702",
+     "GSM3932703",
+     "GSM3932704",
+     "GSM3932705",
+     "GSM3932706",
+     "GSM3932707",
+     "GSM3932708"
+    ],
+    "mean_count": {
+     "Space Flight": 91,
+     "Ground Control": 82
+    }
+   }
+  }
+ },
+ {
+  "id": "OSD-255_nasa_28",
+  "shape": "single_gene",
+  "claim": "Casp3 is upregulated in the spaceflight retina compared to ground control.",
+  "rows": [
+   "Casp3"
+  ],
+  "why_not_known": "Casp3 is shared between two retinal disease gene sets.",
+  "next_step": "Validate by qPCR in an independent set of spaceflight and ground-control retinas.",
+  "dataset": "OSD-255",
+  "group": "paper_negative",
+  "paper": {
+   "padj": null,
+   "log2fc": null
+  },
+  "label": "contradicted",
+  "label_note": "paper explicitly reports this gene is NOT differentially expressed",
+  "table_facts": {
+   "Casp3": {
+    "log2fc": -0.01,
+    "padj": 0.994550831725278,
+    "higher_group": "Ground Control",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932693",
+     "GSM3932694",
+     "GSM3932695",
+     "GSM3932696",
+     "GSM3932697",
+     "GSM3932698",
+     "GSM3932699",
+     "GSM3932700"
+    ],
+    "mean_count": {
+     "Space Flight": 68,
+     "Ground Control": 69
+    }
+   }
+  }
+ },
+ {
+  "id": "OSD-255_nasa_29",
+  "shape": "single_gene",
+  "claim": "Crb1 is downregulated in the spaceflight retina compared to ground control.",
+  "rows": [
+   "Crb1"
+  ],
+  "why_not_known": "Crb1 is shared between two retinal disease gene sets.",
+  "next_step": "Validate by qPCR in an independent set of spaceflight and ground-control retinas.",
+  "dataset": "OSD-255",
+  "group": "paper_negative",
+  "paper": {
+   "padj": null,
+   "log2fc": null
+  },
+  "label": "contradicted",
+  "label_note": "paper explicitly reports this gene is NOT differentially expressed",
+  "table_facts": {
+   "Crb1": {
+    "log2fc": -0.04,
+    "padj": 0.819238352049948,
+    "higher_group": "Ground Control",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932693",
+     "GSM3932694",
+     "GSM3932695",
+     "GSM3932696",
+     "GSM3932697",
+     "GSM3932698",
+     "GSM3932699",
+     "GSM3932700"
+    ],
+    "mean_count": {
+     "Space Flight": 3480,
+     "Ground Control": 3574
+    }
+   }
+  }
+ },
+ {
+  "id": "OSD-255_nasa_30_thickness",
+  "shape": "global_pattern",
+  "claim": "Total retina, retinal pigment epithelium, and choroid layers decreased significantly in thickness (p < 0.05) during spaceflight.",
+  "rows": [],
+  "why_not_known": "MicroCT shows structural loss of retinal layers after 35 days of flight.",
+  "next_step": "Repeat MicroCT thickness measurement on additional flight retinas.",
+  "dataset": "OSD-255",
+  "group": "untestable",
+  "paper": {},
+  "label": "untestable",
+  "label_note": "paper claim (untestable)",
+  "table_facts": {}
+ },
+ {
+  "id": "OSD-255_nasa_31_cones",
+  "shape": "global_pattern",
+  "claim": "Cone photoreceptor density showed a strong trend decrease in spaceflight mice (950 vs 1199 counts/mm2, p = 0.06).",
+  "rows": [],
+  "why_not_known": "PNA staining suggests cone photoreceptor degradation during spaceflight.",
+  "next_step": "Quantify PNA-positive cones in a larger cohort.",
+  "dataset": "OSD-255",
+  "group": "untestable",
+  "paper": {},
+  "label": "untestable",
+  "label_note": "paper claim (untestable)",
+  "table_facts": {}
+ },
+ {
+  "id": "OSD-255_nasa_32_go_vision",
+  "shape": "pathway",
+  "claim": "Genes for visual perception (GO:0007601) are overrepresented among spaceflight differentially expressed genes.",
+  "rows": [
+   "GO:0007601"
+  ],
+  "why_not_known": "Ocular-function categories were the most enriched among the 600 DEGs.",
+  "next_step": "Test phototransduction gene expression by qPCR and ERG in flight retinas.",
+  "dataset": "OSD-255",
+  "group": "pathway",
+  "paper": {},
+  "label": "ok",
+  "label_note": "paper claim (pathway)",
+  "table_facts": {
+   "GO:0007601": {
+    "name": "visual perception",
+    "genes_in_term": 24,
+    "significant": 3,
+    "up": 0,
+    "down": 3,
+    "enrichment_vs_baseline": 8.71
+   }
+  }
+ },
+ {
+  "id": "OSD-255_nasa_33_go_rna",
+  "shape": "pathway",
+  "claim": "Genes for RNA processing (GO:0006396) are overrepresented among spaceflight differentially expressed genes.",
+  "rows": [
+   "GO:0006396"
+  ],
+  "why_not_known": "RNA processing and splicing categories were enriched, a signal not tied to retinal disease genes.",
+  "next_step": "Check splicing-factor protein levels in flight retinas.",
+  "dataset": "OSD-255",
+  "group": "pathway",
+  "paper": {},
+  "label": "ok",
+  "label_note": "paper claim (pathway)",
+  "table_facts": {
+   "GO:0006396": {
+    "name": "RNA processing",
+    "genes_in_term": 364,
+    "significant": 10,
+    "up": 3,
+    "down": 7,
+    "enrichment_vs_baseline": 1.91
+   }
+  }
+ },
+ {
+  "id": "OSD-255_nasa_34_go_radiation",
+  "shape": "pathway",
+  "claim": "Genes responding to radiation (GO:0009314) are overrepresented among spaceflight differentially expressed genes.",
+  "rows": [
+   "GO:0009314"
+  ],
+  "why_not_known": "Direct response to the physical pressures of spaceflight, including radiation.",
+  "next_step": "Compare with ground irradiation retina datasets.",
+  "dataset": "OSD-255",
+  "group": "pathway",
+  "paper": {},
+  "label": "ok",
+  "label_note": "paper claim (pathway)",
+  "table_facts": {
+   "GO:0009314": {
+    "name": "response to radiation",
+    "genes_in_term": 32,
+    "significant": 3,
+    "up": 1,
+    "down": 2,
+    "enrichment_vs_baseline": 6.53
+   }
+  }
+ }
+]
