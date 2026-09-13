@@ -1,33 +1,45 @@
 # ARIA as the architect, via MCP
 
+## Verify before relying on it (ARIA's own checklist, in order)
+1. Does ARIA have an "add custom MCP server" facility? Find the screen. If not, use the fallback below.
+2. In an interactive ARIA chat, ask it to call `get_rules`. Expect {version, digest, text}.
+3. Ask it to call `propose_rules_patch` with a harmless patch, then `apply_rules_patch` with the
+   digest from step 2. Expect {written, version, digest}. Delete the test version afterwards.
+4. Create the Automation (below), trigger it with a test run, and confirm the automation-created
+   conversation can still see the Helix tools. This is the decisive test.
+5. Run ONE cycle: loop iteration 0 -> automation -> rules_v1 -> iteration 1. Then all four.
+
 ## One-time setup
-1. Start the Helix MCP server on the demo machine:  `python3 helix/mcp_server.py`
-2. Expose it:  `cloudflared tunnel --url http://localhost:8765`  -> copy the https URL it prints.
-3. In ARIA, add a custom MCP server with URL `https://<that-host>/mcp` (no auth).
-   Verify by asking ARIA: "call get_rules" -> it should return the rules text.
-4. Create a W&B Automation: event = new version of artifact `critic-rules`,
-   action = Trigger ARIA, prompt = the block below.
-5. Run the loop with `python3 loop.py --iterations 4 --wait-for-aria 180`.
+- `export HELIX_MCP_TOKEN=<random string>`; start `python3 helix/mcp_server.py`
+- `cloudflared tunnel --url http://localhost:8765` -> copy the https URL
+- In ARIA, add the custom MCP server at `https://<host>/mcp`
+- W&B Automation: event = run finished, filter job_type = critic-iteration
+  (or metric `screening/eval_complete` == 1); action = Trigger ARIA; prompt below.
+  Do NOT trigger on the critic-rules artifact: it fires before evaluation is logged.
+- Run `python3 loop.py --iterations 4 --wait-for-aria 180` only after step 4 passed.
 
 ## Automation prompt (paste into the Trigger ARIA action)
 
-A new iteration of the Helix critic loop finished in project ${project_name}.
-You are the architect. Improve the critic's rules using the Helix MCP tools.
+Run ${run_name} (job_type critic-iteration) in project ${project_name} just finished.
+You are the architect of the Helix critic loop. Use the Helix MCP tools.
 
-1. Call `list_iterations` to see precision per iteration. Note the latest iteration number N.
-2. Call `get_misses` with iteration=N. Group the misses by (human_reason_code, critic_reason_code)
-   and describe each pattern in one sentence, citing hypothesis_ids and the numbers in table_facts.
-3. Call `get_rules` to read the current rules. Optionally `get_dataset_summary` for context.
-4. Decide the ONE or TWO sections whose rewrite would fix the largest group of misses without
-   breaking leads the critic currently gets right.
-5. Call `apply_rules_patch` with `patch` = those sections in the format
-   "## <reason_code>\n<full replacement text, citing the hypothesis_ids it fixes>"
-   and `change_reason` = one sentence. If the tool returns an error, fix the patch and call again.
-6. Reply with: the patterns you found, the sections you changed, and the precision you expect
-   next iteration.
+1. Read this run's config `iteration` = N. Call `get_misses` with iteration=N (not "latest").
+   Group misses by (human_reason_code, critic_reason_code); one sentence per pattern, citing
+   hypothesis_ids and the numbers in table_facts.
+2. Call `list_iterations` and say whether precision rose or fell versus iteration N-1.
+3. Call `get_rules` (latest). Keep its `digest`.
+4. Choose ONE or TWO sections whose rewrite fixes the largest miss group without breaking
+   leads currently correct. Write the patch as "## <reason_code>\n<full replacement text,
+   citing the hypothesis_ids it fixes>".
+5. Call `propose_rules_patch` with the patch. If error, fix and retry.
+6. Call `apply_rules_patch` with patch, change_reason (one sentence), base_rules_digest =
+   the digest from step 3, iteration = N, source_run_id = this run's id, token = <HELIX_MCP_TOKEN>.
+   If it reports a stale digest, stop: another conversation already revised the rules.
+7. Reply with the patterns, the sections changed, and the precision you expect at N+1.
 
-Valid section names: ok, already_known, underpowered, confound, contradicted, untestable, no_mechanism.
+Valid sections: ok, already_known, underpowered, confound, contradicted, untestable, no_mechanism.
 
-## Fallback if MCP is unavailable on stage
-Ask ARIA the same prompt without step 5; paste its "## section" output into
-`patches/iter{N}.md`; the loop applies it on its next pass.
+## Fallback if ARIA cannot reach custom MCP (demo-safe)
+Run `python3 loop.py --iterations 4` without --wait-for-aria. The loop's own architect
+(Claude, helix/reflect.py) writes each patch through the same guardrails. Trigger ARIA on run
+finished anyway with steps 1-4 only, so its independent diagnosis appears in W&B for the demo.

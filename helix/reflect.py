@@ -26,7 +26,8 @@ def _sections(text):
     return out
 
 
-def apply_patch(rules_path, patch_text, change_reason="", author="aria"):
+def render_patch(rules_path, patch_text):
+    """Validate a patch against a rules file and return the merged text. Raises ValueError."""
     cur = _sections(open(rules_path).read())
     new = _sections("\n" + patch_text)                    # leading newline so first "## x" splits
     changes = {k: v for k, v in new.items() if k != "_head"}
@@ -39,11 +40,20 @@ def apply_patch(rules_path, patch_text, change_reason="", author="aria"):
     text = merged["_head"] + "\n\n" + "\n\n".join(f"## {k}\n{merged[k]}" for k in merged if k != "_head") + "\n"
     if len(text.split()) > MAX_WORDS:
         raise ValueError(f"rules would be {len(text.split())} words; max is {MAX_WORDS}")
+    return text, list(changes)
+
+
+def apply_patch(rules_path, patch_text, change_reason="", author="aria", extra_meta=None):
+    """Validate, then write rules_v{n+1}.md atomically next to rules_path. Returns the new path."""
+    text, changed = render_patch(rules_path, patch_text)
     n = int(re.search(r"v(\d+)", os.path.basename(rules_path)).group(1)) + 1
     out = os.path.join(os.path.dirname(rules_path), f"rules_v{n}.md")
-    open(out, "w").write(text)
-    json.dump({"iteration": n, "parent": os.path.basename(rules_path), "author": author,
-               "change_reason": change_reason, "sections": list(changes)},
+    if os.path.exists(out):
+        raise ValueError(f"{out} already exists; refusing to overwrite")
+    tmp = out + ".tmp"
+    open(tmp, "w").write(text); os.replace(tmp, out)              # atomic on POSIX
+    json.dump({"version": n, "parent": os.path.basename(rules_path), "author": author,
+               "change_reason": change_reason, "sections": changed, **(extra_meta or {})},
               open(out.replace(".md", ".meta.json"), "w"), indent=1)
     return out
 
