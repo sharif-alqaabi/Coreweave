@@ -47,9 +47,11 @@ def _(mo, versions, best_rules, os):
 def _(mo, upload, rules_pick, n_leads, run, run_pipeline, tempfile, os):
     result = None
     if run.value and upload.value:
-        f = upload.value[0] if isinstance(upload.value, list) else upload.value
-        tmp = os.path.join(tempfile.mkdtemp(prefix="leadlab-"), f.name)
-        open(tmp, "wb").write(f.contents)
+        f = upload.value[0] if isinstance(upload.value, (list, tuple)) and not hasattr(upload.value, "name") else upload.value
+        name = f[0] if isinstance(f, tuple) and not hasattr(f, "name") else f.name        # (name, bytes) tuple or object
+        data = f[1] if isinstance(f, tuple) and not hasattr(f, "contents") else f.contents
+        tmp = os.path.join(tempfile.mkdtemp(prefix="leadlab-"), os.path.basename(name))
+        open(tmp, "wb").write(data)
         with mo.status.spinner(title="Running the pipeline (about 90 s): summarize, propose, enrich, judge"):
             result = run_pipeline(tmp, rules_path=rules_pick.value, n_leads=n_leads.value, progress=lambda s: None)
     elif run.value:
