@@ -298,13 +298,15 @@ Two kinds of test, because they catch different mistakes. Both are judged by the
 
 **Published NASA claims.** Claims transcribed by hand from a study's primary paper (`scripts/make_nasa_golden.py`), then checked against GeneLab's reprocessed table. A paper claim the table supports must pass; one the table does not reproduce must be killed with a stated reason. OSD-255 (retina, Mao 2019): 12 of 32 named genes reproduce at padj < 0.05 in GeneLab, direction agrees for 495 of the authors' 498 DEGs. OSD-467 (bone, Chowdhury 2021): only Pfkfb3 reproduces; 13 named genes agree in direction but not significance. This set proves the critic does not kill real biology. It cannot teach the six reason codes, because a paper never contains a merged gene symbol or a restated median.
 
-| Set | Rules v0 | Rules v4 (trained) |
-| :--- | :--- | :--- |
-| LLM holdout, 90 unseen leads | reason acc 0.60, kill recall 0.51 | reason acc 0.64, kill recall 0.80 |
-| OSD-255 paper, 34 claims | 0 false kills, 12 wrong reasons | 0 false kills, 2 wrong reasons |
-| OSD-467 paper, 20 claims (blind) | 0 false kills, 8 wrong reasons | 0 false kills, 3 wrong reasons |
+| Set | Rules v0 | Rules v2 (ships) | Rules v4 (best on train) |
+| :--- | :--- | :--- | :--- |
+| LLM holdout, 90 unseen leads | reason acc 0.60, 6 false kills, 20 missed | reason acc 0.73, 8 false kills, 8 missed | reason acc 0.64, 15 false kills, 8 missed |
+| OSD-255 paper, 34 claims | 0 false kills, 12 wrong reasons | 0 false kills, 4 wrong reasons | 0 false kills, 2 wrong reasons |
+| OSD-467 paper, 20 claims (blind) | 0 false kills, 8 wrong reasons | 0 false kills, 3 wrong reasons | 0 false kills, 3 wrong reasons |
 
-Every remaining paper-set miss is a kill with a different reason (underpowered instead of contradicted on a padj of 0.051). No supported published finding is killed.
+Every remaining paper-set miss is a kill with a different reason (underpowered instead of contradicted on a padj of 0.051). No supported published finding is killed by any version.
+
+**Why v2 ships, not v4.** The loop promotes by train score: v2 scored 0.81 there, v4 0.84. On the unseen holdout the order flips: v2 0.73, v4 0.64, and v4 kills seven more good leads for no extra junk caught. That is the training set starting to be memorised (v3 was a no-op copy of v2, and the v4 patch fixed train misses that do not generalise). `helix/product.py` therefore selects the shipped rules by holdout score, and the W&B Evals tab shows the curve v0, v1, v2, v4 on all three sets. v5 to v8 are byte-identical copies of v4 written by three later tournament rounds that found nothing better; they are not evaluated separately because they are not different rules.
 
 **Two things the paper sets taught us.**
 - *The critic will not tolerate a quoted statistic that differs from the table.* When claims carried the paper's own padj, v4 killed 5 of 15 supported claims as "contradicted", even though direction and significance agreed. A hand-written rule saying "a differing quoted number is not a contradiction" was ignored twice by the critic model. With numbers stripped, 12 of 12 pass. Training uses the number-free form; `nasa_OSD-255_numbered.json` and `results/nasa_OSD-255_numbered_rules_v*.json` keep the evidence.
