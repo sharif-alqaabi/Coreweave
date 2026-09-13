@@ -35,6 +35,7 @@ def _():
     DATA = {
         "wb": f"https://wandb.ai/{os.getenv('WANDB_ENTITY', '')}/{os.getenv('WANDB_PROJECT', 'helix')}/weave",
         "naive": {"dataset": _naive["dataset"], "rules": os.path.basename(_naive["rules"]),
+                  "code_check": _naive.get("code_check", {}), "v0_killed": _naive.get("v0", {}).get("killed", 0),
                   "leads": [{**_slim(l, ("id", "claim", "why_not_known", "next_step", "rows")),
                              "label": _verdict[l["id"]]["label"] if l["id"] in _verdict else "ok",
                              "reason": _verdict[l["id"]]["reason"] if l["id"] in _verdict else next((s["reason"] for s in _naive["survivors"] if s["id"] == l["id"]), ""),
@@ -99,13 +100,13 @@ def _(mo, DATA, REASON, cards, stat, stats):
     _paper = {"Drd4": "the paper's most significant gene", "H2bc4": "Hist1h2bc, the paper's aging link", "Sag": "the paper's top retinitis-pigmentosa gene"}
     _found = [(g, why) for g, why in _paper.items() if any(g in l["rows"] for l in _leads if l["label"] == "ok")]
     _on = False
-    _tiles = (stats(stat(len(_leads) - len(_killed), "findings survive", "each backed by the table's numbers", "hx-good"),
-                    stat(len(_killed), "findings killed", "each with the number that decided it", "hx-bad"),
-                    stat(len(_found), "published headline genes", "rediscovered from the table alone", "hx-good"))
-              if _on else
-              stats(stat(len(_leads), "findings reported", "from one NASA retina table"),
-                    stat(0, "checked against the data", "the model wrote the numbers too"),
-                    stat("?", "worth a scientist's time", "no way to tell")))
+    _cc = DATA["naive"]["code_check"]
+    _flagged = set(_cc.get("unsupported", [])) | set(_cc.get("uncharacterised", [])) | set(_cc.get("nothing", []))
+    _tiles = stats(stat(len(_leads), "findings reported", "from one NASA retina table"),
+                   stat(0, "checked by the assistant", "it wrote the numbers too"),
+                   stat(len(_flagged), "have a visible problem", f"{len(_cc.get('unsupported', []))} the table contradicts · {len(_cc.get('uncharacterised', []))} on genes nobody has characterised · {len(_cc.get('nothing', []))} with no gene to check", "hx-bad"))
+    _method = mo.md(f"_The third tile is a plain code check against the table: padj above 0.05 or the wrong direction, a Gm/Rik gene symbol, or no gene cited at all. "
+                    "No rules, no model, no Helix. It is the floor: what anyone with the CSV and ten minutes could find._")
     _intro = (mo.md("**Same sixty findings.** Code attached each one's real numbers from the table, and a separate critic judged every one. "
                     "Green survives. Red is killed, with the number.")
               if _on else
@@ -130,7 +131,7 @@ def _(mo, DATA, REASON, cards, stat, stats):
                          mo.callout(mo.md("**Believable is the problem.** Every one of the sixty reads like the four above did before we checked. "
                                           "A scientist cannot tell which are like this without looking up every number: about a week per table. "
                                           "Nothing in this assistant is allowed to say no."), kind="danger")])
-    slide1 = mo.vstack([mo.md("# An LLM research assistant reads a NASA retina study"), _intro, _tiles, cards(_leads, False, REASON), _closer])
+    slide1 = mo.vstack([mo.md("# An LLM research assistant reads a NASA retina study"), _intro, _tiles, _method, cards(_leads, False, REASON), _closer])
     return (slide1,)
 
 
@@ -141,12 +142,14 @@ def _(mo, DATA, REASON, cards, stat, stats):
     _paper = {"Drd4": "the paper's most significant gene", "H2bc4": "Hist1h2bc, the paper's aging link", "Sag": "the paper's top retinitis-pigmentosa gene"}
     _found = [(g, why) for g, why in _paper.items() if any(g in l["rows"] for l in _leads if l["label"] == "ok")]
     _on = True
-    _tiles = (stats(stat(len(_leads) - len(_killed), "findings survive", "each backed by the table's numbers", "hx-good"),
-                    stat(len(_killed), "findings killed", "each with the number that decided it", "hx-bad"),
-                    stat(len(_found), "published headline genes", "rediscovered from the table alone", "hx-good"))
-              if _on else
-              stats(stat(len(_leads), "findings from slide 1", "same sixty, untouched"), stat("rules_v2", "rulebook", "chosen by score on unseen leads"),
-                    stat("→", "flip the switch", "code attaches the numbers, the critic judges")))
+    _v0 = DATA["naive"]["v0_killed"]
+    _tiles = mo.vstack([
+        stats(stat(0, "killed with no critic", "slide 1: the assistant alone"),
+              stat(_v0, "killed by the hand-written rules", "rules_v0, before any learning"),
+              stat(len(_killed), "killed by the learned rules", "rules_v2, chosen on unseen data", "hx-bad")),
+        stats(stat(len(_leads) - len(_killed), "findings survive", "each backed by the table's numbers", "hx-good"),
+              stat(len(_found), "published headline genes", "rediscovered from the table alone", "hx-good"),
+              stat("4 of 4", "hand-checked tells killed", "the ones from slide 1"))])
     _intro = (mo.md("**Same sixty findings.** Code attached each one's real numbers from the table, and a separate critic judged every one with rules_v2. Green survives. Red is killed, with the number.")
               if _on else mo.md("The sixty findings from slide 1, exactly as the assistant wrote them. Nothing has been checked yet."))
     _redisc = (mo.callout(mo.md("**And the survivors include what the scientists actually published.** The scout never saw the paper. From the table alone it proposed, and the critic passed: "

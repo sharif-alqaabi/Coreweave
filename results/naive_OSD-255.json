@@ -4683,5 +4683,57 @@
    "confidence": 0.95,
    "reason": "The next step 'Perform PCA and check if samples cluster by flight vs. ground or by processing batch' is achievable, but the claim about 'lack of sample-quality flags suggests high data integrity' is not directly testable from the table facts, which do not provide information on batch effects or sample flags."
   }
- ]
+ ],
+ "v0": {
+  "killed_ids": [
+   "OSD-255_lead_021",
+   "OSD-255_lead_029",
+   "OSD-255_lead_033",
+   "OSD-255_lead_044",
+   "OSD-255_lead_047",
+   "OSD-255_lead_048",
+   "OSD-255_lead_053",
+   "OSD-255_lead_060"
+  ],
+  "killed": 8
+ },
+ "code_check": {
+  "unsupported": [
+   "OSD-255_lead_029",
+   "OSD-255_lead_033",
+   "OSD-255_lead_034",
+   "OSD-255_lead_044",
+   "OSD-255_lead_049",
+   "OSD-255_lead_050",
+   "OSD-255_lead_057",
+   "OSD-255_lead_058",
+   "OSD-255_lead_059"
+  ],
+  "uncharacterised": [
+   "OSD-255_lead_009",
+   "OSD-255_lead_021",
+   "OSD-255_lead_022",
+   "OSD-255_lead_033",
+   "OSD-255_lead_034",
+   "OSD-255_lead_049",
+   "OSD-255_lead_052",
+   "OSD-255_lead_057"
+  ],
+  "nothing": [
+   "OSD-255_lead_035",
+   "OSD-255_lead_036",
+   "OSD-255_lead_037",
+   "OSD-255_lead_038",
+   "OSD-255_lead_039",
+   "OSD-255_lead_040",
+   "OSD-255_lead_041",
+   "OSD-255_lead_042",
+   "OSD-255_lead_045",
+   "OSD-255_lead_046",
+   "OSD-255_lead_047",
+   "OSD-255_lead_048",
+   "OSD-255_lead_053",
+   "OSD-255_lead_060"
+  ]
+ }
 }
