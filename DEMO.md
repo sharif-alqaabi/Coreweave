@@ -271,9 +271,18 @@ distinct rulebook with a red/green diff against its predecessor and the author.
 
 ---
 
+## Optional opener: the naive baseline (localhost:2720, `marimo run app/naive_lab.py -p 2720`)
+
+Same scout, same table, no numbers attached, no critic. Every lead is shown as a "finding". Have it
+already run before the room. Show it for 15 seconds: "This is what an LLM research assistant gives you.
+Sixty findings, all confident, none checked." Then press "Now run Helix's critic on these" and let it
+run in the background while you talk; come back at the end to the kill count. On the bone table it
+killed 38 of 60. Only use this if the rest of the script is under 2:30; it costs about 30 seconds of
+talking plus the reveal. Never run the "Generate findings" step live: the scout can take two minutes.
+
 ## Before the room
 
-- Restart both servers: `marimo run app/lead_lab.py -p 2719`, `marimo run app/dashboard.py -p 2718`.
+- Restart all servers: `marimo run app/lead_lab.py -p 2719`, `marimo run app/dashboard.py -p 2718`, `marimo run app/naive_lab.py -p 2720`.
 - Run Lead Lab once on a CSV from `data/raw/` and leave it up. Never run live in the room.
 - Traces filtered to Critic.judge, saved as a view. Evals with the four holdout rows ticked and Compare
   open; delete the N/A row. Dashboard scrolled to the v4 diff tab.
