@@ -211,12 +211,30 @@ Stop talking at 3:00. If you are over at 2:15, cut the NASA rows and say the sen
 
 ---
 
+## Live training on video: `bash scripts/live_train.sh` (about 90 seconds, real)
+
+One real round from the hand-written rules_v0 on a 30-lead slice of the retina study, inside a
+throwaway copy of the repo at /tmp/helix-live. Nothing in the real kit/ or results/ changes. Test run
+on 13 Sep: 1 min 24 s total; critic missed 5 of 30 with v0; ARIA gave no patch within 45 s; DeepSeek's
+patch scored 0.97 (fixed 5, broke 1) and was promoted to rules_v1; Qwen's scored 0.80 and lost. The
+script ends by printing the v0 to v1 diff: underpowered threshold widened, untestable rule extended,
+an examples section added.
+
+Three windows while it runs: the terminal (the star: misses, "waiting for ARIA", candidate scores,
+promotion, diff), W&B Runs filtered to group "video" (a run appears after the judge phase), and the
+dashboard on the copy (`cd /tmp/helix-live && marimo run app/dashboard.py -p 2722`, reload after the
+round to see the rules_v1 tab). In the video keep three cuts: the misses line, the two candidate lines,
+the diff. Narrate one sentence per cut: "the critic finds what it got wrong"; "three architects
+propose, the same critic scores each on the same leads"; "the winner's edit, in red and green."
+
+If a run ends with "no candidate beat", run it again; the round is real and can refuse to promote.
+
 ## Screen recording, under 2 minutes (do this in the morning, one take)
 
 Voiceover is the 2-minute speech below. Shots, in order:
 1. 0:00 Diagram, full screen, 20 s.
 2. 0:20 Lead Lab with a finished run: scroll survivors, then the kill table, hover one reason, 25 s.
-3. 0:45 Weave Traces filtered to Critic.judge, open one call, show claim, table_facts, rules, output, 20 s.
+3. 0:45 Live training, three cuts from scripts/live_train.sh: misses, candidate scores, diff, 25 s.
 4. 1:05 Weave Evals: four holdout rows, Compare, then the two NASA rows, 30 s.
 5. 1:35 Dashboard v4 diff tab, 15 s.
 6. 1:50 Back to the diagram, last line of the speech.
