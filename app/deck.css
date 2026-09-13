@@ -24,3 +24,5 @@
 .hx-btn.hx-dark { background: #1c2126; }
 .hx-close { padding: 8vh 0; max-width: 60ch; } .hx-close h1 { font-size: 3.2rem; margin-bottom: 0.3em; } .hx-close h2 { font-size: 1.7rem; font-weight: 500; margin: 0.4em 0; color: #333; }
 .hx-close p { color: #5d6670; margin-top: 2em; }
+.hx-tell { margin-top: 8px; padding: 6px 8px; border-radius: 6px; background: #fbe1dd; color: #7a1a12; font-size: 0.85rem; line-height: 1.4; }
+.hx-cards.hx-short { max-height: none; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }

@@ -93,13 +93,16 @@ first 40 seconds, then go to the live screens. No second slide.
 ## 3-minute script. One browser tab: the deck. Say this one.
 
 `marimo run app/deck.py -p 2721`, or the hosted copy. Seven slides as tabs. Everything is preloaded.
-The only live action is one switch, on slide 6, at the end.
+Nothing runs live. Arrow keys move between slides.
 
-**0:00 · Slide 1, "The problem" · 30 s**
+**0:00 · Slide 1, "The problem" · 40 s**
 "NASA has 243 gene-expression studies from mice that flew in space. Too many for any scientist to read.
 So you hand one to an LLM research assistant. Here's what you get: sixty findings from a retina study.
-Confident, specific, a suggested experiment for each. Sixty reported. Zero checked. Nothing in the loop
-can say no. Hold that thought; we come back to these sixty at the end."
+Confident, specific, a suggested experiment for each." Scroll to "Look closer". "We checked four by
+hand. This one lists four genes moving together; one of them goes the other way. This one's own number
+says padj 0.099, not significant, sold as ribosomal stress. This one is novel because nobody knows what
+the gene does. They all read like the other fifty-six. That's the problem: believable, and nobody
+checked. Hold that thought."
 
 **0:30 · Slide 2, "How it works" · 30 s**
 Point at the middle band. "Three steps. A model proposes leads. We didn't teach it good; we let the
@@ -123,9 +126,10 @@ picker.")
 Every version on every set an evaluation. Zero published NASA findings killed, by any version."
 
 **2:20 · Slide 6, "Helix on" · 25 s. The payoff.**
-"Remember the sixty findings." Flip the switch. "Same sixty. Numbers attached, critic applied. Fourteen
-die, each with the number that decided it. And look what survived: Drd4, Sag. The scout never saw the
-paper. Those are the published paper's headline findings."
+"Remember the sixty findings. Here they are through Helix: numbers attached by code, judged by the
+critic with the rulebook we just chose. Fourteen die, each with the number that decided it, including
+all four we checked by hand. And look what survived: Drd4, Sag. The scout never saw the paper. Those are
+the published paper's headline findings."
 
 **2:45 · Slide 7, "Close" · 15 s**
 "Agents drift. Usually a person notices, after trusting it. Here the loop noticed first, on data nobody
@@ -286,7 +290,7 @@ critic on these." Bone table: 38 of 60 killed. Not for the 3-minute slot.
 
 - Restart all servers: deck `marimo run app/deck.py -p 2721` (the one you present from), plus `app/lead_lab.py -p 2719`, `app/dashboard.py -p 2718`, `app/naive_lab.py -p 2720` for questions.
 - Run Lead Lab once on a CSV from `data/raw/` and leave it up. Never run live in the room.
-- Deck open on slide 1. Slide 6 switch OFF before you walk in. Second browser tab: W&B Evals with
+- Deck open on slide 1, scrolled to the top. Use the arrow keys to move between slides. Second browser tab: W&B Evals with
   the four holdout rows ticked and Compare open, the N/A row deleted, in case a judge asks to see it.
 - Diagram screenshot as the one slide. README "Results so far" open as the network-failure fallback.
 - Zoom installed, or share.zoom.us tested, for the final round.

@@ -55,12 +55,6 @@ def _(mo):
 
 
 @app.cell
-def _(mo):
-    helix_on = mo.ui.switch(label="**Helix on**", value=False)
-    return (helix_on,)
-
-
-@app.cell
 def _(mo, DATA, REASON, cards, stat, stats):
     _leads = DATA["naive"]["leads"]
     _killed = [l for l in _leads if l["label"] != "ok"]
@@ -82,17 +76,33 @@ def _(mo, DATA, REASON, cards, stat, stats):
     _redisc = (mo.callout(mo.md("**And the survivors include what the scientists actually published.** The scout never saw the paper. "
                                 "From the table alone it proposed, and the critic passed: " + "; ".join(f"**{g}**, {w}" for g, w in _found) + "."), kind="success")
                if _on and _found else mo.md(""))
-    slide1 = mo.vstack([mo.md("# An LLM research assistant reads a NASA retina study"), _intro, _tiles, cards(_leads, False, REASON)])
+    _tells = [("The Slc family shows coordinated downregulation", "One of the four genes it lists, Slc25a19, goes the other way in the table (+0.39). The model asserted a direction that is false."),
+              ("n-R5s118 and n-R5s106 show borderline upregulation", "Its own number says padj 0.099. That is not significant. Dressed up as ribosomal stress anyway."),
+              ("Gm26244 has high fold change (+1.57) but padj=0.24", "padj 0.24 is noise. The model argues past its own statistic and calls it a possible false negative."),
+              ("Gm16638 is upregulated in spaceflight", "Why it matters: 'no known function, so its response is novel'. Novel because nobody knows what it does. Nothing to test.")]
+    import html as _h
+    _look = []
+    for _pre, _tell in _tells:
+        _l = next((l for l in _leads if l["claim"].startswith(_pre)), None)
+        if _l:
+            _look.append(f'<div class="hx-card hx-kill"><div class="hx-claim">{_h.escape(_l["claim"])}</div>'
+                         f'<div class="hx-why">{_h.escape(_l["why_not_known"][:140])}</div><div class="hx-tell">{_h.escape(_tell)}</div></div>')
+    _closer = mo.vstack([mo.md("## Look closer. We checked four by hand."),
+                         mo.Html('<div class="hx-cards hx-short">' + "".join(_look) + "</div>"),
+                         mo.callout(mo.md("**Believable is the problem.** Every one of the sixty reads like the four above did before we checked. "
+                                          "A scientist cannot tell which are like this without looking up every number: about a week per table. "
+                                          "Nothing in this assistant is allowed to say no."), kind="danger")])
+    slide1 = mo.vstack([mo.md("# An LLM research assistant reads a NASA retina study"), _intro, _tiles, cards(_leads, False, REASON), _closer])
     return (slide1,)
 
 
 @app.cell
-def _(mo, DATA, REASON, cards, stat, stats, helix_on):
+def _(mo, DATA, REASON, cards, stat, stats):
     _leads = DATA["naive"]["leads"]
     _killed = [l for l in _leads if l["label"] != "ok"]
     _paper = {"Drd4": "the paper's most significant gene", "H2bc4": "Hist1h2bc, the paper's aging link", "Sag": "the paper's top retinitis-pigmentosa gene"}
     _found = [(g, why) for g, why in _paper.items() if any(g in l["rows"] for l in _leads if l["label"] == "ok")]
-    _on = helix_on.value
+    _on = True
     _tiles = (stats(stat(len(_leads) - len(_killed), "findings survive", "each backed by the table's numbers", "hx-good"),
                     stat(len(_killed), "findings killed", "each with the number that decided it", "hx-bad"),
                     stat(len(_found), "published headline genes", "rediscovered from the table alone", "hx-good"))
@@ -103,7 +113,7 @@ def _(mo, DATA, REASON, cards, stat, stats, helix_on):
               if _on else mo.md("The sixty findings from slide 1, exactly as the assistant wrote them. Nothing has been checked yet."))
     _redisc = (mo.callout(mo.md("**And the survivors include what the scientists actually published.** The scout never saw the paper. From the table alone it proposed, and the critic passed: "
                                 + "; ".join(f"**{g}**, {w}" for g, w in _found) + "."), kind="success") if _on and _found else mo.md(""))
-    slide6 = mo.vstack([mo.md("# Now turn Helix on"), mo.hstack([helix_on], justify="start"), _intro, _tiles, cards(_leads, _on, REASON), _redisc])
+    slide6 = mo.vstack([mo.md("# The same sixty, through Helix"), _intro, _tiles, cards(_leads, _on, REASON), _redisc])
     return (slide6,)
 
 
@@ -225,8 +235,16 @@ def _(mo):
 
 @app.cell
 def _(mo, slide1, slide2, slide3, slide4, slide5, slide6, slide7):
-    mo.ui.tabs({"1 · The problem": slide1, "2 · How it works": slide2, "3 · The product": slide3, "4 · Does it learn?": slide4,
-                "5 · The proof": slide5, "6 · Helix on": slide6, "7 · Close": slide7})
+    _keys = mo.Html('<iframe style="display:none" srcdoc="<script>'
+                    'parent.document.addEventListener(&quot;keydown&quot;, function(e){'
+                    'if (e.target && /INPUT|TEXTAREA|SELECT/.test(e.target.tagName)) return;'
+                    'var d = (e.key===&quot;ArrowRight&quot;||e.key===&quot;PageDown&quot;) ? 1 : (e.key===&quot;ArrowLeft&quot;||e.key===&quot;PageUp&quot;) ? -1 : 0;'
+                    'if (!d) return; var tabs = Array.from(parent.document.querySelectorAll(&quot;[role=tab]&quot;)); if (!tabs.length) return;'
+                    'var i = tabs.findIndex(function(t){return t.getAttribute(&quot;aria-selected&quot;)===&quot;true&quot; || t.dataset.state===&quot;active&quot;;});'
+                    'var n = Math.min(Math.max(i + d, 0), tabs.length - 1); if (n !== i) { tabs[n].click(); e.preventDefault(); window.parent.scrollTo(0,0); }'
+                    '});</script>"></iframe>')
+    mo.vstack([_keys, mo.ui.tabs({"1 · The problem": slide1, "2 · How it works": slide2, "3 · The product": slide3, "4 · Does it learn?": slide4,
+                                  "5 · The proof": slide5, "6 · Helix on": slide6, "7 · Close": slide7})])
     return
 
 
