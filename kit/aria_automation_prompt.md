@@ -52,7 +52,7 @@ artifact `critic-rules:iteration-NNN`.
 
    At most 3 sections, each under 90 words. Humans' labels are ground truth: never add an
    exception that lets the critic keep its current answer.
-4. WRITE THE PATCH BACK so the loop can test it. Run Python:
+4. WRITE THE PATCH BACK FIRST, before composing any explanation (the loop is waiting). Run Python:
        import wandb; api = wandb.Api(); run = api.run("${project_name}/${run_id}")
        run.summary["aria/patch"] = <the patch text>; run.summary.update()
    If you cannot run code, put the patch text in this run's Notes field instead.
@@ -60,6 +60,14 @@ artifact `critic-rules:iteration-NNN`.
    and adopts it only if it scores best. Your patch's fate is visible in the next run's config.
 5. Reply with: the patterns you found, the sections you changed, and one sentence on regression risk.
 
-## Demo flow (3 minutes)
-iteration runs (seconds) -> marimo chart updates -> switch to W&B: ARIA's diagnosis appears
--> show the rules diff the loop wrote -> next iteration -> chart rises -> holdout number.
+## Demo flow (3 minutes, one live iteration with ARIA)
+Before walking up (5-8 min ahead), with the rehearsal run's results/rules on disk:
+    python3 loop.py --judge N --group demo          # judges rules_vN, logs the run, ARIA gets prompted
+ARIA writes its patch onto that run while you wait to go on.
+On stage:
+    python3 loop.py --revise N --wait-for-aria 30 --group demo   # ~30 s
+    -> prints "ARIA's patch received; it enters the tournament", scores ARIA vs Qwen vs DeepSeek
+       on all 90 train leads, writes rules_v{N+1}.md with the winner's name in its metadata.
+Show: the W&B run + ARIA's conversation (its diagnosis + patch), the candidate scores in the
+terminal, the rules diff in the dashboard tab, the chart with the new point, then the holdout line.
+If ARIA's patch is not on the run yet, --revise still works: the two model architects compete.
