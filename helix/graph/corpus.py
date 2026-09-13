@@ -124,3 +124,59 @@ def fetch_papers(studies, fulltext=True, progress=print):
     n_ft = sum(1 for p in papers.values() if p.get("sections"))
     progress(f"{len(papers)} papers, {sum(1 for p in papers.values() if p.get('abstract'))} abstracts, {n_ft} with open-access full text")
     return papers
+
+
+# ---------------------------------------------------------------- passages
+_SENT = re.compile(r"(?<=[.!?])\s+(?=[A-Z0-9(])")
+
+
+def chunk(text, max_words=MAX_WORDS):
+    """Sentence-bounded chunks of at most max_words; a lone long sentence stays whole."""
+    out, cur = [], []
+    for s in _SENT.split(text.strip()):
+        if cur and len(" ".join(cur + [s]).split()) > max_words:
+            out.append(" ".join(cur)); cur = []
+        cur.append(s)
+    if cur:
+        out.append(" ".join(cur))
+    return [c for c in out if len(c.split()) >= 6]
+
+
+def build_passages(studies, papers, progress=print):
+    """passages.jsonl: {id, source: 'osdr'|'abstract'|'fulltext', pmid, osd_ids, section, text}."""
+    path = os.path.join(DIR, "passages.jsonl")
+    rows = []
+    for osd, s in studies.items():
+        for k, c in enumerate(chunk(s["description"])):
+            rows.append({"id": f"{osd}:desc:{k}", "source": "osdr", "pmid": "", "osd_ids": [osd], "section": "study description", "text": c})
+    for pmid, p in papers.items():
+        for k, c in enumerate(chunk(p.get("abstract", ""))):
+            rows.append({"id": f"pmid{pmid}:abs:{k}", "source": "abstract", "pmid": pmid, "osd_ids": p["osd_ids"], "section": "abstract", "text": c})
+        for si, sec in enumerate(p.get("sections", [])):
+            for pi, para in enumerate(sec["paragraphs"]):
+                for k, c in enumerate(chunk(para)):
+                    rows.append({"id": f"pmid{pmid}:s{si}p{pi}:{k}", "source": "fulltext", "pmid": pmid, "osd_ids": p["osd_ids"],
+                                 "section": sec["title"] or "body", "text": c})
+    with open(path, "w") as f:
+        for r in rows:
+            f.write(json.dumps(r) + "\n")
+    by = {}
+    for r in rows:
+        by[r["source"]] = by.get(r["source"], 0) + 1
+    progress(f"{len(rows)} passages: {by}")
+    return rows
+
+
+def load_passages():
+    return [json.loads(l) for l in open(os.path.join(DIR, "passages.jsonl"))]
+
+
+def build(fulltext=True, progress=print):
+    os.makedirs(DIR, exist_ok=True)
+    studies = fetch_studies(progress)
+    papers = fetch_papers(studies, fulltext=fulltext, progress=progress)
+    return studies, papers, build_passages(studies, papers, progress)
+
+
+if __name__ == "__main__":
+    build(fulltext="--no-fulltext" not in sys.argv)
