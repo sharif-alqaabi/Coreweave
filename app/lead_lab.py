@@ -175,5 +175,47 @@ def _(mo, novelty):
     return lead_pick, fetch
 
 
+@app.cell
+def _(mo, novelty, lead_pick):
+    if novelty is None or lead_pick is None:
+        detail = None
+    else:
+        _l = next(x for x in novelty["leads"] if x["id"] == lead_pick.value)
+        where = [{"study": w["osd_id"], "tissue": w["material"][:40], "factors": w["factors"][:40], "assay": w["assay"][:25],
+                  "comparable (0-3)": w["comparable"], "P(direct test)": w["p_direct"], "P(same factor)": w["same_factor"],
+                  "on disk": "yes" if w["on_disk"] else ""} for w in _l["where_to_look"]]
+        num = [{"study": n["osd_id"], "tissue": n["material"][:30], "comparable": n["comparable"], "verdict": n["verdict"],
+                "Jev said": n["jev_verdict"], "P(replicated)": n["p_replicated"], "P(contradicted)": n["p_contradicted"],
+                **{k: v for k, v in n["agreement"].items()},
+                "numbers": "; ".join(f"{g}: log2fc {f.get('log2fc')}, padj {f['padj']:.2g}" if isinstance(f.get("padj"), float) and f["padj"] == f["padj"]
+                                     else f"{g}: {f.get('error', 'padj NA')}" for g, f in list(n["facts"].items())[:4] if isinstance(f, dict))[:200]}
+               for n in _l["numeric"]]
+        detail = mo.vstack([
+            mo.md(f"### {_l['id']}: {_l['claim']}\n**Verdict: {_l['verdict']}.** Scout's novelty claim: _{_l['why_not_known']}_"),
+            mo.md("**Tier 1: where to look.** Jev's comparability score for the top catalog studies (all 243 scored, top 12 shown)."),
+            mo.ui.table(where, selection=None, page_size=12),
+            mo.md("**Tier 2: the numbers.** Per-gene direction tally is pandas; Jev's choice is gated by it (no 'contradicted' without a significant opposite gene)."),
+            mo.ui.table(num, selection=None, page_size=8) if num else mo.md("_No comparable table on disk yet: download above._"),
+        ])
+    detail
+    return
+
+
+@app.cell
+def _(mo, novelty, fetch, replicate):
+    # Pull the catalog studies Jev rated as direct tests but that are not on disk, so Tier 2 can use them on the next check.
+    got = []
+    if novelty is not None and fetch is not None and fetch.value:
+        _missing = sorted({w["osd_id"] for l in novelty["leads"] for w in l["where_to_look"] if w["comparable"] >= 2.5 and not w["on_disk"]})
+        with mo.status.spinner(title=f"Downloading {len(_missing)} table(s) from OSDR (about 20-100 MB each)"):
+            for oid in _missing:
+                try:
+                    replicate.fetch_dge(oid, progress=lambda s: None); got.append(oid)
+                except Exception as e:
+                    got.append(f"{oid} failed: {type(e).__name__}")
+    mo.md(f"_Downloaded: {', '.join(got)}. Press **Verify with TypeSafe** again to use them._") if got else None
+    return
+
+
 if __name__ == "__main__":
     app.run()
