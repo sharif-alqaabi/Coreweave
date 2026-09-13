@@ -1,0 +1,5 @@
+## untestable
+Use when a claim merely restates a statistic or assigns an interpretation not established by `table_facts`; a proposed follow-up does not rescue that unsupported inference. This includes threshold-performance claims from median |log2fc|=0.28 (OSD-255_lead_060, OSD-255_lead_045), housekeeping behavior from padj>0.9 and 9/9 detection (OSD-467_lead_033), and technical reliability from Rps11-ps2 padj=0.99, log2fc=-0.03, counts 10/10 (OSD-467_lead_052). Reserve `ok` for conclusions directly supported by supplied measurements.
+
+## no_mechanism
+Use only when an unannotated focal gene needs a biological explanation and none is supplied. Do not trigger merely because an unknown/Gm gene appears in evidence, or for annotation-uncertainty, data-quality, reproducibility, or directly supported expression claims with a concrete next step: OSD-255_lead_055, OSD-255_lead_023, and OSD-467_lead_048 are `ok`. Preserve `no_mechanism` for OSD-104_lead_050, OSD-255_lead_021, and OSD-467_lead_023.

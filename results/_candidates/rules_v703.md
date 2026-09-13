@@ -22,8 +22,7 @@ The effect rests on very low counts or a weak p-value. Threshold: mean count in 
 The claim restates the dataset's headline (e.g., muscle structure genes change in a muscle atrophy model) without a new angle, or `why_not_known` is missing. Applies to OSD-104_lead_048, OSD-104_lead_041, OSD-104_lead_038, and OSD-104_lead_037—all citing expected GO enrichments.
 
 ## untestable
-`next_step` is missing, vague ("investigate further"), or not achievable with this data or a
-follow-up experiment. A global claim with no way to check it also lands here.
+Apply before `ok`: a concrete next step cannot rescue a claim whose core inference is absent from `table_facts`. Kill descriptive/global restatements presented as insight (OSD-255_lead_060, OSD-255_lead_045), non-significant trends promoted to a meaningful signal (OSD-467_lead_059), “housekeeping-like” behavior inferred only from stable detection (OSD-467_lead_033), and “technical reliability” inferred from one stable pseudogene (OSD-467_lead_052). Do not apply to explicit reproducibility/data-quality checks supported by multi-gene carrier or null-gene patterns.
 
 ## no_mechanism
 The numbers hold but the claim offers no biological reason and the gene has no annotated function (predicted genes, "Gm" prefix, or GENENAME unknown). Applies to OSD-104_lead_050 (Gm5532) and OSD-467_lead_023 (Gm11266). Fixes: OSD-104_lead_050, OSD-467_lead_023.
