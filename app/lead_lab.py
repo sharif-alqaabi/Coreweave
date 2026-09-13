@@ -32,7 +32,8 @@ def _(mo, best_rules, glob, os):
         mo.md("# OSDR Lead Lab"),
         mo.md("Upload a NASA OSDR **differential expression** CSV (any of the 243 studies in `data/osdr_catalog.csv`). "
               "The pipeline summarizes it, proposes 60 hypotheses, attaches the true numbers, and judges every one "
-              f"with the trained rules (**{os.path.basename(best_rules())}**, learned over {len(versions)-1} revisions)."),
+              f"with the shipped rules, **{os.path.basename(best_rules())}**: the version with the best score on the 90 unseen "
+              f"holdout leads, out of {len(versions)} distinct rulebooks the loop produced."),
     ])
     return (versions,)
 
