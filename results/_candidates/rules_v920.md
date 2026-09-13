@@ -8,10 +8,10 @@ No rule below applies. The claim is supported by the numbers, is not a textbook 
 and names a concrete next step.
 
 ## confound
-The signal comes from a minority of samples (carriers below half the group, e.g., 3/6) or involves samples flagged in `sample_flags` (e.g., M24, M26 in lead_013, lead_054). Applies when both carriers and flagged samples align with outlier patterns. Fixes: lead_054, lead_013.
+Applies only when flagged samples (e.g., M24, M26) are the sole drivers of the signal *and* carriers are a minority (below half the group). Does not apply if multiple samples contribute or claim addresses data quality (e.g., outlier detection). Fixes: lead_054.
 
 ## underpowered
-The effect rests on very low counts: mean count in the higher group below 20. Overrides carrier count or padj. Applies to lead_021 (Sox21=8), lead_023 (Esrp1=13), lead_030 (S100a14=11, Calhm4=8), lead_028 (Krtap11-1=7), lead_022 (Msx2=14), lead_057 (Esrp1=13). Fixes: lead_021.
+The effect rests on very low counts: mean count in the higher group below 20 *and* the claim focuses on individual genes. Does not apply to pathway or enrichment claims (e.g., Slc overrepresentation). Overrides carrier count or padj only for single-gene inferences. Fixes: lead_043.
 
 ## contradicted
 `table_facts` disagree with the claim: wrong direction, gene not in the table, padj above

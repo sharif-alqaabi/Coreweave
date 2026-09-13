@@ -1,7 +1,7 @@
 {
  "version": 2,
  "parent": "rules_v1.md",
- "author": "claude",
+ "author": "Qwen3-235B-A22B-Instruct-2507",
  "change_reason": "iter 1 misses",
  "sections": [
   "underpowered",

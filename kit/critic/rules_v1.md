@@ -13,24 +13,19 @@ Threshold: carriers below half of the group (e.g. 2/6). Example: Krt17, carriers
 both carriers flagged.
 
 ## underpowered
-The effect rests on very low counts or a single gene with a weak p-value.  
-Threshold: mean count in the higher group below 20, or padj between 0.01 and 0.05 with carriers below 4/6.  
-Example: Fermt1, mean count 7. Applies to individual genes or claims aggregating genes with low expression.  
-(fixes: lead_057, lead_030)
+The effect rests on very low counts. Threshold: mean count in the higher group below 20. Applies to lead_057 (Esrp1, mean=13), lead_030 (S100a14=11, Calhm4=8), and lead_023 (Esrp1=13). Ignore padj or carrier count if this threshold is met.
 
 ## contradicted
 `table_facts` disagree with the claim: wrong direction, gene not in the table, padj above
 0.05, or the scout's quoted numbers do not match the table.
 
 ## already_known
-`why_not_known` does not give a reason, or the claim restates the dataset's headline
-(e.g. "muscle structure genes change in a muscle atrophy model") without a new angle.
+The claim restates the dataset's headline or a broad pattern without a new angle (e.g., enrichment of muscle or structural terms like GO:0061061, GO:0031674, GO:0030017). Applies to lead_048, lead_041, lead_038, lead_037.
 
 ## untestable
 `next_step` is missing, vague ("investigate further"), or not achievable with this data or a
 follow-up experiment. A global claim with no way to check it also lands here.
 
 ## no_mechanism
-The numbers hold but the claim offers no biological reason and the gene has no annotated function (predicted genes, "Gm" prefix, or GENENAME unknown).  
-This rule does not apply if the gene has a well-annotated function or belongs to a characterized family (e.g., ion channels, kinases, structural proteins).  
-(fixes: lead_050)
+The numbers hold but the claim offers no biological reason and the gene has no annotated
+function (predicted genes, "Gm" prefix, or GENENAME unknown).

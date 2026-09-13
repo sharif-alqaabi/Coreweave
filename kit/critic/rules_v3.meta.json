@@ -1,10 +1,10 @@
 {
  "version": 3,
  "parent": "rules_v2.md",
- "author": "claude",
+ "author": "Qwen3-235B-A22B-Instruct-2507",
  "change_reason": "iter 2 misses",
  "sections": [
-  "already_known",
-  "no_mechanism"
+  "confound",
+  "underpowered"
  ]
 }
