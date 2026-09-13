@@ -22,8 +22,7 @@ The effect rests on very low counts or a weak p-value. Threshold: mean count in 
 The claim restates the dataset's headline (e.g., muscle structure genes change in a muscle atrophy model) without a new angle, or `why_not_known` is missing. Applies to OSD-104_lead_048, OSD-104_lead_041, OSD-104_lead_038, and OSD-104_lead_037—all citing expected GO enrichments.
 
 ## untestable
-`next_step` is missing, vague ("investigate further"), or not achievable with this data or a
-follow-up experiment. A global claim with no way to check it also lands here.
+Kill when a descriptive statistic is used to claim an unmeasured general property: a distribution from exemplars, housekeeping or technical reliability from padj/carriers, pathway absence from top hits, or a “consistent trend” from nonsignificance. Correlation, power, simulation, enrichment, or variance analysis proposed later does not rescue the current claim; it shows the claim is not yet established. Apply to OSD-255_lead_060, OSD-255_lead_048, OSD-255_lead_045, OSD-467_lead_059, OSD-467_lead_033, OSD-467_lead_052, and OSD-467_lead_049. Do not apply to directly measured significant changes or set-wide data-quality checks.
 
 ## no_mechanism
 The numbers hold but the claim offers no biological reason and the gene has no annotated

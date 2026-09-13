@@ -24,5 +24,13 @@
 "GO:0071805": "potassium ion transmembrane transport",
 "GO:0034976": "response to endoplasmic reticulum stress",
 "GO:0110165": "cellular anatomical structure",
-"GO:0009987": "cellular process"
+"GO:0009987": "cellular process",
+"GO:0000070": "mitotic sister chromatid segregation",
+"GO:0098687": "chromosomal region",
+"GO:0000819": "sister chromatid segregation",
+"GO:0000779": "condensed chromosome, centromeric region",
+"GO:0000776": "kinetochore",
+"GO:0000775": "chromosome, centromeric region",
+"GO:0022626": "cytosolic ribosome",
+"GO:0022625": "cytosolic large ribosomal subunit"
 }

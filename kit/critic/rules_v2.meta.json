@@ -1,11 +1,11 @@
 {
  "version": 2,
  "parent": "rules_v1.md",
- "author": "Qwen3-235B-A22B-Instruct-2507",
+ "author": "DeepSeek-V3.1",
  "change_reason": "iter 1 misses",
  "sections": [
   "underpowered",
-  "already_known",
-  "contradicted"
+  "no_mechanism",
+  "examples"
  ]
 }
