@@ -7,3 +7,5 @@ ledger/*.jsonl
 traces/*.json
 kit/.history/
 .DS_Store
+wandb/
+.marimo/

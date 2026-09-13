@@ -1,0 +1,10 @@
+{
+ "version": 5,
+ "parent": "rules_v4.md",
+ "author": "claude",
+ "change_reason": "iter 4 misses",
+ "sections": [
+  "confound",
+  "no_mechanism"
+ ]
+}

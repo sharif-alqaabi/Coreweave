@@ -1,0 +1,377 @@
+{
+ "verdicts": [
+  {
+   "lead_id": "lead_057",
+   "rules_version": 2,
+   "label": "underpowered",
+   "confidence": 0.95,
+   "reason": "The mean count in the higher group (Space Flight) is 13, which is below the threshold of 20, triggering the underpowered rule."
+  },
+  {
+   "lead_id": "lead_054",
+   "rules_version": 2,
+   "label": "confound",
+   "confidence": 1.0,
+   "reason": "Sample M24 and M26 are each carriers for 2/6 or 3/6 in the top genes, which is below half the group and both are flagged in sample_flags, meeting the confound threshold."
+  },
+  {
+   "lead_id": "lead_058",
+   "rules_version": 2,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "The claim is supported by the table facts: Samd7 has 6/6 carriers, padj=3.9e-10, and log2fc=4.17, indicating strong, reproducible upregulation in SF, and the next step is concrete and testable."
+  },
+  {
+   "lead_id": "lead_055",
+   "rules_version": 2,
+   "label": "confound",
+   "confidence": 0.95,
+   "reason": "Carriers for Krt17 are 2/6, below half of the group, and both carrier samples (M24 and M26) are flagged in sample_flags as being among <=2 carriers for 4 of the top 50 genes, indicating a potential technical artifact or outlier-driven signal."
+  },
+  {
+   "lead_id": "lead_034",
+   "rules_version": 2,
+   "label": "underpowered",
+   "confidence": 0.95,
+   "reason": "Fermt1 has a mean count of 7 in the higher group (Space Flight), which is below the threshold of 20, triggering the underpowered rule."
+  },
+  {
+   "lead_id": "lead_025",
+   "rules_version": 2,
+   "label": "confound",
+   "confidence": 0.95,
+   "reason": "Krt17, Krt25, Krt14, Krt35, and Krt5 each have carriers 2/6 or 3/6, and both M24 and M26 are flagged samples that appear in all carrier lists, indicating the signal is driven by a minority of samples."
+  },
+  {
+   "lead_id": "lead_028",
+   "rules_version": 2,
+   "label": "underpowered",
+   "confidence": 0.95,
+   "reason": "Krtap11-1 has a mean count of 7 in Space Flight, which is below the threshold of 20, and its padj (0.046) is between 0.01 and 0.05 with only 3/6 carriers, meeting the underpowered criterion."
+  },
+  {
+   "lead_id": "lead_030",
+   "rules_version": 2,
+   "label": "underpowered",
+   "confidence": 0.95,
+   "reason": "Both genes have mean counts below 20 in the higher group (S100a14: 11, Calhm4: 8), meeting the underpowered threshold per the rules."
+  },
+  {
+   "lead_id": "lead_026",
+   "rules_version": 2,
+   "label": "confound",
+   "confidence": 0.95,
+   "reason": "Dsg1a has only 2/6 carriers and both M24 and M26 are flagged in sample_flags, indicating the signal is driven by samples with potential technical issues."
+  },
+  {
+   "lead_id": "lead_050",
+   "rules_version": 2,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "All genes in the claim have padj < 1e-50, carriers 6/6, and mean counts well above 20, supporting strong and consistent regulation; the next step is specific and testable."
+  },
+  {
+   "lead_id": "lead_045",
+   "rules_version": 2,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "The claim that more genes are downregulated (2505) than upregulated (2099) is supported by the dataset summary, which states 4604 significant genes at FDR<0.05 with exactly those numbers, and the next step is concrete and testable."
+  },
+  {
+   "lead_id": "lead_048",
+   "rules_version": 2,
+   "label": "ok",
+   "confidence": 1.0,
+   "reason": "The claim is supported by high mean counts and significant padj values for Synm and Ablim1, and the next step of correlating fold change with baseline expression is concrete and testable."
+  },
+  {
+   "lead_id": "lead_052",
+   "rules_version": 2,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "Ctsl has padj=0.74 > 0.05 and log2fc=0.06 near zero, supporting stable expression, and using it as a reference gene in qPCR is a valid next step per the data."
+  },
+  {
+   "lead_id": "lead_041",
+   "rules_version": 2,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "The claim reports 30/52 significant genes in GO:0061061 with 2.81-fold enrichment, which matches the table facts, and the next step 'Assess satellite cell activation markers' is concrete and actionable."
+  },
+  {
+   "lead_id": "lead_043",
+   "rules_version": 2,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "Multiple Slc genes show significant upregulation with padj < 0.05, carriers 6/6 or 4/6, and mean counts above 20 for most; claim is supported, not contradicted, and proposes a testable next step via metabolomics."
+  },
+  {
+   "lead_id": "lead_044",
+   "rules_version": 2,
+   "label": "confound",
+   "confidence": 0.95,
+   "reason": "Krt17, Krt25, Krt14, Krt5 have carriers 2/6, and both M24 and M26 are flagged in sample_flags, indicating the signal is driven by flagged samples."
+  },
+  {
+   "lead_id": "lead_038",
+   "rules_version": 2,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "The claim reports 20/32 significant genes in GO:0031674 with 3.05-fold enrichment, which matches the table_facts, and proposes a concrete next step using long-read RNA-seq to analyze Ttn isoforms."
+  },
+  {
+   "lead_id": "lead_037",
+   "rules_version": 2,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "The claim reports 31/47 significant genes in sarcomere (GO:0030017) with an enrichment of 3.21, which matches the table facts, and the next step 'Measure passive tension in single myofibers' is concrete and biologically relevant."
+  },
+  {
+   "lead_id": "lead_013",
+   "rules_version": 2,
+   "label": "underpowered",
+   "confidence": 0.95,
+   "reason": "The mean count in the higher group (Space Flight) is 34, which is above 20, but padj=0.0439 is between 0.01 and 0.05 and carriers are 3/6, which is below 4/6, meeting the underpowered threshold."
+  },
+  {
+   "lead_id": "lead_005",
+   "rules_version": 2,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "The claim is supported by the table facts (padj=2.8e-66, log2fc=-1.05, higher in Ground Control), carriers are 6/6, and the next step is concrete and testable."
+  },
+  {
+   "lead_id": "lead_004",
+   "rules_version": 2,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "The claim is supported by the table facts (padj=1.7e-68, log2fc=+2.52, carriers=6/6), the next step is concrete, and the 'why_not_known' provides a valid biological puzzle despite Cntfr's known neural association."
+  },
+  {
+   "lead_id": "lead_010",
+   "rules_version": 2,
+   "label": "confound",
+   "confidence": 0.95,
+   "reason": "Krt25 has only 2/6 carriers (M24 and M26), both of which are flagged in sample_flags as being among the <=2 carriers for 4 of the top 50 genes, indicating the signal is driven by a minority of samples with potential technical or biological outliers."
+  },
+  {
+   "lead_id": "lead_023",
+   "rules_version": 2,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "The claim is supported by the table facts (log2fc=4.4, padj=0.0027, higher in Space Flight, carriers 6/6), the biological rationale is provided (splicing reprogramming), and the next step is concrete and testable."
+  },
+  {
+   "lead_id": "lead_020",
+   "rules_version": 2,
+   "label": "underpowered",
+   "confidence": 0.95,
+   "reason": "The claim has padj=0.0106 (within 0.01\u20130.05) but only 4/6 carriers, which meets the underpowered threshold."
+  },
+  {
+   "lead_id": "lead_019",
+   "rules_version": 2,
+   "label": "underpowered",
+   "confidence": 0.95,
+   "reason": "The claim has padj=0.0085 < 0.05 but mean count in the higher group (Space Flight) is 9, which is below the threshold of 20, triggering the underpowered rule."
+  },
+  {
+   "lead_id": "lead_006",
+   "rules_version": 2,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "The claim is supported by the table facts (log2fc=0.73, padj=3.4e-56, higher in Space Flight, carriers 6/6), the gene has a known structural function, and the next step is specific and testable."
+  },
+  {
+   "lead_id": "lead_008",
+   "rules_version": 2,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "The claim is supported by the table facts (log2fc=0.99, padj=2.87e-52, 6/6 carriers), the biological rationale is novel per 'why_not_known', and the next step (testing phosphorylation) is concrete and testable."
+  },
+  {
+   "lead_id": "lead_021",
+   "rules_version": 2,
+   "label": "underpowered",
+   "confidence": 0.95,
+   "reason": "The claim has padj=0.0138 < 0.05 but carriers=4/6 and mean count in the higher group (Space Flight) is 8, which is below the threshold of 20, triggering the underpowered rule."
+  },
+  {
+   "lead_id": "lead_011",
+   "rules_version": 2,
+   "label": "confound",
+   "confidence": 0.95,
+   "reason": "The signal for Krt14 is based on only 2 out of 6 carriers (M24 and M26), both of which are flagged in sample_flags as being among the <=2 carriers for 4 of the top 50 genes, indicating a minority-sample-driven effect."
+  },
+  {
+   "lead_id": "lead_022",
+   "rules_version": 2,
+   "label": "underpowered",
+   "confidence": 0.95,
+   "reason": "The claim has padj=5.2e-03 (within 0.01\u20130.05) and carriers=5/6, but the mean count in the higher group (Space Flight) is 7, which is below the threshold of 20, triggering the underpowered rule."
+  }
+ ],
+ "metrics": {
+  "screening/kill_precision": 0.9375,
+  "screening/kill_recall": 0.7142857142857143,
+  "screening/false_kill_rate": 0.1111111111111111,
+  "screening/reason_accuracy": 0.7333333333333333,
+  "screening/n_hypotheses": 30,
+  "screening/false_kills": 1,
+  "screening/true_kills": 15,
+  "screening/predicted_kills": 16,
+  "screening/n_human_kill": 21,
+  "screening/mean_confidence": 0.9533333333333329,
+  "reason/ok/precision": 0.5714285714285714,
+  "reason/ok/recall": 0.8888888888888888,
+  "reason/ok/support": 9,
+  "reason/already_known/precision": null,
+  "reason/already_known/recall": 0.0,
+  "reason/already_known/support": 4,
+  "reason/underpowered/precision": 0.8888888888888888,
+  "reason/underpowered/recall": 0.8888888888888888,
+  "reason/underpowered/support": 9,
+  "reason/confound/precision": 0.8571428571428571,
+  "reason/confound/recall": 0.8571428571428571,
+  "reason/confound/support": 7,
+  "reason/contradicted/precision": null,
+  "reason/contradicted/recall": null,
+  "reason/contradicted/support": 0,
+  "reason/untestable/precision": null,
+  "reason/untestable/recall": null,
+  "reason/untestable/support": 0,
+  "reason/no_mechanism/precision": null,
+  "reason/no_mechanism/recall": 0.0,
+  "reason/no_mechanism/support": 1
+ },
+ "misses": [
+  {
+   "hypothesis_id": "lead_054",
+   "hypothesis_text": "Sample M26 is a carrier for 4 of the top 50 genes, similar to M24, indicating potential outlier status.",
+   "shape": "data_quality",
+   "critic_verdict": "kill",
+   "critic_reason_code": "confound",
+   "critic_confidence": 1.0,
+   "critic_reason": "Sample M24 and M26 are each carriers for 2/6 or 3/6 in the top genes, which is below half the group and both are flagged in sample_flags, meeting the confound threshold.",
+   "human_verdict": "keep",
+   "human_reason_code": "ok",
+   "human_note": "A=ok; B=confound; adjudicated: ",
+   "is_correct": false,
+   "is_false_kill": true,
+   "rules_version": 2,
+   "table_facts": "{'Krt17': {'log2fc': 21.87, 'padj': 1.4139553306249598e-11, 'higher_group': 'Space Flight', 'carriers': '2/6', 'carrier_samples': ['M24', 'M26'], 'mean_count': {'Space Flight': 35, 'Ground Control': 1}}, 'Krt25': {'log2fc': 8.35, 'padj': 0.0251391928748691, 'higher_group': 'Space Flight', 'carriers': '2/6', 'carrier_samples': ['M24', 'M26'], 'mean_count': {'Space Flight': 53, 'Ground Control': 1}}, 'Krt14': {'log2fc': 8.3, 'padj': 0.0262169339776821, 'higher_group': 'Space Flight', 'carriers': '"
+  },
+  {
+   "hypothesis_id": "lead_050",
+   "hypothesis_text": "Genes with padj < 1e-50 (e.g., Mettl21e, Slc4a3, Gm5532) are strongly and consistently regulated.",
+   "shape": "global",
+   "critic_verdict": "keep",
+   "critic_reason_code": "ok",
+   "critic_confidence": 0.95,
+   "critic_reason": "All genes in the claim have padj < 1e-50, carriers 6/6, and mean counts well above 20, supporting strong and consistent regulation; the next step is specific and testable.",
+   "human_verdict": "kill",
+   "human_reason_code": "no_mechanism",
+   "human_note": "A=no_mechanism; B=contradicted; adjudicated: ",
+   "is_correct": false,
+   "is_false_kill": false,
+   "rules_version": 2,
+   "table_facts": "{'Mettl21e': {'log2fc': 4.08, 'padj': 3.3461333604203397e-28, 'higher_group': 'Space Flight', 'carriers': '6/6', 'carrier_samples': ['M23', 'M24', 'M25', 'M26', 'M27', 'M28'], 'mean_count': {'Space Flight': 1064, 'Ground Control': 64}}, 'Slc4a3': {'log2fc': -2.23, 'padj': 6.6995885764414e-102, 'higher_group': 'Ground Control', 'carriers': '6/6', 'carrier_samples': ['M33', 'M34', 'M35', 'M36', 'M37', 'M38'], 'mean_count': {'Space Flight': 297, 'Ground Control': 1393}}, 'Gm5532': {'log2fc': -2.07,"
+  },
+  {
+   "hypothesis_id": "lead_048",
+   "hypothesis_text": "Genes with high mean count (e.g., Synm, Ablim1) show significant differential expression.",
+   "shape": "global",
+   "critic_verdict": "keep",
+   "critic_reason_code": "ok",
+   "critic_confidence": 1.0,
+   "critic_reason": "The claim is supported by high mean counts and significant padj values for Synm and Ablim1, and the next step of correlating fold change with baseline expression is concrete and testable.",
+   "human_verdict": "kill",
+   "human_reason_code": "already_known",
+   "human_note": "A=already_known; B=invalid; adjudicated: ",
+   "is_correct": false,
+   "is_false_kill": false,
+   "rules_version": 2,
+   "table_facts": "{'Synm': {'log2fc': 0.73, 'padj': 3.39407125196582e-56, 'higher_group': 'Space Flight', 'carriers': '6/6', 'carrier_samples': ['M23', 'M24', 'M25', 'M26', 'M27', 'M28'], 'mean_count': {'Space Flight': 44941, 'Ground Control': 27097}}, 'Ablim1': {'log2fc': -1.76, 'padj': 1.10739928671315e-65, 'higher_group': 'Ground Control', 'carriers': '6/6', 'carrier_samples': ['M33', 'M34', 'M35', 'M36', 'M37', 'M38'], 'mean_count': {'Space Flight': 11864, 'Ground Control': 40096}}, 'Myoz1': {'log2fc': 1.04, "
+  },
+  {
+   "hypothesis_id": "lead_041",
+   "hypothesis_text": "Muscle structure development (GO:0061061) genes are enriched among significant genes with 30/52 significant.",
+   "shape": "pathway",
+   "critic_verdict": "keep",
+   "critic_reason_code": "ok",
+   "critic_confidence": 0.95,
+   "critic_reason": "The claim reports 30/52 significant genes in GO:0061061 with 2.81-fold enrichment, which matches the table facts, and the next step 'Assess satellite cell activation markers' is concrete and actionable.",
+   "human_verdict": "kill",
+   "human_reason_code": "already_known",
+   "human_note": "Muscle structure development gene changes are textbook expected in spaceflight muscle atrophy models.",
+   "is_correct": false,
+   "is_false_kill": false,
+   "rules_version": 2,
+   "table_facts": "{'GO:0061061': {'name': 'muscle structure development', 'genes_in_term': 52, 'significant': 30, 'up': 18, 'down': 12, 'enrichment_vs_baseline': 2.81}}"
+  },
+  {
+   "hypothesis_id": "lead_038",
+   "hypothesis_text": "I band (GO:0031674) genes are enriched among significant genes with 20/32 significant.",
+   "shape": "pathway",
+   "critic_verdict": "keep",
+   "critic_reason_code": "ok",
+   "critic_confidence": 0.95,
+   "critic_reason": "The claim reports 20/32 significant genes in GO:0031674 with 3.05-fold enrichment, which matches the table_facts, and proposes a concrete next step using long-read RNA-seq to analyze Ttn isoforms.",
+   "human_verdict": "kill",
+   "human_reason_code": "already_known",
+   "human_note": "A=already_known; B=invalid; adjudicated: ",
+   "is_correct": false,
+   "is_false_kill": false,
+   "rules_version": 2,
+   "table_facts": "{'GO:0031674': {'name': 'I band', 'genes_in_term': 32, 'significant': 20, 'up': 8, 'down': 12, 'enrichment_vs_baseline': 3.05}}"
+  },
+  {
+   "hypothesis_id": "lead_037",
+   "hypothesis_text": "Sarcomere (GO:0030017) genes are enriched among significant genes with 31/47 significant.",
+   "shape": "pathway",
+   "critic_verdict": "keep",
+   "critic_reason_code": "ok",
+   "critic_confidence": 0.95,
+   "critic_reason": "The claim reports 31/47 significant genes in sarcomere (GO:0030017) with an enrichment of 3.21, which matches the table facts, and the next step 'Measure passive tension in single myofibers' is concrete and biologically relevant.",
+   "human_verdict": "kill",
+   "human_reason_code": "already_known",
+   "human_note": "Sarcomere gene enrichment is textbook for muscle atrophy models like spaceflight/hindlimb unloading.",
+   "is_correct": false,
+   "is_false_kill": false,
+   "rules_version": 2,
+   "table_facts": "{'GO:0030017': {'name': 'sarcomere', 'genes_in_term': 47, 'significant': 31, 'up': 14, 'down': 17, 'enrichment_vs_baseline': 3.21}}"
+  },
+  {
+   "hypothesis_id": "lead_013",
+   "hypothesis_text": "Krt35 is upregulated in space flight with log2fc=+7.65 and padj=4.4e-02.",
+   "shape": "single_gene",
+   "critic_verdict": "kill",
+   "critic_reason_code": "underpowered",
+   "critic_confidence": 0.95,
+   "critic_reason": "The mean count in the higher group (Space Flight) is 34, which is above 20, but padj=0.0439 is between 0.01 and 0.05 and carriers are 3/6, which is below 4/6, meeting the underpowered threshold.",
+   "human_verdict": "kill",
+   "human_reason_code": "confound",
+   "human_note": "A=confound; B=underpowered; adjudicated: ",
+   "is_correct": false,
+   "is_false_kill": false,
+   "rules_version": 2,
+   "table_facts": "{'Krt35': {'log2fc': 7.65, 'padj': 0.0439382666013942, 'higher_group': 'Space Flight', 'carriers': '3/6', 'carrier_samples': ['M24', 'M25', 'M26'], 'mean_count': {'Space Flight': 34, 'Ground Control': 1}}}"
+  },
+  {
+   "hypothesis_id": "lead_023",
+   "hypothesis_text": "Esrp1 is upregulated in space flight with log2fc=+4.40 and padj=2.7e-03.",
+   "shape": "single_gene",
+   "critic_verdict": "keep",
+   "critic_reason_code": "ok",
+   "critic_confidence": 0.95,
+   "critic_reason": "The claim is supported by the table facts (log2fc=4.4, padj=0.0027, higher in Space Flight, carriers 6/6), the biological rationale is provided (splicing reprogramming), and the next step is concrete and testable.",
+   "human_verdict": "kill",
+   "human_reason_code": "underpowered",
+   "human_note": "Mean count in the higher group (Space Flight) is 13, which is below the 20 threshold.",
+   "is_correct": false,
+   "is_false_kill": false,
+   "rules_version": 2,
+   "table_facts": "{'Esrp1': {'log2fc': 4.4, 'padj': 0.0026690172083623, 'higher_group': 'Space Flight', 'carriers': '6/6', 'carrier_samples': ['M23', 'M24', 'M25', 'M26', 'M27', 'M28'], 'mean_count': {'Space Flight': 13, 'Ground Control': 2}}}"
+  }
+ ]
+}

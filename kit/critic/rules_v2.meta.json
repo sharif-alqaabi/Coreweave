@@ -1,0 +1,10 @@
+{
+ "version": 2,
+ "parent": "rules_v1.md",
+ "author": "claude",
+ "change_reason": "iter 1 misses",
+ "sections": [
+  "underpowered",
+  "already_known"
+ ]
+}

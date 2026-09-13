@@ -1,0 +1,38 @@
+# Critic rules v0
+
+You judge one lead at a time. Pick exactly one option. Trust `table_facts` over `scout_evidence`
+when they disagree. Numbers in `table_facts` come from the data; the scout's numbers are a copy.
+
+## ok
+No rule below applies. The claim is supported by the numbers, is not a textbook result,
+and names a concrete next step.
+
+## confound
+The signal comes from a minority of samples, or from samples listed in `sample_flags`.
+Threshold: carriers below half of the group (e.g. 2/6). Example: Krt17, carriers 2/6,
+both carriers flagged.
+
+## underpowered
+The effect rests on very low counts or a single gene with a weak p-value.  
+Threshold: mean count in the higher group below 20, or padj between 0.01 and 0.05 with carriers below 4/6.  
+Example: Fermt1, mean count 7. Applies to individual genes or claims aggregating genes with low expression.  
+(fixes: lead_057, lead_030) — specifically, lead_030 is correctly flagged as underpowered due to mean counts of 11 and 8, both below 20, despite strong padj and carrier counts.
+
+## contradicted
+`table_facts` disagree with the claim: wrong direction, gene not in the table, padj above
+0.05, or the scout's quoted numbers do not match the table.
+
+## already_known
+`why_not_known` does not give a reason, or the claim restates the dataset's headline  
+(e.g. "muscle structure genes change in a muscle atrophy model") without a new angle.  
+This rule does not apply if the claim uses enrichment to identify a specific, actionable biological program beyond general atrophy (e.g., satellite cell activation, excitation-contraction coupling).  
+(fixes: lead_048, lead_041, lead_038) — these claims use significant enrichments in structural pathways not just to note expected changes but to pivot toward testable downstream mechanisms.
+
+## untestable
+`next_step` is missing, vague ("investigate further"), or not achievable with this data or a
+follow-up experiment. A global claim with no way to check it also lands here.
+
+## no_mechanism
+The numbers hold but the claim offers no biological reason and the gene has no annotated function (predicted genes, "Gm" prefix, or GENENAME unknown).  
+This rule does not apply if the gene has a well-annotated function or belongs to a characterized family (e.g., ion channels, kinases, structural proteins).  
+(fixes: lead_050)

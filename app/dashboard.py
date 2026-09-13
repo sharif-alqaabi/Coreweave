@@ -22,15 +22,26 @@ def _(mo):
 
 
 @app.cell
-def _(mo, pd, refresh):
+def _(mo, pd, refresh, json):
     refresh.value
     metrics = pd.read_csv("results/metrics.csv") if __import__("os").path.exists("results/metrics.csv") else pd.DataFrame()
+    alt = __import__("altair")
+    long = metrics.melt(id_vars=["iteration"], value_vars=["reason_accuracy", "kill_precision"],
+                        var_name="metric", value_name="value") if len(metrics) else metrics
     chart = mo.ui.altair_chart(
-        __import__("altair").Chart(metrics).mark_line(point=True).encode(
-            x="iteration:O", y=__import__("altair").Y("kill_precision:Q", scale={"domain": [0, 1]}),
-            tooltip=["iteration", "kill_precision", "false_kill_rate", "misses"]).properties(height=260)
+        alt.Chart(long).mark_line(point=True).encode(
+            x="iteration:O", y=alt.Y("value:Q", scale={"domain": [0, 1]}), color="metric:N",
+            tooltip=["iteration", "metric", "value"]).properties(height=260)
     ) if len(metrics) else mo.md("_No iterations yet. Run `python3 loop.py`._")
-    chart
+    hold = {}
+    for name in ("holdout_v0", "holdout"):
+        p = f"results/{name}.json"
+        if __import__("os").path.exists(p):
+            h = json.load(open(p)); hold[h["rules"].split("/")[-1]] = h["metrics"]
+    hold_md = mo.md("**Holdout (30 leads never seen by the loop):** " + " | ".join(
+        f"{k}: reason accuracy {v['screening/reason_accuracy']:.2f}, kill precision {v['screening/kill_precision']:.2f}"
+        for k, v in hold.items())) if hold else mo.md("_Holdout not run yet._")
+    mo.vstack([chart, hold_md])
     return metrics, chart
 
 

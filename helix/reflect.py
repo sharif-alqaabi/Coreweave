@@ -43,10 +43,11 @@ def render_patch(rules_path, patch_text):
     return text, list(changes)
 
 
-def apply_patch(rules_path, patch_text, change_reason="", author="aria", extra_meta=None):
-    """Validate, then write rules_v{n+1}.md atomically next to rules_path. Returns the new path."""
+def apply_patch(rules_path, patch_text, change_reason="", author="aria", extra_meta=None, out_version=None):
+    """Validate, then write rules_v{out_version}.md (default: base+1) atomically. Returns the new path.
+    out_version matters after a rollback: base may be v2 while the next iteration needs v4."""
     text, changed = render_patch(rules_path, patch_text)
-    n = int(re.search(r"v(\d+)", os.path.basename(rules_path)).group(1)) + 1
+    n = out_version if out_version is not None else int(re.search(r"v(\d+)", os.path.basename(rules_path)).group(1)) + 1
     out = os.path.join(os.path.dirname(rules_path), f"rules_v{n}.md")
     if os.path.exists(out):
         raise ValueError(f"{out} already exists; refusing to overwrite")
@@ -66,13 +67,21 @@ except Exception:                                   # weave missing: plain funct
 
 
 @traced
-def propose_patch_claude(misses, rules_path, model=None):
+def propose_patch_claude(misses, rules_path, model=None, feedback=""):
     """Fallback architect. Returns patch text in the same format ARIA is asked for."""
     from helix import llm
-    prompt = (f"Current critic rules:\n\n{open(rules_path).read()}\n\n"
-              f"Misses this iteration (critic label vs human label):\n{json.dumps(misses, indent=1)[:6000]}\n\n"
-              f"Rewrite at most {MAX_SECTIONS} sections so the critic would get these right without "
-              "breaking correct cases. Output ONLY the changed sections, each as '## <name>' followed by "
-              "the full replacement text. Cite the hypothesis_ids each change fixes inside the text.")
+    words = len(open(rules_path).read().split())
+    direction = "\n".join(f"- {m['hypothesis_id']}: critic said `{m['critic_reason_code']}`, human says `{m['human_reason_code']}` "
+                          f"-> the rules must make the critic output `{m['human_reason_code']}`. Claim: {m['hypothesis_text'][:120]}"
+                          for m in misses)
+    prompt = (f"Current critic rules ({words} words; hard cap {MAX_WORDS} words total):\n\n{open(rules_path).read()}\n\n"
+              f"Misses this iteration. For each, the REQUIRED output is the human label:\n{direction}\n\n"
+              f"Details:\n{json.dumps(misses, indent=1)[:5000]}\n\n"
+              "The human labels are ground truth. Never add exceptions that let the critic keep its current answer. "
+              "Pick the section named by the most common REQUIRED label and make it catch those leads "
+              f"(e.g. if humans say already_known, broaden `## already_known`). Rewrite at most {MAX_SECTIONS} sections. "
+              "Keep each rewritten section under 70 words; the whole file must stay under the cap, so tighten "
+              "wording rather than adding sentences. Output ONLY the changed sections, each as '## <name>' "
+              "followed by the full replacement text, citing the hypothesis_ids it fixes." + (f"\n\n{feedback}" if feedback else ""))
     return llm.chat("You are the architect of a scientific critic. Output only the requested sections.",
                     prompt, model=model or os.getenv("ARCHITECT_MODEL"), max_tokens=1200)
