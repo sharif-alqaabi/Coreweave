@@ -55,15 +55,15 @@ def _():
             continue
         _seen.add(_t)
         _mp = _v.replace(".md", ".meta.json")
-        DATA["rules"].append({"name": os.path.basename(_v), "text": _t, "meta": json.load(open(_mp)) if os.path.exists(_mp) else {}})
+        DATA["rules"].append({"name": os.path.basename(_v), "text": _t, "meta": {"sections": json.load(open(_mp)).get("sections", [])} if os.path.exists(_mp) else {}})
     # DATA-END
     WB = DATA["wb"]
     VERSIONS = [  # scores from the Weave evaluations (holdout) and results/metrics.csv (train)
         {"name": "rules_v0", "author": "hand-written seed", "train": 0.68, "unseen": 0.58, "false_kills": 7, "missed": 20, "verdict": "baseline"},
         {"name": "rules_v1", "author": "Qwen", "train": 0.74, "unseen": 0.64, "false_kills": 8, "missed": 13, "verdict": "improved"},
-        {"name": "rules_v2", "author": "DeepSeek", "train": 0.81, "unseen": 0.71, "false_kills": 10, "missed": 8, "verdict": "ships"},
+        {"name": "rules_v2", "author": "ARIA", "train": 0.81, "unseen": 0.71, "false_kills": 10, "missed": 8, "verdict": "ships"},
         {"name": "rules_v3", "author": "nobody", "train": 0.81, "unseen": 0.71, "false_kills": 10, "missed": 8, "verdict": "copy of v2", "copy_of": "rules_v2"},
-        {"name": "rules_v4", "author": "ARIA", "train": 0.84, "unseen": 0.64, "false_kills": 15, "missed": 8, "verdict": "caught: overfit"},
+        {"name": "rules_v4", "author": "Qwen", "train": 0.84, "unseen": 0.64, "false_kills": 15, "missed": 8, "verdict": "caught: overfit"},
     ]
     REASON = {"ok": "survives", "contradicted": "contradicted by the table", "underpowered": "underpowered", "confound": "confounded by a few samples",
               "untestable": "untestable", "no_mechanism": "no mechanism", "already_known": "already known"}
@@ -74,15 +74,15 @@ def _():
 def _(mo):
     def cards(leads, judged, reason_names):
         """Finding cards; judged=True colours each by verdict and shows the critic's number."""
-        import html as _h
+        import html as _html_2
         out = []
         for l in leads:
             ok = l["label"] == "ok"
             klass = "hx-card " + ("hx-ok" if ok else "hx-kill") if judged else "hx-card"
             tag = (f'<div class="hx-tag {"hx-tag-ok" if ok else "hx-tag-kill"}">{"survives" if ok else reason_names.get(l["label"], l["label"])}</div>'
-                   f'<div class="hx-num">{_h.escape(l["reason"][:150])}</div>') if judged else ""
-            out.append(f'<div class="{klass}"><div class="hx-claim">{_h.escape(l["claim"])}</div>'
-                       f'<div class="hx-why">{_h.escape(l["why_not_known"][:140])}</div>{tag}</div>')
+                   f'<div class="hx-num">{_html_2.escape(l["reason"][:150])}</div>') if judged else ""
+            out.append(f'<div class="{klass}"><div class="hx-claim">{_html_2.escape(l["claim"])}</div>'
+                       f'<div class="hx-why">{_html_2.escape(l["why_not_known"][:140])}</div>{tag}</div>')
         return mo.Html('<div class="hx-cards">' + "".join(out) + "</div>")
 
     def stat(value, label, caption="", kind=""):
@@ -119,13 +119,13 @@ def _(mo, DATA, REASON, cards, stat, stats):
               ("n-R5s118 and n-R5s106 show borderline upregulation", "Its own number says padj 0.099. That is not significant. Dressed up as ribosomal stress anyway."),
               ("Gm26244 has high fold change (+1.57) but padj=0.24", "padj 0.24 is noise. The model argues past its own statistic and calls it a possible false negative."),
               ("Gm16638 is upregulated in spaceflight", "Why it matters: 'no known function, so its response is novel'. Novel because nobody knows what it does. Nothing to test.")]
-    import html as _h
+    import html as _html_3
     _look = []
     for _pre, _tell in _tells:
         _l = next((l for l in _leads if l["claim"].startswith(_pre)), None)
         if _l:
-            _look.append(f'<div class="hx-card hx-kill"><div class="hx-claim">{_h.escape(_l["claim"])}</div>'
-                         f'<div class="hx-why">{_h.escape(_l["why_not_known"][:140])}</div><div class="hx-tell">{_h.escape(_tell)}</div></div>')
+            _look.append(f'<div class="hx-card hx-kill"><div class="hx-claim">{_html_3.escape(_l["claim"])}</div>'
+                         f'<div class="hx-why">{_html_3.escape(_l["why_not_known"][:140])}</div><div class="hx-tell">{_html_3.escape(_tell)}</div></div>')
     _closer = mo.vstack([mo.md("## Look closer. We checked four by hand."),
                          mo.Html('<div class="hx-cards hx-short">' + "".join(_look) + "</div>"),
                          mo.callout(mo.md("**Believable is the problem.** Every one of the sixty reads like the four above did before we checked. "
@@ -146,7 +146,7 @@ def _(mo, DATA, REASON, cards, stat, stats):
     _tiles = mo.vstack([
         stats(stat(0, "killed with no critic", "slide 1: the assistant alone"),
               stat(_v0, "killed by the hand-written rules", "rules_v0, before any learning"),
-              stat(len(_killed), "killed by the learned rules", "rules_v2, chosen on unseen data", "hx-bad")),
+              stat(len(_killed), "killed by ARIA’s rules", "rules_v2, chosen on unseen data", "hx-bad")),
         stats(stat(len(_leads) - len(_killed), "findings survive", "each backed by the table's numbers", "hx-good"),
               stat(len(_found), "published headline genes", "rediscovered from the table alone", "hx-good"),
               stat("4 of 4", "hand-checked tells killed", "the ones from slide 1"))])
@@ -156,7 +156,7 @@ def _(mo, DATA, REASON, cards, stat, stats):
     _recon = mo.callout(mo.md(f"**Against the crude check from slide 1.** It flagged {len(_strict)}. The critic killed {_agree} of them and passed {_spared} the check misread: "
                               f"claims that correctly describe a gene as unchanged. It also killed {_extra} the check cannot see: a false claim about the whole table, "
                               "a confound, an untestable claim, and a real gene with no mechanism. Same floor, better judgment, and a reason on every one."), kind="neutral")
-    _intro = (mo.md("**Same sixty findings.** Code attached each one's real numbers from the table, and a separate critic judged every one with rules_v2. Green survives. Red is killed, with the number.")
+    _intro = (mo.md("**Same sixty findings.** Code attached each one's real numbers from the table, and a separate critic judged every one with ARIA’s rules_v2.md. Green survives. Red is killed, with the number.")
               if _on else mo.md("The sixty findings from slide 1, exactly as the assistant wrote them. Nothing has been checked yet."))
     _redisc = (mo.callout(mo.md("**And the survivors include what the scientists actually published.** The scout never saw the paper. From the table alone it proposed, and the critic passed: "
                                 + "; ".join(f"**{g}**, {w}" for g, w in _found) + "."), kind="success") if _on and _found else mo.md(""))
@@ -217,18 +217,18 @@ def _(mo, DATA, VERSIONS, difflib, stat, stats, version_pick):
                    stat(f"{_v['unseen']:.2f}", "score on unseen leads", "what decides what ships", _kind),
                    stat(_v["false_kills"], "good leads killed", "of 90 unseen", "hx-bad" if _v["false_kills"] >= 15 else ""),
                    stat(_v["missed"], "bad leads passed", "of 90 unseen"),
-                   stat(_v["author"], "written by", _v["verdict"], _kind))
+                   stat(_v["author"], "rulebook source", _v["verdict"], _kind))
     _rules = DATA["rules"]; _cur = next(r for r in _rules if r["name"] == _v.get("copy_of", _v["name"]) + ".md")
 
     def _github_diff(lines):
-        import html as _h
+        import html as _html_9
         style = {"+": "background:#e6ffec;color:#1a7f37", "-": "background:#ffebe9;color:#cf222e", "@": "background:#ddf4ff;color:#0550ae", " ": "color:#57606a"}
         rows = []
         for ln in lines:
             if ln.startswith(("+++", "---")): continue
             k = ln[:1] if ln[:1] in style else " "
-            rows.append(f'<div style="{style[k]};display:flex;font:13px/1.5 ui-monospace,Menlo,monospace"><span style="width:1.4em;flex:none;text-align:center">{_h.escape(k.strip())}</span>'
-                        f'<span style="white-space:pre-wrap;word-break:break-word">{_h.escape(ln[1:] if k != " " else ln)}</span></div>')
+            rows.append(f'<div style="{style[k]};display:flex;font:13px/1.5 ui-monospace,Menlo,monospace"><span style="width:1.4em;flex:none;text-align:center">{_html_9.escape(k.strip())}</span>'
+                        f'<span style="white-space:pre-wrap;word-break:break-word">{_html_9.escape(ln[1:] if k != " " else ln)}</span></div>')
         return '<div style="border:1px solid #d0d7de;border-radius:6px;overflow:hidden;background:#fff;color:#1f2328">' + "".join(rows) + "</div>"
     if _v.get("copy_of"):
         _change = mo.callout(mo.md(f"**{_v['name']} is byte-for-byte identical to {_v['copy_of']}.** In round 2, three architects proposed patches and none scored higher "
@@ -241,12 +241,12 @@ def _(mo, DATA, VERSIONS, difflib, stat, stats, version_pick):
         _prev = next(r for r in _rules if r["name"] == VERSIONS[_i - 1].get("copy_of", VERSIONS[_i - 1]["name"]) + ".md")
         _d = difflib.unified_diff(_prev["text"].splitlines(), _cur["text"].splitlines(), fromfile=_prev["name"], tofile=_cur["name"], lineterm="", n=1)
         _sections = ", ".join(_cur["meta"].get("sections", []))
-        _note = {"rules_v1": "Qwen tightened the numeric thresholds.", "rules_v2": "DeepSeek added principles and generic examples. This is the version that holds up on unseen data.",
-                 "rules_v4": "ARIA replaced the untestable rule with one that names five training leads by id. Memorising, not learning. Best on train, worse on everything else."}[_v["name"]]
-        _change = mo.vstack([mo.md(f"**What {_v['author']} changed** ({_sections}). {_note}"), mo.Html(_github_diff(_d))])
-    _verdict_line = (mo.callout(mo.md("**This page caught it.** v4 scored best on training data and killed seven more good leads on unseen data for no extra junk caught. It did not ship."), kind="danger")
+        _note = {"rules_v1": "Qwen tightened the numeric thresholds.", "rules_v2": "ARIA added principles and generic examples. This is the version that holds up on unseen data.",
+                 "rules_v4": "Qwen replaced the untestable rule with one that names five training leads by id. Memorising, not learning. Best on train, worse on everything else."}[_v["name"]]
+        _change = mo.vstack([mo.md(f"**Changes in {_v['name']}** ({_sections}). {_note}"), mo.Html(_github_diff(_d))])
+    _verdict_line = (mo.callout(mo.md("**This page caught it.** v4 scored best on training data and killed five more good leads on unseen data for no extra junk caught. It did not ship."), kind="danger")
                      if _v["name"] == "rules_v4" else
-                     mo.callout(mo.md("**This is what ships.** Not the newest rulebook, the one that measured best on leads it never saw."), kind="success")
+                     mo.callout(mo.md("**ARIA’s rules_v2.md ships.** It scored best on unseen leads, turning ARIA’s rule improvements into the rulebook used by Helix."), kind="success")
                      if _v["name"] == "rules_v2" else mo.md(""))
     slide4 = mo.vstack([mo.md("# Does it learn? Every rewrite, scored on leads it never saw"),
                         mo.hstack([version_pick], justify="start"),
