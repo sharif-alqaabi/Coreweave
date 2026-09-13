@@ -5,6 +5,8 @@
     python3 loop.py --iterations 4 --wait-for-aria 120          # ARIA writes rules via the MCP server
     python3 loop.py --iterations 4 --patch-dir patches/         # or: apply ARIA patches pasted to files
     python3 loop.py --holdout                                   # final rules on holdout, once
+    python3 loop.py --judge 4 --group demo     # DEMO step 1 (before walking up): judge+log, ARIA gets prompted
+    python3 loop.py --revise 4 --wait-for-aria 30 --group demo   # DEMO step 2 (on stage): ARIA's patch + tournament
 
 Rules live in kit/critic/rules_v{n}.md. Iteration n judges with v{n} and produces v{n+1}
 from patches/iter{n}.md (pasted from ARIA) or, if absent, from the Claude fallback.
@@ -87,6 +89,12 @@ def current_version(path):
 
 
 def run_iteration(n, leads, table, critic, args, prev_precision):
+    run_id, result = judge_phase(n, leads, table, critic, args)
+    return revise_phase(n, leads, table, critic, args, prev_precision, result, run_id)
+
+
+def judge_phase(n, leads, table, critic, args):
+    """Judge with rules_v{n}, score, log to W&B (this fires the ARIA automation). Returns (run_id, result)."""
     rules = f"kit/critic/rules_v{n}.md"
     verdicts = critic.judge_all(leads, table, rules)
     result = evaluate(verdicts, leads)
@@ -108,7 +116,14 @@ def run_iteration(n, leads, table, critic, args, prev_precision):
     run_id = log_iteration(n, result, rules, {"critic/model": critic.model, "critic/dry_run": critic.dry_run,
                                       "architect": "tournament"},
                   prev_rules_path=f"kit/critic/rules_v{n-1}.md" if n else None, group=args.group)
-    # ---- revise rules for the next iteration ----
+    json.dump({"run_id": run_id, "iteration": n}, open(RESULTS / f"iter{n}.run.json", "w"))
+    return run_id, result
+
+
+def revise_phase(n, leads, table, critic, args, prev_precision, result, run_id):
+    """Pick the next rules: ARIA's patch (if on the run) + model architects, gated on train."""
+    rules = f"kit/critic/rules_v{n}.md"
+    m = result["metrics"]
     base = rules
     acc = m["screening/reason_accuracy"]
     if prev_precision is not None and acc < prev_precision - NOISE:     # prev_precision carries reason accuracy
@@ -157,6 +172,8 @@ def main():
     ap.add_argument("--patch-dir", default=None)
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--group", default="helix-osd104", help="W&B run group (use e.g. demo-1 for a live run)")
+    ap.add_argument("--judge", type=int, default=None, metavar="N", help="demo: only judge+log iteration N (fires ARIA), then exit")
+    ap.add_argument("--revise", type=int, default=None, metavar="N", help="demo: only revise after iteration N (reads ARIA's patch from the logged run)")
     ap.add_argument("--wait-for-aria", type=int, default=0, metavar="SECONDS",
                     help="after logging, wait this long for ARIA to write its patch onto the W&B run; it then competes in the tournament")
     args = ap.parse_args()
@@ -173,6 +190,16 @@ def main():
         log_iteration(99, result, rules, {"critic/model": critic.model, "split": "holdout"}, group=f"{args.group}-holdout")
         return
     leads = json.load(open(args.train))
+    if args.judge is not None:
+        judge_phase(args.judge, leads, table, critic, args); return
+    if args.revise is not None:
+        n = args.revise
+        saved = json.load(open(RESULTS / f"iter{n}.json")); run = json.load(open(RESULTS / f"iter{n}.run.json"))
+        result = {"metrics": saved["metrics"], "misses": saved["misses"]}
+        prev = None
+        if n and (RESULTS / f"iter{n-1}.json").exists():
+            prev = json.load(open(RESULTS / f"iter{n-1}.json"))["metrics"]["screening/reason_accuracy"]
+        revise_phase(n, leads, table, critic, args, prev, result, run["run_id"]); return
     prev = None
     for n in range(args.start, args.start + args.iterations):
         prev = run_iteration(n, leads, table, critic, args, prev)
