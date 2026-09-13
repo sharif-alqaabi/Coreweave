@@ -3,7 +3,7 @@
     python3 scripts/split_golden.py ledger/leads_enriched.json data/golden/labels.jsonl
 
 Writes data/golden/train.json and data/golden/holdout.json, each holding leads with
-their human label attached. Stratified by `shape` so both halves have the same mix.
+their human label attached. Stratified by (dataset, shape) so both halves have the same mix.
 """
 import json, random, sys
 from collections import defaultdict
@@ -19,7 +19,7 @@ def main(leads_path, labels_path, out_dir="data/golden", seed=0):
     for l in leads:
         l["label"] = labels[l["id"]]["label"]
         l["label_note"] = labels[l["id"]].get("note", "")
-        by_shape[l.get("shape", "?")].append(l)
+        by_shape[(l.get("dataset", "?"), l.get("shape", "?"))].append(l)   # stratify by dataset AND shape
     rng, train, holdout = random.Random(seed), [], []
     for shape, group in sorted(by_shape.items()):
         rng.shuffle(group)

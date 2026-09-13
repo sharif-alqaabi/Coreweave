@@ -13,7 +13,7 @@ Rollback: if precision drops vs. the previous iteration, v{n+1} is built from v{
 import argparse, csv, glob, json, os
 from pathlib import Path
 from dotenv import load_dotenv
-from helix.critic_payload import Table
+from helix.critic_payload import Table, Tables
 from helix.critic import Critic
 from helix.evaluate import evaluate
 from helix.reflect import apply_patch, propose_patch_claude, render_patch
@@ -143,14 +143,14 @@ def main():
     ap.add_argument("--train", default="data/golden/train.json")
     ap.add_argument("--holdout", action="store_true", help="score the best train-scored rules on data/golden/holdout.json once")
     ap.add_argument("--rules", default=None, help="with --holdout: score this rules file instead of the best one")
-    ap.add_argument("--table", default="data/raw/OSD-104_rna_seq_differential_expression.csv")
+    ap.add_argument("--table", nargs="+", default=sorted(glob.glob("data/raw/*.csv")), help="one or more DGE csvs")
     ap.add_argument("--patch-dir", default=None)
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--group", default="helix-osd104", help="W&B run group (use e.g. demo-1 for a live run)")
     ap.add_argument("--wait-for-aria", type=int, default=0, metavar="SECONDS",
                     help="after logging, wait this long for ARIA to write the next rules via MCP before falling back")
     args = ap.parse_args()
-    table = Table(args.table)
+    table = Tables(args.table)
     critic = Critic(dry_run=args.dry_run)
     if args.holdout:
         leads = json.load(open("data/golden/holdout.json"))

@@ -10,7 +10,7 @@ import json, os, sys
 from collections import Counter
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from dotenv import load_dotenv
-from helix.critic_payload import Table, enrich, OPTIONS
+from helix.critic_payload import Table, Tables, enrich, OPTIONS
 from helix import llm
 
 load_dotenv(".env")
@@ -18,9 +18,10 @@ JURY = {"A": os.getenv("JURY_A", "deepseek-ai/DeepSeek-V3.1"),
         "B": os.getenv("JURY_B", "openai/gpt-oss-120b"),
         "adjudicator": os.getenv("JURY_C", "moonshotai/Kimi-K2.6")}
 
-RUBRIC = f"""You are a senior muscle physiologist and RNA-seq statistician labeling research leads
-from a mouse spaceflight study (soleus muscle, 6 flight vs 6 ground). Label ONE lead with exactly
-one option from {OPTIONS}. Use these definitions strictly, in this priority order:
+RUBRIC = f"""You are a senior physiologist and RNA-seq statistician labeling research leads from a
+NASA OSDR differential-expression study. The dataset header is given with each lead; use the tissue
+and contrast it names. Label ONE lead with exactly one option from {OPTIONS}. Use these definitions
+strictly, in this priority order:
 
 1. contradicted: table_facts disagree with the claim (wrong direction, padj > 0.05, gene absent).
 2. confound: the signal comes from a MINORITY of samples (carriers strictly below half of the
@@ -28,11 +29,11 @@ one option from {OPTIONS}. Use these definitions strictly, in this priority orde
 3. underpowered: mean count in the higher group < 20, or padj in (0.01, 0.05) with carriers <= 3.
 4. untestable: the "lead" is a restated statistic with no biological or methodological claim
    ("gene X is reliably detected", "median |log2fc| is 0.36"), or next_step is vague/absent.
-5. already_known: the claim is textbook for this system. In a hindlimb-unloading / spaceflight
-   muscle atrophy model, enrichment of sarcomere, myofibril, Z disc, I band, contractile fiber and
-   muscle-development terms is expected and published; so is downregulation of structural muscle
-   genes. Label already_known unless the lead names a specific NEW angle (a subset, a direction
-   split, a mechanism not in the literature).
+5. already_known: the claim is textbook for this tissue and perturbation. Examples: in muscle
+   atrophy / unloading, enrichment of sarcomere, myofibril, Z disc, contractile-fiber and
+   muscle-development terms; in spaceflight retina, oxidative-stress and photoreceptor-stress genes;
+   in unloaded bone, osteoblast/osteoclast markers (Sost, Rankl, Bglap). Label already_known unless
+   the lead names a specific NEW angle (a subset, a direction split, a mechanism not in the literature).
 6. no_mechanism: numbers hold but the gene is unannotated / predicted (Gm prefix) and no mechanism
    is offered.
 7. ok: none of the above; the claim is supported, non-obvious, and has a concrete next step.
@@ -45,6 +46,7 @@ Reply with JSON only: {{"label": <option>, "note": "<one sentence with the decid
 
 def ask(model, lead):
     body = {k: lead[k] for k in ("claim", "shape", "why_not_known", "next_step", "table_facts")}
+    body["dataset"] = lead.get("dataset_header", "")
     text = llm.chat(RUBRIC, json.dumps(body), model=model, max_tokens=600) or ""
     try:
         s, e = text.index("{"), text.rindex("}") + 1
@@ -56,19 +58,28 @@ def ask(model, lead):
 
 def main(leads_path, out_path):
     leads = json.load(open(leads_path))
-    agree = 0
+    import glob
+    tables = Tables(sorted(glob.glob("data/raw/*.csv")))
+    for l in leads:
+        l["dataset_header"] = tables.for_lead(l).header
+    from concurrent.futures import ThreadPoolExecutor
+
+    def label_one(lead):
+        a, na = ask(JURY["A"], lead); b, nb = ask(JURY["B"], lead)
+        if a == b and a != "invalid":
+            label, note, how = a, na, "agree"
+        else:
+            votes = json.dumps({"A": {"label": a, "note": na}, "B": {"label": b, "note": nb}})
+            c, nc = ask(JURY["adjudicator"], {**lead, "why_not_known": lead["why_not_known"] + f"\n[Two annotators disagreed: {votes}. Decide.]"})
+            label, note, how = (c if c != "invalid" else (a if a != "invalid" else b)), f"A={a}; B={b}; adjudicated: {nc}", "adjudicated"
+        return {"lead_id": lead["id"], "label": label, "note": note, "how": how, "jury": {"A": a, "B": b}}
+
+    with ThreadPoolExecutor(8) as pool:
+        rows = list(pool.map(label_one, leads))
     with open(out_path, "w") as f:
-        for lead in leads:
-            a, na = ask(JURY["A"], lead); b, nb = ask(JURY["B"], lead)
-            if a == b and a != "invalid":
-                label, note, how = a, na, "agree"; agree += 1
-            else:
-                votes = json.dumps({"A": {"label": a, "note": na}, "B": {"label": b, "note": nb}})
-                c, nc = ask(JURY["adjudicator"], {**lead, "why_not_known": lead["why_not_known"] + f"\n[Two annotators disagreed: {votes}. Decide.]"})
-                label, note, how = (c if c != "invalid" else (a if a != "invalid" else b)), f"A={a}; B={b}; adjudicated: {nc}", "adjudicated"
-            f.write(json.dumps({"lead_id": lead["id"], "label": label, "note": note, "how": how,
-                                "jury": {"A": a, "B": b}}) + "\n")
-            print(f"{lead['id']} {label:15} [{how:11}] {note[:70]}")
+        for r in rows:
+            f.write(json.dumps(r) + "\n"); print(f"{r['lead_id']} {r['label']:15} [{r['how']:11}] {r['note'][:70]}")
+    agree = sum(r["how"] == "agree" for r in rows)
     print(f"\nagreement: {agree}/{len(leads)}  ->  {out_path}", file=sys.stderr)
 
 
