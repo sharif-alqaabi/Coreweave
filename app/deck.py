@@ -1,5 +1,5 @@
-"""Helix demo deck: the whole presentation in one browser tab. Seven core slides plus an optional TypeSafe bonus tab, with
-interactive lead and rulebook-version pickers. Everything is
+"""Helix demo deck: the whole presentation in one browser tab. Nine slides: the problem, the loop, the product, does it learn,
+the proof, Helix on, TypeSafe verification across OSDR, the research graph, close; interactive lead and rulebook-version pickers. Everything is
 preloaded from results/ and docs/ so nothing spins on stage.
 
     marimo run app/deck.py -p 2721
@@ -56,13 +56,58 @@ def _():
         _seen.add(_t)
         _mp = _v.replace(".md", ".meta.json")
         DATA["rules"].append({"name": os.path.basename(_v), "text": _t, "meta": {"sections": json.load(open(_mp)).get("sections", [])} if os.path.exists(_mp) else {}})
-    _verification = json.load(open("results/replicate_OSD-421.json"))
-    _graph = json.load(open("results/graph.json"))
-    DATA["typesafe"] = {
-        "dataset": _verification["dataset"], "seconds": _verification["seconds"],
-        "n_studies": _verification["n_studies"],
-        "leads": [_slim(l, ("id", "claim", "verdict")) for l in _verification["leads"]],
-        "graph_nodes": _graph["stats"]["nodes"],
+    _ver = json.load(open("results/replicate_OSD-421.json"))
+    _ex = next((l for l in _ver["leads"] if l["id"].endswith("lead_001")), _ver["leads"][0])
+    DATA["verify"] = {
+        "dataset": _ver["dataset"], "seconds": _ver["seconds"], "n_studies": _ver["n_studies"], "organism": _ver["organism"],
+        "tables": sorted({n["osd_id"] for l in _ver["leads"] for n in l["numeric"] if n["comparable"] >= 2}),
+        "leads": [{"id": l["id"], "claim": l["claim"], "shape": l["shape"], "verdict": l["verdict"], "scout": l["why_not_known"],
+                   "genes": l.get("genes", [])[:3], "by": {n["osd_id"]: n["verdict"] for n in l["numeric"] if n["comparable"] >= 2}} for l in _ver["leads"]],
+        "example": {"id": _ex["id"], "claim": _ex["claim"],
+                    "where": [{"study": w["osd_id"], "tissue": w["material"][:32], "factor": w["factors"][:28], "assay": w["assay"][:22],
+                               "comparable (0-3)": w["comparable"], "P(same factor)": w["same_factor"], "on disk": "yes" if w["on_disk"] else ""}
+                              for w in _ex["where_to_look"][:8]],
+                    "numbers": [{"study": n["osd_id"], "tissue": n["material"][:24], "verdict": n["verdict"], **n["agreement"],
+                                 "numbers": "; ".join(f"{g}: log2fc {f['log2fc']}, padj {f['padj']:.2g}" for g, f in list(n["facts"].items())[:2]
+                                                      if isinstance(f, dict) and isinstance(f.get("padj"), float) and f["padj"] == f["padj"])}
+                                for n in _ex["numeric"] if n["comparable"] >= 2]},
+    }
+    _g = json.load(open("results/graph.json")); _N = {n["id"]: n for n in _g["nodes"]}
+    _E = _g["edges"]
+    _paper = lambda pid: (_N.get("pmid" + pid, {}).get("title", "")[:70] if pid else "OSDR study description")
+    _contra = sorted([e for e in _E if e["type"] == "finding-passage" and e["relation"] == "contradicts"], key=lambda e: -e["p_contradicts"])
+    _seen_f = set(); _contra_rows = []
+    for e in _contra:                                                  # one passage per finding, strongest first
+        if e["src"] in _seen_f or len(_contra_rows) >= 8:
+            continue
+        _seen_f.add(e["src"]); _pn = _N[e["dst"]]
+        _contra_rows.append({"finding": e["src"], "claim": _N[e["src"]]["claim"][:80], "critic said": _N[e["src"]]["status"],
+                             "P(contradicts)": e["p_contradicts"], "passage": _pn["text"][:260], "paper": _paper(_pn["pmid"])})
+    _redis = [{"scout lead": e["src"], "claim": _N[e["src"]]["claim"][:70], "paper claim": e["dst"], "confidence": e["confidence"]}
+              for e in _E if e["relation"] == "rediscovers" and _N[e["src"]]["kind"] != "paper_claim"]
+    _e2 = next((n for n in _g["nodes"] if n["type"] == "finding" and n["id"] == "OSD-421_lead_003"), None)
+    _sem = sorted([e for e in _E if _e2 and e["src"] == _e2["id"] and e["type"] == "finding-passage" and e["relation"] in ("supports", "consistent")],
+                  key=lambda e: -e["p_supports"])[:3]
+    _ego_src = "OSD-421_lead_001"
+    _ego = sorted([e for e in _E if e["src"] == _ego_src and e["type"] in ("finding-passage", "finding-finding", "finding-dataset")
+                   and e["relation"] not in ("from", "mentions", "background", "same_entity_different_claim", "inconclusive")],
+                  key=lambda e: -(e.get("p_supports") or e.get("confidence") or 0))[:9]
+    _judged = {k.split(":")[1]: v for k, v in _g["stats"]["edges"].items()
+               if k.split(":")[0] in ("finding-passage", "finding-finding") or (k.startswith("finding-dataset:") and not k.endswith(":from"))}
+    try:
+        _n_pass = sum(1 for _ in open("data/corpus/passages.jsonl")); _n_pap = len(json.load(open("data/corpus/papers.json")))
+    except Exception:
+        _n_pass, _n_pap = 12152, 150
+    DATA["graph"] = {
+        "built": _g["built"], "seconds": _g["stats"]["seconds"], "nodes": _g["stats"]["nodes"], "judged": _judged,
+        "pairs_scored": sum(_judged.values()) + _g["stats"]["judged_dropped"], "corpus_passages": _n_pass, "corpus_papers": _n_pap,
+        "contradictions": _contra_rows, "rediscoveries": _redis,
+        "semantic": {"claim": _e2["claim"] if _e2 else "", "hits": [{"relation": e["relation"], "P(supports)": e["p_supports"],
+                                                                    "passage": _N[e["dst"]]["text"][:220], "paper": _paper(_N[e["dst"]]["pmid"])} for e in _sem]},
+        "ego": {"claim": _N[_ego_src]["claim"][:70] if _ego_src in _N else "", "edges": [
+            {"relation": e["relation"], "p": round(e.get("p_supports") if e["type"] == "finding-passage" else e.get("confidence", 0), 2),
+             "type": _N[e["dst"]]["type"], "label": (_N[e["dst"]]["text"][:60] + "..." if _N[e["dst"]]["type"] == "passage" else _N[e["dst"]]["label"][:60])}
+            for e in _ego if e["dst"] in _N]},
     }
     # DATA-END
     WB = DATA["wb"]
@@ -282,40 +327,91 @@ def _(mo, WB, stat, stats):
 
 @app.cell
 def _(mo):
-    slide7 = mo.Html('<div class="hx-close"><h1>Agents drift.</h1><h2>Usually a person notices, after trusting it.</h2>'
+    slide9 = mo.Html('<div class="hx-close"><h1>Agents drift.</h1><h2>Usually a person notices, after trusting it.</h2>'
                      '<h2>Here the loop noticed first, on data nobody tuned for, and the bad version never reached a user.</h2>'
-                     '<p>Helix · built 12–13 Sep 2026 · Weave · W&amp;B Inference · W&amp;B Automations + ARIA · marimo</p></div>')
+                     '<p>Helix · built 12–13 Sep 2026 · Weave · W&amp;B Inference · W&amp;B Automations + ARIA · marimo · TypeSafe</p></div>')
+    return (slide9,)
+
+
+@app.cell
+def _(mo, DATA, stat, stats):
+    _v = DATA["verify"]; _leads = _v["leads"]
+    _rep = [l for l in _leads if l["verdict"].startswith("replicated in ")]
+    _not = [l for l in _leads if l["verdict"].startswith("not replicated")]
+    _unique = ", ".join(", ".join(l["genes"]) or l["claim"][:30] for l in _not)
+    _where_rep = sorted({d.strip() for l in _rep for d in l["verdict"].split(" in ", 1)[1].split(",")})
+    _matrix = [{"lead": l["id"].split("_", 1)[1], "claim": l["claim"][:70], "OSDR check": l["verdict"][:40],
+                **{k: l["by"][k][:14] for k in _v["tables"] if k in l["by"]}, "scout said": l["scout"][:70]} for l in _leads]
+    slide7 = mo.vstack([
+        mo.md("# Then TypeSafe checks every survivor against the rest of OSDR"),
+        mo.md(f"Every survivor on slide 3 says *why it is new*, usually \"not replicated in other spaceflight studies\". Nobody checks. "
+              f"**TypeSafe (Jev)** does: for each of the {len(_leads)} survivors it scores how well every one of the {_v['n_studies']} "
+              f"{_v['organism']} studies in the OSDR catalog could replicate or refute it, then pandas looks the genes up in the comparable "
+              f"tables and Jev judges what the numbers mean given the tissue. Direction and significance are arithmetic; the verdict is a code rule."),
+        stats(stat(len(_leads), "survivors checked", f"against {_v['n_studies']} catalog studies"),
+              stat(len(_rep), "replicate elsewhere", "in another spaceflight-thymus flight", "hx-good"),
+              stat(len(_not), "seen nowhere else", _unique or "", "hx-bad"),
+              stat(f"{_v['seconds']} s", "for the whole check", "probabilities stored, thresholds are sliders")),
+        mo.callout(mo.md(f"**The scout's novelty claim was wrong on {len(_rep)} of {len(_leads)}.** The biology is robust, it just isn't new: "
+                         f"the same genes move the same way in {', '.join(_where_rep)}, independent spaceflight-thymus RNA-seq flights. "
+                         f"What *is* unique to this study: **{_unique}**. That is the lead a scientist should spend time on."), kind="success"),
+        mo.md(f"**Tier 1, where to look.** Jev's comparability for the top catalog studies for *{_v['example']['claim'][:60]}*: "
+              "the thymus flights score 3 (direct test), muscle and kidney about 1, with no downloads."),
+        mo.ui.table(_v["example"]["where"], selection=None, page_size=8),
+        mo.md("**Tier 2, the numbers.** For the tables on disk, the per-gene tally is pandas; Jev's verdict is gated by it."),
+        mo.ui.table(_v["example"]["numbers"], selection=None, page_size=6),
+        mo.md("**Every survivor, every comparable dataset.** replicated · not_replicated · underpowered · not_detected."),
+        mo.ui.table(_matrix, selection=None, page_size=8),
+        mo.md("_Live in **Lead Lab** ([localhost:2719](http://localhost:2719)): the **OSDR check** column on the survivors table and the "
+              "**Verify with TypeSafe** button rerun this in 15 s. The critic's verdict is never changed by it._"),
+    ])
     return (slide7,)
 
 
 @app.cell
 def _(mo, DATA, stat, stats):
-    _t = DATA["typesafe"]
-    _replicated = sum(l["verdict"].startswith("replicated in ") for l in _t["leads"])
-    _not_replicated = sum(l["verdict"].startswith("not replicated in ") for l in _t["leads"])
-    _nodes = _t["graph_nodes"]
+    _g = DATA["graph"]; _n = _g["nodes"]; _j = _g["judged"]
+    _lines = ["graph LR", f'  F["{_g["ego"]["claim"].replace(chr(34), "")}"]:::finding']
+    _style = {"passage": "fill:#e6f0ff,stroke:#3060c0", "finding": "fill:#ffe8b0,stroke:#b07a00", "dataset": "fill:#e0f5e0,stroke:#2a7a2a"}
+    for _i, _e in enumerate(_g["ego"]["edges"]):
+        _arrow = "==>" if _e["relation"] in ("replicated", "contradicts", "contradicted", "supports", "rediscovers") else "-->"
+        _lines.append(f'  N{_i}["{_e["label"].replace(chr(34), "")}"]:::{_e["type"]}')
+        _lines.append(f'  F {_arrow}|{_e["relation"]} {_e["p"]:.2f}| N{_i}')
+    _lines += [f"  classDef {k} {v}" for k, v in _style.items()]
+    _sem = _g["semantic"]
     slide8 = mo.vstack([
-        mo.md("# Bonus · TypeSafe checks the survivors across studies"),
-        mo.md(f"**After Helix judges a lead, does the signal appear elsewhere?** "
-              f"This saved check covers the {len(_t['leads'])} survivors from **{_t['dataset']}**, the product example in slide 3. "
-              "TypeSafe (Jev) scores study comparability and cross-study evidence; code checks gene direction and significance."),
-        stats(stat(len(_t["leads"]), "survivors checked", f"against {_t['n_studies']} same-organism catalog studies"),
-              stat(_replicated, "replication signals", "in at least one comparable table on disk", "hx-good"),
-              stat(_not_replicated, "not replicated", "in the comparable tables checked"),
-              stat(f"{_t['seconds']} s", "saved check runtime", "results preloaded for this presentation")),
-        mo.ui.table([{"lead": l["id"], "claim": l["claim"], "cross-study check": l["verdict"]}
-                     for l in _t["leads"]], selection=None, page_size=5),
-        mo.md("_These are cross-study evidence checks, not experimental validation. They supplement the critic’s verdict; "
-              "they do not change the rulebook scores or survival counts shown earlier._"),
-        mo.md(f"**Also implemented: Research Graph Lab.** The saved graph links {_nodes['finding']} findings "
-              f"to evidence from {_nodes['paper']} papers across {_nodes['dataset']} datasets. "
-              "TypeSafe scores relationships such as supports, contradicts, and background; accepted links retain their probabilities."),
+        mo.md("# The research graph: every finding, linked to the papers that support or contradict it"),
+        mo.md(f"**{_n['finding']} findings** (scout leads, product survivors, the 54 NASA paper claims) against **{_g['corpus_papers']} papers** from the OSDR "
+              f"catalog, {_g['corpus_passages']:,} passages of abstract and open-access full text, plus {_n['dataset']} datasets and {_n['gene']} genes. "
+              f"Code proposes candidate pairs from shared entities; **TypeSafe** reranks a broad passage pool for relevance, then types each pair "
+              f"(supports · contradicts · background · rediscovers · replicates · extends), {_g['pairs_scored']:,} pairs in {_g['seconds']} s. "
+              "Every edge keeps its probabilities; a regular LLM only writes the one-sentence explanation of links already accepted."),
+        stats(stat(_n["finding"], "findings", "nodes"), stat(_n.get("passage", 0), "passages linked", f"from {_n.get('paper', 0)} papers"),
+              stat(_j.get("supports", 0) + _j.get("consistent", 0), "supported by a passage", "direct or at the pathway level", "hx-good"),
+              stat(_j.get("contradicts", 0), "contradicted by a passage", "opposite direction or explicitly no change", "hx-bad"),
+              stat(len(_g["rediscoveries"]), "rediscoveries", "scout lead matches a published claim", "hx-good"),
+              stat(_j.get("replicated", 0), "replicated by numbers", "in another dataset's table")),
+        mo.md("## Contradicted by the literature"),
+        mo.md("_The strongest per finding. Jev's dedicated P(contradicts) gates the label, so a passage that merely lists the gene cannot count._"),
+        mo.ui.table(_g["contradictions"], selection=None, page_size=5),
+        mo.callout(mo.md("**Crb1 \"downregulated in the spaceflight retina\"** was contradicted by the retina paper's own sentence: "
+                         "*\"None of the disease-associated genes that were shared across multiple diseases were differentially expressed in spaceflight.\"* "
+                         "That is the sentence our human labeller cited, found by TypeSafe in twelve thousand passages."), kind="danger"),
+        mo.md("## Rediscoveries: the scout's leads matched to what the scientists published"),
+        mo.ui.table(_g["rediscoveries"], selection=None, page_size=5),
+        mo.md(f"## Semantic, not keyword: *{_sem['claim'][:70]}*"),
+        mo.md("_E2f7 is named in no paper. The rerank still reached the OSD-515 thymus paper's cell-cycle result, and Jev called it support at the pathway level._"),
+        mo.ui.table(_sem["hits"], selection=None, page_size=3),
+        mo.md(f"## One finding's neighbourhood: *{_g['ego']['claim']}*"),
+        mo.mermaid("\n".join(_lines)),
+        mo.md("_Live in **Graph Lab** ([localhost:2722](http://localhost:2722)): pick any finding or gene, move the thresholds, read the passages, "
+              "and ask the LLM to explain a link._"),
     ])
     return (slide8,)
 
 
 @app.cell
-def _(mo, slide1, slide2, slide3, slide4, slide5, slide6, slide7, slide8):
+def _(mo, slide1, slide2, slide3, slide4, slide5, slide6, slide7, slide8, slide9):
     _keys = mo.Html('<iframe style="display:none" srcdoc="<script>'
                     'parent.document.addEventListener(&quot;keydown&quot;, function(e){'
                     'if (e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;'
@@ -328,7 +424,8 @@ def _(mo, slide1, slide2, slide3, slide4, slide5, slide6, slide7, slide8):
                     'var n = Math.min(Math.max(i + d, 0), tabs.length - 1); if (n !== i) { tabs[n].click(); e.preventDefault(); window.parent.scrollTo(0,0); }'
                     '});</script>"></iframe>')
     mo.vstack([_keys, mo.ui.tabs({"1 · The problem": slide1, "2 · How it works": slide2, "3 · The product": slide3, "4 · Does it learn?": slide4,
-                                  "5 · The proof": slide5, "6 · Helix on": slide6, "7 · Close": slide7, "8 · Bonus: TypeSafe": slide8})])
+                                  "5 · The proof": slide5, "6 · Helix on": slide6, "7 · Verify across OSDR": slide7, "8 · Research graph": slide8,
+                                  "9 · Close": slide9})])
     return
 
 

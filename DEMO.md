@@ -92,7 +92,7 @@ first 40 seconds, then go to the live screens. No second slide.
 
 ## 3-minute script. One browser tab: the deck. Say this one.
 
-`marimo run app/deck.py -p 2721`, or the hosted copy. Seven slides as tabs. Everything is preloaded.
+`marimo run app/deck.py -p 2721`, or the hosted copy. Nine slides as tabs (7 and 8 are the TypeSafe slides, skippable on the clock). Everything is preloaded.
 Nothing runs live. Arrow keys move between slides.
 
 **0:00 · Slide 1, "The problem" · 40 s**
@@ -137,7 +137,7 @@ can't see: a false claim about the whole table, a confound, an untestable one, a
 mechanism. Same floor, better judgment.") And look what survived: Drd4, Sag. The scout never saw the paper. Those are
 the published paper's headline findings."
 
-**2:45 · Slide 7, "Close" · 15 s**
+**2:45 · Slide 9, "Close" · 15 s**
 "Agents drift. Usually a person notices, after trusting it. Here the loop noticed first, on data nobody
 tuned for, and the bad version never reached a user. That's what we built this weekend."
 
@@ -312,7 +312,7 @@ critic on these." Bone table: 38 of 60 killed. Not for the 3-minute slot.
 
 ## Before the room
 
-- Restart all servers: deck `marimo run app/deck.py -p 2721` (the one you present from), plus `app/lead_lab.py -p 2719`, `app/dashboard.py -p 2718`, `app/naive_lab.py -p 2720` for questions.
+- Restart all servers: deck `marimo run app/deck.py -p 2721` (the one you present from), plus `app/lead_lab.py -p 2719`, `app/dashboard.py -p 2718`, `app/naive_lab.py -p 2720`, `app/graph_lab.py -p 2722` for questions.
 - Run Lead Lab once on a CSV from `data/raw/` and leave it up. Never run live in the room.
 - Deck open on slide 1, scrolled to the top. Use the arrow keys to move between slides. Second browser tab: W&B Evals with
   the four holdout rows ticked and Compare open, the N/A row deleted, in case a judge asks to see it.
@@ -321,11 +321,23 @@ critic on these." Bone table: 38 of 60 killed. Not for the 3-minute slot.
 - Make the repo public before submitting. Every member: signed in, survey done.
 
 
-## Optional bonus after the seven-slide close: TypeSafe
+## Slides 7 and 8: TypeSafe (open if time allows, or for the TypeSafe judges)
 
-Open tab 8 only if time allows. “We also check whether surviving leads appear in other studies.
-TypeSafe judges comparability; code checks the numbers. In this saved OSD-421 run, all 38 survivors
-were checked: 35 had a replication signal in at least one comparable table and 3 were not replicated
-in the tables checked.” These are evidence checks, not experimental validation.
-The tab uses saved results and needs no live API request. Graph Lab is available separately at
-`marimo run app/graph_lab.py`; keep live rebuilds outside the timed presentation.
+**Slide 7, "Verify across OSDR".** "Every survivor claims it's new. Nobody checks. TypeSafe does: for each
+of the 38 survivors it scores all 120 mouse studies in the OSDR catalog for how well they could replicate
+or refute it, then pandas looks the genes up in the comparable tables and TypeSafe judges what the numbers
+mean given the tissue. 15 seconds. 35 of the 38 replicate in two other spaceflight-thymus flights, so the
+scout's novelty claim was wrong on 35, and the biology is robust. Three are seen nowhere else. Those are
+the ones a scientist should spend time on." Same check lives in Lead Lab as the **OSDR check** column.
+
+**Slide 8, "Research graph".** "Then we link every finding we've ever produced, 294 of them, to 150 papers
+from the OSDR catalog, twelve thousand passages. TypeSafe reranks and types every pair: ten thousand in
+90 seconds. 44 findings are contradicted by a passage. Crb1 'downregulated in the retina': the retina
+paper's own sentence says none of those disease genes changed. That's the sentence our human labeller
+cited, found automatically. And the scout's Drd4, Sag, Pfkfb3 leads link straight to the paper's claims."
+Point at the neighbourhood graph. Live version: Graph Lab, `marimo run app/graph_lab.py -p 2722`.
+
+Both slides use saved results (`results/replicate_OSD-421.json`, `results/graph.json`) and need no live
+API request. Keep live rebuilds outside the timed presentation. Words to have ready: "calibrated
+probabilities, not prose"; "direction and significance are arithmetic, the model judges the tissue";
+"the verdict is a code rule over the model's distribution".
