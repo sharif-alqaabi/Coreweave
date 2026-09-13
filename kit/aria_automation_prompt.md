@@ -1,21 +1,33 @@
-# W&B Automation: prompt sent to ARIA when a new `critic-rules` artifact version is logged
+# ARIA as the architect, via MCP
 
-Configure in W&B: Automations -> New -> event "artifact version created" on collection
-`critic-rules` -> action "Trigger ARIA" -> paste the prompt below.
+## One-time setup
+1. Start the Helix MCP server on the demo machine:  `python3 helix/mcp_server.py`
+2. Expose it:  `cloudflared tunnel --url http://localhost:8765`  -> copy the https URL it prints.
+3. In ARIA, add a custom MCP server with URL `https://<that-host>/mcp` (no auth).
+   Verify by asking ARIA: "call get_rules" -> it should return the rules text.
+4. Create a W&B Automation: event = new version of artifact `critic-rules`,
+   action = Trigger ARIA, prompt = the block below.
+5. Run the loop with `python3 loop.py --iterations 4 --wait-for-aria 180`.
 
----
-A new iteration of the Helix critic loop just finished in project ${project_name}.
-Find the latest run with job_type "critic-iteration" and read its table `evaluation/hypotheses`.
+## Automation prompt (paste into the Trigger ARIA action)
 
-1. List every row where `critic_reason_code` differs from `human_reason_code`. Group them by
-   the (human, critic) pair and describe the pattern in one sentence per group, citing
-   `hypothesis_id`s and the numbers in `table_facts`.
-2. Compare `screening/kill_precision` and `screening/false_kill_rate` with the previous
-   critic-iteration run. Say whether the last rules change helped, hurt, or did nothing.
-3. Read the artifact `critic-rules` (file rules.md, latest version). Propose a patch that
-   would fix the largest group of misses without breaking rows that are currently correct.
+A new iteration of the Helix critic loop finished in project ${project_name}.
+You are the architect. Improve the critic's rules using the Helix MCP tools.
 
-Output the patch ONLY in this format, changing at most 2 sections, and nothing else after it:
+1. Call `list_iterations` to see precision per iteration. Note the latest iteration number N.
+2. Call `get_misses` with iteration=N. Group the misses by (human_reason_code, critic_reason_code)
+   and describe each pattern in one sentence, citing hypothesis_ids and the numbers in table_facts.
+3. Call `get_rules` to read the current rules. Optionally `get_dataset_summary` for context.
+4. Decide the ONE or TWO sections whose rewrite would fix the largest group of misses without
+   breaking leads the critic currently gets right.
+5. Call `apply_rules_patch` with `patch` = those sections in the format
+   "## <reason_code>\n<full replacement text, citing the hypothesis_ids it fixes>"
+   and `change_reason` = one sentence. If the tool returns an error, fix the patch and call again.
+6. Reply with: the patterns you found, the sections you changed, and the precision you expect
+   next iteration.
 
-## <section name, one of: ok, already_known, underpowered, confound, contradicted, untestable, no_mechanism>
-<full replacement text for that section; cite the hypothesis_ids it fixes>
+Valid section names: ok, already_known, underpowered, confound, contradicted, untestable, no_mechanism.
+
+## Fallback if MCP is unavailable on stage
+Ask ARIA the same prompt without step 5; paste its "## section" output into
+`patches/iter{N}.md`; the loop applies it on its next pass.

@@ -2,7 +2,8 @@
 """Helix loop: judge -> score -> log -> revise rules, on the same leads each iteration.
 
     python3 loop.py --iterations 4 --dry-run                    # plumbing test, no keys
-    python3 loop.py --iterations 4 --patch-dir patches/         # apply ARIA patches from files
+    python3 loop.py --iterations 4 --wait-for-aria 120          # ARIA writes rules via the MCP server
+    python3 loop.py --iterations 4 --patch-dir patches/         # or: apply ARIA patches pasted to files
     python3 loop.py --holdout                                   # final rules on holdout, once
 
 Rules live in kit/critic/rules_v{n}.md. Iteration n judges with v{n} and produces v{n+1}
@@ -47,6 +48,15 @@ def run_iteration(n, leads, table, critic, args, prev_precision):
     base = rules
     if prev_precision is not None and (m["screening/kill_precision"] or 0) < prev_precision:
         base = f"kit/critic/rules_v{n-1}.md"; print(f"  precision dropped: rolling back to v{n-1} as base")
+    next_rules = Path(f"kit/critic/rules_v{n+1}.md")
+    if args.wait_for_aria and not next_rules.exists():      # ARIA writes it via the MCP tool
+        import time
+        print(f"  waiting up to {args.wait_for_aria}s for ARIA to write {next_rules} ...")
+        deadline = time.time() + args.wait_for_aria
+        while time.time() < deadline and not next_rules.exists():
+            time.sleep(2)
+    if next_rules.exists():
+        print(f"  -> {next_rules} (author=aria via MCP)"); return m["screening/kill_precision"]
     patch_file = Path(args.patch_dir or "patches") / f"iter{n}.md"
     if patch_file.exists():
         patch, author = patch_file.read_text(), "aria"
@@ -70,6 +80,8 @@ def main():
     ap.add_argument("--table", default="data/raw/OSD-104_rna_seq_differential_expression.csv")
     ap.add_argument("--patch-dir", default=None)
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--wait-for-aria", type=int, default=0, metavar="SECONDS",
+                    help="after logging, wait this long for ARIA to write the next rules via MCP before falling back")
     args = ap.parse_args()
     table = Table(args.table)
     critic = Critic(dry_run=args.dry_run)
