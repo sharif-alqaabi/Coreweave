@@ -47,7 +47,7 @@ def _(mo, naive, reveal):
             mo.md("# An LLM research assistant reads a NASA retina study"),
             mo.md(f"Dataset {naive['dataset']}: mice flown 35 days on the ISS. The assistant reports **{len(_rows)} findings**. "
                   "All confident. None checked. This is what you get when nothing in the loop can say no."),
-            mo.ui.table(_rows, selection=None, page_size=8), reveal])
+            mo.ui.table(_rows, selection=None, page_size=15), reveal])
         if not reveal.value:
             slide1 = _top
         else:
@@ -57,7 +57,7 @@ def _(mo, naive, reveal):
             slide1 = mo.vstack([_top,
                 mo.md(f"## Helix: **{len(naive['killed'])} of {len(_rows)} findings killed**, {len(naive['survivors'])} survive"),
                 mo.md("Code attached each finding's real numbers from the table. A separate critic judged every one and cites the number that decided it."),
-                mo.ui.table(_kill, selection=None, page_size=8),
+                mo.ui.table(_kill, selection=None, page_size=15),
                 mo.md("### And the survivors include what the scientists actually published\n"
                       "The scout never saw the paper. From the table alone it proposed, and the critic passed:\n" + _redisc)])
     return (slide1,)
@@ -84,8 +84,8 @@ def _(mo, load, os):
             mo.md("# The product: any table in, judged leads out"),
             mo.md(f"A different study, {_prod['dataset']} (thymus). **{len(_surv)} leads survive, {len(_kill3)} killed**, "
                   f"{_prod['seconds']} s, rules {os.path.basename(_prod['rules'])}. Live version: [localhost:2719](http://localhost:2719)."),
-            mo.md("### Survivors"), mo.ui.table(_surv, selection=None, page_size=8),
-            mo.md("### Killed, with the number"), mo.ui.table(_kill3, selection=None, page_size=8)])
+            mo.md("### Survivors"), mo.ui.table(_surv, selection=None, page_size=15),
+            mo.md("### Killed, with the number"), mo.ui.table(_kill3, selection=None, page_size=15)])
     return (slide3,)
 
 
