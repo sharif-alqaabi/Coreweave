@@ -60,6 +60,34 @@ and read the misses that produced it."
 "Agents drift. Usually a person notices. Here the loop noticed, on unseen data, before anyone was
 disappointed. That's what we built."
 
+## 2-minute speech over the diagram (docs/helix-flow.html)
+
+NASA has 243 gene-expression studies from mice that flew in space. A scientist can't read them all. An LLM
+that reads them invents findings, because nothing in the loop is allowed to say no. And when an agent
+quietly gets worse, you usually find out from a person who trusted it. We built Helix so the loop finds
+out first.
+
+Top band. This happens once. A scout model reads three NASA tables and writes 180 leads, and we tell it
+to include weak ones. Code, not a model, attaches the real numbers to every lead. A jury labels each one:
+fine, or one of six reasons it's bad. Then we split them. 90 for training. 90 locked away. And
+separately, 54 claims typed by hand from two published NASA papers, which never touch training at all.
+
+Middle band. This is the loop. A critic judges the 90 training leads using a rulebook, a plain-text
+checklist of reasons to say no. Code finds where it disagreed with the labels. Those misses go to three
+architects, Qwen, DeepSeek, and ARIA, and each rewrites the rulebook. The critic tests all three rewrites
+on the same 90 leads. The best one wins, only if it beats what we had. Four rounds. Qwen won the first,
+DeepSeek the second, ARIA the fourth.
+
+Bottom band. This is the point. Every rulebook gets one look at the 90 leads it never saw. Mistakes
+fell: 27, 21, 18. Then version four, ARIA's, the best score we ever got on training data, went back up
+to 23. It had learned the training leads by name. On the 54 published claims, every version killed zero
+real findings.
+
+So we ship version two. Not the newest. The one that was measured. An agent drifted, the loop caught it
+on data nobody tuned for, and it never reached a user. Everything you just saw is traced in Weave:
+5,800 verdicts, every rulebook a versioned artifact, every version scored as an evaluation you can open
+right now.
+
 ## What is on each screen, so you can answer anything pointed at
 
 **Lead Lab (localhost:2719).** One run on one CSV.
