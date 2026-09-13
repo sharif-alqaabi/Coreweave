@@ -29,6 +29,12 @@ def _():
     def _slim(l, keep):
         return {k: l.get(k, "") for k in keep}
 
+    def _flow_embed(html):
+        # Style + figure only: the slide has its own heading, and .flow-root lets deck.css theme it.
+        css = html.split("<style>", 1)[1].split("</style>", 1)[0]
+        fig = "<figure" + html.split("<figure", 1)[1].split("</figure>", 1)[0] + "</figure>"
+        return f'<div class="flow-root"><style>{css}</style>{fig}</div>'
+
     _naive = json.load(open("results/naive_OSD-255.json"))
     _prod = json.load(open("results/product_OSD-421.json"))
     _verdict = {k["id"]: k for k in _naive["killed"]}
@@ -44,7 +50,7 @@ def _():
         "prod": {"dataset": _prod["dataset"], "rules": os.path.basename(_prod["rules"]), "seconds": _prod["seconds"],
                  "leads": [{**_slim(j, ("id", "claim", "why_not_known", "next_step", "label", "reason")), "padj": _padj(j)}
                            for j in _prod["survivors"] + _prod["killed"]]},
-        "flow_html": "<style>" + open("docs/helix-flow.html").read().split("<style>", 1)[1],
+        "flow_html": _flow_embed(open("docs/helix-flow-pitch.html").read()),
         "charts_html": "<style>" + open("docs/helix-charts.html").read().split("<style>", 1)[1],
         "rules": [],
     }

@@ -1,55 +1,58 @@
 <title>Helix Pitch Diagram</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-  :root {
+  .flow-root {
     --bg: #fbfbf9; --ink: #1c2126; --muted: #5d6670; --line: #d7dbd6;
     --band: #f1f3ef; --ship: #0f766e; --ship-bg: #d9f0ec; --catch: #b42318; --catch-bg: #fbe1dd;
-    --code-bg: #eceee9;
+    --code-bg: #eceee9; --ts: #6d28d9; --ts-bg: #ede9fe;
   }
   @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
+    :root:not([data-theme="light"]) .flow-root {
       --bg: #15181b; --ink: #e8eae6; --muted: #a2a9b0; --line: #3a4046;
       --band: #1d2126; --ship: #5ed3c4; --ship-bg: #123c38; --catch: #ff8a7a; --catch-bg: #4a1f1a;
-      --code-bg: #262b30;
+      --code-bg: #262b30; --ts: #c4b5fd; --ts-bg: #2e1f5e;
     }
   }
-  :root[data-theme="dark"] {
+  :root[data-theme="dark"] .flow-root {
     --bg: #15181b; --ink: #e8eae6; --muted: #a2a9b0; --line: #3a4046;
     --band: #1d2126; --ship: #5ed3c4; --ship-bg: #123c38; --catch: #ff8a7a; --catch-bg: #4a1f1a;
     --code-bg: #262b30;
   }
   body { background: var(--bg); color: var(--ink); font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
          padding-block: 32px; padding-inline: 24px; }
-  main { max-width: 1440px; margin: 0 auto; display: grid; gap: 20px; }
-  h1 { font-size: 30px; font-weight: 600; margin: 0; letter-spacing: -0.01em; text-wrap: balance; }
-  p.lede { margin: 0; max-width: 60ch; color: var(--muted); font-size: 17px; line-height: 1.5; }
-  figure { margin: 0; overflow-x: auto; }
-  svg { display: block; width: 100%; max-width: 1440px; height: auto; color: var(--ink); font-family: inherit; }
-  svg .box { fill: var(--bg); stroke: currentColor; stroke-width: 2; }
-  svg .code { fill: var(--code-bg); stroke: currentColor; stroke-width: 2; }
-  svg .band { fill: var(--band); stroke: none; }
-  svg .ship { fill: var(--ship-bg); stroke: var(--ship); stroke-width: 2.5; }
-  svg .catch { fill: var(--catch-bg); stroke: var(--catch); stroke-width: 2.5; }
-  svg text { fill: currentColor; font-size: 16px; }
-  svg .t-title { font-size: 22px; font-weight: 600; }
-  svg .t-sub { font-size: 15px; fill: var(--muted); }
-  svg .t-edge { font-size: 14px; fill: var(--muted); }
-  svg .t-band { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; fill: var(--muted); }
-  svg .t-mono { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; }
-  svg .t-ship { fill: var(--ship); font-weight: 600; font-size: 20px; }
-  svg .t-catch { fill: var(--catch); font-weight: 600; font-size: 20px; }
-  svg .edge { fill: none; stroke: currentColor; stroke-width: 2; }
-  svg .edge-ship { fill: none; stroke: var(--ship); stroke-width: 2.5; }
-  svg .edge-catch { fill: none; stroke: var(--catch); stroke-width: 2.5; }
-  figcaption { font-size: 15px; color: var(--muted); max-width: 90ch; line-height: 1.5; margin-top: 12px; }
+  main.flow-root { max-width: 1440px; margin: 0 auto; display: grid; gap: 20px; }
+  .flow-root h1 { font-size: 30px; font-weight: 600; margin: 0; letter-spacing: -0.01em; text-wrap: balance; }
+  .flow-root p.lede { margin: 0; max-width: 60ch; color: var(--muted); font-size: 17px; line-height: 1.5; }
+  .flow-root figure { margin: 0; overflow-x: auto; }
+  .flow-root svg { display: block; width: 100%; max-width: 1440px; height: auto; color: var(--ink); font-family: inherit; }
+  .flow-root svg .box { fill: var(--bg); stroke: currentColor; stroke-width: 2; }
+  .flow-root svg .code { fill: var(--code-bg); stroke: currentColor; stroke-width: 2; }
+  .flow-root svg .band { fill: var(--band); stroke: none; }
+  .flow-root svg .ship { fill: var(--ship-bg); stroke: var(--ship); stroke-width: 2.5; }
+  .flow-root svg .catch { fill: var(--catch-bg); stroke: var(--catch); stroke-width: 2.5; }
+  .flow-root svg .ts { fill: var(--ts-bg); stroke: var(--ts); stroke-width: 2.5; }
+  .flow-root svg .t-ts { fill: var(--ts); font-weight: 600; font-size: 22px; }
+  .flow-root svg .edge-ts { fill: none; stroke: var(--ts); stroke-width: 2.5; }
+  .flow-root svg text { fill: currentColor; font-size: 16px; }
+  .flow-root svg .t-title { font-size: 22px; font-weight: 600; }
+  .flow-root svg .t-sub { font-size: 15px; fill: var(--muted); }
+  .flow-root svg .t-edge { font-size: 14px; fill: var(--muted); }
+  .flow-root svg .t-band { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; fill: var(--muted); }
+  .flow-root svg .t-mono { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; }
+  .flow-root svg .t-ship { fill: var(--ship); font-weight: 600; font-size: 20px; }
+  .flow-root svg .t-catch { fill: var(--catch); font-weight: 600; font-size: 20px; }
+  .flow-root svg .edge { fill: none; stroke: currentColor; stroke-width: 2; }
+  .flow-root svg .edge-ship { fill: none; stroke: var(--ship); stroke-width: 2.5; }
+  .flow-root svg .edge-catch { fill: none; stroke: var(--catch); stroke-width: 2.5; }
+  .flow-root figcaption { font-size: 15px; color: var(--muted); max-width: 90ch; line-height: 1.5; margin-top: 12px; }
 </style>
 
-<main>
+<main class="flow-root">
   <h1>Helix: a critic that rewrites its own rulebook</h1>
-  <p class="lede">Propose, judge, rewrite the rules, repeat. Every rewrite has to beat the old rules on data it never saw before it ships.</p>
+  <p class="lede">Propose, judge, rewrite the rules, repeat. Every rewrite has to beat the old rules on data it never saw before it ships. Then TypeSafe checks what survived against the rest of OSDR.</p>
 
   <figure>
-    <svg viewBox="0 0 1440 640" role="img" aria-label="The loop: a scout proposes leads, a critic judges them against a rulebook, three architects rewrite the rulebook from the critic's mistakes, a tournament promotes the best rewrite back to the critic. Below the loop, a holdout check on unseen leads and published NASA findings decides whether a rulebook ships or is caught.">
+    <svg viewBox="0 0 1440 1070" role="img" aria-label="The loop: a scout proposes leads, a critic judges them against a rulebook, three architects rewrite the rulebook from the critic's mistakes, a tournament promotes the best rewrite back to the critic. Below the loop, a holdout check on unseen leads and published NASA findings decides whether a rulebook ships or is caught. Below that, after Helix: TypeSafe checks every survivor against the other OSDR studies, and links every finding to the papers that support or contradict it.">
       <defs>
         <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
           <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
@@ -59,6 +62,9 @@
         </marker>
         <marker id="arrow-catch" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
           <path d="M0,0 L10,5 L0,10 z" fill="var(--catch)"/>
+        </marker>
+        <marker id="arrow-ts" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="var(--ts)"/>
         </marker>
       </defs>
 
@@ -131,7 +137,56 @@
       <text x="1040" y="496" class="t-sub">fewest mistakes on unseen data</text>
       <text x="1040" y="566" class="t-sub">best on training data, worse on unseen data</text>
       <text x="1040" y="588" class="t-sub">the loop said no to itself</text>
+
+      <!-- after Helix -->
+      <rect class="band" x="20" y="674" width="1400" height="380" rx="8"/>
+      <text class="t-band" x="44" y="704">After Helix · TypeSafe checks the survivors, then links everything</text>
+
+      <path class="edge-ship" d="M1020,505 L1032,505 L1032,650 L154,650 L154,740" marker-end="url(#arrow-ship)"/>
+      <text x="593" y="668" text-anchor="middle" class="t-edge">the survivors, each claiming to be new</text>
+
+      <!-- row 1: verify across OSDR -->
+      <rect class="box" x="44" y="740" width="220" height="120" rx="6"/>
+      <text x="154" y="780" text-anchor="middle" class="t-title">Survivors</text>
+      <text x="154" y="808" text-anchor="middle" class="t-sub">38 leads from one table,</text>
+      <text x="154" y="830" text-anchor="middle" class="t-sub">each says "not seen elsewhere"</text>
+
+      <path class="edge-ts" d="M264,800 L384,800" marker-end="url(#arrow-ts)"/>
+
+      <rect class="ts" x="384" y="740" width="400" height="120" rx="6"/>
+      <text x="584" y="780" text-anchor="middle" class="t-ts">TypeSafe checks the rest of OSDR</text>
+      <text x="584" y="808" text-anchor="middle" class="t-sub">scores all 243 studies: could this one replicate or refute it?</text>
+      <text x="584" y="830" text-anchor="middle" class="t-sub">code checks the numbers in the comparable ones · 15 s</text>
+
+      <path class="edge-ship" d="M784,800 L880,800" marker-end="url(#arrow-ship)"/>
+
+      <rect class="ship" x="880" y="740" width="516" height="120" rx="6"/>
+      <text x="1138" y="780" text-anchor="middle" class="t-ship">35 of 38 replicate elsewhere</text>
+      <text x="1138" y="808" text-anchor="middle" class="t-sub">in two other spaceflight-thymus flights: robust, not new</text>
+      <text x="1138" y="830" text-anchor="middle" class="t-sub">3 seen nowhere else: the leads worth a scientist's time</text>
+
+      <!-- row 2: research graph -->
+      <rect class="box" x="44" y="880" width="220" height="120" rx="6"/>
+      <text x="154" y="920" text-anchor="middle" class="t-title">Every finding</text>
+      <text x="154" y="948" text-anchor="middle" class="t-sub">294 leads and claims,</text>
+      <text x="154" y="970" text-anchor="middle" class="t-sub">150 papers, 12,152 passages</text>
+
+      <path class="edge-ts" d="M264,940 L384,940" marker-end="url(#arrow-ts)"/>
+
+      <rect class="ts" x="384" y="880" width="400" height="120" rx="6"/>
+      <text x="584" y="920" text-anchor="middle" class="t-ts">TypeSafe links them</text>
+      <text x="584" y="948" text-anchor="middle" class="t-sub">reranks the passages, then types every pair:</text>
+      <text x="584" y="970" text-anchor="middle" class="t-sub">supports · contradicts · rediscovers · replicates</text>
+
+      <path class="edge-ship" d="M784,940 L880,940" marker-end="url(#arrow-ship)"/>
+
+      <rect class="ship" x="880" y="880" width="516" height="120" rx="6"/>
+      <text x="1138" y="920" text-anchor="middle" class="t-ship">Research graph</text>
+      <text x="1138" y="948" text-anchor="middle" class="t-sub">44 findings contradicted by a paper's own sentence</text>
+      <text x="1138" y="970" text-anchor="middle" class="t-sub">the scout's leads matched to the published claims</text>
+
+      <text x="44" y="1036" class="t-sub">Numbers stay in code. TypeSafe answers with calibrated probabilities, not prose. Every verdict is a code rule over those probabilities.</text>
     </svg>
-    <figcaption>One scout proposes, one critic judges, three architects compete to rewrite the critic's rulebook. The winner goes back into the critic. Every version is then checked on unseen data, and that check, not the training score, decides what ships.</figcaption>
+    <figcaption>One scout proposes, one critic judges, three architects compete to rewrite the critic's rulebook. The winner goes back into the critic. Every version is then checked on unseen data, and that check, not the training score, decides what ships. After Helix, TypeSafe checks every survivor against the rest of OSDR and links every finding to the literature; the numbers stay in code and the verdicts are code rules over its probabilities.</figcaption>
   </figure>
 </main>
