@@ -100,11 +100,12 @@ its mistakes; it tests every rewrite on data it never saw, and that caught a bad
 An LLM will read them, and invent findings, because nothing tells it no. Helix is an agent that tells
 itself no, and gets better at it."
 
-**0:25 · Slide, point at the middle band · 35 s**
-"Three steps. One: a model reads a table and proposes leads. Two: code attaches the real numbers, and a
-separate critic kills any lead the numbers don't support, and says why. Three: the critic's rulebook is
-plain text, and after every round, architects rewrite it from the critic's mistakes. That's the loop.
-Propose, judge, rewrite the rules, repeat."
+**0:25 · Slide, point at the middle band · 40 s**
+"Three steps. One: a model reads a table and proposes leads. We didn't teach it what a good lead is. We
+let it propose, and let the numbers sort. Two: code attaches the real numbers, and a separate critic kills
+any lead the numbers don't support, and says why. About half survive; that's the honest ratio for an LLM
+reading data. Three: the critic's rulebook is plain text, and after every round, architects rewrite it
+from the critic's mistakes. That's the loop. Propose, judge, rewrite the rules, repeat."
 
 **1:00 · Tab 1, Lead Lab, run already finished · 30 s**
 "Here's a real table from a retina study. Fifty leads survive. Ten killed." Read one kill. "Every kill
@@ -171,10 +172,11 @@ Stop talking at 3:00. If you are over at 2:15, cut the NASA rows and say the sen
 
 - **"Why not just ship the latest version?"** "Latest was best on training data. Version two was best on
   data it hadn't seen. We ship what's measured, not what's newest."
-- **"How did you know what a good lead is?"** "We wrote it down as a rubric: seven codes, each with a
-  numeric threshold, padj under 0.05, carriers in more than half the samples, mean count over 20. The
-  jury labelled with that rubric and the critic started from it. Then we tested the definition against
-  reality: 54 findings from two published NASA papers. The critic passed every one the table supports."
+- **"How did you know what a good lead is?"** "We didn't teach the model good. We wrote a checklist:
+  the numbers back the claim, most mice show it, there's an experiment that could prove it wrong, and it
+  isn't textbook. The model proposes, the checklist decides, and about half pass. Then we checked the
+  checklist against the published NASA papers: our pipeline found their headline genes on its own, and
+  rejected the one their own data doesn't support."
 - **"Do the leads match what NASA's scientists actually found?"** "Yes. From the table alone, the scout
   proposed the headline gene of each paper, Drd4 for the retina study and Pfkfb3 for the bone study, and
   the critic passed them. It also proposed Stfa1, which the bone paper reported but the table doesn't
