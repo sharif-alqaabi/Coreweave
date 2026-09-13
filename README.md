@@ -290,6 +290,8 @@ A demo is winning if judges can watch **three iterations** and see the system ch
 
 ---
 
+A full-flow diagram (once / every round / what ships) is in `docs/helix-flow.html`; open it in a browser.
+
 ## Results so far (12-13 Sep 2026)
 
 Two kinds of test, because they catch different mistakes. Both are judged by the same critic with the same rules file.
