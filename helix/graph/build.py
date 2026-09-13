@@ -92,3 +92,29 @@ def assemble(findings, passages, edges, papers, studies):
     for k, e in enumerate(struct):
         e["id"] = f"s{k}"
     return nodes, kept + struct, len(edges) - len(kept)
+
+
+def main(argv):
+    max_f = int(argv[argv.index("--max") + 1]) if "--max" in argv else None
+    t0 = time.time()
+    studies, papers, passages = C.build(fulltext=True, progress=lambda s: None) if not os.path.exists(os.path.join(C.DIR, "passages.jsonl")) \
+        else (json.load(open(os.path.join(C.DIR, "studies.json"))), json.load(open(os.path.join(C.DIR, "papers.json"))), C.load_passages())
+    print(f"corpus: {len(studies)} studies, {len(papers)} papers, {len(passages)} passages")
+    from typesafe_sdk import TypeSafeClient
+    with TypeSafeClient(timeout=120) as client:
+        E.tag_passages(passages, client=client)
+        findings = E.findings()[:max_f]
+        print(f"{len(findings)} findings")
+        edges = X.build_edges(findings, passages, client, numeric="--no-numeric" not in argv)
+    nodes, all_edges, dropped = assemble(findings, passages, edges, papers, studies)
+    if "--no-explain" not in argv:
+        EX.explain_edges(all_edges, findings, passages)
+    stats = {"nodes": Counter(n["type"] for n in nodes), "edges": Counter(f"{e['type']}:{e['relation']}" for e in all_edges),
+             "judged_dropped": dropped, "seconds": round(time.time() - t0)}
+    os.makedirs(os.path.dirname(OUT), exist_ok=True)
+    json.dump({"built": time.strftime("%Y-%m-%d %H:%M"), "stats": stats, "nodes": nodes, "edges": all_edges}, open(OUT, "w"))
+    print(json.dumps(stats, indent=1)); print("->", OUT)
+
+
+if __name__ == "__main__":
+    main(sys.argv[1:])
