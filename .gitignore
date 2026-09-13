@@ -10,3 +10,8 @@ kit/.history/
 wandb/
 .marimo/
 runs/
+# OSDR tables pulled on demand by helix.replicate.fetch_dge (OSD-244 alone is 116 MB); the four originals stay tracked
+data/raw/OSD-4_*.csv
+data/raw/OSD-244_*.csv
+data/raw/OSD-289_*.csv
+data/raw/OSD-515_*.csv
