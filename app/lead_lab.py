@@ -144,5 +144,36 @@ def _(mo, shown, check, replicate, json, os):
     return (novelty,)
 
 
+@app.cell
+def _(mo, novelty):
+    if novelty is None:
+        head = mo.md("_Verdicts appear here after verification._"); lead_pick = None; fetch = None
+    else:
+        kind = lambda v: v.split(":")[0].split(" in ")[0].split(" by ")[0]
+        counts = {}
+        for l in novelty["leads"]:
+            counts[kind(l["verdict"])] = counts.get(kind(l["verdict"]), 0) + 1
+        direct = {n["osd_id"] for l in novelty["leads"] for n in l["numeric"] if n["comparable"] >= 2}
+        missing = sorted({w["osd_id"] for l in novelty["leads"] for w in l["where_to_look"] if w["comparable"] >= 2.5 and not w["on_disk"]})
+        rows = [{"lead": l["id"].split("_", 1)[1], "claim": l["claim"][:80], "verdict": l["verdict"],
+                 **{n["osd_id"]: n["verdict"] for n in sorted(l["numeric"], key=lambda n: n["osd_id"]) if n["comparable"] >= 2},
+                 "scout said": l["why_not_known"][:90]} for l in novelty["leads"]]
+        lead_pick = mo.ui.dropdown(options={l["id"].split("_", 1)[1] + "  " + l["claim"][:60]: l["id"] for l in novelty["leads"]},
+                                   value=novelty["leads"][0]["id"].split("_", 1)[1] + "  " + novelty["leads"][0]["claim"][:60], label="Lead")
+        fetch = mo.ui.run_button(label=f"Download {len(missing)} comparable dataset(s) not on disk: {', '.join(missing[:4])}{'...' if len(missing) > 4 else ''}",
+                                 disabled=not missing)
+        head = mo.vstack([
+            mo.md(f"## {novelty['dataset']}: " + ", ".join(f"**{n} {k}**" for k, n in sorted(counts.items(), key=lambda kv: -kv[1]))
+                  + f" of {len(novelty['leads'])} survivors, judged against {novelty['n_studies']} {novelty['organism']} studies "
+                  f"in the catalog and {len(direct)} comparable table(s) on disk ({', '.join(sorted(direct))}), in {novelty['seconds']} s"),
+            mo.md("Columns per comparable dataset: **replicated** (same direction, padj < 0.05), **contradicted** (opposite, padj < 0.05), "
+                  "**not_replicated** (measured, no change), **underpowered**, **not_detected**. Unrelated tissues never count."),
+            mo.ui.table(rows, selection=None, page_size=40),
+            mo.hstack([lead_pick, fetch], justify="start"),
+        ])
+    head
+    return lead_pick, fetch
+
+
 if __name__ == "__main__":
     app.run()
