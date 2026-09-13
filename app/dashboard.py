@@ -60,10 +60,31 @@ def _(mo, json, glob, refresh):
 
 
 @app.cell
-def _(mo, glob, os):
-    versions = sorted(glob.glob("kit/critic/rules_v*.md"), key=lambda p: int(p.split("_v")[1][:-3]))
-    tabs = {os.path.basename(v): mo.md(open(v).read()) for v in versions}
-    mo.vstack([mo.md("## Rules versions"), mo.ui.tabs(tabs)])
+def _(mo, glob, os, json):
+    import difflib
+    allv = sorted(glob.glob("kit/critic/rules_v*.md"), key=lambda p: int(p.split("_v")[1][:-3]))
+    versions, seen = [], set()                    # distinct rulebooks only; the loop copies a base forward when nothing wins
+    for v in allv:
+        t = open(v).read()
+        if t not in seen:
+            seen.add(t); versions.append(v)
+    def meta(v):
+        mp = v.replace(".md", ".meta.json")
+        return json.load(open(mp)) if os.path.exists(mp) else {}
+    tabs = {}
+    for i, v in enumerate(versions):
+        name, m = os.path.basename(v), meta(v)
+        head = f"**{name}**" + (f" · author {m['author']} · changed {', '.join(m['sections'])}" if m else " · hand-written seed")
+        if i == 0:
+            tabs[name] = mo.vstack([mo.md(head), mo.md(open(v).read())])
+            continue
+        prev = versions[i - 1]
+        diff = difflib.unified_diff(open(prev).read().splitlines(), open(v).read().splitlines(),
+                                    fromfile=os.path.basename(prev), tofile=name, lineterm="", n=1)
+        tabs[name] = mo.vstack([mo.md(head + f" · diff against {os.path.basename(prev)}"),
+                                mo.md("```diff\n" + "\n".join(diff) + "\n```"),
+                                mo.accordion({"full text": mo.md(open(v).read())})])
+    mo.vstack([mo.md("## Rules versions: what each architect changed"), mo.ui.tabs(tabs)])
     return
 
 
