@@ -14,7 +14,7 @@
   <em>Leads that survive the critic get promoted. Skills that fail get rewritten by Aria.</em>
 </p>
 
-**One sentence.** LLM agents drift, and you usually find out from a disappointed human. Helix scores every rewrite of its own rulebook on data it never trained on, and that is how it caught a rewrite that looked better and was worse, before it shipped.
+---
 
 ## Why this exists
 
@@ -143,6 +143,8 @@ Aria’s output is versioned. If a patch drops survival quality, roll it back. T
 
 ## Why the three-way split
 
+One agent that both dreams and grades will grade generously.
+
 ```text
 same model  →  eloquent nonsense survives
 split models →  eloquence is not evidence
@@ -159,7 +161,7 @@ Helix keeps generation, judgment, and meta-improvement on separate seats. Weave 
 
 ---
 
-## What a lead is
+## What “a lead” means here
 
 Not a paragraph. A structured object that can die cleanly.
 
@@ -183,22 +185,10 @@ The ledger is the product. Papers, dashboards, and follow-up experiments are dow
 
 ---
 
-## Architecture (this build)
+## Architecture (hackathon shape)
 
 ```text
-.
-├── loop.py                  # judge → score → log (fires ARIA) → tournament → write rules_v{n+1}
-├── helix/
-│   ├── product.py           # CSV in → judged leads out; ships best-holdout rules
-│   ├── critic.py            # verdict-only judge (TypeLock Choice, @weave.op)
-│   ├── critic_payload.py    # pandas attaches real numbers
-│   ├── summarize.py         # code-made table summary for the scout
-│   ├── reflect.py           # patch apply + guardrails (max 2 sections)
-│   ├── evaluate.py          # reason accuracy, kill precision, false-kill rate
-│   ├── wandb_log.py         # one W&B run + critic-rules artifact per iteration
-│   ├── weave_eval.py        # Weave Evaluations: rules version × labelled set
-│   ├── mcp_server.py        # MCP tools so ARIA can read misses and apply a patch
-│   └── aria_channel.py      # read ARIA's patch back off the W&B run
+helix/
 ├── agents/
 │   ├── weave_scout/        # retrieval, tool use, lead writer
 │   ├── critic/             # verdict-only judge
@@ -212,7 +202,7 @@ The ledger is the product. Papers, dashboards, and follow-up experiments are dow
 └── loop.py                 # one iteration = scout → critic → aria → swap kit
 ```
 
-**One training iteration** (`python3 loop.py`)
+**One iteration**
 
 1. Load current `kit/` (rules, skills, tools).
 2. Run Weave over a data shard. Emit leads + traces.
@@ -225,19 +215,18 @@ Keep iteration cheap. A loop that cannot finish in minutes will not get enough g
 
 ---
 
-## Results (12–13 Sep 2026)
+## Observability is not optional
 
-Two kinds of test. Same critic, same rules file.
+W&B Weave is the nervous system:
 
 - every scout tool call is a span
 - every lead is an object with a parent trace
 - every critic verdict is feedback on that object
 - every Aria patch is a versioned artifact tied to the iteration that produced it
 
-**Published NASA claims.** Claims transcribed from each study's primary paper (`scripts/make_nasa_golden.py`), then checked against GeneLab's reprocessed table. A paper claim the table supports must pass; one the table does not reproduce must be killed with a stated reason.
+If you cannot answer “which skill caused this bad lead?”, Aria is guessing. If Aria is guessing, the loop is theater.
 
-- OSD-255 (retina, Mao 2019): 12 of 32 named genes reproduce at padj < 0.05.
-- OSD-467 (bone, Chowdhury 2021): only Pfkfb3 reproduces; 13 named genes agree in direction but not significance. Never used in training.
+**Evals tab.** `python3 scripts/weave_eval.py data/golden/<set>.json 0 4` publishes each labelled lead set as a Weave Dataset and runs the critic over it once per rules version as a Weave Evaluation (`helix/weave_eval.py`). Two scorers: reason code matches the label, and kill/keep matches the label with false kills counted. Same critic, same rules files, same numbers as `loop.py --holdout`; the Compare button puts rules v0 next to v4 per lead. `--dry-run` uses the numeric fallback critic in a scratch project to check the wiring without spending model calls.
 
 ---
 
@@ -313,58 +302,35 @@ Two kinds of test, because they catch different mistakes. Both are judged by the
 
 | Set | Rules v0 | Rules v2 (ships) | Rules v4 (best on train) |
 | :--- | :--- | :--- | :--- |
-| LLM holdout, 90 unseen leads | reason acc 0.60, 6 false kills, 20 missed | **0.73**, 8 false kills, 8 missed | 0.64, 15 false kills, 8 missed |
+| LLM holdout, 90 unseen leads | reason acc 0.60, 6 false kills, 20 missed | reason acc 0.73, 8 false kills, 8 missed | reason acc 0.64, 15 false kills, 8 missed |
 | OSD-255 paper, 34 claims | 0 false kills, 12 wrong reasons | 0 false kills, 4 wrong reasons | 0 false kills, 2 wrong reasons |
 | OSD-467 paper, 20 claims (blind) | 0 false kills, 8 wrong reasons | 0 false kills, 3 wrong reasons | 0 false kills, 3 wrong reasons |
 
-**Rediscovery.** Working only from the code-made table summary, the scout independently proposed each paper's headline genes — Drd4, Hist1h2bc, Sag (retina) and Pfkfb3 (bone) — and the critic passed them. It also proposed Stfa1, which the bone paper reports as DE but GeneLab does not reproduce (padj 0.23). The critic killed every Stfa1 lead as `contradicted`, citing that number.
+**Rediscovery.** Working only from the code-made table summary, the scout independently proposed each paper's headline genes, Drd4, Hist1h2bc and Sag for the retina study and Pfkfb3 for the bone study, and the critic passed those leads. It also proposed Stfa1, which the bone paper reports as differentially expressed but GeneLab's table does not reproduce (padj 0.23); the critic killed every Stfa1 lead as contradicted, citing that number.
 
-No supported published finding is killed by any version.
+Every remaining paper-set miss is a kill with a different reason (underpowered instead of contradicted on a padj of 0.051). No supported published finding is killed by any version.
 
-**Why v2 ships, not v4.** The loop promotes by train score: v2 scored 0.81 there, v4 scored 0.84. On the unseen holdout the order flips: v2 0.73, v4 0.64, and v4 kills seven more good leads for no extra junk caught. v4 named training leads by id. That is memorization, so it did not ship. `helix/product.py` selects by holdout score. v5–v8 are byte-identical copies of v4 from later tournament rounds that found nothing better.
+**Why v2 ships, not v4.** The loop promotes by train score: v2 scored 0.81 there, v4 0.84. On the unseen holdout the order flips: v2 0.73, v4 0.64, and v4 kills seven more good leads for no extra junk caught. That is the training set starting to be memorised (v3 was a no-op copy of v2, and the v4 patch fixed train misses that do not generalise). `helix/product.py` therefore selects the shipped rules by holdout score, and the W&B Evals tab shows the curve v0, v1, v2, v4 on all three sets. v5 to v8 are byte-identical copies of v4 written by three later tournament rounds that found nothing better; they are not evaluated separately because they are not different rules.
 
-Train metrics from `results/metrics.csv`:
-
-| iter | rules | reason acc (train) | kill precision | misses |
-| ---: | ---: | ---: | ---: | ---: |
-| 0 | v0 | 0.68 | 0.93 | 29 |
-| 1 | v1 | 0.74 | 0.89 | 23 |
-| 2 | v2 | 0.81 | 0.89 | 17 |
-| 3 | v3 (= v2) | 0.81 | 0.89 | 17 |
-| 4 | v4 | 0.84 | 0.85 | 14 |
-| 5–7 | v5–v7 (= v4 text) | 0.86–0.87 on mixed train | 0.88 | 16–17 |
-
----
-
-## Sponsor tools (how each was used)
-
-Handbook rule: list every sponsor tool and how you used it. This is scored for sponsor prizes and grand prizes.
-
-| Tool | How Helix uses it |
-| :--- | :--- |
-| **W&B Inference** | Every generative model call — scout, both model architects, label jury — goes through `api.inference.wandb.ai`. Models: Qwen3-235B-A22B-Instruct-2507, DeepSeek-V3.1, gpt-oss-120b, Kimi-K2. |
-| **W&B Weave** | Every scout / critic / architect call is a traced `@weave.op` (14,380 calls, 5,845 critic verdicts in the recorded run). Each labelled lead set is a Weave Dataset. Each rules version × set is a Weave Evaluation with two scorers, so the Evals tab compares v0 / v1 / v2 / v4 per lead. |
-| **W&B Runs + Artifacts** | One run per training iteration (`job_type=critic-iteration`) with `screening/*` metrics and a per-lead table. Each rulebook is a versioned `critic-rules` artifact with lineage to the version it consumed. |
-| **W&B Automations + ARIA** | `scripts/create_aria_automation.py` registers `OnRunMetric(screening/eval_complete >= 1) >> SendPromptToAria`. ARIA's patch is read back off the run (`helix/aria_channel.py`) and enters the tournament as a candidate. ARIA authored `rules_v4`. |
-| **MCP** | `helix/mcp_server.py` exposes `list_iterations`, `get_misses`, `get_rules`, `get_dataset_summary`, `propose_rules_patch`, `apply_rules_patch` (compare-and-swap on the rules digest). That is how ARIA acts as an architect instead of a chatbot. |
-| **marimo** | `app/lead_lab.py` — upload a CSV, run the product pipeline, read survivors and kills. `app/dashboard.py` — iteration metrics and red/green diffs of every rulebook version. |
-| **TypeSafe TypeLock** | The critic verdict is a TypeLock Choice, not parsed chat: one label from `{ok, contradicted, underpowered, confound, already_known, untestable, no_mechanism}` plus a confidence the loop can threshold on. Same typed decision on every lead, so architects patch rules instead of scraping prose. |
-
-W&B project from `.env.example`: entity `matthewma003-san-jose-state-university`, project `helix`. The handbook says the project does not need to be public; still paste the link on the AGI House form.
+**Two things the paper sets taught us.**
+- *The critic will not tolerate a quoted statistic that differs from the table.* When claims carried the paper's own padj, v4 killed 5 of 15 supported claims as "contradicted", even though direction and significance agreed. A hand-written rule saying "a differing quoted number is not a contradiction" was ignored twice by the critic model. With numbers stripped, 12 of 12 pass. Training uses the number-free form; `nasa_OSD-255_numbered.json` and `results/nasa_OSD-255_numbered_rules_v*.json` keep the evidence.
+- *Training on paper claims alone would be a trap.* If every "ok" came from a paper and every kill from the scout, the architect would learn to read the source, not the table. So the mixed train set (`data/golden/train.json`, 124 leads) keeps both sources inside each label: 44 ok / 46 bad from the scout, 15 ok / 19 bad from OSD-255. The LLM-only set is kept as `train_llm_only.json`. On the mixed set v4 scores 0.86 and three tournament rounds (iterations 5-7) found no candidate that beat it, so `rules_v5..v8` are unchanged copies. OSD-467 was never trained on.
 
 ---
 
 ## Quick start
 
 ```bash
-git clone -b golden-set https://github.com/sharif-alqaabi/Coreweave.git
-cd Coreweave
+# coming online during the hackathon
+git clone https://github.com/<you>/helix.git
+cd helix
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-cp .env.example .env   # set WANDB_API_KEY
 
-# plumbing only, no keys
-python3 loop.py --iterations 1 --dry-run
+export WANDB_API_KEY=...
+export SCOUT_MODEL=...
+export CRITIC_MODEL=...   # different model. this is the whole point.
+export ARIA_MODEL=...
 
 python loop.py --data ./data/shard_01 --iterations 3
 ```
@@ -384,7 +350,7 @@ Open the Weave project. You should see three traces, a ledger file, and a `kit/`
 
 ---
 
-## What we are not claiming
+## Stack
 
 | Layer | Choice |
 | :--- | :--- |
