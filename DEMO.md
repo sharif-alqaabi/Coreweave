@@ -1,66 +1,143 @@
-# Helix: demo script (13 Sep 2026)
+# Helix: submission and 3-minute demo (13 Sep 2026)
 
-## The pitch, in one breath. Say this first and say it last.
+Prize rules that apply to us: repo public, built here (47 commits, all dated 12-13 Sep, visible in git log),
+W&B used (Weave, Inference, Runs, Automations), whole team present for both rounds. 3 minutes, strictly
+enforced, demo-heavy, at most two slides. Judges score: Best Loop, Creativity (agents working together),
+Utility, Technical execution, Sponsor usage. Plus "Most Production-Ready" two weeks later.
 
-**LLMs are not deterministic, so a bad change to an agent is usually caught late, by a disappointed
-human. Helix catches it in the loop. Every rewrite of the critic's rulebook is scored on leads it has
-never seen and on claims from published NASA papers. One rewrite looked better on training data and
-was worse on unseen data. The loop caught it, and it did not ship.**
+## The one sentence
 
-That is the whole story. Everything on screen is evidence for one of its three claims:
-1. the rules change (self-improving),
-2. the change is measured on unseen data (not just on what it trained on),
-3. one change overfit and was caught (the loop says no to itself).
+**LLM agents drift, and you usually find out from a disappointed human. Helix scores every rewrite of its
+own rulebook on data it never trained on, and that is how it caught a rewrite that looked better and was
+worse, before it shipped.**
 
-## Submission form
+---
 
-**Project name:** Helix
+## Submission form (AGI House platform, opens 10:00, due 13:00)
 
-**Description:** Helix reads a NASA OSDR gene-expression table, proposes research leads, and lets a
-separate critic kill the weak ones with a stated reason. After every round an architect rewrites the
-critic's rulebook from the misses, and candidate rulebooks fight a tournament before promotion. It is
-self-improving because the rulebook is a versioned artifact that changes the critic's behaviour, and
+**Team name:** Helix
+
+**Team members:** [all names, every member signed in and survey done]
+
+**Socials:** [X / LinkedIn handles]
+
+**Summary (2-3 sentences).**
+Helix reads a NASA OSDR gene-expression table, proposes research leads, and lets a separate critic kill
+the weak ones with a stated reason. After every round, three architects (two model architects and ARIA)
+rewrite the critic's rulebook from its misses, and the rewrites compete in a tournament before promotion.
+It is self-improving because the rulebook is a versioned artifact that changes the critic's behaviour, and
 every version is scored on unseen leads and on published NASA findings, so a rewrite that overfits is
 caught before it ships.
 
-**Track:** Best Use of Weave. Also eligible for Best Loop Design.
+**What it does / who it is for.**
+A space-biology scientist uploads any of NASA's 243 differential-expression tables and gets, in about
+100 seconds, a list of hypotheses worth their time and a list of rejected ones with the exact number that
+killed each. The critic's rules were learned across three tissues and validated against 54 claims from
+two published NASA papers: zero published findings killed, every unsupported claim killed with a reason.
 
-**Demo:** `marimo run app/lead_lab.py`, upload any `*_differential_expression.csv` from `data/raw/`.
-The W&B Evals tab shows the trained-versus-untrained comparison with no setup.
+**How it is built.**
+Python. Three roles, never the same prompt: scout (proposes), critic (judges one lead against the real
+table numbers and a plain-text rulebook), architects (rewrite the rulebook from the misses). Numbers are
+attached to every lead by pandas, never by a model. Rulebooks are Markdown files with meta sidecars,
+promoted by a tournament and gated by a holdout set. Two marimo apps: Lead Lab (product) and a
+training dashboard with red/green diffs of every rulebook version. An MCP server exposes the loop's
+tools (get_misses, get_rules, propose/apply patch) so ARIA can act as an architect; a W&B Automation
+fires ARIA when an iteration's evaluation completes. No RL environment, no A2A.
 
-## 3-minute script
+**Sponsor tools, and how each was used.**
+- **W&B Inference:** every model call in the project (scout, critic, both model architects, the label
+  jury) goes through api.inference.wandb.ai. Models: Qwen3-235B, DeepSeek-V3.1, gpt-oss-120b, Kimi-K2.
+- **W&B Weave:** every scout, critic and architect call is a traced op (14,380 calls, 5,845 critic
+  verdicts). Every labelled lead set is a Weave Dataset; every rules version × set is a Weave Evaluation
+  with two scorers, so the Evals tab compares v0/v1/v2/v4 per lead.
+- **W&B Runs and Artifacts:** one run per training iteration with screening metrics and a per-lead table;
+  each rulebook version is a versioned artifact with lineage to the version it consumed.
+- **W&B Automations + ARIA:** an OnRunMetric automation fires SendPromptToAria when an iteration logs
+  eval_complete; ARIA's patch is read back off the run and enters the tournament as a candidate. ARIA
+  authored rules_v4.
+- **marimo:** Lead Lab (upload a CSV, run the pipeline, read survivors and kills) and the training
+  dashboard (iteration metrics, misses, rulebook diffs).
 
-**0:00 The problem (no screen).**
-"NASA has 243 gene-expression studies from spaceflight mice. A scientist can't read them all. An LLM that
-reads them invents findings, because nothing in the loop is allowed to say no. And when an agent gets
-worse, you usually find out from a human who trusted it. Helix is built so the loop finds out first."
+**Demo link:** repo README "Quick start"; `marimo run app/lead_lab.py`. Screen recording attached.
 
-**0:30 Lead Lab (tab 1, run already finished).**
-"Upload a table, the scout proposes 60 leads, code attaches the real numbers, a separate critic kills
-the weak ones with a reason." Read one kill: "mean count 15, below the threshold of 20." Point at the
-padj column. "Every verdict cites a number from the table. The model never gets to make numbers up."
+---
 
-**1:00 Traces (tab 2, filtered to Critic.judge).**
-"5,800 verdicts, each one recorded with exactly what the critic saw: the claim, the numbers, the rules
-text, and its answer. Nothing is a black box, which is what makes the next part possible."
+## Slide (one, the diagram)
 
-**1:30 Evals (tab 3, four holdout rows selected, Compare open).**
-"Four versions of the rulebook, written by three different architects from the critic's misses. Scored
-on 90 leads the loop never trained on. v0 waves through 20 bad leads. v1 and v2 each catch more.
-v4 scored best on training data and here it kills seven more good leads for nothing. That's overfitting,
-in four rounds, and this page is how we caught it. We ship v2."
-Then the NASA rows: "These are claims transcribed from the studies' published papers. Zero published
-findings killed by any version, every unsupported claim killed with the number that decided it."
+`docs/helix-flow.html`, screenshot. Three bands: once, every round, what ships. Leave it up for the
+first 40 seconds, then go to the live screens. No second slide.
 
-**2:20 The architect (tab 4, dashboard rules tabs, or the kit folder).**
-"The rulebook is a W&B artifact. v1 by Qwen, v2 by DeepSeek, v4 by ARIA. You can diff every version
-and read the misses that produced it."
+---
 
-**2:45 Close.**
-"Agents drift. Usually a person notices. Here the loop noticed, on unseen data, before anyone was
-disappointed. That's what we built."
+## 3-minute script, each beat tagged with the criterion it is for
 
-## 2-minute speech over the diagram (docs/helix-flow.html)
+**0:00 · Slide up · Utility, 25 s**
+"NASA has 243 gene-expression studies from mice that flew in space. A scientist can't read them all. An
+LLM that reads them invents findings, because nothing in the loop can say no. And when an agent quietly
+gets worse, you find out from a person who trusted it. Helix is built so the loop finds out first."
+
+**0:25 · Still the slide · Creativity, agents working together, 30 s**
+Point at the middle band. "Four roles, never the same job. A scout proposes. Code attaches the real
+numbers. One critic judges each lead against those numbers and a plain-text rulebook. Three architects,
+Qwen, DeepSeek and ARIA, rewrite that rulebook from the critic's misses, and the rewrites fight a
+tournament. The critic never writes rules. The architects never judge leads. Nobody grades their own work."
+
+**0:55 · Tab 1, Lead Lab, run already finished · Technical execution, 30 s**
+"This is the product." Point at the killed table. Read one: "mean count 15, below the threshold of 20."
+Point at the padj column. "Every verdict cites a number from the table. The model never gets to make
+numbers up. Fifty survive, ten killed, a hundred seconds."
+
+**1:25 · Tab 2, Weave Evals, four holdout rows in Compare · Best Loop, 50 s. This is the pitch.**
+"Four versions of the rulebook. Scored on 90 leads the loop never trained on. Version zero waves through
+twenty bad leads. One and two each catch more. Version four scored best on training data, and here it
+kills seven more good leads for nothing. That is overfitting, in four rounds. This page is how we caught
+it. We ship version two."
+Click the NASA rows. "These are claims typed from the studies' published papers. Zero published findings
+killed by any version. Every unsupported claim killed, with the number."
+
+**2:15 · Tab 3, dashboard, v4 diff tab · Best Loop + Sponsor usage, 25 s**
+"Here is what version four changed. Two lines out, one in: it named five training leads by id. Memorising,
+not learning. Every version is a W&B artifact, every verdict is a Weave trace, every version-by-set is an
+evaluation you can open right now. 5,800 verdicts, all recorded with what the critic saw."
+
+**2:40 · Close, no screen change, 20 s**
+"Agents drift. Usually a person notices. Here the loop noticed, on data nobody tuned for, and it never
+reached a user. That's what we built this weekend."
+
+Stop talking at 3:00. If you are over at 2:15, cut the NASA rows and say the sentence instead.
+
+---
+
+## Two questions they will ask (2 minutes optional)
+
+- **"Why not just ship the latest version?"** "Latest was best on training data. Version two was best on
+  data it hadn't seen. We ship what's measured, not what's newest."
+- **"Why trust the critic?"** "Zero false kills on 54 published NASA claims, one study never trained on,
+  next to holdout numbers that show it isn't a rubber stamp."
+- **"The paper and GeneLab disagree on some genes, who's right?"** "We don't know and the tool doesn't
+  claim to. It reports what this table shows and flags the disagreement."
+- **"Same model for scout and critic?"** "Yes, budget: one provider. The separation is in the inputs.
+  The critic sees the table numbers, the scout doesn't. Two models would be better and we'd do that next."
+- **"How are the labels made?"** "An independent LLM jury with an expert rubric, three models separate
+  from the critic; 26 of the 30 numeric labels check out mechanically against the table; the published
+  paper claims are the human anchor."
+- **"Production-ready?"** "The product path is one function, CSV in, judged leads out, 100 seconds, and
+  the rulebook it uses is chosen by holdout score, not by recency. What's missing is a second critic model
+  and human review of the labels."
+
+---
+
+## Screen recording, under 2 minutes (do this in the morning, one take)
+
+Voiceover is the 2-minute speech below. Shots, in order:
+1. 0:00 Diagram, full screen, 20 s.
+2. 0:20 Lead Lab with a finished run: scroll survivors, then the kill table, hover one reason, 25 s.
+3. 0:45 Weave Traces filtered to Critic.judge, open one call, show claim, table_facts, rules, output, 20 s.
+4. 1:05 Weave Evals: four holdout rows, Compare, then the two NASA rows, 30 s.
+5. 1:35 Dashboard v4 diff tab, 15 s.
+6. 1:50 Back to the diagram, last line of the speech.
+
+### 2-minute voiceover
 
 NASA has 243 gene-expression studies from mice that flew in space. A scientist can't read them all. An LLM
 that reads them invents findings, because nothing in the loop is allowed to say no. And when an agent
@@ -88,68 +165,49 @@ on data nobody tuned for, and it never reached a user. Everything you just saw i
 5,800 verdicts, every rulebook a versioned artifact, every version scored as an evaluation you can open
 right now.
 
-## What is on each screen, so you can answer anything pointed at
+---
 
-**Lead Lab (localhost:2719).** One run on one CSV.
-- Header: dataset, survivors, killed, rules version, seconds.
-- Survivors table: lead id; shape (single gene, family, pathway, global, data quality); claim (the
-  scout's sentence); why new (the scout's argument that this isn't already known); next step (the
-  cheapest experiment to falsify it); padj (smallest adjusted p-value among the genes cited, from the
-  table; below 0.05 is significant; blank for pathway claims); critic (the one-sentence justification).
-- Killed table: reason code (one of six: contradicted, underpowered, confound, untestable,
-  no_mechanism, already_known); claim; critic reason; padj.
-- Accordion: the summary the scout read, and the rules text the critic applied.
+## Numbers to know cold
 
-**Traces (W&B, filter All Ops to Critic.judge).** One row per verdict.
-- inputs: claim, why_not_known, next_step, table_facts (the numbers code attached), dataset header,
-  sample_flags, rules (full text the critic read).
-- output: label, confidence, reason.
-- The parent rows named "holdout rules_v2" etc. are evaluations; their child rows are the same verdicts
-  made during scoring. Nested calls named openai.chat.completions.create are the raw model requests.
-
-**Evals (W&B).** One row per rules version per labelled set.
-- Sets: holdout (90 unseen scout leads), nasa_OSD-255 (34 claims from the retina paper),
-  nasa_OSD-467 (20 claims from the bone paper, never trained on).
-- kill_match: false_kill (labelled ok, critic killed), kill_correct, missed_kill (labelled bad, critic
-  passed). reason_match: the critic chose the same reason code as the label.
-- model column: CriticModel:vN is Weave's version of the wrapper object, not the rules version. The
-  row name carries the rules version.
-- Compare: tick rows, press Compare, one bar chart per scorer output.
-
-**Dashboard (localhost:2718).** The training loop from local results.
-- Score per iteration; the misses handed to the architect each round; a tab per rules version with the
-  full text. Neither W&B page shows the rules text or the misses.
-
-## Numbers to have in your head
-
-| | v0 | v1 | v2 (ships) | v4 (ARIA, overfit) |
+| | v0 | v1 | v2 (ships) | v4 (ARIA, caught) |
 | :--- | :--- | :--- | :--- | :--- |
 | Holdout false kills | 7 | 8 | 10 | 15 |
 | Holdout missed kills | 20 | 13 | 8 | 8 |
 | Holdout total mistakes | 27 | 21 | 18 | 23 |
 | Train reason accuracy | 0.67 | 0.74 | 0.81 | 0.84 |
-| NASA false kills (54 claims) | 0 | 0 | 0 | 0 |
+| NASA false kills, 54 claims | 0 | 0 | 0 | 0 |
 
-Read the second-to-last row against the first three: train went up at v4, holdout went down. That gap is
-the catch.
+180 leads, 90 train, 90 holdout, 54 paper claims, 4 distinct rulebooks in 8 versions, 5,845 verdicts,
+14,380 traced calls, ~100 s and ~60 critic calls per Lead Lab run.
+
+---
+
+## What is on each screen
+
+**Lead Lab (localhost:2719).** Survivors: lead id, shape, claim, why new (the scout's argument it isn't
+already known), next step, padj (smallest adjusted p-value among cited genes; under 0.05 is
+significant; blank for pathway claims), critic reason. Killed: reason code (one of six), claim, critic
+reason, padj. Accordion: the summary the scout read, the rules the critic applied.
+
+**Traces (Weave, filter All Ops to Critic.judge).** One row per verdict: claim, why_not_known, next_step,
+table_facts, dataset header, sample_flags, rules text; output label, confidence, reason. Rows named
+"holdout rules_v2" etc. are evaluations; their children are the same verdicts made during scoring.
+
+**Evals (Weave).** One row per rules version per set. kill_match: false_kill, kill_correct, missed_kill.
+reason_match: reason code equals the label. CriticModel:vN is Weave's object version, not the rules
+version; the row name carries the rules version. Compare: tick rows, one bar chart per scorer.
+
+**Dashboard (localhost:2718).** Score per iteration, misses handed to the architects, and one tab per
+distinct rulebook with a red/green diff against its predecessor and the author.
+
+---
 
 ## Before the room
 
-- Restart both marimo servers; marimo does not reload the helix package.
-- Run Lead Lab once and leave the result up. Never run live: 100 s is a third of the slot.
-- Traces tab filtered to Critic.judge and saved as a view.
-- Evals tab with the four holdout rows ticked and Compare open. Delete the N/A row.
-- README "Results so far" open as the fallback if the network dies.
-
-## Questions a judge will ask
-
-- *Why trust the critic?* Zero false kills on 54 claims from two published NASA papers, one study never
-  trained on, plus the holdout numbers that prove it isn't a rubber stamp.
-- *Which is right when the paper and GeneLab disagree?* "We don't know, and the tool doesn't claim to.
-  It reports what this table shows and flags the disagreement. GeneLab does not reproduce 13 of the
-  bone paper's confirmed genes; that's a finding."
-- *Why not let the scout use the rules and skip the critic?* "The scout never sees the table rows; code
-  looks them up only after the scout names a gene. And a self-graded scout has no kill list."
-- *Did the loop actually improve anything?* "Holdout total mistakes 27, 21, 18 across v0, v1, v2. Then v4
-  went back to 23, and the holdout gate is what stopped it shipping."
-- *How much does a run cost?* About 100 seconds and 60 critic calls per table, plus one scout call.
+- Restart both servers: `marimo run app/lead_lab.py -p 2719`, `marimo run app/dashboard.py -p 2718`.
+- Run Lead Lab once on a CSV from `data/raw/` and leave it up. Never run live in the room.
+- Traces filtered to Critic.judge, saved as a view. Evals with the four holdout rows ticked and Compare
+  open; delete the N/A row. Dashboard scrolled to the v4 diff tab.
+- Diagram screenshot as the one slide. README "Results so far" open as the network-failure fallback.
+- Zoom installed, or share.zoom.us tested, for the final round.
+- Make the repo public before submitting. Every member: signed in, survey done.
