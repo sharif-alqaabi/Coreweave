@@ -120,3 +120,76 @@ def peer_candidates(f, findings, gene_index, go_index):
     scored = sorted(((shared + 2 * (findings[j]["dataset"] != f["dataset"]) + (findings[j]["kind"] == "paper_claim"), j)
                      for j, shared in cand.items()), reverse=True)
     return [j for _, j in scored[:MAX_PEERS]]
+
+
+# ---------------------------------------------------------------- judgments
+def judge_passages(f, state, cands, passages, client):
+    from typesafe_sdk import Choice, Noul
+    out = []
+    for b in range(0, len(cands), BATCH):
+        batch = cands[b:b + BATCH]
+        st = {"finding": state, "passages": [{"id": passages[i]["id"], "section": passages[i]["section"], "text": passages[i]["text"],
+                                               "from_same_study": f["dataset"] in passages[i]["osd_ids"]} for i in batch]}
+        qs = {}
+        for j in range(len(batch)):
+            qs[f"p{j}_supports"] = Noul(instructions=f"Does `passages[{j}].text` state or establish `finding.claim`: the same gene(s) or pathway, "
+                                                     f"the same direction of change, under a comparable condition and tissue? Naming the gene is not enough.")
+            qs[f"p{j}_contradicts"] = Noul(instructions=f"Does `passages[{j}].text` report the OPPOSITE direction of change, or explicitly no change, "
+                                                        f"for the same gene(s) or pathway as `finding.claim` under a comparable condition and tissue? "
+                                                        f"Listing the gene, or discussing a different tissue or condition, is not a contradiction.")
+            qs[f"p{j}_relation"] = Choice(instructions=f"How does `passages[{j}].text` relate to `finding.claim`?", criteria=PASSAGE_RELATION)
+        try:
+            r = client.system_one(state=st, questions=qs)
+        except Exception as e:
+            continue
+        for j, i in enumerate(batch):
+            c = r.answers[f"p{j}_relation"]
+            out.append({"type": "finding-passage", "src": f["id"], "dst": passages[i]["id"], "relation": c.choice,
+                        "p_supports": round(r.answers[f"p{j}_supports"].noul, 3), "p_contradicts": round(r.answers[f"p{j}_contradicts"].noul, 3),
+                        "confidence": round(c.confidence, 3),
+                        "probabilities": {k: round(v, 3) for k, v in c.probabilities.items()}})
+    return out
+
+
+def judge_peers(f, state, cands, findings, states, client):
+    from typesafe_sdk import Choice, Noul
+    out = []
+    for b in range(0, len(cands), BATCH):
+        batch = cands[b:b + BATCH]
+        st = {"finding": state, "others": [states[j] for j in batch]}
+        qs = {}
+        for j in range(len(batch)):
+            qs[f"o{j}_relation"] = Choice(instructions=f"How does `others[{j}]` relate to `finding`? Compare genes or pathway, direction "
+                                                       f"(`numbers`), tissue and condition.", criteria=FINDING_RELATION)
+            qs[f"o{j}_mechanism"] = Noul(instructions=f"Do `finding` and `others[{j}]` plausibly reflect the same underlying biological "
+                                                      f"mechanism (for example the same proliferation shutdown, the same stress response)?")
+        try:
+            r = client.system_one(state=st, questions=qs)
+        except Exception as e:
+            continue
+        for j, k in enumerate(batch):
+            c = r.answers[f"o{j}_relation"]
+            out.append({"type": "finding-finding", "src": f["id"], "dst": findings[k]["id"], "relation": c.choice,
+                        "p_mechanism": round(r.answers[f"o{j}_mechanism"].noul, 3), "confidence": round(c.confidence, 3),
+                        "probabilities": {k2: round(v, 3) for k2, v in c.probabilities.items()}})
+    return out
+
+
+def numeric_edges(f, own_row, tables, comparability, client):
+    """finding -> dataset edges from the numbers, via helix.replicate (Tier 2 with the Tier 1 comparability gate)."""
+    if not f["genes"] and not f["go"]:
+        return []
+    lead = {**f, "rows": f["genes"] + f["go"]}
+    looked = [(oid, R.study(oid), R.numeric_facts(lead, t), comparability.get(oid, 0)) for oid, t in tables.items() if oid != f["dataset"]]
+    looked = [(oid, m, fx, lvl) for oid, m, fx, lvl in looked if fx and not all(isinstance(x, dict) and "error" in x for x in fx.values())]
+    if not looked:
+        return []
+    try:
+        vs = R.replication_verdicts(lead, own_row, looked, client)
+    except Exception:
+        return []
+    return [{"type": "finding-dataset", "src": f["id"], "dst": v["osd_id"], "relation": v["verdict"], "jev_verdict": v["jev_verdict"],
+             "comparable": v["comparable"], "agreement": v["agreement"], "p_replicated": v["p_replicated"],
+             "p_contradicted": v["p_contradicted"], "confidence": v["confidence"],
+             "numbers": {g: {x: fx[x] for x in ("log2fc", "padj", "higher_group", "carriers") if x in fx} for g, fx in v["facts"].items() if isinstance(fx, dict) and "log2fc" in fx}}
+            for v in vs]
