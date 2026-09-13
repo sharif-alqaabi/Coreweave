@@ -5,6 +5,19 @@ W&B used (Weave, Inference, Runs, Automations), whole team present for both roun
 enforced, demo-heavy, at most two slides. Judges score: Best Loop, Creativity (agents working together),
 Utility, Technical execution, Sponsor usage. Plus "Most Production-Ready" two weeks later.
 
+## What sets it apart (say at least three of these out loud)
+
+1. **The model never touches a number.** Code attaches padj, fold change and carriers to every lead;
+   the critic judges against them and cites one in every verdict.
+2. **Every version is scored on data the loop never saw.** Not just "it iterates": each rulebook gets
+   one look at 90 unseen leads, and that is what decides what ships.
+3. **The check caught a real regression.** v4 was the best score ever on training data and worse on the
+   holdout. It named training leads by id. It did not ship. That is the demo.
+4. **Ground truth from outside the LLM.** 54 claims from published NASA papers: zero real findings
+   killed, every unsupported claim killed with a reason.
+5. **Sponsor tools are the argument, not a checkbox.** The Weave Evals page is where the catch is
+   visible; each rulebook is a W&B artifact; ARIA is a contestant whose patch is in the repo.
+
 ## The one sentence
 
 **LLM agents drift, and you usually find out from a disappointed human. Helix scores every rewrite of its
@@ -22,18 +35,22 @@ worse, before it shipped.**
 **Socials:** [X / LinkedIn handles]
 
 **Summary (2-3 sentences).**
-Helix reads a NASA OSDR gene-expression table, proposes research leads, and lets a separate critic kill
-the weak ones with a stated reason. After every round, three architects (two model architects and ARIA)
-rewrite the critic's rulebook from its misses, and the rewrites compete in a tournament before promotion.
-It is self-improving because the rulebook is a versioned artifact that changes the critic's behaviour, and
-every version is scored on unseen leads and on published NASA findings, so a rewrite that overfits is
-caught before it ships.
+Helix turns any of NASA's 243 spaceflight gene-expression tables into research leads a scientist can act
+on, and every lead is judged against the real numbers by a critic whose rulebook rewrites itself from its
+own mistakes. Three architects (Qwen, DeepSeek and ARIA) compete each round to improve the rulebook, and
+every version is then scored on 90 leads the loop never saw and on 54 findings from published NASA papers.
+That check caught a rewrite that scored best on training data and worse on unseen data, so it never
+shipped: a self-improving loop that can also say no to itself.
 
 **What it does / who it is for.**
-A space-biology scientist uploads any of NASA's 243 differential-expression tables and gets, in about
-100 seconds, a list of hypotheses worth their time and a list of rejected ones with the exact number that
-killed each. The critic's rules were learned across three tissues and validated against 54 claims from
-two published NASA papers: zero published findings killed, every unsupported claim killed with a reason.
+A space-biology scientist uploads a NASA differential-expression table and gets, in about 100 seconds,
+the hypotheses worth their time and the rejected ones with the exact number that killed each. Three
+things make it trustworthy. The numbers are attached by code, so the model can never invent one. The
+critic's rules were learned across three tissues and chosen by score on unseen leads, not by recency.
+And the rules were validated against 54 claims from two published NASA papers: zero published findings
+killed by any version, every unsupported claim killed with the number that decided it. On the way we
+found that GeneLab's reprocessing does not reproduce 13 of the bone paper's confirmed genes, which is the
+kind of thing this tool exists to surface.
 
 **How it is built.**
 Python. Three roles, never the same prompt: scout (proposes), critic (judges one lead against the real
@@ -112,6 +129,10 @@ Stop talking at 3:00. If you are over at 2:15, cut the NASA rows and say the sen
 
 - **"Why not just ship the latest version?"** "Latest was best on training data. Version two was best on
   data it hadn't seen. We ship what's measured, not what's newest."
+- **"How did you know what a good lead is?"** "We wrote it down as a rubric: seven codes, each with a
+  numeric threshold, padj under 0.05, carriers in more than half the samples, mean count over 20. The
+  jury labelled with that rubric and the critic started from it. Then we tested the definition against
+  reality: 54 findings from two published NASA papers. The critic passed every one the table supports."
 - **"Why trust the critic?"** "Zero false kills on 54 published NASA claims, one study never trained on,
   next to holdout numbers that show it isn't a rubber stamp."
 - **"The paper and GeneLab disagree on some genes, who's right?"** "We don't know and the tool doesn't
