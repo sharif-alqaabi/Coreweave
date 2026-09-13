@@ -58,3 +58,69 @@ def fetch_studies(progress=print):
     n_pub = sum(len(s["publications"]) for s in studies.values())
     progress(f"{len(studies)} studies, {n_pub} linked publications")
     return studies
+
+
+# ---------------------------------------------------------------- PubMed + PMC
+def _text(el):
+    return "".join(el.itertext()).strip() if el is not None else ""
+
+
+def fetch_papers(studies, fulltext=True, progress=print):
+    """pmid -> {title, abstract, pmcid, sections:[{title, paragraphs}], osd_ids}. Cached."""
+    path = os.path.join(DIR, "papers.json")
+    papers = json.load(open(path)) if os.path.exists(path) else {}
+    by_pmid = {}
+    for osd, s in studies.items():
+        for p in s["publications"]:
+            by_pmid.setdefault(p["pmid"], {"doi": p["doi"], "osd_ids": []})["osd_ids"].append(osd)
+    for pmid, meta in by_pmid.items():
+        papers.setdefault(pmid, {})["osd_ids"] = sorted(set(meta["osd_ids"]))
+        papers[pmid]["doi"] = meta["doi"]
+    todo = [p for p in by_pmid if "abstract" not in papers[p]]
+    for i in range(0, len(todo), 50):                                  # abstracts, 50 per call
+        batch = todo[i:i + 50]
+        root = ET.fromstring(_eutils("efetch.fcgi", db="pubmed", id=",".join(batch), retmode="xml"))
+        for art in root.iter("PubmedArticle"):
+            pmid = _text(art.find(".//PMID"))
+            if pmid not in papers:
+                continue
+            abstract = " ".join(((a.get("Label") + ": ") if a.get("Label") else "") + _text(a) for a in art.findall(".//AbstractText"))
+            papers[pmid].update({"title": _text(art.find(".//ArticleTitle")), "abstract": abstract,
+                                 "journal": _text(art.find(".//Journal/Title")), "year": _text(art.find(".//PubDate/Year"))})
+        for pmid in batch:
+            papers[pmid].setdefault("abstract", ""); papers[pmid].setdefault("title", "")
+        progress(f"  abstracts {min(i+50, len(todo))}/{len(todo)}")
+    if fulltext:
+        need = [p for p in papers if "pmcid" not in papers[p]]
+        for i in range(0, len(need), 100):                             # pubmed -> pmc ids
+            batch = need[i:i + 100]
+            root = ET.fromstring(_eutils("elink.fcgi", dbfrom="pubmed", db="pmc", id=batch, retmode="xml"))   # one LinkSet per id
+            for ls in root.iter("LinkSet"):
+                pmid = _text(ls.find("IdList/Id"))
+                link = ls.find(".//LinkSetDb[DbTo='pmc']/Link/Id")
+                if pmid in papers:
+                    papers[pmid]["pmcid"] = _text(link) if link is not None else ""
+            for pmid in batch:
+                papers[pmid].setdefault("pmcid", "")
+        need = [p for p in papers if papers[p].get("pmcid") and "sections" not in papers[p]]
+        for j, pmid in enumerate(need):                                # full text, one call per paper
+            try:
+                root = ET.fromstring(_eutils("efetch.fcgi", db="pmc", id=papers[pmid]["pmcid"], retmode="xml"))
+                secs = []
+                for sec in root.iter("sec"):
+                    if sec.find("sec") is not None:                       # keep leaves only: a section with subsections repeats them
+                        continue
+                    title = _text(sec.find("title"))
+                    paras = [_text(p) for p in sec.findall("p")]
+                    paras = [re.sub(r"\s+", " ", p) for p in paras if len(p.split()) >= 12]
+                    if paras and not re.match(r"(?i)^(references|acknowledg|author contributions|competing|funding|supplementary|data availability|abbreviations|ethics)", title):
+                        secs.append({"title": title, "paragraphs": paras})
+                papers[pmid]["sections"] = secs                           # [] when PMC returns only front matter (not OA)
+            except Exception as e:
+                papers[pmid]["sections"] = []; papers[pmid]["fulltext_error"] = f"{type(e).__name__}"[:60]
+            if j % 10 == 9:
+                progress(f"  full text {j+1}/{len(need)}"); json.dump(papers, open(path, "w"), indent=1)
+    json.dump(papers, open(path, "w"), indent=1)
+    n_ft = sum(1 for p in papers.values() if p.get("sections"))
+    progress(f"{len(papers)} papers, {sum(1 for p in papers.values() if p.get('abstract'))} abstracts, {n_ft} with open-access full text")
+    return papers
