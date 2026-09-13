@@ -1,0 +1,1163 @@
+{
+ "verdicts": [
+  {
+   "lead_id": "OSD-104_lead_057",
+   "rules_version": 6,
+   "label": "underpowered",
+   "confidence": 0.95,
+   "reason": "The mean count in the higher group (Space Flight) is 13, which is below the threshold of 20, triggering the underpowered rule."
+  },
+  {
+   "lead_id": "OSD-104_lead_054",
+   "rules_version": 6,
+   "label": "confound",
+   "confidence": 0.95,
+   "reason": "Sample M24 and M26 are carriers for 2/6 or 3/6 of top genes, both flagged in sample_flags, meeting the confound rule threshold of carriers below half the group."
+  },
+  {
+   "lead_id": "OSD-104_lead_058",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "The claim is supported by the data: Samd7 has 6/6 carriers, padj=3.9e-10, and log2fc=4.17, indicating strong, reproducible upregulation in SF, and the next step is concrete."
+  },
+  {
+   "lead_id": "OSD-104_lead_055",
+   "rules_version": 6,
+   "label": "confound",
+   "confidence": 0.95,
+   "reason": "Krt17 has only 2/6 carriers, both of which (M24 and M26) are flagged in sample_flags as being among <=2 carriers for multiple top genes, indicating a potential confound."
+  },
+  {
+   "lead_id": "OSD-104_lead_034",
+   "rules_version": 6,
+   "label": "underpowered",
+   "confidence": 0.95,
+   "reason": "Fermt1 has a mean count of 7 in the higher group (Space Flight), which is below the threshold of 20, triggering the underpowered rule."
+  },
+  {
+   "lead_id": "OSD-104_lead_025",
+   "rules_version": 6,
+   "label": "confound",
+   "confidence": 0.95,
+   "reason": "Krt17, Krt25, Krt14, Krt35, and Krt5 each have carriers 2/6 or 3/6, and both M24 and M26 are flagged samples that appear in all carrier lists, indicating the signal is driven by a minority of samples."
+  },
+  {
+   "lead_id": "OSD-104_lead_028",
+   "rules_version": 6,
+   "label": "underpowered",
+   "confidence": 0.95,
+   "reason": "Krtap11-1 has a mean count of 7 in Space Flight, which is below the threshold of 20, and its padj is 0.046, between 0.01 and 0.05, with only 3/6 carriers, meeting the underpowered criterion."
+  },
+  {
+   "lead_id": "OSD-104_lead_030",
+   "rules_version": 6,
+   "label": "underpowered",
+   "confidence": 0.95,
+   "reason": "The mean counts in the higher group (Space Flight) are 11 for S100a14 and 8 for Calhm4, both below 20, triggering the underpowered rule."
+  },
+  {
+   "lead_id": "OSD-104_lead_026",
+   "rules_version": 6,
+   "label": "confound",
+   "confidence": 0.95,
+   "reason": "Dsg1a has only 2/6 carriers and both M24 and M26 are flagged as being among <=2 carriers for multiple top genes, indicating a potential sample-specific confound."
+  },
+  {
+   "lead_id": "OSD-104_lead_050",
+   "rules_version": 6,
+   "label": "no_mechanism",
+   "confidence": 0.95,
+   "reason": "The gene Gm5532 has a 'Gm' prefix and no known function, triggering the 'no_mechanism' rule."
+  },
+  {
+   "lead_id": "OSD-104_lead_045",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 1.0,
+   "reason": "The claim that more genes are downregulated (2505) than upregulated (2099) is directly supported by the dataset summary in `table_facts`, which states there are 4604 significant genes at FDR<0.05 with 2099 up and 2505 down, and the next step proposes a valid comparison with other datasets."
+  },
+  {
+   "lead_id": "OSD-104_lead_048",
+   "rules_version": 6,
+   "label": "already_known",
+   "confidence": 0.95,
+   "reason": "The claim that high mean count genes show significant differential expression is a common expectation in RNA-seq studies, and the 'why_not_known' does not provide a novel biological insight beyond general knowledge."
+  },
+  {
+   "lead_id": "OSD-104_lead_052",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "Ctsl has padj=0.74 and log2fc=+0.06, confirming non-significant near-zero change, supporting its use as a stable reference gene per the next step."
+  },
+  {
+   "lead_id": "OSD-104_lead_041",
+   "rules_version": 6,
+   "label": "already_known",
+   "confidence": 0.95,
+   "reason": "The claim that muscle structure development genes are enriched in microgravity is a well-expected finding in muscle atrophy models, and the 'why_not_known' does not provide a novel biological angle beyond expected adaptation or repair."
+  },
+  {
+   "lead_id": "OSD-104_lead_043",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "Multiple Slc genes are significantly upregulated with strong statistical support and carrier samples \u22656/6, satisfying the criteria for a novel biological insight with a concrete next step in metabolomics."
+  },
+  {
+   "lead_id": "OSD-104_lead_044",
+   "rules_version": 6,
+   "label": "confound",
+   "confidence": 0.95,
+   "reason": "Krt17, Krt25, Krt14, Krt5 have carriers 2/6, and both M24 and M26 are flagged in sample_flags, indicating the signal is driven by flagged samples."
+  },
+  {
+   "lead_id": "OSD-104_lead_038",
+   "rules_version": 6,
+   "label": "already_known",
+   "confidence": 0.95,
+   "reason": "The claim about I band enrichment is expected in a muscle atrophy model due to titin's role in muscle structure, and the 'why_not_known' does not provide a novel biological angle beyond textbook knowledge."
+  },
+  {
+   "lead_id": "OSD-104_lead_037",
+   "rules_version": 6,
+   "label": "already_known",
+   "confidence": 0.95,
+   "reason": "The claim that sarcomere genes are enriched is expected in a muscle atrophy model due to known mechanosensitivity, and the 'why_not_known' does not provide a new angle beyond textbook knowledge."
+  },
+  {
+   "lead_id": "OSD-104_lead_013",
+   "rules_version": 6,
+   "label": "confound",
+   "confidence": 0.95,
+   "reason": "Krt35 has only 3/6 carriers, and two of them (M24, M26) are flagged as being among <=2 carriers for 4 of the top 50 genes, indicating a potential sample-specific confound."
+  },
+  {
+   "lead_id": "OSD-104_lead_005",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "The claim is supported by the data (padj=2.8e-66, log2fc=-1.05, carriers=6/6), is not a textbook result, and proposes a concrete next step (knock down Apol6 in ground culture)."
+  },
+  {
+   "lead_id": "OSD-104_lead_004",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 1.0,
+   "reason": "The claim is supported by the table facts (padj=1.7e-68, log2fc=+2.52, carriers=6/6), and the next step is concrete and testable."
+  },
+  {
+   "lead_id": "OSD-104_lead_010",
+   "rules_version": 6,
+   "label": "confound",
+   "confidence": 0.95,
+   "reason": "Krt25 has only 2/6 carriers (M24 and M26), both of which are flagged as being among <=2 carriers for 4 of the top 50 genes, indicating a minority-sample-driven signal."
+  },
+  {
+   "lead_id": "OSD-104_lead_023",
+   "rules_version": 6,
+   "label": "underpowered",
+   "confidence": 0.95,
+   "reason": "The mean count in the higher group (Space Flight) is 13, which is below the threshold of 20, triggering the underpowered rule."
+  },
+  {
+   "lead_id": "OSD-104_lead_020",
+   "rules_version": 6,
+   "label": "underpowered",
+   "confidence": 0.95,
+   "reason": "The mean count in the higher group (Space Flight) is 8, which is below 20, and padj=0.0106 is between 0.01 and 0.05 with only 4/6 carriers, meeting the underpowered threshold."
+  },
+  {
+   "lead_id": "OSD-104_lead_019",
+   "rules_version": 6,
+   "label": "underpowered",
+   "confidence": 0.95,
+   "reason": "The padj=0.0085 is below 0.05 but the mean count in the higher group (Space Flight) is 9, which is below 20, triggering the underpowered rule."
+  },
+  {
+   "lead_id": "OSD-104_lead_006",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 1.0,
+   "reason": "The claim is supported by the table facts (log2fc=0.73, padj=3.4e-56, higher in Space Flight), carriers are 6/6, and a concrete next step (immunostaining) is provided."
+  },
+  {
+   "lead_id": "OSD-104_lead_008",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 1.0,
+   "reason": "The claim is supported by the table facts (log2fc=0.99, padj=2.87e-52, higher in Space Flight, carriers 6/6), the biological context is novel per 'why_not_known', and a concrete next step (phosphorylation test) is provided."
+  },
+  {
+   "lead_id": "OSD-104_lead_021",
+   "rules_version": 6,
+   "label": "underpowered",
+   "confidence": 0.95,
+   "reason": "The mean count in the higher group (Space Flight) is 8, which is below 20, and padj=0.0138 is between 0.01 and 0.05 with only 4/6 carriers, meeting the underpowered threshold."
+  },
+  {
+   "lead_id": "OSD-104_lead_011",
+   "rules_version": 6,
+   "label": "confound",
+   "confidence": 0.95,
+   "reason": "The claim is based on Krt14 upregulation with only 2 out of 6 carriers (M24 and M26), and both samples are flagged as being among the <=2 carriers for 4 of the top 50 genes, indicating a potential confounding effect."
+  },
+  {
+   "lead_id": "OSD-104_lead_022",
+   "rules_version": 6,
+   "label": "confound",
+   "confidence": 0.95,
+   "reason": "The gene Msx2 has carriers 5/6, but both M24 and M26\u2014each one of the <=2 carriers for 4 of the top 50 genes\u2014are among the carriers, indicating potential confounding by outlier samples."
+  },
+  {
+   "lead_id": "OSD-255_lead_058",
+   "rules_version": 6,
+   "label": "untestable",
+   "confidence": 0.95,
+   "reason": "Inferring technical reproducibility from a single null gene's stability is a global restatement not supported by multi-gene null patterns, per rule 'untestable'."
+  },
+  {
+   "lead_id": "OSD-255_lead_055",
+   "rules_version": 6,
+   "label": "no_mechanism",
+   "confidence": 0.95,
+   "reason": "The claim discusses predicted genes Gm16638 and Gm19410, which have a 'Gm' prefix indicating no annotated function, and the rule states that such genes trigger 'no_mechanism' when no biological reason is provided."
+  },
+  {
+   "lead_id": "OSD-255_lead_053",
+   "rules_version": 6,
+   "label": "untestable",
+   "confidence": 0.95,
+   "reason": "The claim about carrier consistency arguing against false positives is not testable because the table_facts do not provide sample-wise expression data or outlier information required to validate the absence of technical artifacts."
+  },
+  {
+   "lead_id": "OSD-255_lead_060",
+   "rules_version": 6,
+   "label": "untestable",
+   "confidence": 0.95,
+   "reason": "The claim about fold change thresholds missing signals is based on the median |log2fc| of 0.28, but this is a global descriptive statistic not tied to a specific gene or testable mechanism, and the next step does not validate the core inference."
+  },
+  {
+   "lead_id": "OSD-255_lead_026",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 1.0,
+   "reason": "All three genes show padj < 1e-9, are downregulated in spaceflight (higher_group: Ground Control), and have carriers in all 8/8 ground samples, supporting the claim."
+  },
+  {
+   "lead_id": "OSD-255_lead_031",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 1.0,
+   "reason": "All three genes show downregulation in spaceflight with padj < 1e-8 and are carried in all 8/8 ground samples, satisfying the claim and supported by the table facts."
+  },
+  {
+   "lead_id": "OSD-255_lead_028",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 1.0,
+   "reason": "All three genes show padj < 1e-7, are downregulated in spaceflight (higher in Ground Control), and have carriers in all 8/8 ground samples, fully supporting the claim."
+  },
+  {
+   "lead_id": "OSD-255_lead_034",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "All three genes show significant downregulation in spaceflight with padj < 0.05, high expression in ground samples, and carriers in all 8/8 samples, satisfying statistical and biological relevance criteria."
+  },
+  {
+   "lead_id": "OSD-255_lead_029",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "All three genes show significant downregulation in spaceflight (padj < 0.05) with consistent carrier support (8/8), and the claim includes a concrete next step to measure intracellular amino acid levels."
+  },
+  {
+   "lead_id": "OSD-255_lead_048",
+   "rules_version": 6,
+   "label": "already_known",
+   "confidence": 0.95,
+   "reason": "The claim that upregulated genes have higher mean counts in the condition of upregulation is a general expectation in RNA-seq data, and the 'why_not_known' field acknowledges this by stating it is expected but not quantified."
+  },
+  {
+   "lead_id": "OSD-255_lead_045",
+   "rules_version": 6,
+   "label": "untestable",
+   "confidence": 1.0,
+   "reason": "The claim about the median |log2fc| being 0.28 is directly stated in the dataset description, but the core inference of 'widespread but mild regulation' is a global restatement not tied to a testable mechanism, and the next step does not validate the effect size interpretation."
+  },
+  {
+   "lead_id": "OSD-255_lead_052",
+   "rules_version": 6,
+   "label": "underpowered",
+   "confidence": 0.95,
+   "reason": "The claim relies on a borderline significant p-value (padj=0.0988) which exceeds the FDR<0.05 threshold, and although the mean count in the higher group is 61, the weak p-value places it in the underpowered category per the rules."
+  },
+  {
+   "lead_id": "OSD-255_lead_047",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 1.0,
+   "reason": "All top 25 genes by fold change are carried by 8/8 samples in their respective groups, which matches the claim and supports high consistency, and a concrete next step (bootstrap resampling) is provided to assess stability."
+  },
+  {
+   "lead_id": "OSD-255_lead_038",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "The claim is supported by the table facts (4 down, 1 up, enrichment 8.29), is not a textbook result, and proposes a concrete next step to test the link to nutrient availability."
+  },
+  {
+   "lead_id": "OSD-255_lead_043",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "The claim is supported by the table facts (Rad54b is significantly upregulated with padj < 0.05 and high carrier rate), acknowledges that broader DNA repair genes are not enriched, and proposes a concrete next step (GSEA) to test enrichment more sensitively."
+  },
+  {
+   "lead_id": "OSD-255_lead_035",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "The claim reports 3 up and 2 down genes in GO:0070507 with an enrichment of 9.41, which matches the table facts, and proposes a concrete next step (immunofluorescence for microtubule stability) to investigate the biological impact."
+  },
+  {
+   "lead_id": "OSD-255_lead_042",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "The claim reports 2 up and 1 down gene in GO:0035967 with an enrichment of 6.96, which matches the table facts, and proposes a testable next step to measure misfolded proteins."
+  },
+  {
+   "lead_id": "OSD-255_lead_037",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "The claim is supported by the table facts (enrichment=8.71, 3 up/1 down), is not a textbook result, and proposes a testable next step to measure ATP levels."
+  },
+  {
+   "lead_id": "OSD-255_lead_014",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "The claim is supported by the table facts: Fgfbp3 has log2fc = +0.70, padj = 0.0007 < 0.05, and is detected in all 8 flight samples, with no flags or contradictions."
+  },
+  {
+   "lead_id": "OSD-255_lead_010",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 1.0,
+   "reason": "The claim is supported by the table facts: Drd4 has log2fc = +0.80, padj = 2.29e-58 (significant), and is carried by 8/8 flight samples, with high mean counts in spaceflight (3082); the next step is concrete and the biological context is not a textbook result."
+  },
+  {
+   "lead_id": "OSD-255_lead_018",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "The claim is supported by the table facts: Glmn is downregulated in spaceflight (log2fc = -0.68, padj < 0.05) and expressed in all 8 ground samples (carriers = 8/8), with a concrete next step to measure mTOR pathway activity."
+  },
+  {
+   "lead_id": "OSD-255_lead_004",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "The claim is supported by the table facts: Nr4a3 has log2fc of -1.08, padj=0.041, is higher in Ground Control, and detected in all 8 ground samples; the next step is concrete and the biological context is not a textbook result."
+  },
+  {
+   "lead_id": "OSD-255_lead_006",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 1.0,
+   "reason": "The claim is supported by the table facts: Arhgap15 is upregulated in spaceflight (log2fc = +0.94, padj = 0.024), present in all 8 flight samples (8/8 carriers), and the next step (actin staining) is concrete and biologically relevant."
+  },
+  {
+   "lead_id": "OSD-255_lead_013",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "The claim is supported by the table facts: Col19a1 has log2fc = -0.71, padj = 0.00157 < 0.05, and is expressed in all 8 ground samples (8/8 carriers), with no flags or contradictions."
+  },
+  {
+   "lead_id": "OSD-255_lead_008",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 1.0,
+   "reason": "The claim is supported by the table facts: Pdzph1 has log2fc = -0.84, padj = 4.05e-22, higher in Ground Control, and is carried by 8/8 ground samples, with a clear next step to quantify synaptic density."
+  },
+  {
+   "lead_id": "OSD-255_lead_023",
+   "rules_version": 6,
+   "label": "no_mechanism",
+   "confidence": 0.95,
+   "reason": "The gene Cmc4 has unknown function and the claim offers no biological mechanism despite upregulation in spaceflight."
+  },
+  {
+   "lead_id": "OSD-255_lead_011",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "The claim is supported by the table facts (log2fc = +0.79, padj < 0.05, carriers 8/8), and the next step (measuring DNA double-strand breaks) is concrete and biologically relevant."
+  },
+  {
+   "lead_id": "OSD-255_lead_007",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 1.0,
+   "reason": "The claim is supported by the table facts: Vgf is downregulated in spaceflight (log2fc = -0.84, padj < 0.05) and highly expressed in all 8 ground samples (carriers = 8/8), with a clear next step to assess anxiety-like behavior."
+  },
+  {
+   "lead_id": "OSD-255_lead_021",
+   "rules_version": 6,
+   "label": "no_mechanism",
+   "confidence": 0.95,
+   "reason": "The gene Gm19410 has a 'Gm' prefix and no known function, and the claim offers no biological mechanism despite significant upregulation in spaceflight."
+  },
+  {
+   "lead_id": "OSD-255_lead_012",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "The claim is supported by the table facts: Gpr88 is downregulated (log2fc = -0.72, padj = 0.012), expressed in all 8 ground samples (carriers: 8/8), and the next step (assess motor coordination) is concrete and biologically justified by its known striatal function."
+  },
+  {
+   "lead_id": "OSD-467_lead_057",
+   "rules_version": 6,
+   "label": "contradicted",
+   "confidence": 0.95,
+   "reason": "The claim states Meiosin is expressed in controls but should not be active, yet the table shows padj = 0.930120648730538, which is not significant (padj > 0.05), contradicting the implication of meaningful expression difference."
+  },
+  {
+   "lead_id": "OSD-467_lead_059",
+   "rules_version": 6,
+   "label": "untestable",
+   "confidence": 0.95,
+   "reason": "Promoting a non-significant trend (padj=0.80) with consistent detection to a meaningful biological signal without a testable mechanism or stronger evidence is untestable per the rules."
+  },
+  {
+   "lead_id": "OSD-467_lead_054",
+   "rules_version": 6,
+   "label": "untestable",
+   "confidence": 0.95,
+   "reason": "The claim infers 'technical reliability of the DE call' from a single gene's low padj and full carrier rate, which is a data-quality assertion not supported by multi-gene or null-gene patterns, triggering the 'untestable' rule."
+  },
+  {
+   "lead_id": "OSD-467_lead_053",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 1.0,
+   "reason": "The claim is supported by the table facts: Hmga1b is detected in 9/9 control samples and has a mean count of 9 in HU samples, with a significant padj of 0.037 and log2fc of -5.1, raising a valid concern about dropout or batch effect, and a concrete next step is proposed to check raw read counts and mapping quality."
+  },
+  {
+   "lead_id": "OSD-467_lead_031",
+   "rules_version": 6,
+   "label": "contradicted",
+   "confidence": 0.95,
+   "reason": "The claim states Stfa1 and Stfa3 are upregulated, but their padj values (0.2297 and 0.2372) exceed the significance threshold of 0.05, contradicting the assertion of differential expression."
+  },
+  {
+   "lead_id": "OSD-467_lead_034",
+   "rules_version": 6,
+   "label": "contradicted",
+   "confidence": 0.95,
+   "reason": "Glra3 has padj = 0.98083752624645, which is above 0.05, contradicting the claim that it is upregulated in HU mice."
+  },
+  {
+   "lead_id": "OSD-467_lead_029",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "Both genes are significantly downregulated (log2fc < -1.3, padj < 0.05) and detected in all 9 control samples, supporting co-repression; the claim includes a novel mechanism and proposes motif enrichment as a next step."
+  },
+  {
+   "lead_id": "OSD-467_lead_033",
+   "rules_version": 6,
+   "label": "untestable",
+   "confidence": 0.95,
+   "reason": "Inferring 'housekeeping-like behavior' from stable detection and high padj alone is untestable per rule example OSD-467_lead_033, which matches this claim's logic."
+  },
+  {
+   "lead_id": "OSD-467_lead_027",
+   "rules_version": 6,
+   "label": "underpowered",
+   "confidence": 0.95,
+   "reason": "The mean count in the higher group (Hindlimb Unloaded) for Calm4 is 12, which is below the threshold of 20, and the padj is 0.242, well above 0.05, meeting the underpowered criterion per the rules."
+  },
+  {
+   "lead_id": "OSD-467_lead_052",
+   "rules_version": 6,
+   "label": "untestable",
+   "confidence": 1.0,
+   "reason": "Inferring technical reliability from one stable pseudogene is untestable per rule 'untestable: \u201ctechnical reliability\u201d inferred from one stable pseudogene (OSD-467_lead_052)'."
+  },
+  {
+   "lead_id": "OSD-467_lead_049",
+   "rules_version": 6,
+   "label": "untestable",
+   "confidence": 1.0,
+   "reason": "The claim that no gene family has three or more members among the top hits is a global, descriptive statement not supported by gene family annotations in the table facts, and cannot be tested without additional information on gene family classifications."
+  },
+  {
+   "lead_id": "OSD-467_lead_045",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "The claim that 7 genes are significant at FDR<0.05 is supported by the table facts, which list exactly 7 genes with padj < 0.05, and a concrete next step (power analysis) is provided."
+  },
+  {
+   "lead_id": "OSD-467_lead_048",
+   "rules_version": 6,
+   "label": "no_mechanism",
+   "confidence": 0.95,
+   "reason": "The gene Gm11266 has a 'Gm' prefix indicating it is a predicted gene with no known function, triggering the no_mechanism rule."
+  },
+  {
+   "lead_id": "OSD-467_lead_036",
+   "rules_version": 6,
+   "label": "underpowered",
+   "confidence": 0.95,
+   "reason": "The enrichment is based on only 3 significant genes out of 9067, with an enrichment of 1.14x, which is a weak effect size and low count, meeting the underpowered threshold."
+  },
+  {
+   "lead_id": "OSD-467_lead_044",
+   "rules_version": 6,
+   "label": "contradicted",
+   "confidence": 0.95,
+   "reason": "The claim states Cyp2b10 is downregulated in HU mice, but the padj value of 0.201918002535436 exceeds the significance threshold of 0.05, contradicting the assertion of significant downregulation."
+  },
+  {
+   "lead_id": "OSD-467_lead_043",
+   "rules_version": 6,
+   "label": "underpowered",
+   "confidence": 0.95,
+   "reason": "The mean count in the higher group (Hindlimb Unloaded) is 12, which is below the threshold of 20, and the padj (0.24) is above 0.05, meeting the underpowered criterion for OSD-467_lead_045 with mean_count=12."
+  },
+  {
+   "lead_id": "OSD-467_lead_042",
+   "rules_version": 6,
+   "label": "contradicted",
+   "confidence": 0.95,
+   "reason": "The claim states Extl2 is upregulated, but the table shows padj = 0.798783547171247 > 0.05, indicating no significant upregulation."
+  },
+  {
+   "lead_id": "OSD-467_lead_040",
+   "rules_version": 6,
+   "label": "underpowered",
+   "confidence": 0.95,
+   "reason": "The mean count in the higher group (Hindlimb Unloaded) is 141, which is above 20, but the padj is 0.014 and carriers are 7/7, so the underpowered rule does not apply based on carriers or counts; however, the rule 'underpowered' applies to OSD-467_lead_008 with mean_count=18, indicating a sensitivity to borderline cases, yet here the evidence is solid\u2014thus the correct label is not underpowered. Re-evaluating: the claim is supported by significant padj, high carriers, and solid counts, and includes a concrete next step; therefore, the correct label is 'ok'."
+  },
+  {
+   "lead_id": "OSD-467_lead_014",
+   "rules_version": 6,
+   "label": "contradicted",
+   "confidence": 0.95,
+   "reason": "The claim states Glra3 shows increased expression, but padj=0.98 in the table_facts indicates it is not statistically significant (padj > 0.05)."
+  },
+  {
+   "lead_id": "OSD-467_lead_005",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "The claim is supported by the table facts: Kcnq5 has log2fc=+0.99, padj=0.014<0.05, higher in HU, and carried by all 7 HU samples, with a concrete next step proposed."
+  },
+  {
+   "lead_id": "OSD-467_lead_011",
+   "rules_version": 6,
+   "label": "underpowered",
+   "confidence": 0.95,
+   "reason": "The mean count in the higher group (Hindlimb Unloaded) is 17, which is below the threshold of 20, triggering the underpowered rule."
+  },
+  {
+   "lead_id": "OSD-467_lead_009",
+   "rules_version": 6,
+   "label": "contradicted",
+   "confidence": 0.95,
+   "reason": "The claim states padj=0.21, which matches the table's padj=0.208, but the rule specifies that padj above 0.05 contradicts significance, and the gene is not significant at FDR<0.05."
+  },
+  {
+   "lead_id": "OSD-467_lead_023",
+   "rules_version": 6,
+   "label": "no_mechanism",
+   "confidence": 0.95,
+   "reason": "The gene Gm11266 has a 'Gm' prefix and no annotated function, and the claim offers no biological mechanism despite significant regulation."
+  },
+  {
+   "lead_id": "OSD-467_lead_024",
+   "rules_version": 6,
+   "label": "underpowered",
+   "confidence": 0.95,
+   "reason": "The mean count in the higher group (Normal Loading Control) is 17, which is below the threshold of 20, triggering the underpowered rule."
+  },
+  {
+   "lead_id": "OSD-467_lead_006",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "The claim is supported by the table facts: Pfkfb3 has a log2fc of +0.74, padj=0.0105<0.05, and is detected in all 7 HU samples, with a concrete next step proposed."
+  },
+  {
+   "lead_id": "OSD-467_lead_017",
+   "rules_version": 6,
+   "label": "contradicted",
+   "confidence": 1.0,
+   "reason": "The claim states Extl2 is upregulated with padj=0.80, but according to the rules, padj above 0.05 means the result is not significant, and the example OSD-467_lead_042 explicitly applies 'contradicted' to Extl2 with padj=0.80."
+  },
+  {
+   "lead_id": "OSD-467_lead_008",
+   "rules_version": 6,
+   "label": "underpowered",
+   "confidence": 0.95,
+   "reason": "The mean count in the higher group (Hindlimb Unloaded) is 12, which is below the threshold of 20, triggering the underpowered rule."
+  },
+  {
+   "lead_id": "OSD-467_lead_002",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 1.0,
+   "reason": "The claim is supported by the table facts: Mss51 has a log2fc of +1.52, padj < 0.05, is higher in Hindlimb Unloaded, and present in all 7 HU samples (7/7 carriers), with no confounding flags or low-count issues."
+  },
+  {
+   "lead_id": "OSD-467_lead_018",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "The claim is supported by the table facts: Hmga1b has log2fc=-5.10, padj=0.037, and is carried by 9/9 control samples, with a clear next step proposed."
+  },
+  {
+   "lead_id": "OSD-467_lead_016",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 1.0,
+   "reason": "The claim is supported by the table facts (log2fc=-0.16, padj=0.98, carriers 9/9), includes a biological rationale in 'why_not_known', and proposes a concrete next step to assess Rap1 activity."
+  },
+  {
+   "lead_id": "OSD-255_nasa_01",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 1.0,
+   "reason": "Drd4 is significantly upregulated in spaceflight retina with padj=2.285e-58 and log2fc=0.8, carried by all 8/8 samples, supporting the claim and next step of qPCR validation."
+  },
+  {
+   "lead_id": "OSD-255_nasa_02",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 1.0,
+   "reason": "The claim is supported by significant upregulation (log2fc=0.51, padj=4.09e-12) in all 8/8 spaceflight samples, with high mean counts (2281), and includes a concrete next step (validation by qPCR)."
+  },
+  {
+   "lead_id": "OSD-255_nasa_03",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "The claim is supported by significant downregulation of Sag in spaceflight (log2fc = -0.64, padj = 1.19968705898491e-21), with all 8 ground control samples as carriers, and includes a concrete next step (validation by qPCR)."
+  },
+  {
+   "lead_id": "OSD-255_nasa_04",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "The claim is supported by significant downregulation (log2fc = -0.36, padj = 1.15e-05) in ground control with full carrier support (8/8), and a concrete next step (qPCR validation) is provided."
+  },
+  {
+   "lead_id": "OSD-255_nasa_05",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "The claim is supported by the data: Guca1b has a significant padj (0.000342) and log2fc (-0.35), with higher expression in Ground Control, consistent with downregulation in spaceflight, and a concrete next step is provided."
+  },
+  {
+   "lead_id": "OSD-255_nasa_06",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "The claim is supported by the data: Rbp3 has a significant padj (0.000384) and lower expression in spaceflight (log2fc = -0.22), with all 8 ground control samples as carriers, and a concrete next step (qPCR validation) is provided."
+  },
+  {
+   "lead_id": "OSD-255_nasa_07",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "The claim is supported by significant padj (0.0102355010054923), higher expression in spaceflight, and carried by all 8/8 samples, with a concrete next step provided."
+  },
+  {
+   "lead_id": "OSD-255_nasa_08",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "The claim is supported by the data: Guca1a has a significant padj=0.016, log2fc=-0.22, higher in Ground Control, with carriers in all 8/8 control samples, and a concrete next step is provided."
+  },
+  {
+   "lead_id": "OSD-255_nasa_09",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "The claim is supported by significant downregulation (log2fc = -0.23, padj = 0.0038) in Prpf8 with all 8/8 ground control samples as carriers, and the next step is a valid validation approach."
+  },
+  {
+   "lead_id": "OSD-255_nasa_10",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "The claim is supported by significant padj (0.0198), higher expression in spaceflight, and carried by all 8/8 samples, with a concrete next step provided."
+  },
+  {
+   "lead_id": "OSD-255_nasa_11",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "Hmgb3 has a significant padj of 0.0016, log2fc of -0.5, and is higher in Ground Control with carriers in all 8/8 samples, supporting downregulation in spaceflight, and a valid next step is proposed."
+  },
+  {
+   "lead_id": "OSD-255_nasa_12",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "The claim is supported by the data: Prox1 has a padj < 0.05 (0.013), log2fc = -0.16 (down in spaceflight), carriers in all 8/8 ground control samples, and a clear next step is provided."
+  },
+  {
+   "lead_id": "OSD-255_nasa_13",
+   "rules_version": 6,
+   "label": "underpowered",
+   "confidence": 0.95,
+   "reason": "The padj value of 0.0507797989644757 is above the 0.05 significance threshold and the carriers are 8/8, which does not meet the underpowered rule threshold for padj between 0.01 and 0.05 with carriers below 4/6, but the padj is borderline and thus considered underpowered."
+  },
+  {
+   "lead_id": "OSD-255_nasa_14",
+   "rules_version": 6,
+   "label": "contradicted",
+   "confidence": 0.95,
+   "reason": "The claim states Rp1 is upregulated, but the padj value (0.0536) exceeds the significance threshold of 0.05, contradicting the claim's implication of statistical significance."
+  },
+  {
+   "lead_id": "OSD-255_nasa_15",
+   "rules_version": 6,
+   "label": "contradicted",
+   "confidence": 0.95,
+   "reason": "The claim states Gucy2e is downregulated in spaceflight, but the padj value (0.0515592428874835) is above the 0.05 significance threshold, so the result is not statistically significant."
+  },
+  {
+   "lead_id": "OSD-255_nasa_16",
+   "rules_version": 6,
+   "label": "contradicted",
+   "confidence": 0.95,
+   "reason": "The claim states Pde8a is upregulated, but the padj value of 0.2847 exceeds the significance threshold of 0.05, contradicting the claim's implication of significant upregulation."
+  },
+  {
+   "lead_id": "OSD-255_nasa_17",
+   "rules_version": 6,
+   "label": "contradicted",
+   "confidence": 0.95,
+   "reason": "The claim states Hgf is downregulated in spaceflight, but the padj value of 0.168 is above the significance threshold of 0.05, meaning the result is not statistically significant."
+  },
+  {
+   "lead_id": "OSD-255_nasa_18",
+   "rules_version": 6,
+   "label": "contradicted",
+   "confidence": 0.95,
+   "reason": "The claim states Pde6b is downregulated in spaceflight, but the padj value of 0.19074135562709 exceeds the significance threshold of 0.05, contradicting the claim's validity."
+  },
+  {
+   "lead_id": "OSD-255_nasa_19",
+   "rules_version": 6,
+   "label": "contradicted",
+   "confidence": 0.95,
+   "reason": "The claim states Dhdds is upregulated, but the padj value of 0.243280955567128 exceeds the significance threshold of 0.05, meaning the result is not statistically significant."
+  },
+  {
+   "lead_id": "OSD-255_nasa_20",
+   "rules_version": 6,
+   "label": "contradicted",
+   "confidence": 0.95,
+   "reason": "The claim states Mafg is upregulated in spaceflight retina, but the padj value (0.3218) is above the significance threshold of 0.05, meaning the result is not statistically significant."
+  },
+  {
+   "lead_id": "OSD-255_nasa_21",
+   "rules_version": 6,
+   "label": "contradicted",
+   "confidence": 0.95,
+   "reason": "The claim states Isl1 is upregulated in spaceflight, but the padj value of 0.596 is above the 0.05 significance threshold, meaning the result is not statistically significant."
+  },
+  {
+   "lead_id": "OSD-255_nasa_22",
+   "rules_version": 6,
+   "label": "contradicted",
+   "confidence": 0.95,
+   "reason": "The claim states Atf5 is downregulated in spaceflight, but the padj value (0.106779144978265) is above the significance threshold of 0.05, meaning the result is not statistically significant."
+  },
+  {
+   "lead_id": "OSD-255_nasa_23",
+   "rules_version": 6,
+   "label": "contradicted",
+   "confidence": 0.95,
+   "reason": "The claim states Kdm6b is upregulated in spaceflight, but the padj value (0.243) is above the significance threshold of 0.05, contradicting the claim's implication of significant upregulation."
+  },
+  {
+   "lead_id": "OSD-255_nasa_24",
+   "rules_version": 6,
+   "label": "contradicted",
+   "confidence": 0.95,
+   "reason": "The claim states Casz1 is upregulated in spaceflight, but the padj value of 0.2278 exceeds the significance threshold of 0.05, contradicting the claim of significant upregulation."
+  },
+  {
+   "lead_id": "OSD-255_nasa_25",
+   "rules_version": 6,
+   "label": "contradicted",
+   "confidence": 0.95,
+   "reason": "The claim states Kdm4a is downregulated in spaceflight, but the padj value of 0.417514190858134 exceeds 0.05, indicating it is not statistically significant."
+  },
+  {
+   "lead_id": "OSD-255_nasa_26",
+   "rules_version": 6,
+   "label": "contradicted",
+   "confidence": 1.0,
+   "reason": "The claim states Abca4 is upregulated in spaceflight, but the table shows it is higher in Ground Control with log2fc = -0.02 and padj = 0.90285, which is not significant and in the opposite direction."
+  },
+  {
+   "lead_id": "OSD-255_nasa_27",
+   "rules_version": 6,
+   "label": "contradicted",
+   "confidence": 0.95,
+   "reason": "The claim states Nmnat1 is upregulated, but the padj value of 0.65218802648612 exceeds the significance threshold of 0.05, contradicting the claim of significant upregulation."
+  },
+  {
+   "lead_id": "OSD-255_nasa_28",
+   "rules_version": 6,
+   "label": "contradicted",
+   "confidence": 1.0,
+   "reason": "The claim states Casp3 is upregulated in spaceflight, but the table shows it is higher in Ground Control with a log2fc of -0.01 and padj of 0.99455, indicating no significant upregulation in spaceflight."
+  },
+  {
+   "lead_id": "OSD-255_nasa_29",
+   "rules_version": 6,
+   "label": "contradicted",
+   "confidence": 0.95,
+   "reason": "The claim states Crb1 is downregulated in spaceflight, but the table shows padj = 0.819 > 0.05, meaning it is not statistically significant."
+  },
+  {
+   "lead_id": "OSD-255_nasa_30_thickness",
+   "rules_version": 6,
+   "label": "untestable",
+   "confidence": 1.0,
+   "reason": "The claim about structural thickness changes is not supported by the table facts, which only provide gene expression data, not structural measurements."
+  },
+  {
+   "lead_id": "OSD-255_nasa_31_cones",
+   "rules_version": 6,
+   "label": "untestable",
+   "confidence": 0.95,
+   "reason": "The claim about cone photoreceptor density decrease is not supported by any table facts, and the dataset provided does not contain relevant information to test the claim."
+  },
+  {
+   "lead_id": "OSD-255_nasa_32_go_vision",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "The claim is supported by the table fact showing 8.71-fold enrichment for visual perception (GO:0007601) with 3 significant genes (all down), and includes a concrete next step to test phototransduction via qPCR and ERG."
+  },
+  {
+   "lead_id": "OSD-255_nasa_33_go_rna",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "The claim is supported by the table fact showing 1.91-fold enrichment for RNA processing (GO:0006396) with 10 significant genes, and the 'why_not_known' clarifies it's not tied to retinal disease, justifying novelty."
+  },
+  {
+   "lead_id": "OSD-255_nasa_34_go_radiation",
+   "rules_version": 6,
+   "label": "ok",
+   "confidence": 0.95,
+   "reason": "The claim is supported by the enrichment value of 6.53 for GO:0009314, which indicates overrepresentation, and a concrete next step (comparing with ground irradiation datasets) is provided."
+  }
+ ],
+ "metrics": {
+  "screening/kill_precision": 0.875,
+  "screening/kill_recall": 0.9692307692307692,
+  "screening/false_kill_rate": 0.15254237288135594,
+  "screening/reason_accuracy": 0.8709677419354839,
+  "screening/n_hypotheses": 124,
+  "screening/false_kills": 9,
+  "screening/true_kills": 63,
+  "screening/predicted_kills": 72,
+  "screening/n_human_kill": 65,
+  "screening/mean_confidence": 0.9596774193548402,
+  "reason/ok/precision": 0.9615384615384616,
+  "reason/ok/recall": 0.847457627118644,
+  "reason/ok/support": 59,
+  "reason/already_known/precision": 0.8,
+  "reason/already_known/recall": 1.0,
+  "reason/already_known/support": 4,
+  "reason/underpowered/precision": 0.8823529411764706,
+  "reason/underpowered/recall": 0.7894736842105263,
+  "reason/underpowered/support": 19,
+  "reason/confound/precision": 0.7777777777777778,
+  "reason/confound/recall": 0.875,
+  "reason/confound/support": 8,
+  "reason/contradicted/precision": 0.875,
+  "reason/contradicted/recall": 0.9545454545454546,
+  "reason/contradicted/support": 22,
+  "reason/untestable/precision": 0.7272727272727273,
+  "reason/untestable/recall": 0.8888888888888888,
+  "reason/untestable/support": 9,
+  "reason/no_mechanism/precision": 0.5,
+  "reason/no_mechanism/recall": 1.0,
+  "reason/no_mechanism/support": 3
+ },
+ "misses": [
+  {
+   "hypothesis_id": "OSD-104_lead_054",
+   "hypothesis_text": "Sample M26 is a carrier for 4 of the top 50 genes, similar to M24, indicating potential outlier status.",
+   "shape": "data_quality",
+   "critic_verdict": "kill",
+   "critic_reason_code": "confound",
+   "critic_confidence": 0.95,
+   "critic_reason": "Sample M24 and M26 are carriers for 2/6 or 3/6 of top genes, both flagged in sample_flags, meeting the confound rule threshold of carriers below half the group.",
+   "human_verdict": "keep",
+   "human_reason_code": "ok",
+   "human_note": "A=ok; B=confound; adjudicated: ",
+   "is_correct": false,
+   "is_false_kill": true,
+   "rules_version": 6,
+   "table_facts": "{'Krt17': {'log2fc': 21.87, 'padj': 1.4139553306249598e-11, 'higher_group': 'Space Flight', 'carriers': '2/6', 'carrier_samples': ['M24', 'M26'], 'mean_count': {'Space Flight': 35, 'Ground Control': 1}}, 'Krt25': {'log2fc': 8.35, 'padj': 0.0251391928748691, 'higher_group': 'Space Flight', 'carriers': '2/6', 'carrier_samples': ['M24', 'M26'], 'mean_count': {'Space Flight': 53, 'Ground Control': 1}}, 'Krt14': {'log2fc': 8.3, 'padj': 0.0262169339776821, 'higher_group': 'Space Flight', 'carriers': '"
+  },
+  {
+   "hypothesis_id": "OSD-104_lead_022",
+   "hypothesis_text": "Msx2 is upregulated in space flight with log2fc=+4.69 and padj=5.2e-03.",
+   "shape": "single_gene",
+   "critic_verdict": "kill",
+   "critic_reason_code": "confound",
+   "critic_confidence": 0.95,
+   "critic_reason": "The gene Msx2 has carriers 5/6, but both M24 and M26\u2014each one of the <=2 carriers for 4 of the top 50 genes\u2014are among the carriers, indicating potential confounding by outlier samples.",
+   "human_verdict": "kill",
+   "human_reason_code": "underpowered",
+   "human_note": "Mean count in the higher group (7) is below the 20 threshold.",
+   "is_correct": false,
+   "is_false_kill": false,
+   "rules_version": 6,
+   "table_facts": "{'Msx2': {'log2fc': 4.69, 'padj': 0.0051790233246063, 'higher_group': 'Space Flight', 'carriers': '5/6', 'carrier_samples': ['M23', 'M24', 'M25', 'M26', 'M27'], 'mean_count': {'Space Flight': 7, 'Ground Control': 1}}}"
+  },
+  {
+   "hypothesis_id": "OSD-255_lead_058",
+   "hypothesis_text": "Null genes like Adcy2 (padj=0.80) have stable expression, supporting technical reproducibility.",
+   "shape": "data_quality",
+   "critic_verdict": "kill",
+   "critic_reason_code": "untestable",
+   "critic_confidence": 0.95,
+   "critic_reason": "Inferring technical reproducibility from a single null gene's stability is a global restatement not supported by multi-gene null patterns, per rule 'untestable'.",
+   "human_verdict": "keep",
+   "human_reason_code": "ok",
+   "human_note": "The claim about stable null genes supporting technical reproducibility is a valid data-quality assessment with a concrete next step to calculate coefficient of variation.",
+   "is_correct": false,
+   "is_false_kill": true,
+   "rules_version": 6,
+   "table_facts": "{'Adcy2': {'log2fc': 0.05, 'padj': 0.801407826823359, 'higher_group': 'Space Flight', 'carriers': '8/8', 'carrier_samples': ['GSM3932701', 'GSM3932702', 'GSM3932703', 'GSM3932704', 'GSM3932705', 'GSM3932706', 'GSM3932707', 'GSM3932708'], 'mean_count': {'Space Flight': 477, 'Ground Control': 461}}, 'Rgs6': {'log2fc': -0.05, 'padj': 0.881361343989861, 'higher_group': 'Ground Control', 'carriers': '8/8', 'carrier_samples': ['GSM3932693', 'GSM3932694', 'GSM3932695', 'GSM3932696', 'GSM3932697', 'GSM3"
+  },
+  {
+   "hypothesis_id": "OSD-255_lead_055",
+   "hypothesis_text": "Predicted genes like Gm16638 and Gm19410 are significant, but their annotations may be incorrect.",
+   "shape": "data_quality",
+   "critic_verdict": "kill",
+   "critic_reason_code": "no_mechanism",
+   "critic_confidence": 0.95,
+   "critic_reason": "The claim discusses predicted genes Gm16638 and Gm19410, which have a 'Gm' prefix indicating no annotated function, and the rule states that such genes trigger 'no_mechanism' when no biological reason is provided.",
+   "human_verdict": "keep",
+   "human_reason_code": "ok",
+   "human_note": "A=ok; B=no_mechanism; adjudicated: ",
+   "is_correct": false,
+   "is_false_kill": true,
+   "rules_version": 6,
+   "table_facts": "{'Gm16638': {'log2fc': 0.83, 'padj': 0.0019224000259298, 'higher_group': 'Space Flight', 'carriers': '8/8', 'carrier_samples': ['GSM3932701', 'GSM3932702', 'GSM3932703', 'GSM3932704', 'GSM3932705', 'GSM3932706', 'GSM3932707', 'GSM3932708'], 'mean_count': {'Space Flight': 67, 'Ground Control': 38}}, 'Gm19410': {'log2fc': 0.66, 'padj': 0.0356751576711401, 'higher_group': 'Space Flight', 'carriers': '8/8', 'carrier_samples': ['GSM3932701', 'GSM3932702', 'GSM3932703', 'GSM3932704', 'GSM3932705', 'GS"
+  },
+  {
+   "hypothesis_id": "OSD-255_lead_053",
+   "hypothesis_text": "All significant genes have carriers in all 8 samples of their group, suggesting no outlier-driven false positives.",
+   "shape": "data_quality",
+   "critic_verdict": "kill",
+   "critic_reason_code": "untestable",
+   "critic_confidence": 0.95,
+   "critic_reason": "The claim about carrier consistency arguing against false positives is not testable because the table_facts do not provide sample-wise expression data or outlier information required to validate the absence of technical artifacts.",
+   "human_verdict": "keep",
+   "human_reason_code": "ok",
+   "human_note": "The claim is a valid data-quality observation with a concrete next step (plot sample-wise expression) to confirm absence of outliers, supported by all genes having 8/8 carriers in their respective groups.",
+   "is_correct": false,
+   "is_false_kill": true,
+   "rules_version": 6,
+   "table_facts": "{'Irf7': {'log2fc': 1.42, 'padj': 6.78891747323859e-19, 'higher_group': 'Space Flight', 'carriers': '8/8', 'carrier_samples': ['GSM3932701', 'GSM3932702', 'GSM3932703', 'GSM3932704', 'GSM3932705', 'GSM3932706', 'GSM3932707', 'GSM3932708'], 'mean_count': {'Space Flight': 294, 'Ground Control': 111}}, 'Ptp4a1': {'log2fc': 1.33, 'padj': 0.0241484061301307, 'higher_group': 'Space Flight', 'carriers': '8/8', 'carrier_samples': ['GSM3932701', 'GSM3932702', 'GSM3932703', 'GSM3932704', 'GSM3932705', 'GS"
+  },
+  {
+   "hypothesis_id": "OSD-255_lead_048",
+   "hypothesis_text": "Upregulated genes are more likely to have higher mean counts in flight, as seen in Irf7 (294) and Drd4 (3082).",
+   "shape": "global",
+   "critic_verdict": "kill",
+   "critic_reason_code": "already_known",
+   "critic_confidence": 0.95,
+   "critic_reason": "The claim that upregulated genes have higher mean counts in the condition of upregulation is a general expectation in RNA-seq data, and the 'why_not_known' field acknowledges this by stating it is expected but not quantified.",
+   "human_verdict": "kill",
+   "human_reason_code": "untestable",
+   "human_note": "A=untestable; B=ok; adjudicated: ",
+   "is_correct": false,
+   "is_false_kill": false,
+   "rules_version": 6,
+   "table_facts": "{'Irf7': {'log2fc': 1.42, 'padj': 6.78891747323859e-19, 'higher_group': 'Space Flight', 'carriers': '8/8', 'carrier_samples': ['GSM3932701', 'GSM3932702', 'GSM3932703', 'GSM3932704', 'GSM3932705', 'GSM3932706', 'GSM3932707', 'GSM3932708'], 'mean_count': {'Space Flight': 294, 'Ground Control': 111}}, 'Drd4': {'log2fc': 0.8, 'padj': 2.2851932754677802e-58, 'higher_group': 'Space Flight', 'carriers': '8/8', 'carrier_samples': ['GSM3932701', 'GSM3932702', 'GSM3932703', 'GSM3932704', 'GSM3932705', 'G"
+  },
+  {
+   "hypothesis_id": "OSD-255_lead_042",
+   "hypothesis_text": "Genes in 'cellular response to topologically incorrect protein' (GO:0035967) are enriched among upregulated genes in spaceflight (2 up, 1 down).",
+   "shape": "pathway",
+   "critic_verdict": "keep",
+   "critic_reason_code": "ok",
+   "critic_confidence": 0.95,
+   "critic_reason": "The claim reports 2 up and 1 down gene in GO:0035967 with an enrichment of 6.96, which matches the table facts, and proposes a testable next step to measure misfolded proteins.",
+   "human_verdict": "kill",
+   "human_reason_code": "underpowered",
+   "human_note": "A=underpowered; B=ok; adjudicated: ",
+   "is_correct": false,
+   "is_false_kill": false,
+   "rules_version": 6,
+   "table_facts": "{'GO:0035967': {'name': 'cellular response to topologically incorrect protein', 'genes_in_term': 30, 'significant': 3, 'up': 2, 'down': 1, 'enrichment_vs_baseline': 6.96}}"
+  },
+  {
+   "hypothesis_id": "OSD-255_lead_023",
+   "hypothesis_text": "Cmc4 is upregulated in spaceflight (log2fc = +0.65) and present in all 8 flight samples.",
+   "shape": "single_gene",
+   "critic_verdict": "kill",
+   "critic_reason_code": "no_mechanism",
+   "critic_confidence": 0.95,
+   "critic_reason": "The gene Cmc4 has unknown function and the claim offers no biological mechanism despite upregulation in spaceflight.",
+   "human_verdict": "keep",
+   "human_reason_code": "ok",
+   "human_note": "Cmc4 is significantly upregulated (padj=0.023) with high expression (mean count 48) and present in all flight samples, and its unknown function makes this a novel finding with a concrete next step.",
+   "is_correct": false,
+   "is_false_kill": true,
+   "rules_version": 6,
+   "table_facts": "{'Cmc4': {'log2fc': 0.65, 'padj': 0.0225877513914477, 'higher_group': 'Space Flight', 'carriers': '8/8', 'carrier_samples': ['GSM3932701', 'GSM3932702', 'GSM3932703', 'GSM3932704', 'GSM3932705', 'GSM3932706', 'GSM3932707', 'GSM3932708'], 'mean_count': {'Space Flight': 48, 'Ground Control': 31}}}"
+  },
+  {
+   "hypothesis_id": "OSD-467_lead_057",
+   "hypothesis_text": "Meiosin is expressed in 8 of 9 control samples but should not be active in somatic tissue, indicating possible germline contamination.",
+   "shape": "data_quality",
+   "critic_verdict": "kill",
+   "critic_reason_code": "contradicted",
+   "critic_confidence": 0.95,
+   "critic_reason": "The claim states Meiosin is expressed in controls but should not be active, yet the table shows padj = 0.930120648730538, which is not significant (padj > 0.05), contradicting the implication of meaningful expression difference.",
+   "human_verdict": "keep",
+   "human_reason_code": "ok",
+   "human_note": "A=ok; B=underpowered; adjudicated: ",
+   "is_correct": false,
+   "is_false_kill": true,
+   "rules_version": 6,
+   "table_facts": "{'Meiosin': {'log2fc': -0.5, 'padj': 0.930120648730538, 'higher_group': 'Normal Loading Control', 'carriers': '8/9', 'carrier_samples': ['GSM5194612', 'GSM5194615', 'GSM5194617', 'GSM5194618', 'GSM5194619', 'GSM5194621', 'GSM5194622', 'GSM5194635'], 'mean_count': {'Hindlimb Unloaded': 3, 'Normal Loading Control': 5}}}"
+  },
+  {
+   "hypothesis_id": "OSD-467_lead_054",
+   "hypothesis_text": "Mss51 has the lowest padj (1.3e-06) and is detected in all 7 HU samples, supporting high technical reliability of the DE call.",
+   "shape": "data_quality",
+   "critic_verdict": "kill",
+   "critic_reason_code": "untestable",
+   "critic_confidence": 0.95,
+   "critic_reason": "The claim infers 'technical reliability of the DE call' from a single gene's low padj and full carrier rate, which is a data-quality assertion not supported by multi-gene or null-gene patterns, triggering the 'untestable' rule.",
+   "human_verdict": "keep",
+   "human_reason_code": "ok",
+   "human_note": "The lead identifies a data-quality check (high reliability of a top hit) with a concrete next step (IGV track inspection).",
+   "is_correct": false,
+   "is_false_kill": true,
+   "rules_version": 6,
+   "table_facts": "{'Mss51': {'log2fc': 1.52, 'padj': 1.31089666036318e-06, 'higher_group': 'Hindlimb Unloaded', 'carriers': '7/7', 'carrier_samples': ['GSM5194614', 'GSM5194616', 'GSM5194620', 'GSM5194623', 'GSM5194626', 'GSM5194629', 'GSM5194632'], 'mean_count': {'Hindlimb Unloaded': 1071, 'Normal Loading Control': 491}}}"
+  },
+  {
+   "hypothesis_id": "OSD-467_lead_045",
+   "hypothesis_text": "Only 7 genes are significant at FDR<0.05, indicating a highly specific transcriptional response to hindlimb unloading.",
+   "shape": "global",
+   "critic_verdict": "keep",
+   "critic_reason_code": "ok",
+   "critic_confidence": 0.95,
+   "critic_reason": "The claim that 7 genes are significant at FDR<0.05 is supported by the table facts, which list exactly 7 genes with padj < 0.05, and a concrete next step (power analysis) is provided.",
+   "human_verdict": "kill",
+   "human_reason_code": "underpowered",
+   "human_note": "The mean count in the higher group for Hmga1b is 9, which is below the 20 threshold, indicating insufficient expression for reliable detection.",
+   "is_correct": false,
+   "is_false_kill": false,
+   "rules_version": 6,
+   "table_facts": "{'Hmga1b': {'log2fc': -5.1, 'padj': 0.0374471895826543, 'higher_group': 'Normal Loading Control', 'carriers': '9/9', 'carrier_samples': ['GSM5194612', 'GSM5194613', 'GSM5194615', 'GSM5194617', 'GSM5194618', 'GSM5194619', 'GSM5194621', 'GSM5194622', 'GSM5194635'], 'mean_count': {'Hindlimb Unloaded': 9, 'Normal Loading Control': 321}}, 'Mss51': {'log2fc': 1.52, 'padj': 1.31089666036318e-06, 'higher_group': 'Hindlimb Unloaded', 'carriers': '7/7', 'carrier_samples': ['GSM5194614', 'GSM5194616', 'GSM"
+  },
+  {
+   "hypothesis_id": "OSD-467_lead_048",
+   "hypothesis_text": "All top differentially expressed genes are carried by all or nearly all samples in their group, indicating high reproducibility within groups.",
+   "shape": "global",
+   "critic_verdict": "kill",
+   "critic_reason_code": "no_mechanism",
+   "critic_confidence": 0.95,
+   "critic_reason": "The gene Gm11266 has a 'Gm' prefix indicating it is a predicted gene with no known function, triggering the no_mechanism rule.",
+   "human_verdict": "keep",
+   "human_reason_code": "ok",
+   "human_note": "A=ok; B=invalid; adjudicated: ",
+   "is_correct": false,
+   "is_false_kill": true,
+   "rules_version": 6,
+   "table_facts": "{'Hmga1b': {'log2fc': -5.1, 'padj': 0.0374471895826543, 'higher_group': 'Normal Loading Control', 'carriers': '9/9', 'carrier_samples': ['GSM5194612', 'GSM5194613', 'GSM5194615', 'GSM5194617', 'GSM5194618', 'GSM5194619', 'GSM5194621', 'GSM5194622', 'GSM5194635'], 'mean_count': {'Hindlimb Unloaded': 9, 'Normal Loading Control': 321}}, 'Mss51': {'log2fc': 1.52, 'padj': 1.31089666036318e-06, 'higher_group': 'Hindlimb Unloaded', 'carriers': '7/7', 'carrier_samples': ['GSM5194614', 'GSM5194616', 'GSM"
+  },
+  {
+   "hypothesis_id": "OSD-467_lead_044",
+   "hypothesis_text": "Xenobiotic metabolism (via Cyp2b10 downregulation) may be reduced in HU mice, though its tissue origin is uncertain.",
+   "shape": "pathway",
+   "critic_verdict": "kill",
+   "critic_reason_code": "contradicted",
+   "critic_confidence": 0.95,
+   "critic_reason": "The claim states Cyp2b10 is downregulated in HU mice, but the padj value of 0.201918002535436 exceeds the significance threshold of 0.05, contradicting the assertion of significant downregulation.",
+   "human_verdict": "kill",
+   "human_reason_code": "confound",
+   "human_note": "A=confound; B=contradicted; adjudicated: ",
+   "is_correct": false,
+   "is_false_kill": false,
+   "rules_version": 6,
+   "table_facts": "{'Cyp2b10': {'log2fc': -1.24, 'padj': 0.201918002535436, 'higher_group': 'Normal Loading Control', 'carriers': '9/9', 'carrier_samples': ['GSM5194612', 'GSM5194613', 'GSM5194615', 'GSM5194617', 'GSM5194618', 'GSM5194619', 'GSM5194621', 'GSM5194622', 'GSM5194635'], 'mean_count': {'Hindlimb Unloaded': 9, 'Normal Loading Control': 13}}}"
+  },
+  {
+   "hypothesis_id": "OSD-467_lead_040",
+   "hypothesis_text": "Potassium channel activity (via Kcnq5 upregulation) may be increased in HU mice, altering membrane potential.",
+   "shape": "pathway",
+   "critic_verdict": "kill",
+   "critic_reason_code": "underpowered",
+   "critic_confidence": 0.95,
+   "critic_reason": "The mean count in the higher group (Hindlimb Unloaded) is 141, which is above 20, but the padj is 0.014 and carriers are 7/7, so the underpowered rule does not apply based on carriers or counts; however, the rule 'underpowered' applies to OSD-467_lead_008 with mean_count=18, indicating a sensitivity to borderline cases, yet here the evidence is solid\u2014thus the correct label is not underpowered. Re-evaluating: the claim is supported by significant padj, high carriers, and solid counts, and includes a concrete next step; therefore, the correct label is 'ok'.",
+   "human_verdict": "keep",
+   "human_reason_code": "ok",
+   "human_note": "Kcnq5 is significantly upregulated (log2fc=0.99, padj=0.014) with high expression (mean count=141) and all 7 HU samples show the effect, supporting the claim about potassium channel activity with a concrete electrophysiology next step.",
+   "is_correct": false,
+   "is_false_kill": true,
+   "rules_version": 6,
+   "table_facts": "{'Kcnq5': {'log2fc': 0.99, 'padj': 0.0140853797953667, 'higher_group': 'Hindlimb Unloaded', 'carriers': '7/7', 'carrier_samples': ['GSM5194614', 'GSM5194616', 'GSM5194620', 'GSM5194623', 'GSM5194626', 'GSM5194629', 'GSM5194632'], 'mean_count': {'Hindlimb Unloaded': 141, 'Normal Loading Control': 81}}}"
+  },
+  {
+   "hypothesis_id": "OSD-467_lead_017",
+   "hypothesis_text": "Extl2 is slightly upregulated (log2fc=+0.29, padj=0.80) in HU mice, detected in all 7 HU samples.",
+   "shape": "single_gene",
+   "critic_verdict": "kill",
+   "critic_reason_code": "contradicted",
+   "critic_confidence": 1.0,
+   "critic_reason": "The claim states Extl2 is upregulated with padj=0.80, but according to the rules, padj above 0.05 means the result is not significant, and the example OSD-467_lead_042 explicitly applies 'contradicted' to Extl2 with padj=0.80.",
+   "human_verdict": "kill",
+   "human_reason_code": "underpowered",
+   "human_note": "A=underpowered; B=ok; adjudicated: ",
+   "is_correct": false,
+   "is_false_kill": false,
+   "rules_version": 6,
+   "table_facts": "{'Extl2': {'log2fc': 0.29, 'padj': 0.798783547171247, 'higher_group': 'Hindlimb Unloaded', 'carriers': '7/7', 'carrier_samples': ['GSM5194614', 'GSM5194616', 'GSM5194620', 'GSM5194623', 'GSM5194626', 'GSM5194629', 'GSM5194632'], 'mean_count': {'Hindlimb Unloaded': 406, 'Normal Loading Control': 288}}}"
+  },
+  {
+   "hypothesis_id": "OSD-255_nasa_13",
+   "hypothesis_text": "Hif1a is downregulated in the spaceflight retina compared to ground control.",
+   "shape": "single_gene",
+   "critic_verdict": "kill",
+   "critic_reason_code": "underpowered",
+   "critic_confidence": 0.95,
+   "critic_reason": "The padj value of 0.0507797989644757 is above the 0.05 significance threshold and the carriers are 8/8, which does not meet the underpowered rule threshold for padj between 0.01 and 0.05 with carriers below 4/6, but the padj is borderline and thus considered underpowered.",
+   "human_verdict": "kill",
+   "human_reason_code": "contradicted",
+   "human_note": "paper claim; GeneLab padj just above 0.05",
+   "is_correct": false,
+   "is_false_kill": false,
+   "rules_version": 6,
+   "table_facts": "{'Hif1a': {'log2fc': -0.12, 'padj': 0.0507797989644757, 'higher_group': 'Ground Control', 'carriers': '8/8', 'carrier_samples': ['GSM3932693', 'GSM3932694', 'GSM3932695', 'GSM3932696', 'GSM3932697', 'GSM3932698', 'GSM3932699', 'GSM3932700'], 'mean_count': {'Space Flight': 7372, 'Ground Control': 8013}}}"
+  }
+ ]
+}

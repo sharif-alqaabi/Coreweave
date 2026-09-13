@@ -1,0 +1,731 @@
+[
+ {
+  "id": "OSD-467_nasa_01",
+  "shape": "single_gene",
+  "claim": "Pfkfb3 is upregulated in cortical bone from hindlimb unloaded mice compared to normally loaded controls.",
+  "rows": [
+   "Pfkfb3"
+  ],
+  "why_not_known": "Pfkfb3 (1.8-fold by Nanostring) links unloading to glycolytic flux in bone; monosaccharide metabolism was the top enriched process.",
+  "next_step": "Confirm by Nanostring or qPCR on cortical bone from an independent unloading cohort.",
+  "dataset": "OSD-467",
+  "group": "supported",
+  "paper": {
+   "padj": 0.1,
+   "log2fc": 0.85
+  },
+  "label": "ok",
+  "label_note": "paper claim; GeneLab agrees at padj<0.05",
+  "table_facts": {
+   "Pfkfb3": {
+    "log2fc": 0.74,
+    "padj": 0.0104830446916998,
+    "higher_group": "Hindlimb Unloaded",
+    "carriers": "7/7",
+    "carrier_samples": [
+     "GSM5194614",
+     "GSM5194616",
+     "GSM5194620",
+     "GSM5194623",
+     "GSM5194626",
+     "GSM5194629",
+     "GSM5194632"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 2852,
+     "Normal Loading Control": 1885
+    }
+   }
+  }
+ },
+ {
+  "id": "OSD-467_nasa_02",
+  "shape": "single_gene",
+  "claim": "Igfbp5 is upregulated in cortical bone from hindlimb unloaded mice compared to normally loaded controls.",
+  "rows": [
+   "Igfbp5"
+  ],
+  "why_not_known": "Igfbp5 is an IGF-axis regulator of bone formation, enriched in monosaccharide and protein metabolism terms.",
+  "next_step": "Confirm by Nanostring or qPCR on cortical bone from an independent unloading cohort.",
+  "dataset": "OSD-467",
+  "group": "not_reproduced",
+  "paper": {
+   "padj": 0.1,
+   "log2fc": null
+  },
+  "label": "contradicted",
+  "label_note": "paper padj 1.0e-01; GeneLab does not reproduce at padj<0.1",
+  "table_facts": {
+   "Igfbp5": {
+    "log2fc": 0.49,
+    "padj": 0.128222192687439,
+    "higher_group": "Hindlimb Unloaded",
+    "carriers": "7/7",
+    "carrier_samples": [
+     "GSM5194614",
+     "GSM5194616",
+     "GSM5194620",
+     "GSM5194623",
+     "GSM5194626",
+     "GSM5194629",
+     "GSM5194632"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 13526,
+     "Normal Loading Control": 11167
+    }
+   }
+  }
+ },
+ {
+  "id": "OSD-467_nasa_03",
+  "shape": "single_gene",
+  "claim": "Stfa1 is upregulated in cortical bone from hindlimb unloaded mice compared to normally loaded controls.",
+  "rows": [
+   "Stfa1"
+  ],
+  "why_not_known": "Stfa1 (stefin A1) points to peptidase inhibition as an unloading response in bone.",
+  "next_step": "Confirm by Nanostring or qPCR on cortical bone from an independent unloading cohort.",
+  "dataset": "OSD-467",
+  "group": "not_reproduced",
+  "paper": {
+   "padj": 0.1,
+   "log2fc": null
+  },
+  "label": "contradicted",
+  "label_note": "paper padj 1.0e-01; GeneLab does not reproduce at padj<0.1",
+  "table_facts": {
+   "Stfa1": {
+    "log2fc": 1.19,
+    "padj": 0.22974637943894,
+    "higher_group": "Hindlimb Unloaded",
+    "carriers": "7/7",
+    "carrier_samples": [
+     "GSM5194614",
+     "GSM5194616",
+     "GSM5194620",
+     "GSM5194623",
+     "GSM5194626",
+     "GSM5194629",
+     "GSM5194632"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 43,
+     "Normal Loading Control": 46
+    }
+   }
+  }
+ },
+ {
+  "id": "OSD-467_nasa_04",
+  "shape": "single_gene",
+  "claim": "Stfa2 is upregulated in cortical bone from hindlimb unloaded mice compared to normally loaded controls.",
+  "rows": [
+   "Stfa2"
+  ],
+  "why_not_known": "Stfa2 (stefin A2) points to peptidase inhibition as an unloading response in bone.",
+  "next_step": "Confirm by Nanostring or qPCR on cortical bone from an independent unloading cohort.",
+  "dataset": "OSD-467",
+  "group": "not_reproduced",
+  "paper": {
+   "padj": 0.1,
+   "log2fc": null
+  },
+  "label": "contradicted",
+  "label_note": "paper padj 1.0e-01; GeneLab does not reproduce at padj<0.1",
+  "table_facts": {
+   "Stfa2": {
+    "log2fc": 1.13,
+    "padj": 0.359204077256085,
+    "higher_group": "Hindlimb Unloaded",
+    "carriers": "7/7",
+    "carrier_samples": [
+     "GSM5194614",
+     "GSM5194616",
+     "GSM5194620",
+     "GSM5194623",
+     "GSM5194626",
+     "GSM5194629",
+     "GSM5194632"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 15,
+     "Normal Loading Control": 14
+    }
+   }
+  }
+ },
+ {
+  "id": "OSD-467_nasa_05",
+  "shape": "single_gene",
+  "claim": "Scd1 is upregulated in cortical bone from hindlimb unloaded mice compared to normally loaded controls.",
+  "rows": [
+   "Scd1"
+  ],
+  "why_not_known": "Scd1 (2-fold by Nanostring) links unloading to lipid metabolism in bone.",
+  "next_step": "Confirm by Nanostring or qPCR on cortical bone from an independent unloading cohort.",
+  "dataset": "OSD-467",
+  "group": "not_reproduced",
+  "paper": {
+   "padj": 0.01,
+   "log2fc": 1.0
+  },
+  "label": "contradicted",
+  "label_note": "paper padj 1.0e-02; GeneLab does not reproduce at padj<0.1",
+  "table_facts": {
+   "Scd1": {
+    "log2fc": 1.11,
+    "padj": 0.465469596848038,
+    "higher_group": "Hindlimb Unloaded",
+    "carriers": "7/7",
+    "carrier_samples": [
+     "GSM5194614",
+     "GSM5194616",
+     "GSM5194620",
+     "GSM5194623",
+     "GSM5194626",
+     "GSM5194629",
+     "GSM5194632"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 12268,
+     "Normal Loading Control": 4491
+    }
+   }
+  }
+ },
+ {
+  "id": "OSD-467_nasa_06",
+  "shape": "single_gene",
+  "claim": "Fzd4 is upregulated in cortical bone from hindlimb unloaded mice compared to normally loaded controls.",
+  "rows": [
+   "Fzd4"
+  ],
+  "why_not_known": "Fzd4 is a Wnt receptor; Wnt signaling was implicated in the unloading response.",
+  "next_step": "Confirm by Nanostring or qPCR on cortical bone from an independent unloading cohort.",
+  "dataset": "OSD-467",
+  "group": "not_reproduced",
+  "paper": {
+   "padj": 0.03,
+   "log2fc": 0.68
+  },
+  "label": "contradicted",
+  "label_note": "paper padj 3.0e-02; GeneLab does not reproduce at padj<0.1",
+  "table_facts": {
+   "Fzd4": {
+    "log2fc": 0.66,
+    "padj": 0.633845204005879,
+    "higher_group": "Hindlimb Unloaded",
+    "carriers": "7/7",
+    "carrier_samples": [
+     "GSM5194614",
+     "GSM5194616",
+     "GSM5194620",
+     "GSM5194623",
+     "GSM5194626",
+     "GSM5194629",
+     "GSM5194632"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 1869,
+     "Normal Loading Control": 984
+    }
+   }
+  }
+ },
+ {
+  "id": "OSD-467_nasa_07",
+  "shape": "single_gene",
+  "claim": "Mmp3 is upregulated in cortical bone from hindlimb unloaded mice compared to normally loaded controls.",
+  "rows": [
+   "Mmp3"
+  ],
+  "why_not_known": "Mmp3 drives matrix remodeling during bone loss.",
+  "next_step": "Confirm by Nanostring or qPCR on cortical bone from an independent unloading cohort.",
+  "dataset": "OSD-467",
+  "group": "not_reproduced",
+  "paper": {
+   "padj": 0.007,
+   "log2fc": 0.85
+  },
+  "label": "contradicted",
+  "label_note": "paper padj 7.0e-03; GeneLab does not reproduce at padj<0.1",
+  "table_facts": {
+   "Mmp3": {
+    "log2fc": 0.59,
+    "padj": 0.85436416914619,
+    "higher_group": "Hindlimb Unloaded",
+    "carriers": "7/7",
+    "carrier_samples": [
+     "GSM5194614",
+     "GSM5194616",
+     "GSM5194620",
+     "GSM5194623",
+     "GSM5194626",
+     "GSM5194629",
+     "GSM5194632"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 20,
+     "Normal Loading Control": 18
+    }
+   }
+  }
+ },
+ {
+  "id": "OSD-467_nasa_08",
+  "shape": "single_gene",
+  "claim": "Sfrp2 is upregulated in cortical bone from hindlimb unloaded mice compared to normally loaded controls.",
+  "rows": [
+   "Sfrp2"
+  ],
+  "why_not_known": "Sfrp2 is a secreted Wnt antagonist, consistent with reduced bone formation.",
+  "next_step": "Confirm by Nanostring or qPCR on cortical bone from an independent unloading cohort.",
+  "dataset": "OSD-467",
+  "group": "not_reproduced",
+  "paper": {
+   "padj": 0.05,
+   "log2fc": 0.77
+  },
+  "label": "contradicted",
+  "label_note": "paper padj 5.0e-02; GeneLab does not reproduce at padj<0.1",
+  "table_facts": {
+   "Sfrp2": {
+    "log2fc": 0.41,
+    "padj": 0.859521657643395,
+    "higher_group": "Hindlimb Unloaded",
+    "carriers": "7/7",
+    "carrier_samples": [
+     "GSM5194614",
+     "GSM5194616",
+     "GSM5194620",
+     "GSM5194623",
+     "GSM5194626",
+     "GSM5194629",
+     "GSM5194632"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 227,
+     "Normal Loading Control": 136
+    }
+   }
+  }
+ },
+ {
+  "id": "OSD-467_nasa_09",
+  "shape": "single_gene",
+  "claim": "Sfrp4 is upregulated in cortical bone from hindlimb unloaded mice compared to normally loaded controls.",
+  "rows": [
+   "Sfrp4"
+  ],
+  "why_not_known": "Sfrp4 is a secreted Wnt antagonist, consistent with reduced bone formation.",
+  "next_step": "Confirm by Nanostring or qPCR on cortical bone from an independent unloading cohort.",
+  "dataset": "OSD-467",
+  "group": "not_reproduced",
+  "paper": {
+   "padj": 0.009,
+   "log2fc": 0.77
+  },
+  "label": "contradicted",
+  "label_note": "paper padj 9.0e-03; GeneLab does not reproduce at padj<0.1",
+  "table_facts": {
+   "Sfrp4": {
+    "log2fc": 0.53,
+    "padj": 0.742778818394245,
+    "higher_group": "Hindlimb Unloaded",
+    "carriers": "7/7",
+    "carrier_samples": [
+     "GSM5194614",
+     "GSM5194616",
+     "GSM5194620",
+     "GSM5194623",
+     "GSM5194626",
+     "GSM5194629",
+     "GSM5194632"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 1061,
+     "Normal Loading Control": 688
+    }
+   }
+  }
+ },
+ {
+  "id": "OSD-467_nasa_10",
+  "shape": "single_gene",
+  "claim": "Mmp13 is upregulated in cortical bone from hindlimb unloaded mice compared to normally loaded controls.",
+  "rows": [
+   "Mmp13"
+  ],
+  "why_not_known": "Mmp13 is an osteocyte collagenase active in perilacunar remodeling.",
+  "next_step": "Confirm by Nanostring or qPCR on cortical bone from an independent unloading cohort.",
+  "dataset": "OSD-467",
+  "group": "not_reproduced",
+  "paper": {
+   "padj": 0.01,
+   "log2fc": 0.68
+  },
+  "label": "contradicted",
+  "label_note": "paper padj 1.0e-02; GeneLab does not reproduce at padj<0.1",
+  "table_facts": {
+   "Mmp13": {
+    "log2fc": 0.4,
+    "padj": 0.814401578842704,
+    "higher_group": "Hindlimb Unloaded",
+    "carriers": "7/7",
+    "carrier_samples": [
+     "GSM5194614",
+     "GSM5194616",
+     "GSM5194620",
+     "GSM5194623",
+     "GSM5194626",
+     "GSM5194629",
+     "GSM5194632"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 19359,
+     "Normal Loading Control": 14505
+    }
+   }
+  }
+ },
+ {
+  "id": "OSD-467_nasa_11",
+  "shape": "single_gene",
+  "claim": "Bmp4 is upregulated in cortical bone from hindlimb unloaded mice compared to normally loaded controls.",
+  "rows": [
+   "Bmp4"
+  ],
+  "why_not_known": "Bmp4 is a bone morphogenetic protein in the unloading response.",
+  "next_step": "Confirm by Nanostring or qPCR on cortical bone from an independent unloading cohort.",
+  "dataset": "OSD-467",
+  "group": "not_reproduced",
+  "paper": {
+   "padj": 0.02,
+   "log2fc": 0.49
+  },
+  "label": "contradicted",
+  "label_note": "paper padj 2.0e-02; GeneLab does not reproduce at padj<0.1",
+  "table_facts": {
+   "Bmp4": {
+    "log2fc": 0.1,
+    "padj": 0.970829524762504,
+    "higher_group": "Hindlimb Unloaded",
+    "carriers": "7/7",
+    "carrier_samples": [
+     "GSM5194614",
+     "GSM5194616",
+     "GSM5194620",
+     "GSM5194623",
+     "GSM5194626",
+     "GSM5194629",
+     "GSM5194632"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 157,
+     "Normal Loading Control": 174
+    }
+   }
+  }
+ },
+ {
+  "id": "OSD-467_nasa_12",
+  "shape": "single_gene",
+  "claim": "Timp1 is upregulated in cortical bone from hindlimb unloaded mice compared to normally loaded controls.",
+  "rows": [
+   "Timp1"
+  ],
+  "why_not_known": "Timp1 balances Mmp activity during remodeling.",
+  "next_step": "Confirm by Nanostring or qPCR on cortical bone from an independent unloading cohort.",
+  "dataset": "OSD-467",
+  "group": "not_reproduced",
+  "paper": {
+   "padj": 0.02,
+   "log2fc": 0.58
+  },
+  "label": "contradicted",
+  "label_note": "paper padj 2.0e-02; GeneLab does not reproduce at padj<0.1",
+  "table_facts": {
+   "Timp1": {
+    "log2fc": 0.41,
+    "padj": 0.835809377817418,
+    "higher_group": "Hindlimb Unloaded",
+    "carriers": "7/7",
+    "carrier_samples": [
+     "GSM5194614",
+     "GSM5194616",
+     "GSM5194620",
+     "GSM5194623",
+     "GSM5194626",
+     "GSM5194629",
+     "GSM5194632"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 747,
+     "Normal Loading Control": 453
+    }
+   }
+  }
+ },
+ {
+  "id": "OSD-467_nasa_13",
+  "shape": "single_gene",
+  "claim": "Npy is upregulated in cortical bone from hindlimb unloaded mice compared to normally loaded controls.",
+  "rows": [
+   "Npy"
+  ],
+  "why_not_known": "Npy links neural signaling to bone mass regulation.",
+  "next_step": "Confirm by Nanostring or qPCR on cortical bone from an independent unloading cohort.",
+  "dataset": "OSD-467",
+  "group": "not_reproduced",
+  "paper": {
+   "padj": 0.04,
+   "log2fc": 0.26
+  },
+  "label": "contradicted",
+  "label_note": "paper padj 4.0e-02; GeneLab does not reproduce at padj<0.1",
+  "table_facts": {
+   "Npy": {
+    "log2fc": 0.9,
+    "padj": 0.805765599725704,
+    "higher_group": "Hindlimb Unloaded",
+    "carriers": "7/7",
+    "carrier_samples": [
+     "GSM5194614",
+     "GSM5194616",
+     "GSM5194620",
+     "GSM5194623",
+     "GSM5194626",
+     "GSM5194629",
+     "GSM5194632"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 8,
+     "Normal Loading Control": 4
+    }
+   }
+  }
+ },
+ {
+  "id": "OSD-467_nasa_14",
+  "shape": "single_gene",
+  "claim": "Spp1 is upregulated in cortical bone from hindlimb unloaded mice compared to normally loaded controls.",
+  "rows": [
+   "Spp1"
+  ],
+  "why_not_known": "Spp1 (osteopontin) marks osteoclast-mediated resorption.",
+  "next_step": "Confirm by Nanostring or qPCR on cortical bone from an independent unloading cohort.",
+  "dataset": "OSD-467",
+  "group": "not_reproduced",
+  "paper": {
+   "padj": 0.02,
+   "log2fc": 0.58
+  },
+  "label": "contradicted",
+  "label_note": "paper padj 2.0e-02; GeneLab does not reproduce at padj<0.1",
+  "table_facts": {
+   "Spp1": {
+    "log2fc": 0.58,
+    "padj": 0.690765226942205,
+    "higher_group": "Hindlimb Unloaded",
+    "carriers": "7/7",
+    "carrier_samples": [
+     "GSM5194614",
+     "GSM5194616",
+     "GSM5194620",
+     "GSM5194623",
+     "GSM5194626",
+     "GSM5194629",
+     "GSM5194632"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 56189,
+     "Normal Loading Control": 34856
+    }
+   }
+  }
+ },
+ {
+  "id": "OSD-467_nasa_15",
+  "shape": "single_gene",
+  "claim": "Alpl is downregulated in cortical bone from hindlimb unloaded mice compared to normally loaded controls.",
+  "rows": [
+   "Alpl"
+  ],
+  "why_not_known": "Alpl is an osteoblast marker on the Nanostring panel; the paper detected no downregulated genes.",
+  "next_step": "Confirm by Nanostring or qPCR on cortical bone from an independent unloading cohort.",
+  "dataset": "OSD-467",
+  "group": "paper_negative",
+  "paper": {
+   "padj": null,
+   "log2fc": null
+  },
+  "label": "contradicted",
+  "label_note": "paper explicitly reports this gene is NOT differentially expressed",
+  "table_facts": {
+   "Alpl": {
+    "log2fc": 0.09,
+    "padj": 0.974970036684801,
+    "higher_group": "Hindlimb Unloaded",
+    "carriers": "7/7",
+    "carrier_samples": [
+     "GSM5194614",
+     "GSM5194616",
+     "GSM5194620",
+     "GSM5194623",
+     "GSM5194626",
+     "GSM5194629",
+     "GSM5194632"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 2527,
+     "Normal Loading Control": 1733
+    }
+   }
+  }
+ },
+ {
+  "id": "OSD-467_nasa_16",
+  "shape": "single_gene",
+  "claim": "Acp5 is downregulated in cortical bone from hindlimb unloaded mice compared to normally loaded controls.",
+  "rows": [
+   "Acp5"
+  ],
+  "why_not_known": "Acp5 (TRAP) is an osteoclast marker on the Nanostring panel; the paper detected no downregulated genes.",
+  "next_step": "Confirm by Nanostring or qPCR on cortical bone from an independent unloading cohort.",
+  "dataset": "OSD-467",
+  "group": "paper_negative",
+  "paper": {
+   "padj": null,
+   "log2fc": null
+  },
+  "label": "contradicted",
+  "label_note": "paper explicitly reports this gene is NOT differentially expressed",
+  "table_facts": {
+   "Acp5": {
+    "log2fc": -0.01,
+    "padj": 0.99605904287226,
+    "higher_group": "Normal Loading Control",
+    "carriers": "9/9",
+    "carrier_samples": [
+     "GSM5194612",
+     "GSM5194613",
+     "GSM5194615",
+     "GSM5194617",
+     "GSM5194618",
+     "GSM5194619",
+     "GSM5194621",
+     "GSM5194622",
+     "GSM5194635"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 11070,
+     "Normal Loading Control": 7881
+    }
+   }
+  }
+ },
+ {
+  "id": "OSD-467_nasa_17",
+  "shape": "single_gene",
+  "claim": "Aspn is downregulated in cortical bone from hindlimb unloaded mice compared to normally loaded controls.",
+  "rows": [
+   "Aspn"
+  ],
+  "why_not_known": "Aspn is a matrix gene on the Nanostring panel; the paper detected no downregulated genes.",
+  "next_step": "Confirm by Nanostring or qPCR on cortical bone from an independent unloading cohort.",
+  "dataset": "OSD-467",
+  "group": "paper_negative",
+  "paper": {
+   "padj": null,
+   "log2fc": null
+  },
+  "label": "contradicted",
+  "label_note": "paper explicitly reports this gene is NOT differentially expressed",
+  "table_facts": {
+   "Aspn": {
+    "log2fc": 0.43,
+    "padj": 0.873834598109648,
+    "higher_group": "Hindlimb Unloaded",
+    "carriers": "7/7",
+    "carrier_samples": [
+     "GSM5194614",
+     "GSM5194616",
+     "GSM5194620",
+     "GSM5194623",
+     "GSM5194626",
+     "GSM5194629",
+     "GSM5194632"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 6694,
+     "Normal Loading Control": 3313
+    }
+   }
+  }
+ },
+ {
+  "id": "OSD-467_nasa_18_nanostring_corr",
+  "shape": "global_pattern",
+  "claim": "Transcript abundances measured by RNAseq and Nanostring correlate strongly in control cortical bone (Pearson R = 0.90).",
+  "rows": [],
+  "why_not_known": "Cross-platform agreement validates the RNAseq measurements.",
+  "next_step": "Repeat Nanostring on additional control samples.",
+  "dataset": "OSD-467",
+  "group": "untestable",
+  "paper": {},
+  "label": "untestable",
+  "label_note": "paper claim (untestable)",
+  "table_facts": {}
+ },
+ {
+  "id": "OSD-467_nasa_19_go_monosacch",
+  "shape": "pathway",
+  "claim": "Monosaccharide metabolic process genes (GO:0005996) are overrepresented among unloading differentially expressed genes.",
+  "rows": [
+   "GO:0005996"
+  ],
+  "why_not_known": "Metabolic reprogramming of bone under unloading is not the textbook resorption story.",
+  "next_step": "Measure glycolytic enzyme activity in unloaded cortical bone.",
+  "dataset": "OSD-467",
+  "group": "not_reproduced",
+  "paper": {},
+  "label": "contradicted",
+  "label_note": "paper claim (not_reproduced)",
+  "table_facts": {
+   "GO:0005996": {
+    "name": "monosaccharide metabolic process",
+    "genes_in_term": 41,
+    "significant": 0,
+    "up": 0,
+    "down": 0,
+    "enrichment_vs_baseline": 0.0
+   }
+  }
+ },
+ {
+  "id": "OSD-467_nasa_20_go_wnt",
+  "shape": "pathway",
+  "claim": "Wnt signaling pathway genes (GO:0016055) are overrepresented among unloading differentially expressed genes.",
+  "rows": [
+   "GO:0016055"
+  ],
+  "why_not_known": "Wnt signaling was implicated by both RNAseq and Nanostring.",
+  "next_step": "Assay beta-catenin activity in unloaded bone.",
+  "dataset": "OSD-467",
+  "group": "not_reproduced",
+  "paper": {},
+  "label": "contradicted",
+  "label_note": "paper claim (not_reproduced)",
+  "table_facts": {
+   "GO:0016055": {
+    "name": "Wnt signaling pathway",
+    "genes_in_term": 46,
+    "significant": 0,
+    "up": 0,
+    "down": 0,
+    "enrichment_vs_baseline": 0.0
+   }
+  }
+ }
+]

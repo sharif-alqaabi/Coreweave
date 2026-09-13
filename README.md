@@ -288,6 +288,28 @@ A demo is winning if judges can watch **three iterations** and see the system ch
 
 ---
 
+## Results so far (12-13 Sep 2026)
+
+Two kinds of test, because they catch different mistakes. Both are judged by the same critic with the same rules file.
+
+**LLM leads with jury labels.** The scout writes leads from the table summary, with an explicit instruction to include borderline ones. An independent two-model jury plus adjudicator labels each lead with one of seven reason codes (`scripts/jury_labels.py`). Of the 30 bad labels that have a numeric definition, 26 match the table mechanically. This set is the production distribution: messy, all six kill reasons present. 90 leads train the rules, 90 unseen leads are the holdout.
+
+**Published NASA claims.** Claims transcribed by hand from a study's primary paper (`scripts/make_nasa_golden.py`), then checked against GeneLab's reprocessed table. A paper claim the table supports must pass; one the table does not reproduce must be killed with a stated reason. OSD-255 (retina, Mao 2019): 12 of 32 named genes reproduce at padj < 0.05 in GeneLab, direction agrees for 495 of the authors' 498 DEGs. OSD-467 (bone, Chowdhury 2021): only Pfkfb3 reproduces; 13 named genes agree in direction but not significance. This set proves the critic does not kill real biology. It cannot teach the six reason codes, because a paper never contains a merged gene symbol or a restated median.
+
+| Set | Rules v0 | Rules v4 (trained) |
+| :--- | :--- | :--- |
+| LLM holdout, 90 unseen leads | reason acc 0.60, kill recall 0.51 | reason acc 0.64, kill recall 0.80 |
+| OSD-255 paper, 34 claims | 0 false kills, 12 wrong reasons | 0 false kills, 2 wrong reasons |
+| OSD-467 paper, 20 claims (blind) | 0 false kills, 8 wrong reasons | 0 false kills, 3 wrong reasons |
+
+Every remaining paper-set miss is a kill with a different reason (underpowered instead of contradicted on a padj of 0.051). No supported published finding is killed.
+
+**Two things the paper sets taught us.**
+- *The critic will not tolerate a quoted statistic that differs from the table.* When claims carried the paper's own padj, v4 killed 5 of 15 supported claims as "contradicted", even though direction and significance agreed. A hand-written rule saying "a differing quoted number is not a contradiction" was ignored twice by the critic model. With numbers stripped, 12 of 12 pass. Training uses the number-free form; `nasa_OSD-255_numbered.json` and `results/nasa_OSD-255_numbered_rules_v*.json` keep the evidence.
+- *Training on paper claims alone would be a trap.* If every "ok" came from a paper and every kill from the scout, the architect would learn to read the source, not the table. So the mixed train set (`data/golden/train.json`, 124 leads) keeps both sources inside each label: 44 ok / 46 bad from the scout, 15 ok / 19 bad from OSD-255. The LLM-only set is kept as `train_llm_only.json`. On the mixed set v4 scores 0.86 and three tournament rounds (iterations 5-7) found no candidate that beat it, so `rules_v5..v8` are unchanged copies. OSD-467 was never trained on.
+
+---
+
 ## Quick start
 
 ```bash
