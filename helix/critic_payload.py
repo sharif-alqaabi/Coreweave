@@ -4,7 +4,7 @@ payload the critic (Jev or Claude) sees.
     enrich(leads, table)          -> adds lead["table_facts"] (pandas, never the LLM)
     build_payload(lead, table)    -> dict for one critic call
 """
-import glob, json
+import glob, json, os
 from helix.summarize import load, significant, header, sample_flags, go_term_facts
 
 OPTIONS = ["ok", "already_known", "underpowered", "confound",
@@ -35,15 +35,34 @@ class Table:
                 "mean_count": {g: round(float(r[self.grp[g]].mean())) for g in (self.a, self.b)}}
 
 
+class Tables:
+    """Dataset name -> Table. Looks like a Table for single-dataset code paths (delegates by lead['dataset'])."""
+    def __init__(self, paths):
+        self._t = {os.path.basename(p).split("_")[0]: Table(p) for p in paths}      # "OSD-104_..." -> "OSD-104"
+        self.default = next(iter(self._t.values()))
+
+    def for_lead(self, lead):
+        return self._t.get(str(lead.get("dataset", "")).split("_")[0], self.default)
+
+    def __getattr__(self, name):                      # header/flags/facts of the default table
+        return getattr(self.default, name)
+
+
+def _table_for(table, lead):
+    return table.for_lead(lead) if isinstance(table, Tables) else table
+
+
 def enrich(leads, table):
     """Look up every cited gene / GO id once and store the truth on the lead."""
     for lead in leads:
+        t = _table_for(table, lead)
         keys = lead.get("rows") or [k for ev in lead.get("evidence", []) for k in ev.get("rows", [])]
-        lead["table_facts"] = {k: table.facts(k) for k in keys}
+        lead["table_facts"] = {k: t.facts(k) for k in keys}
     return leads
 
 
 def build_payload(lead, table, rules_dir="kit/critic", rules_file=None):
+    table = _table_for(table, lead)
     paths = [f"{rules_dir}/{rules_file}"] if rules_file else sorted(glob.glob(f"{rules_dir}/*.md"))[-1:]
     rules = "\n\n".join(open(p).read() for p in paths)
     facts = lead.get("table_facts") or enrich([lead], table)[0]["table_facts"]
@@ -60,5 +79,5 @@ def build_payload(lead, table, rules_dir="kit/critic", rules_file=None):
 if __name__ == "__main__":                       # python3 -m helix.critic_payload leads.json table.csv
     import sys
     leads = json.load(open(sys.argv[1]))
-    out = enrich(leads, Table(sys.argv[2]))
+    out = enrich(leads, Tables(sys.argv[2:]) if len(sys.argv) > 3 else Table(sys.argv[2]))
     json.dump(out, open(sys.argv[1].replace(".json", "_enriched.json"), "w"), indent=1)
