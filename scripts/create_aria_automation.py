@@ -16,7 +16,7 @@ NAME = "helix-aria-analyst"
 def main():
     api = wandb.Api(api_key=os.environ["WANDB_API_KEY"])
     project = api.project(os.getenv("WANDB_PROJECT", "Helix"), entity=os.environ["WANDB_ENTITY"])
-    for a in api.automations():
+    for a in api.automations(entity=os.environ["WANDB_ENTITY"]):
         if a.name == NAME:
             api.delete_automation(a); print("replaced existing", NAME)
     text = open("kit/aria_automation_prompt.md").read()
