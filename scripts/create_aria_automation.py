@@ -10,7 +10,7 @@ import wandb
 from wandb.automations import OnRunMetric, RunEvent, SendPromptToAria
 
 load_dotenv(".env")
-NAME = "helix-aria-analyst"
+NAME = "helix-aria-analyst-v2"   # the original "helix-aria-analyst" (old prompt) must be deleted in the W&B UI
 
 
 def main():
