@@ -226,6 +226,8 @@ W&B Weave is the nervous system:
 
 If you cannot answer “which skill caused this bad lead?”, Aria is guessing. If Aria is guessing, the loop is theater.
 
+**Evals tab.** `python3 scripts/weave_eval.py data/golden/<set>.json 0 4` publishes each labelled lead set as a Weave Dataset and runs the critic over it once per rules version as a Weave Evaluation (`helix/weave_eval.py`). Two scorers: reason code matches the label, and kill/keep matches the label with false kills counted. Same critic, same rules files, same numbers as `loop.py --holdout`; the Compare button puts rules v0 next to v4 per lead. `--dry-run` uses the numeric fallback critic in a scratch project to check the wiring without spending model calls.
+
 ---
 
 ## Plausibility notes
