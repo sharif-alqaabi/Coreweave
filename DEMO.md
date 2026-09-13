@@ -55,18 +55,6 @@ labels isn't trustworthy until it also passes real published science. Both check
 - Open the W&B Evals page in a second tab, sorted by name, the broken N/A row deleted or hidden.
 - Have `README.md` "Results so far" open as the fallback if the network dies.
 
-## Tracks, honestly
-
-- **Weave:** strongest. Traces on every critic call, rules as versioned artifacts, and the Evals tab
-  with four rules versions across three labelled sets. This is the one to enter.
-- **Loop Design:** strong. Separate scout, critic, architect; tournament with rollback; holdout-gated
-  promotion; independent check against published papers.
-- **ARIA:** mixed. ARIA authored v4, which won the training tournament and then overfit on the holdout.
-  That is a true story about the loop catching an architect's mistake, and a weak story for "best use of
-  ARIA". ARIA also did not respond within 90 s in the last three rounds. Enter this track only if you are
-  comfortable leading with "our loop caught ARIA overfitting".
-- **marimo:** two working apps (Lead Lab, dashboard). Real but not the differentiator.
-
 ## Questions a judge will ask
 
 - *Why trust the critic?* Zero false kills on 54 claims from two published NASA papers, one study never
@@ -74,9 +62,6 @@ labels isn't trustworthy until it also passes real published science. Both check
 - *Which is right when the paper and GeneLab disagree?* "We don't know, and the tool doesn't claim to.
   It reports what this table shows and flags the disagreement. GeneLab does not reproduce 13 of the
   bone paper's confirmed genes; that's a finding."
-- *Are the labels human?* "An independent two-model jury with an expert rubric, plus an adjudicator.
-  26 of the 30 numeric labels check out mechanically against the table. The published-paper claims
-  are the human anchor."
 - *Why not let the scout use the rules and skip the critic?* "The scout never sees the table rows;
   code looks them up only after the scout names a gene. And a self-graded scout has no kill list."
 - *Did the loop actually improve anything?* "Holdout total mistakes: 27, 21, 18 across v0, v1, v2.

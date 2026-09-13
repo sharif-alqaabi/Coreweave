@@ -32,5 +32,18 @@
 "GO:0000776": "kinetochore",
 "GO:0000775": "chromosome, centromeric region",
 "GO:0022626": "cytosolic ribosome",
-"GO:0022625": "cytosolic large ribosomal subunit"
+"GO:0022625": "cytosolic large ribosomal subunit",
+"GO:0015078": "proton transmembrane transporter activity",
+"GO:0042383": "sarcolemma",
+"GO:0051607": "defense response to virus",
+"GO:0098800": "inner mitochondrial membrane protein complex",
+"GO:0009260": "ribonucleotide biosynthetic process",
+"GO:0046390": "ribose phosphate biosynthetic process",
+"GO:0009152": "purine ribonucleotide biosynthetic process",
+"GO:0009615": "response to virus",
+"GO:0007601": "visual perception",
+"GO:0006396": "RNA processing",
+"GO:0009314": "response to radiation",
+"GO:0005996": "monosaccharide metabolic process",
+"GO:0016055": "Wnt signaling pathway"
 }
