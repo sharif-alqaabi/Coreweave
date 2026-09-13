@@ -4,7 +4,8 @@
     python3 loop.py --iterations 4 --dry-run                    # plumbing test, no keys
     python3 loop.py --iterations 4 --wait-for-aria 120          # ARIA writes rules via the MCP server
     python3 loop.py --iterations 4 --patch-dir patches/         # or: apply ARIA patches pasted to files
-    python3 loop.py --holdout                                   # final rules on holdout, once
+    python3 loop.py --holdout --compare                         # LIVE: v0 vs trained rules on the 90 unseen leads
+    python3 loop.py --holdout --compare --holdout-file data/golden/OSD-XXX.json   # LIVE: on a brand-new study
     python3 loop.py --judge 4 --group demo     # DEMO step 1 (before walking up): judge+log, ARIA gets prompted
     python3 loop.py --revise 4 --wait-for-aria 30 --group demo   # DEMO step 2 (on stage): ARIA's patch + tournament
 
@@ -168,6 +169,8 @@ def main():
     ap.add_argument("--train", default="data/golden/train.json")
     ap.add_argument("--holdout", action="store_true", help="score the best train-scored rules on data/golden/holdout.json once")
     ap.add_argument("--rules", default=None, help="with --holdout: score this rules file instead of the best one")
+    ap.add_argument("--holdout-file", default="data/golden/holdout.json", help="with --holdout: any labeled lead set (e.g. a new study)")
+    ap.add_argument("--compare", action="store_true", help="with --holdout: also score rules_v0 for a side-by-side baseline")
     ap.add_argument("--table", nargs="+", default=sorted(glob.glob("data/raw/*.csv")), help="one or more DGE csvs")
     ap.add_argument("--patch-dir", default=None)
     ap.add_argument("--dry-run", action="store_true")
@@ -180,14 +183,21 @@ def main():
     table = Tables(args.table)
     critic = Critic(dry_run=args.dry_run)
     if args.holdout:
-        leads = json.load(open("data/golden/holdout.json"))
-        rules = args.rules or best_rules(); print(f"holdout with {rules}" + ("" if args.rules else " (best train score)"))
-        result = evaluate(critic.judge_all(leads, table, rules), leads)
-        print("HOLDOUT", {k: round(v, 3) for k, v in result["metrics"].items() if k.startswith("screening/") and isinstance(v, float)})
-        payload = {"rules": rules, "n": len(leads), "metrics": result["metrics"], "misses": result["misses"]}
-        json.dump(payload, open(RESULTS / "holdout.json", "w"), indent=1)                       # latest
-        json.dump(payload, open(RESULTS / f"holdout_{os.path.basename(rules)[:-3]}.json", "w"), indent=1)   # per version
-        log_iteration(99, result, rules, {"critic/model": critic.model, "split": "holdout"}, group=f"{args.group}-holdout")
+        leads = json.load(open(args.holdout_file))
+        tag = os.path.basename(args.holdout_file)[:-5]
+        versions = ([ "kit/critic/rules_v0.md"] if args.compare else []) + [args.rules or best_rules()]
+        for rules in versions:
+            print(f"{tag}: {len(leads)} leads never seen by the loop, judged with {os.path.basename(rules)}" + ("" if args.rules or rules.endswith("v0.md") else " (best train score)"))
+            result = evaluate(critic.judge_all(leads, table, rules), leads)
+            mm = result["metrics"]
+            print(f"   reason accuracy {mm['screening/reason_accuracy']:.2f} | kill recall {mm['screening/kill_recall']:.2f} | "
+                  f"kill precision {mm['screening/kill_precision']:.2f} | false-kill rate {mm['screening/false_kill_rate']:.2f} | misses {len(result['misses'])}")
+            payload = {"rules": rules, "n": len(leads), "set": tag, "metrics": mm, "misses": result["misses"]}
+            json.dump(payload, open(RESULTS / f"{tag}_{os.path.basename(rules)[:-3]}.json", "w"), indent=1)
+            if tag == "holdout":
+                json.dump(payload, open(RESULTS / "holdout.json", "w"), indent=1)
+                json.dump(payload, open(RESULTS / f"holdout_{os.path.basename(rules)[:-3]}.json", "w"), indent=1)
+            log_iteration(99, result, rules, {"critic/model": critic.model, "split": tag}, group=f"{args.group}-{tag}")
         return
     leads = json.load(open(args.train))
     if args.judge is not None:
