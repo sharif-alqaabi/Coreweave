@@ -92,3 +92,25 @@ def catalog_scores(lead, own, studies, client):
                         "confidence": round(sc.confidence, 2),
                         "same_factor": round(r.answers[f"s{j}_same_factor"].noul, 2), "on_disk": bool(local_csv(row["osd_id"]))})
     return sorted(out, key=lambda s: (-s["comparable"], -s["same_factor"]))
+
+
+# ---------------------------------------------------------------- Tier 2: numeric
+def local_csv(osd_id):
+    hits = glob.glob(os.path.join(ROOT, "data/raw", f"{osd_id}_*.csv"))
+    return hits[0] if hits else None
+
+
+def local_csv_all():
+    return sorted(glob.glob(os.path.join(ROOT, "data/raw", "OSD-*.csv")))
+
+
+def fetch_dge(osd_id, progress=print):
+    """Download a study's differential-expression CSV from OSDR into data/raw (about 20 MB each)."""
+    path = local_csv(osd_id)
+    if path:
+        return path
+    row = study(osd_id)
+    path = os.path.join(ROOT, "data/raw", f"{osd_id}_differential_expression.csv")
+    progress(f"downloading {osd_id}")
+    urllib.request.urlretrieve(row["dge_url"], path)
+    return path
