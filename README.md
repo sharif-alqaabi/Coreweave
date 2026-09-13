@@ -290,7 +290,7 @@ A demo is winning if judges can watch **three iterations** and see the system ch
 
 ---
 
-A full-flow diagram (once / every round / what ships) is in `docs/helix-flow.html`; open it in a browser.
+A full-flow diagram is in `docs/helix-flow.html` and the per-version charts (train vs unseen score, mistakes by kind) in `docs/helix-charts.html`; both also render in the dashboard.
 
 ## Results so far (12-13 Sep 2026)
 

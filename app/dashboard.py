@@ -99,7 +99,10 @@ def _(mo, glob, os, json):
         tabs[name] = mo.vstack([mo.md(head + f" · diff against {os.path.basename(prev)}"),
                                 mo.Html(github_diff(diff)),
                                 mo.accordion({"full text": mo.md(open(v).read())})])
-    mo.vstack([mo.md("## Rules versions: what each architect changed"), mo.ui.tabs(tabs)])
+    charts = open("docs/helix-charts.html").read()
+    charts = charts[charts.index("<style>"):]                       # drop the <title>; keep style + markup
+    mo.vstack([mo.md("## Rules versions: what each rewrite did to the score"), mo.Html(charts),
+               mo.md("## Rules versions: what each architect changed"), mo.ui.tabs(tabs)])
     return
 
 
