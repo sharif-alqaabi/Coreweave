@@ -61,6 +61,7 @@ def _():
         {"name": "rules_v0", "author": "hand-written seed", "train": 0.68, "unseen": 0.58, "false_kills": 7, "missed": 20, "verdict": "baseline"},
         {"name": "rules_v1", "author": "Qwen", "train": 0.74, "unseen": 0.64, "false_kills": 8, "missed": 13, "verdict": "improved"},
         {"name": "rules_v2", "author": "DeepSeek", "train": 0.81, "unseen": 0.71, "false_kills": 10, "missed": 8, "verdict": "ships"},
+        {"name": "rules_v3", "author": "nobody", "train": 0.81, "unseen": 0.71, "false_kills": 10, "missed": 8, "verdict": "copy of v2", "copy_of": "rules_v2"},
         {"name": "rules_v4", "author": "ARIA", "train": 0.84, "unseen": 0.64, "false_kills": 15, "missed": 8, "verdict": "caught: overfit"},
     ]
     REASON = {"ok": "survives", "contradicted": "contradicted by the table", "underpowered": "underpowered", "confound": "confounded by a few samples",
@@ -98,12 +99,12 @@ def _(mo):
 
 
 @app.cell
-def _(mo, DATA, REASON, cards, stat, stats, helix_on):
+def _(mo, DATA, REASON, cards, stat, stats):
     _leads = DATA["naive"]["leads"]
     _killed = [l for l in _leads if l["label"] != "ok"]
     _paper = {"Drd4": "the paper's most significant gene", "H2bc4": "Hist1h2bc, the paper's aging link", "Sag": "the paper's top retinitis-pigmentosa gene"}
     _found = [(g, why) for g, why in _paper.items() if any(g in l["rows"] for l in _leads if l["label"] == "ok")]
-    _on = helix_on.value
+    _on = False
     _tiles = (stats(stat(len(_leads) - len(_killed), "findings survive", "each backed by the table's numbers", "hx-good"),
                     stat(len(_killed), "findings killed", "each with the number that decided it", "hx-bad"),
                     stat(len(_found), "published headline genes", "rediscovered from the table alone", "hx-good"))
@@ -119,9 +120,29 @@ def _(mo, DATA, REASON, cards, stat, stats, helix_on):
     _redisc = (mo.callout(mo.md("**And the survivors include what the scientists actually published.** The scout never saw the paper. "
                                 "From the table alone it proposed, and the critic passed: " + "; ".join(f"**{g}**, {w}" for g, w in _found) + "."), kind="success")
                if _on and _found else mo.md(""))
-    slide1 = mo.vstack([mo.md("# An LLM research assistant reads a NASA retina study"),
-                        mo.hstack([helix_on], justify="start"), _intro, _tiles, cards(_leads, _on, REASON), _redisc])
+    slide1 = mo.vstack([mo.md("# An LLM research assistant reads a NASA retina study"), _intro, _tiles, cards(_leads, False, REASON)])
     return (slide1,)
+
+
+@app.cell
+def _(mo, DATA, REASON, cards, stat, stats, helix_on):
+    _leads = DATA["naive"]["leads"]
+    _killed = [l for l in _leads if l["label"] != "ok"]
+    _paper = {"Drd4": "the paper's most significant gene", "H2bc4": "Hist1h2bc, the paper's aging link", "Sag": "the paper's top retinitis-pigmentosa gene"}
+    _found = [(g, why) for g, why in _paper.items() if any(g in l["rows"] for l in _leads if l["label"] == "ok")]
+    _on = helix_on.value
+    _tiles = (stats(stat(len(_leads) - len(_killed), "findings survive", "each backed by the table's numbers", "hx-good"),
+                    stat(len(_killed), "findings killed", "each with the number that decided it", "hx-bad"),
+                    stat(len(_found), "published headline genes", "rediscovered from the table alone", "hx-good"))
+              if _on else
+              stats(stat(len(_leads), "findings from slide 1", "same sixty, untouched"), stat("rules_v2", "rulebook", "chosen by score on unseen leads"),
+                    stat("→", "flip the switch", "code attaches the numbers, the critic judges")))
+    _intro = (mo.md("**Same sixty findings.** Code attached each one's real numbers from the table, and a separate critic judged every one with rules_v2. Green survives. Red is killed, with the number.")
+              if _on else mo.md("The sixty findings from slide 1, exactly as the assistant wrote them. Nothing has been checked yet."))
+    _redisc = (mo.callout(mo.md("**And the survivors include what the scientists actually published.** The scout never saw the paper. From the table alone it proposed, and the critic passed: "
+                                + "; ".join(f"**{g}**, {w}" for g, w in _found) + "."), kind="success") if _on and _found else mo.md(""))
+    slide6 = mo.vstack([mo.md("# Now turn Helix on"), mo.hstack([helix_on], justify="start"), _intro, _tiles, cards(_leads, _on, REASON), _redisc])
+    return (slide6,)
 
 
 @app.cell
@@ -178,7 +199,7 @@ def _(mo, DATA, VERSIONS, difflib, stat, stats, version_pick):
                    stat(_v["false_kills"], "good leads killed", "of 90 unseen", "hx-bad" if _v["false_kills"] >= 15 else ""),
                    stat(_v["missed"], "bad leads passed", "of 90 unseen"),
                    stat(_v["author"], "written by", _v["verdict"], _kind))
-    _rules = DATA["rules"]; _cur = next(r for r in _rules if r["name"] == _v["name"] + ".md")
+    _rules = DATA["rules"]; _cur = next(r for r in _rules if r["name"] == _v.get("copy_of", _v["name"]) + ".md")
 
     def _github_diff(lines):
         import html as _h
@@ -190,11 +211,15 @@ def _(mo, DATA, VERSIONS, difflib, stat, stats, version_pick):
             rows.append(f'<div style="{style[k]};display:flex;font:13px/1.5 ui-monospace,Menlo,monospace"><span style="width:1.4em;flex:none;text-align:center">{_h.escape(k.strip())}</span>'
                         f'<span style="white-space:pre-wrap;word-break:break-word">{_h.escape(ln[1:] if k != " " else ln)}</span></div>')
         return '<div style="border:1px solid #d0d7de;border-radius:6px;overflow:hidden;background:#fff;color:#1f2328">' + "".join(rows) + "</div>"
-    if _i == 0:
+    if _v.get("copy_of"):
+        _change = mo.callout(mo.md(f"**{_v['name']} is byte-for-byte identical to {_v['copy_of']}.** In round 2, three architects proposed patches and none scored higher "
+                                   "than v2 on the training leads, so the loop copied v2 forward unchanged. The same happened for v5 to v8 after v4: three more rounds, no winner. "
+                                   "Copies are not shown on the charts because they are not different rulebooks."), kind="neutral")
+    elif _i == 0:
         _change = mo.vstack([mo.md("**The seed.** Seven reasons to say no, each with a numeric threshold, written by hand before any training."),
                              mo.accordion({"read rules_v0": mo.md(_cur["text"])})])
     else:
-        _prev = next(r for r in _rules if r["name"] == VERSIONS[_i - 1]["name"] + ".md")
+        _prev = next(r for r in _rules if r["name"] == VERSIONS[_i - 1].get("copy_of", VERSIONS[_i - 1]["name"]) + ".md")
         _d = difflib.unified_diff(_prev["text"].splitlines(), _cur["text"].splitlines(), fromfile=_prev["name"], tofile=_cur["name"], lineterm="", n=1)
         _sections = ", ".join(_cur["meta"].get("sections", []))
         _note = {"rules_v1": "Qwen tightened the numeric thresholds.", "rules_v2": "DeepSeek added principles and generic examples. This is the version that holds up on unseen data.",
@@ -205,8 +230,10 @@ def _(mo, DATA, VERSIONS, difflib, stat, stats, version_pick):
                      mo.callout(mo.md("**This is what ships.** Not the newest rulebook, the one that measured best on leads it never saw."), kind="success")
                      if _v["name"] == "rules_v2" else mo.md(""))
     slide4 = mo.vstack([mo.md("# Does it learn? Every rewrite, scored on leads it never saw"),
-                        mo.hstack([version_pick], justify="start"), _tiles, _verdict_line, _change,
-                        mo.md("## All four at once"), mo.Html(DATA["charts_html"])])
+                        mo.hstack([version_pick], justify="start"),
+                        mo.md("_Eight versions were written; four are distinct. v3 is a copy of v2 and v5 to v8 are copies of v4: rounds where no candidate beat the current rulebook._"),
+                        _tiles, _verdict_line, _change,
+                        mo.md("## The four distinct rulebooks at once"), mo.Html(DATA["charts_html"])])
     return (slide4,)
 
 
@@ -228,16 +255,16 @@ def _(mo, WB, stat, stats):
 
 @app.cell
 def _(mo):
-    slide6 = mo.Html('<div class="hx-close"><h1>Agents drift.</h1><h2>Usually a person notices, after trusting it.</h2>'
+    slide7 = mo.Html('<div class="hx-close"><h1>Agents drift.</h1><h2>Usually a person notices, after trusting it.</h2>'
                      '<h2>Here the loop noticed first, on data nobody tuned for, and the bad version never reached a user.</h2>'
                      '<p>Helix · built 12–13 Sep 2026 · Weave · W&amp;B Inference · W&amp;B Automations + ARIA · marimo</p></div>')
-    return (slide6,)
+    return (slide7,)
 
 
 @app.cell
-def _(mo, slide1, slide2, slide3, slide4, slide5, slide6):
-    mo.ui.tabs({"1 · The problem": slide1, "2 · How it works": slide2, "3 · The product": slide3,
-                "4 · Does it learn?": slide4, "5 · The proof": slide5, "6 · Close": slide6})
+def _(mo, slide1, slide2, slide3, slide4, slide5, slide6, slide7):
+    mo.ui.tabs({"1 · The problem": slide1, "2 · How it works": slide2, "3 · The product": slide3, "4 · Does it learn?": slide4,
+                "5 · The proof": slide5, "6 · Helix on": slide6, "7 · Close": slide7})
     return
 
 

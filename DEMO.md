@@ -90,47 +90,48 @@ first 40 seconds, then go to the live screens. No second slide.
 
 ---
 
-## 3-minute script. One browser tab: the deck at localhost:2721. Say this one.
+## 3-minute script. One browser tab: the deck. Say this one.
 
-`marimo run app/deck.py -p 2721`. Six slides as tabs across the top. Everything is preloaded; nothing
-runs live. Slide 1 needs `results/naive_OSD-255.json` (already built and committed).
+`marimo run app/deck.py -p 2721`, or the hosted copy. Seven slides as tabs. Everything is preloaded.
+The only live action is one switch, on slide 6, at the end.
 
-**0:00 · Slide 1, "The problem", findings table showing · 35 s**
+**0:00 · Slide 1, "The problem" · 30 s**
 "NASA has 243 gene-expression studies from mice that flew in space. Too many for any scientist to read.
 So you hand one to an LLM research assistant. Here's what you get: sixty findings from a retina study.
-Confident, specific, with a suggested experiment for each. None of it checked, because nothing in the
-loop can say no." Press **Reveal**. "Same sixty. Helix attached the real numbers and let a critic judge.
-Fourteen die, every one with the number that decided it. On a noisier study, bone, it was thirty-eight
-of sixty. And look at what survived here: Drd4, Sag. The scout never saw the paper. Those are the
-published paper's headline findings."
+Confident, specific, a suggested experiment for each. Sixty reported. Zero checked. Nothing in the loop
+can say no. Hold that thought; we come back to these sixty at the end."
 
-**0:35 · Slide 2, "How it works" · 30 s**
+**0:30 · Slide 2, "How it works" · 30 s**
 Point at the middle band. "Three steps. A model proposes leads. We didn't teach it good; we let the
 numbers sort. Code attaches the real numbers and a separate critic kills what they don't support, and
 says why. The critic's rulebook is plain text, and after every round three architects rewrite it from
 the critic's mistakes. Propose, judge, rewrite the rules, repeat."
 
-**1:05 · Slide 3, "The product" · 20 s**
-"Any table in, judged leads out, a hundred seconds. Different study, thymus this time. Thirty-eight
-survive, twenty-two killed, each with the number."
+**1:00 · Slide 3, "The product" · 20 s**
+"Any table in, judged leads out, a hundred seconds. A different study, thymus. Thirty-eight survive,
+twenty-two killed." Pick one killed lead from the dropdown. "Every kill cites the number."
 
-**1:25 · Slide 4, "Does it learn?", charts showing · 50 s. The pitch.**
-Point at the orange line. "Four versions of the rulebook, each scored on ninety leads it never trained
-on. Version zero lets twenty bad leads through. One and two catch more. Version four scored best on the
-training data. On unseen data, it's worse: seven more good leads killed for nothing. It had memorised
-the training set." Scroll to the v4 diff tab. "Here's the rewrite. Two lines out, one in, and the new
-line names training leads by id. This page caught it. It didn't ship. We ship version two."
+**1:20 · Slide 4, "Does it learn?" · 45 s. The pitch.**
+Click v2, then v4. "Four rulebooks, each scored on ninety leads it never trained on. Version two is the
+best on unseen data. Version four scored best on the training data and, on unseen data, kills seven
+more good leads for nothing. It named training leads by id: memorising, not learning. This caught it.
+It didn't ship." (If asked where v3 is: "a copy of v2, no candidate beat it that round; it's in the
+picker.")
 
-**2:15 · Slide 5, "The proof" · 20 s**
-"Every verdict is a Weave trace, five thousand eight hundred of them. Every rulebook is a W&B artifact.
-Every version on every set is an evaluation." Click the Evals button if there's time; otherwise just point.
-"Zero published NASA findings killed, by any version."
+**2:05 · Slide 5, "The proof" · 15 s**
+"Every verdict is a Weave trace, five thousand eight hundred of them. Every rulebook a W&B artifact.
+Every version on every set an evaluation. Zero published NASA findings killed, by any version."
 
-**2:35 · Slide 6, "Close" · 20 s**
+**2:20 · Slide 6, "Helix on" · 25 s. The payoff.**
+"Remember the sixty findings." Flip the switch. "Same sixty. Numbers attached, critic applied. Fourteen
+die, each with the number that decided it. And look what survived: Drd4, Sag. The scout never saw the
+paper. Those are the published paper's headline findings."
+
+**2:45 · Slide 7, "Close" · 15 s**
 "Agents drift. Usually a person notices, after trusting it. Here the loop noticed first, on data nobody
 tuned for, and the bad version never reached a user. That's what we built this weekend."
 
-Words not to say unless asked: jury, holdout, tournament, ARIA, padj, reason accuracy. Say "unseen data,"
+Words not to say unless asked: jury, holdout, tournament, padj, reason accuracy. Say "unseen data,"
 "the numbers," "architects," "the rulebook."
 
 ### The detailed version (for questions, not for the room)
@@ -285,7 +286,7 @@ critic on these." Bone table: 38 of 60 killed. Not for the 3-minute slot.
 
 - Restart all servers: deck `marimo run app/deck.py -p 2721` (the one you present from), plus `app/lead_lab.py -p 2719`, `app/dashboard.py -p 2718`, `app/naive_lab.py -p 2720` for questions.
 - Run Lead Lab once on a CSV from `data/raw/` and leave it up. Never run live in the room.
-- Deck open on slide 1 with the findings loaded, Reveal not yet pressed. Second browser tab: W&B Evals with
+- Deck open on slide 1. Slide 6 switch OFF before you walk in. Second browser tab: W&B Evals with
   the four holdout rows ticked and Compare open, the N/A row deleted, in case a judge asks to see it.
 - Diagram screenshot as the one slide. README "Results so far" open as the network-failure fallback.
 - Zoom installed, or share.zoom.us tested, for the final round.
