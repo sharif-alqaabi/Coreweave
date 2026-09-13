@@ -90,7 +90,45 @@ first 40 seconds, then go to the live screens. No second slide.
 
 ---
 
-## 3-minute script, each beat tagged with the criterion it is for
+## 3-minute script. Simple version. Say this one.
+
+Three ideas, in this order: it proposes and checks against real numbers; it rewrites its own rules from
+its mistakes; it tests every rewrite on data it never saw, and that caught a bad one. Nothing else.
+
+**0:00 · Slide up · 25 s**
+"NASA has 243 gene-expression studies from mice that flew in space. Too many for any scientist to read.
+An LLM will read them, and invent findings, because nothing tells it no. Helix is an agent that tells
+itself no, and gets better at it."
+
+**0:25 · Slide, point at the middle band · 35 s**
+"Three steps. One: a model reads a table and proposes leads. Two: code attaches the real numbers, and a
+separate critic kills any lead the numbers don't support, and says why. Three: the critic's rulebook is
+plain text, and after every round, architects rewrite it from the critic's mistakes. That's the loop.
+Propose, judge, rewrite the rules, repeat."
+
+**1:00 · Tab 1, Lead Lab, run already finished · 30 s**
+"Here's a real table from a retina study. Fifty leads survive. Ten killed." Read one kill. "Every kill
+cites a number from the data. The model never gets to make numbers up. And this gene here, Drd4, is the
+headline finding of the published paper. The scout found it from the table alone. Never saw the paper."
+
+**1:30 · Tab 2, Weave Evals, four holdout rows in Compare · 50 s. The pitch.**
+"Now the part that matters. Four versions of the rulebook. We score each one on 90 leads it never
+trained on. Version zero lets 20 bad leads through. Versions one and two catch more. Version four
+scored best on the training data. On the unseen data, it's worse: it kills seven more good leads for
+nothing. It had memorised the training set. This page caught it. It didn't ship. We ship version two."
+
+**2:20 · Tab 3, dashboard, v4 diff · 20 s**
+"Here's the rewrite that failed. Two lines out, one in, and the new line names training leads by id.
+Every version is a W&B artifact. Every verdict, 5,800 of them, is a Weave trace. This is all live."
+
+**2:40 · Close · 20 s**
+"Agents drift. Usually a person notices, after trusting it. Here the loop noticed first, on data nobody
+tuned for, and the bad version never reached a user. That's what we built this weekend."
+
+Words not to say in the room unless asked: jury, holdout, tournament, ARIA, padj, reason accuracy. Say
+"unseen data," "the numbers," "architects," "the rulebook."
+
+### The detailed version (for questions, not for the room)
 
 **0:00 · Slide up · Utility, 25 s**
 "NASA has 243 gene-expression studies from mice that flew in space. A scientist can't read them all. An
