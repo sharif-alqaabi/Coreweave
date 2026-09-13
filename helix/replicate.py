@@ -150,3 +150,61 @@ def agreement(lead_facts, other_facts):
         else:
             tally["opposite"] += 1
     return tally
+
+
+def _slim(facts):
+    """The numbers Jev needs, without per-sample lists (request size)."""
+    return {k: ({x: f[x] for x in ("log2fc", "padj", "higher_group", "carriers", "mean_count", "error",
+                                    "significant", "up", "down", "enrichment_vs_baseline") if x in f}
+                if isinstance(f, dict) else f) for k, f in facts.items()}
+
+
+TIER2_CHUNK = 3                  # other datasets per request; family leads carry many genes
+
+
+def replication_verdicts(lead, own, others, client):
+    """others: [(osd_id, meta, facts, comparable_level)] for tables already looked up. One Choice per other dataset,
+    TIER2_CHUNK datasets per request. Jev sees the code-computed agreement tally and the Tier-1 comparability; the gate is code."""
+    out = []
+    for i in range(0, len(others), TIER2_CHUNK):
+        out += _replication_chunk(lead, own, others[i:i + TIER2_CHUNK], client)
+    return out
+
+
+def _gate(answer, tally, level):
+    """Code policy over Jev's distribution: an unrelated tissue is always inconclusive; 'replicated' needs a significant
+    same-direction gene and 'contradicted' a significant opposite one. Otherwise take Jev's most probable admissible choice."""
+    if level < 2:
+        return "inconclusive"
+    banned = ({"replicated"} if not tally["same"] else set()) | ({"contradicted"} if not tally["opposite"] else set())
+    if answer.choice not in banned:
+        return answer.choice
+    return max((c for c in REPLICATION if c not in banned), key=lambda c: answer.probabilities.get(c, 0.0))
+
+
+def _replication_chunk(lead, own, others, client):
+    from typesafe_sdk import Choice
+    if not others:
+        return []
+    tallies = [agreement(lead.get("table_facts", {}), facts) for _, _, facts, _ in others]
+    state = {"lead": _lead_state(lead, own), "lead_facts": _slim(lead.get("table_facts", {})),
+             "others": [{"osd_id": oid, **{k: m[k] for k in ("material", "factors", "assay")}, "facts": _slim(facts),
+                         "agreement_by_gene": t, "comparability": COMPARABLE[round(lvl)]}
+                        for (oid, m, facts, lvl), t in zip(others, tallies)]}
+    qs = {f"o{j}": Choice(
+        instructions=f"`lead` was found in `lead.dataset` with the numbers in `lead_facts`. `others[{j}].facts` are the same "
+                     f"genes looked up in dataset `others[{j}].osd_id`; `others[{j}].agreement_by_gene` counts, per gene, whether "
+                     f"that dataset points the same way, the opposite way, shows no change, or did not measure it; "
+                     f"`others[{j}].comparability` says how comparable its tissue and factor are. What does that dataset say about the lead?",
+        criteria=REPLICATION) for j in range(len(others))}
+    r = client.system_one(state=state, questions=qs)
+    out = []
+    for j, (oid, m, facts, lvl) in enumerate(others):
+        a = r.answers[f"o{j}"]
+        verdict = _gate(a, tallies[j], lvl)
+        out.append({"osd_id": oid, "material": m["material"], "factors": m["factors"], "verdict": verdict, "jev_verdict": a.choice,
+                    "comparable": round(lvl, 2), "agreement": tallies[j],
+                    "p_replicated": round(a.probabilities.get("replicated", 0.0), 2),
+                    "p_contradicted": round(a.probabilities.get("contradicted", 0.0), 2),
+                    "confidence": round(a.confidence, 2), "facts": facts})
+    return out
