@@ -9,7 +9,8 @@ from collections import Counter, defaultdict
 import pandas as pd
 
 GO_CACHE = "data/go_names.json"
-ANNOT = {"ENSEMBL", "SYMBOL", "GENENAME", "REFSEQ", "ENTREZID", "STRING_id", "GOSLIM_IDS"}
+ANNOT = {"ENSEMBL", "SYMBOL", "GENENAME", "REFSEQ", "ENTREZID", "STRING_id", "GOSLIM_IDS",
+         "ProbesetID", "count_ENSEMBL_mappings"}          # the last two: numeric annotation columns in microarray tables
 
 
 def pick_contrast(lfcs):
