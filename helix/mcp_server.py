@@ -65,7 +65,8 @@ def propose_rules_patch(patch: str) -> dict:
 @mcp.tool()
 def get_dataset_summary() -> str:
     """The dataset summary the scout used to write the leads (design, top genes, pathways, flags)."""
-    return open("data/summaries/OSD-104.md").read()
+    latest = max(glob.glob("data/summaries/*.md"), key=os.path.getmtime)
+    return open(latest).read()
 
 
 @mcp.tool()
