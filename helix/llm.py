@@ -43,4 +43,5 @@ def chat(system, user, model=None, max_tokens=800, temperature=0.0, json_mode=Fa
     r = client.chat.completions.create(model=model, max_tokens=max_tokens, temperature=temperature,
                                        messages=[{"role": "system", "content": system},
                                                  {"role": "user", "content": user}])
-    return r.choices[0].message.content
+    msg = r.choices[0].message
+    return msg.content or getattr(msg, "reasoning_content", None) or ""   # some models put text elsewhere
