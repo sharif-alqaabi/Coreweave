@@ -14,7 +14,8 @@ MAX_WORDS; unknown section names are rejected. Every version stays on disk.
 import json, os, re
 from helix.critic_payload import OPTIONS
 
-MAX_SECTIONS, MAX_WORDS = 2, 450
+MAX_SECTIONS, MAX_WORDS = int(os.getenv("MAX_SECTIONS", 3)), int(os.getenv("MAX_WORDS", 900))
+EXTRA_SECTIONS = {"examples"}          # a labeled-examples section the architect may add (few-shot from TRAIN only)
 
 
 def _sections(text):
@@ -31,7 +32,7 @@ def render_patch(rules_path, patch_text):
     cur = _sections(open(rules_path).read())
     new = _sections("\n" + patch_text)                    # leading newline so first "## x" splits
     changes = {k: v for k, v in new.items() if k != "_head"}
-    bad = [k for k in changes if k not in OPTIONS]
+    bad = [k for k in changes if k not in OPTIONS and k not in EXTRA_SECTIONS]
     if bad:
         raise ValueError(f"patch names unknown sections: {bad}")
     if len(changes) > MAX_SECTIONS:
@@ -80,7 +81,9 @@ def propose_patch_claude(misses, rules_path, model=None, feedback=""):
               "The human labels are ground truth. Never add exceptions that let the critic keep its current answer. "
               "Pick the section named by the most common REQUIRED label and make it catch those leads "
               f"(e.g. if humans say already_known, broaden `## already_known`). Rewrite at most {MAX_SECTIONS} sections. "
-              "Keep each rewritten section under 70 words; the whole file must stay under the cap, so tighten "
+              "You may also (re)write a `## examples` section: up to 8 one-line labeled cases in the form "
+              "'<label>: <claim fragment> | <deciding numbers>' drawn from the misses, as few-shot guidance. "
+              "Keep each rewritten rule section under 90 words; the whole file must stay under the cap, so tighten "
               "wording rather than adding sentences. Output ONLY the changed sections, each as '## <name>' "
               "followed by the full replacement text, citing the hypothesis_ids it fixes." + (f"\n\n{feedback}" if feedback else ""))
     return llm.chat("You are the architect of a scientific critic. Output only the requested sections.",

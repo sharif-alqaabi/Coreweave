@@ -1,6 +1,6 @@
 [
  {
-  "id": "lead_053",
+  "id": "OSD-104_lead_053",
   "shape": "data_quality",
   "claim": "Sample M24 is a carrier for 4 of the top 50 genes, suggesting it drives extreme fold changes.",
   "rows": [
@@ -75,7 +75,7 @@
   "label_note": "A=ok; B=confound; adjudicated: "
  },
  {
-  "id": "lead_056",
+  "id": "OSD-104_lead_056",
   "shape": "data_quality",
   "claim": "Gcat has 5/6 carriers in GC and mean_count_in_GC=18, supporting reliable detection.",
   "rows": [
@@ -107,7 +107,7 @@
   "label_note": "Mean count in the higher group (Ground Control) is 18, which is below the 20 threshold."
  },
  {
-  "id": "lead_060",
+  "id": "OSD-104_lead_060",
   "shape": "data_quality",
   "claim": "Null genes like Rbm24 have padj=9.8e-01 and log2fc=0.00, supporting lack of technical bias.",
   "rows": [
@@ -216,7 +216,7 @@
   "label_note": "The claim about Rbm24's stable expression (padj=0.98, log2fc=0.00) with high counts (10k+) and full carrier consistency supports data quality assessment with a concrete next step for use as a control."
  },
  {
-  "id": "lead_059",
+  "id": "OSD-104_lead_059",
   "shape": "data_quality",
   "claim": "Mettl21e has 6/6 carriers in SF and mean_count_in_SF=1064, supporting robust detection.",
   "rows": [
@@ -249,7 +249,7 @@
   "label_note": "The claim identifies a specific gene with perfect carrier rate (6/6) and high expression (1064 counts) as a data quality lead for follow-up activity measurements."
  },
  {
-  "id": "lead_033",
+  "id": "OSD-104_lead_033",
   "shape": "family",
   "claim": "LIM domain genes Ablim1 and Fermt1 show opposite regulation in space flight.",
   "rows": [
@@ -299,7 +299,7 @@
   "label_note": "A=confound; B=underpowered; adjudicated: "
  },
  {
-  "id": "lead_027",
+  "id": "OSD-104_lead_027",
   "shape": "family",
   "claim": "Slc family genes Slc10a1, Slc13a1, Slc6a20b, Slc22a8, Slc27a2, Slc17a3 are upregulated in space flight.",
   "rows": [
@@ -425,7 +425,7 @@
   "label_note": "A=ok; B=underpowered; adjudicated: "
  },
  {
-  "id": "lead_032",
+  "id": "OSD-104_lead_032",
   "shape": "family",
   "claim": "Predicted genes Gm23925 and Gm5532 are both downregulated in space flight.",
   "rows": [
@@ -476,7 +476,7 @@
   "label_note": "A=no_mechanism; B=underpowered; adjudicated: "
  },
  {
-  "id": "lead_029",
+  "id": "OSD-104_lead_029",
   "shape": "family",
   "claim": "Homeobox genes Msx2 and Dlx3 are co-upregulated in space flight.",
   "rows": [
@@ -525,7 +525,7 @@
   "label_note": "A=ok; B=underpowered; adjudicated: "
  },
  {
-  "id": "lead_031",
+  "id": "OSD-104_lead_031",
   "shape": "family",
   "claim": "Intermediate filament genes Synm and Krt17 are upregulated in space flight.",
   "rows": [
@@ -573,7 +573,7 @@
   "label_note": "Krt17 upregulation is driven by only 2/6 flight samples, making the claim dependent on a minority of carriers."
  },
  {
-  "id": "lead_051",
+  "id": "OSD-104_lead_051",
   "shape": "global",
   "claim": "Borderline genes like Krt85 (padj=5.9e-02) have high log2fc (+7.24) but fail FDR threshold.",
   "rows": [
@@ -662,7 +662,7 @@
   "label_note": "The signal for Krt85 comes from only 2/6 samples in the higher group, which is a minority (strictly below half)."
  },
  {
-  "id": "lead_047",
+  "id": "OSD-104_lead_047",
   "shape": "global",
   "claim": "581 genes show >=2-fold change in space flight, with 329 up and 252 down.",
   "rows": [
@@ -805,7 +805,7 @@
   "label_note": "A=confound; B=invalid; adjudicated: "
  },
  {
-  "id": "lead_049",
+  "id": "OSD-104_lead_049",
   "shape": "global",
   "claim": "Carriers for top upregulated genes are often low (e.g., 2/6 for Krt17), suggesting heterogeneity.",
   "rows": [
@@ -895,7 +895,7 @@
   "label_note": "The signal comes from a minority of samples (2/6 carriers for most genes) as defined by the confound criterion."
  },
  {
-  "id": "lead_046",
+  "id": "OSD-104_lead_046",
   "shape": "global",
   "claim": "The median |log2fc| among significant genes is 0.36, indicating mostly subtle expression changes.",
   "rows": [
@@ -1132,7 +1132,7 @@
   "label_note": "A=untestable; B=contradicted; adjudicated: "
  },
  {
-  "id": "lead_035",
+  "id": "OSD-104_lead_035",
   "shape": "pathway",
   "claim": "Genes in contractile muscle fiber (GO:0043292) are enriched among significant genes with 37/54 significant.",
   "rows": [
@@ -1155,7 +1155,7 @@
   "label_note": "Enrichment of contractile muscle fiber genes is textbook-expected in spaceflight muscle atrophy models."
  },
  {
-  "id": "lead_039",
+  "id": "OSD-104_lead_039",
   "shape": "pathway",
   "claim": "Z disc (GO:0030018) genes are enriched among significant genes with 19/31 significant.",
   "rows": [
@@ -1178,7 +1178,7 @@
   "label_note": "A=already_known; B=invalid; adjudicated: "
  },
  {
-  "id": "lead_042",
+  "id": "OSD-104_lead_042",
   "shape": "pathway",
   "claim": "Muscle cell differentiation (GO:0042692) genes are enriched among significant genes with 21/37 significant.",
   "rows": [
@@ -1201,7 +1201,7 @@
   "label_note": "A=already_known; B=invalid; adjudicated: "
  },
  {
-  "id": "lead_040",
+  "id": "OSD-104_lead_040",
   "shape": "pathway",
   "claim": "Muscle cell development (GO:0055001) genes are enriched among significant genes with 18/30 significant.",
   "rows": [
@@ -1224,7 +1224,7 @@
   "label_note": "A=already_known; B=ok; adjudicated: "
  },
  {
-  "id": "lead_036",
+  "id": "OSD-104_lead_036",
   "shape": "pathway",
   "claim": "Myofibril (GO:0030016) genes are enriched among significant genes with 35/52 significant.",
   "rows": [
@@ -1247,7 +1247,7 @@
   "label_note": "Myofibril gene enrichment is a well-established finding in muscle atrophy models like spaceflight, as stated in the definition."
  },
  {
-  "id": "lead_007",
+  "id": "OSD-104_lead_007",
   "shape": "single_gene",
   "claim": "Myoz1 is upregulated in space flight with log2fc=+1.04 and padj=4.1e-53.",
   "rows": [
@@ -1280,7 +1280,7 @@
   "label_note": "The claim is supported by strong statistical evidence (padj=4.1e-53) and proposes a novel mechanism (early sarcomere stress) not previously reported in spaceflight."
  },
  {
-  "id": "lead_014",
+  "id": "OSD-104_lead_014",
   "shape": "single_gene",
   "claim": "Krt5 is upregulated in space flight with log2fc=+7.45 and padj=1.1e-02.",
   "rows": [
@@ -1309,7 +1309,7 @@
   "label_note": "Only 2/6 spaceflight samples carry the Krt5 upregulation signal."
  },
  {
-  "id": "lead_012",
+  "id": "OSD-104_lead_012",
   "shape": "single_gene",
   "claim": "Krt71 is upregulated in space flight with log2fc=+7.87 and padj=3.9e-03.",
   "rows": [
@@ -1340,7 +1340,7 @@
   "label_note": "Krt71 shows strong upregulation (log2fc=+7.87, padj=0.0039) with adequate expression (mean count=80) and a plausible novel mechanism involving aberrant hair-specific differentiation in microgravity."
  },
  {
-  "id": "lead_003",
+  "id": "OSD-104_lead_003",
   "shape": "single_gene",
   "claim": "Slc4a3 is downregulated in space flight with padj=6.7e-102, one of the most significant changes.",
   "rows": [
@@ -1373,7 +1373,7 @@
   "label_note": "The gene shows strong statistical significance (padj=6.7e-102) with full carrier support (6/6) and high expression (mean count 1393 in higher group), and the anion exchanger mechanism represents a novel angle in microgravity studies."
  },
  {
-  "id": "lead_001",
+  "id": "OSD-104_lead_001",
   "shape": "single_gene",
   "claim": "Krt17 expression is higher in space flight samples, with a log2 fold change of +21.87.",
   "rows": [
@@ -1402,7 +1402,7 @@
   "label_note": "Only 2/6 space flight samples carry the Krt17 expression signal, indicating a minority-driven effect."
  },
  {
-  "id": "lead_024",
+  "id": "OSD-104_lead_024",
   "shape": "single_gene",
   "claim": "Samd7 is upregulated in space flight with log2fc=+4.17 and padj=3.9e-10.",
   "rows": [
@@ -1435,7 +1435,7 @@
   "label_note": "Samd7 shows strong upregulation (log2fc=+4.17, padj=3.9e-10) with full carrier support (6/6) and adequate expression (mean count=28), representing a novel transcriptional regulator in spaceflight response with a concrete ChIP-seq follow-up."
  },
  {
-  "id": "lead_002",
+  "id": "OSD-104_lead_002",
   "shape": "single_gene",
   "claim": "Gcat expression is lower in space flight, with a log2 fold change of -6.45.",
   "rows": [
@@ -1467,7 +1467,7 @@
   "label_note": "Mean count in the higher group (Ground Control) is 18, which is below the 20 threshold."
  },
  {
-  "id": "lead_009",
+  "id": "OSD-104_lead_009",
   "shape": "single_gene",
   "claim": "Lrrc52 is downregulated in space flight with log2fc=-2.85 and padj=3.4e-52.",
   "rows": [
@@ -1500,7 +1500,7 @@
   "label_note": "The gene shows strong statistical support (padj=3.4e-52) with full carrier representation and high expression (mean count 729 in controls), and the link to BK channels in spaceflight ion homeostasis represents a novel mechanistic angle."
  },
  {
-  "id": "lead_017",
+  "id": "OSD-104_lead_017",
   "shape": "single_gene",
   "claim": "Spink1 is upregulated in space flight with log2fc=+5.65 and padj=3.2e-04.",
   "rows": [
@@ -1532,7 +1532,7 @@
   "label_note": "Mean count in the higher group (Space Flight) is 18, which is below the 20 threshold."
  },
  {
-  "id": "lead_015",
+  "id": "OSD-104_lead_015",
   "shape": "single_gene",
   "claim": "Dsc3 is upregulated in space flight with log2fc=+6.19 and padj=4.1e-02.",
   "rows": [
@@ -1563,7 +1563,7 @@
   "label_note": "Dsc3 shows strong upregulation (log2fc=+6.19, padj=0.041) with adequate expression (mean count=25) and a concrete next step for investigating desmosome density."
  },
  {
-  "id": "lead_016",
+  "id": "OSD-104_lead_016",
   "shape": "single_gene",
   "claim": "Pkp1 is upregulated in space flight with log2fc=+6.01 and padj=1.2e-02.",
   "rows": [
@@ -1593,7 +1593,7 @@
   "label_note": "Only 3/6 carriers in the higher group with padj=0.0118, meeting underpowered criteria for carriers <=3 in (0.01,0.05) range."
  },
  {
-  "id": "lead_018",
+  "id": "OSD-104_lead_018",
   "shape": "single_gene",
   "claim": "Gm23925 is downregulated in space flight with log2fc=-5.53 and padj=2.1e-04.",
   "rows": [
@@ -1623,5 +1623,3324 @@
   },
   "label": "no_mechanism",
   "label_note": "A=no_mechanism; B=underpowered; adjudicated: "
+ },
+ {
+  "id": "OSD-255_lead_057",
+  "shape": "data_quality",
+  "claim": "Genes with high fold change but non-significant p-values (e.g., Gm26244, log2fc=+1.57, padj=0.24) may indicate low power.",
+  "rows": [
+   "Gm26244",
+   "Ppl",
+   "Gm24924"
+  ],
+  "why_not_known": "Large effect sizes without significance suggest under-sampling, but n=8 is not questioned.",
+  "next_step": "Perform power analysis to estimate required sample size.",
+  "dataset": "OSD-255",
+  "table_facts": {
+   "Gm26244": {
+    "log2fc": 1.57,
+    "padj": 0.241516862414681,
+    "higher_group": "Space Flight",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932701",
+     "GSM3932702",
+     "GSM3932703",
+     "GSM3932704",
+     "GSM3932705",
+     "GSM3932706",
+     "GSM3932707",
+     "GSM3932708"
+    ],
+    "mean_count": {
+     "Space Flight": 219,
+     "Ground Control": 74
+    }
+   },
+   "Ppl": {
+    "log2fc": -1.57,
+    "padj": 0.117378345497234,
+    "higher_group": "Ground Control",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932693",
+     "GSM3932694",
+     "GSM3932695",
+     "GSM3932696",
+     "GSM3932697",
+     "GSM3932698",
+     "GSM3932699",
+     "GSM3932700"
+    ],
+    "mean_count": {
+     "Space Flight": 148,
+     "Ground Control": 113
+    }
+   },
+   "Gm24924": {
+    "log2fc": 1.43,
+    "padj": 0.245479922046404,
+    "higher_group": "Space Flight",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932701",
+     "GSM3932702",
+     "GSM3932703",
+     "GSM3932704",
+     "GSM3932705",
+     "GSM3932706",
+     "GSM3932707",
+     "GSM3932708"
+    ],
+    "mean_count": {
+     "Space Flight": 275,
+     "Ground Control": 102
+    }
+   }
+  },
+  "label": "ok",
+  "label_note": "The claim identifies a data quality issue (large effect sizes with non-significant p-values) and proposes a concrete next step (power analysis) to address potential under-sampling."
+ },
+ {
+  "id": "OSD-255_lead_054",
+  "shape": "data_quality",
+  "claim": "Highly expressed genes like Sag (39656) and Ubc (10252) are downregulated, raising possible normalization bias.",
+  "rows": [
+   "Sag",
+   "Ubc",
+   "Pdzph1",
+   "Dscaml1",
+   "Hpcal1"
+  ],
+  "why_not_known": "Extreme counts can skew normalization; this is not checked in the summary.",
+  "next_step": "Re-analyze with alternative normalization (e.g., TMM or RLE).",
+  "dataset": "OSD-255",
+  "table_facts": {
+   "Sag": {
+    "log2fc": -0.64,
+    "padj": 1.19968705898491e-21,
+    "higher_group": "Ground Control",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932693",
+     "GSM3932694",
+     "GSM3932695",
+     "GSM3932696",
+     "GSM3932697",
+     "GSM3932698",
+     "GSM3932699",
+     "GSM3932700"
+    ],
+    "mean_count": {
+     "Space Flight": 25362,
+     "Ground Control": 39656
+    }
+   },
+   "Ubc": {
+    "log2fc": -0.34,
+    "padj": 3.40076186835087e-12,
+    "higher_group": "Ground Control",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932693",
+     "GSM3932694",
+     "GSM3932695",
+     "GSM3932696",
+     "GSM3932697",
+     "GSM3932698",
+     "GSM3932699",
+     "GSM3932700"
+    ],
+    "mean_count": {
+     "Space Flight": 8106,
+     "Ground Control": 10252
+    }
+   },
+   "Pdzph1": {
+    "log2fc": -0.84,
+    "padj": 4.04882663403998e-22,
+    "higher_group": "Ground Control",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932693",
+     "GSM3932694",
+     "GSM3932695",
+     "GSM3932696",
+     "GSM3932697",
+     "GSM3932698",
+     "GSM3932699",
+     "GSM3932700"
+    ],
+    "mean_count": {
+     "Space Flight": 2339,
+     "Ground Control": 4196
+    }
+   },
+   "Dscaml1": {
+    "log2fc": -0.45,
+    "padj": 3.39105618505305e-10,
+    "higher_group": "Ground Control",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932693",
+     "GSM3932694",
+     "GSM3932695",
+     "GSM3932696",
+     "GSM3932697",
+     "GSM3932698",
+     "GSM3932699",
+     "GSM3932700"
+    ],
+    "mean_count": {
+     "Space Flight": 2037,
+     "Ground Control": 2790
+    }
+   },
+   "Hpcal1": {
+    "log2fc": -0.4,
+    "padj": 5.15621024959283e-08,
+    "higher_group": "Ground Control",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932693",
+     "GSM3932694",
+     "GSM3932695",
+     "GSM3932696",
+     "GSM3932697",
+     "GSM3932698",
+     "GSM3932699",
+     "GSM3932700"
+    ],
+    "mean_count": {
+     "Space Flight": 379,
+     "Ground Control": 499
+    }
+   }
+  },
+  "label": "ok",
+  "label_note": "The claim identifies a potential normalization bias with high-count genes downregulated in all samples, supported by consistent carrier counts (8/8) and a concrete next step to re-analyze with alternative methods."
+ },
+ {
+  "id": "OSD-255_lead_059",
+  "shape": "data_quality",
+  "claim": "The presence of both up and downregulated genes in the same functional pathways (e.g., GO:0015171) suggests specific regulation, not batch effects.",
+  "rows": [
+   "GO:0015171",
+   "GO:0003333",
+   "GO:0070507"
+  ],
+  "why_not_known": "Mixed directions in pathways argue against technical artifacts, but this is not stated.",
+  "next_step": "Perform PCA to check for batch effects.",
+  "dataset": "OSD-255",
+  "table_facts": {
+   "GO:0015171": {
+    "name": "amino acid transmembrane transporter activity",
+    "genes_in_term": 59,
+    "significant": 7,
+    "up": 1,
+    "down": 6,
+    "enrichment_vs_baseline": 8.26
+   },
+   "GO:0003333": {
+    "name": "amino acid transmembrane transport",
+    "genes_in_term": 42,
+    "significant": 5,
+    "up": 1,
+    "down": 4,
+    "enrichment_vs_baseline": 8.29
+   },
+   "GO:0070507": {
+    "name": "regulation of microtubule cytoskeleton organization",
+    "genes_in_term": 37,
+    "significant": 5,
+    "up": 3,
+    "down": 2,
+    "enrichment_vs_baseline": 9.41
+   }
+  },
+  "label": "ok",
+  "label_note": "The claim identifies a data-quality insight (mixed-direction pathway regulation argues against batch effects) with a concrete next step (PCA validation)."
+ },
+ {
+  "id": "OSD-255_lead_056",
+  "shape": "data_quality",
+  "claim": "rRNA genes n-R5s118 and n-R5s106 are included in analysis, which may violate assumptions of mRNA-seq pipelines.",
+  "rows": [
+   "n-R5s118",
+   "n-R5s106"
+  ],
+  "why_not_known": "rRNA is often removed, but here it is analyzed as coding, risking false positives.",
+  "next_step": "Re-run analysis excluding rRNA and non-coding RNAs.",
+  "dataset": "OSD-255",
+  "table_facts": {
+   "n-R5s118": {
+    "log2fc": 1.13,
+    "padj": 0.0987632592664394,
+    "higher_group": "Space Flight",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932701",
+     "GSM3932702",
+     "GSM3932703",
+     "GSM3932704",
+     "GSM3932705",
+     "GSM3932706",
+     "GSM3932707",
+     "GSM3932708"
+    ],
+    "mean_count": {
+     "Space Flight": 61,
+     "Ground Control": 28
+    }
+   },
+   "n-R5s106": {
+    "log2fc": 1.13,
+    "padj": 0.0987632592664394,
+    "higher_group": "Space Flight",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932701",
+     "GSM3932702",
+     "GSM3932703",
+     "GSM3932704",
+     "GSM3932705",
+     "GSM3932706",
+     "GSM3932707",
+     "GSM3932708"
+    ],
+    "mean_count": {
+     "Space Flight": 61,
+     "Ground Control": 28
+    }
+   }
+  },
+  "label": "ok",
+  "label_note": "A=ok; B=invalid; adjudicated: "
+ },
+ {
+  "id": "OSD-255_lead_027",
+  "shape": "family",
+  "claim": "Drd4, Sik2, and Pitpnm3 are upregulated in spaceflight with padj < 1e-7 and carriers in all flight samples.",
+  "rows": [
+   "Drd4",
+   "Sik2",
+   "Pitpnm3"
+  ],
+  "why_not_known": "These genes are linked to neuronal signaling and kinase activity, but their co-upregulation in spaceflight is not known.",
+  "next_step": "Perform pathway enrichment on their known interactors.",
+  "dataset": "OSD-255",
+  "table_facts": {
+   "Drd4": {
+    "log2fc": 0.8,
+    "padj": 2.2851932754677802e-58,
+    "higher_group": "Space Flight",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932701",
+     "GSM3932702",
+     "GSM3932703",
+     "GSM3932704",
+     "GSM3932705",
+     "GSM3932706",
+     "GSM3932707",
+     "GSM3932708"
+    ],
+    "mean_count": {
+     "Space Flight": 3082,
+     "Ground Control": 1769
+    }
+   },
+   "Sik2": {
+    "log2fc": 0.6,
+    "padj": 5.60539698801593e-08,
+    "higher_group": "Space Flight",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932701",
+     "GSM3932702",
+     "GSM3932703",
+     "GSM3932704",
+     "GSM3932705",
+     "GSM3932706",
+     "GSM3932707",
+     "GSM3932708"
+    ],
+    "mean_count": {
+     "Space Flight": 1607,
+     "Ground Control": 1064
+    }
+   },
+   "Pitpnm3": {
+    "log2fc": 0.47,
+    "padj": 4.84171541203868e-10,
+    "higher_group": "Space Flight",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932701",
+     "GSM3932702",
+     "GSM3932703",
+     "GSM3932704",
+     "GSM3932705",
+     "GSM3932706",
+     "GSM3932707",
+     "GSM3932708"
+    ],
+    "mean_count": {
+     "Space Flight": 3015,
+     "Ground Control": 2170
+    }
+   }
+  },
+  "label": "ok",
+  "label_note": "All genes show strong statistical support (padj < 1e-7), full carrier consistency (8/8), and high expression (mean counts > 1000), with a concrete next step for pathway analysis."
+ },
+ {
+  "id": "OSD-255_lead_025",
+  "shape": "family",
+  "claim": "Irf7, Ptp4a1, and H2bc4 are co-upregulated in spaceflight, all with padj < 1e-12 and carriers in all flight samples.",
+  "rows": [
+   "Irf7",
+   "Ptp4a1",
+   "H2bc4"
+  ],
+  "why_not_known": "These genes span immune, signaling, and chromatin functions; their co-regulation in spaceflight is not established.",
+  "next_step": "Test for shared transcription factor binding sites in their promoters.",
+  "dataset": "OSD-255",
+  "table_facts": {
+   "Irf7": {
+    "log2fc": 1.42,
+    "padj": 6.78891747323859e-19,
+    "higher_group": "Space Flight",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932701",
+     "GSM3932702",
+     "GSM3932703",
+     "GSM3932704",
+     "GSM3932705",
+     "GSM3932706",
+     "GSM3932707",
+     "GSM3932708"
+    ],
+    "mean_count": {
+     "Space Flight": 294,
+     "Ground Control": 111
+    }
+   },
+   "Ptp4a1": {
+    "log2fc": 1.33,
+    "padj": 0.0241484061301307,
+    "higher_group": "Space Flight",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932701",
+     "GSM3932702",
+     "GSM3932703",
+     "GSM3932704",
+     "GSM3932705",
+     "GSM3932706",
+     "GSM3932707",
+     "GSM3932708"
+    ],
+    "mean_count": {
+     "Space Flight": 993,
+     "Ground Control": 393
+    }
+   },
+   "H2bc4": {
+    "log2fc": 0.51,
+    "padj": 4.09319511499475e-12,
+    "higher_group": "Space Flight",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932701",
+     "GSM3932702",
+     "GSM3932703",
+     "GSM3932704",
+     "GSM3932705",
+     "GSM3932706",
+     "GSM3932707",
+     "GSM3932708"
+    ],
+    "mean_count": {
+     "Space Flight": 2281,
+     "Ground Control": 1605
+    }
+   }
+  },
+  "label": "contradicted",
+  "label_note": "Ptp4a1 has padj=0.024 which is >0.05, contradicting the claim of padj <1e-12 for all genes."
+ },
+ {
+  "id": "OSD-255_lead_032",
+  "shape": "family",
+  "claim": "Ankrd33b, Hpcal1, and Rgs20 are downregulated in spaceflight with padj < 1e-7 and carriers in all ground samples.",
+  "rows": [
+   "Ankrd33b",
+   "Hpcal1",
+   "Rgs20"
+  ],
+  "why_not_known": "These genes are highly expressed and downregulated, but their functional relationship in spaceflight is unknown.",
+  "next_step": "Check for shared regulatory elements in their promoters.",
+  "dataset": "OSD-255",
+  "table_facts": {
+   "Ankrd33b": {
+    "log2fc": -0.4,
+    "padj": 2.85230376994328e-08,
+    "higher_group": "Ground Control",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932693",
+     "GSM3932694",
+     "GSM3932695",
+     "GSM3932696",
+     "GSM3932697",
+     "GSM3932698",
+     "GSM3932699",
+     "GSM3932700"
+    ],
+    "mean_count": {
+     "Space Flight": 3262,
+     "Ground Control": 4294
+    }
+   },
+   "Hpcal1": {
+    "log2fc": -0.4,
+    "padj": 5.15621024959283e-08,
+    "higher_group": "Ground Control",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932693",
+     "GSM3932694",
+     "GSM3932695",
+     "GSM3932696",
+     "GSM3932697",
+     "GSM3932698",
+     "GSM3932699",
+     "GSM3932700"
+    ],
+    "mean_count": {
+     "Space Flight": 379,
+     "Ground Control": 499
+    }
+   },
+   "Rgs20": {
+    "log2fc": -0.48,
+    "padj": 4.82954565725397e-08,
+    "higher_group": "Ground Control",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932693",
+     "GSM3932694",
+     "GSM3932695",
+     "GSM3932696",
+     "GSM3932697",
+     "GSM3932698",
+     "GSM3932699",
+     "GSM3932700"
+    ],
+    "mean_count": {
+     "Space Flight": 456,
+     "Ground Control": 637
+    }
+   }
+  },
+  "label": "ok",
+  "label_note": "The genes show strong downregulation (padj < 1e-7) with full carrier support (8/8) and high expression (mean counts > 300), and the claim proposes a concrete mechanistic next step (promoter analysis)."
+ },
+ {
+  "id": "OSD-255_lead_033",
+  "shape": "family",
+  "claim": "Fgfbp3, Gckr, and Gm16638 are upregulated in spaceflight with log2fc > 0.65 and carriers in all flight samples.",
+  "rows": [
+   "Fgfbp3",
+   "Gckr",
+   "Gm16638"
+  ],
+  "why_not_known": "These genes span growth factor binding, metabolism, and unknown function, but their co-upregulation is not explained.",
+  "next_step": "Cluster expression across all samples to confirm co-expression.",
+  "dataset": "OSD-255",
+  "table_facts": {
+   "Fgfbp3": {
+    "log2fc": 0.7,
+    "padj": 0.0007065634730552,
+    "higher_group": "Space Flight",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932701",
+     "GSM3932702",
+     "GSM3932703",
+     "GSM3932704",
+     "GSM3932705",
+     "GSM3932706",
+     "GSM3932707",
+     "GSM3932708"
+    ],
+    "mean_count": {
+     "Space Flight": 139,
+     "Ground Control": 85
+    }
+   },
+   "Gckr": {
+    "log2fc": 0.69,
+    "padj": 0.0031101552618962,
+    "higher_group": "Space Flight",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932701",
+     "GSM3932702",
+     "GSM3932703",
+     "GSM3932704",
+     "GSM3932705",
+     "GSM3932706",
+     "GSM3932707",
+     "GSM3932708"
+    ],
+    "mean_count": {
+     "Space Flight": 220,
+     "Ground Control": 137
+    }
+   },
+   "Gm16638": {
+    "log2fc": 0.83,
+    "padj": 0.0019224000259298,
+    "higher_group": "Space Flight",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932701",
+     "GSM3932702",
+     "GSM3932703",
+     "GSM3932704",
+     "GSM3932705",
+     "GSM3932706",
+     "GSM3932707",
+     "GSM3932708"
+    ],
+    "mean_count": {
+     "Space Flight": 67,
+     "Ground Control": 38
+    }
+   }
+  },
+  "label": "no_mechanism",
+  "label_note": "A=no_mechanism; B=invalid; adjudicated: "
+ },
+ {
+  "id": "OSD-255_lead_030",
+  "shape": "family",
+  "claim": "H2bc4, Btaf1, and Sik2 are upregulated in spaceflight with high confidence (padj < 1e-7) and carriers in all flight samples.",
+  "rows": [
+   "H2bc4",
+   "Btaf1",
+   "Sik2"
+  ],
+  "why_not_known": "These genes are involved in chromatin and kinase signaling, but their co-regulation in spaceflight is not known.",
+  "next_step": "Assess global histone modification levels in flight samples.",
+  "dataset": "OSD-255",
+  "table_facts": {
+   "H2bc4": {
+    "log2fc": 0.51,
+    "padj": 4.09319511499475e-12,
+    "higher_group": "Space Flight",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932701",
+     "GSM3932702",
+     "GSM3932703",
+     "GSM3932704",
+     "GSM3932705",
+     "GSM3932706",
+     "GSM3932707",
+     "GSM3932708"
+    ],
+    "mean_count": {
+     "Space Flight": 2281,
+     "Ground Control": 1605
+    }
+   },
+   "Btaf1": {
+    "log2fc": 0.27,
+    "padj": 1.27733404108371e-10,
+    "higher_group": "Space Flight",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932701",
+     "GSM3932702",
+     "GSM3932703",
+     "GSM3932704",
+     "GSM3932705",
+     "GSM3932706",
+     "GSM3932707",
+     "GSM3932708"
+    ],
+    "mean_count": {
+     "Space Flight": 1470,
+     "Ground Control": 1221
+    }
+   },
+   "Sik2": {
+    "log2fc": 0.6,
+    "padj": 5.60539698801593e-08,
+    "higher_group": "Space Flight",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932701",
+     "GSM3932702",
+     "GSM3932703",
+     "GSM3932704",
+     "GSM3932705",
+     "GSM3932706",
+     "GSM3932707",
+     "GSM3932708"
+    ],
+    "mean_count": {
+     "Space Flight": 1607,
+     "Ground Control": 1064
+    }
+   }
+  },
+  "label": "ok",
+  "label_note": "All genes show strong statistical support (padj < 1e-7), full carrier consistency (8/8), and high mean counts (>1000), with a concrete next step to assess histone modifications."
+ },
+ {
+  "id": "OSD-255_lead_046",
+  "shape": "global",
+  "claim": "Only 4 genes show >=2-fold change, suggesting that large expression shifts are rare in spaceflight despite 337 significant changes.",
+  "rows": [
+   "Irf7",
+   "Ptp4a1",
+   "Cfap70",
+   "Nr4a3"
+  ],
+  "why_not_known": "The summary notes this, but the implication that most responses are quantitative rather than qualitative is not emphasized.",
+  "next_step": "Compare effect size distribution to other stress conditions like radiation or hypoxia.",
+  "dataset": "OSD-255",
+  "table_facts": {
+   "Irf7": {
+    "log2fc": 1.42,
+    "padj": 6.78891747323859e-19,
+    "higher_group": "Space Flight",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932701",
+     "GSM3932702",
+     "GSM3932703",
+     "GSM3932704",
+     "GSM3932705",
+     "GSM3932706",
+     "GSM3932707",
+     "GSM3932708"
+    ],
+    "mean_count": {
+     "Space Flight": 294,
+     "Ground Control": 111
+    }
+   },
+   "Ptp4a1": {
+    "log2fc": 1.33,
+    "padj": 0.0241484061301307,
+    "higher_group": "Space Flight",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932701",
+     "GSM3932702",
+     "GSM3932703",
+     "GSM3932704",
+     "GSM3932705",
+     "GSM3932706",
+     "GSM3932707",
+     "GSM3932708"
+    ],
+    "mean_count": {
+     "Space Flight": 993,
+     "Ground Control": 393
+    }
+   },
+   "Cfap70": {
+    "log2fc": 1.13,
+    "padj": 0.005229278610727,
+    "higher_group": "Space Flight",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932701",
+     "GSM3932702",
+     "GSM3932703",
+     "GSM3932704",
+     "GSM3932705",
+     "GSM3932706",
+     "GSM3932707",
+     "GSM3932708"
+    ],
+    "mean_count": {
+     "Space Flight": 80,
+     "Ground Control": 37
+    }
+   },
+   "Nr4a3": {
+    "log2fc": -1.08,
+    "padj": 0.0412614090620506,
+    "higher_group": "Ground Control",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932693",
+     "GSM3932694",
+     "GSM3932695",
+     "GSM3932696",
+     "GSM3932697",
+     "GSM3932698",
+     "GSM3932699",
+     "GSM3932700"
+    ],
+    "mean_count": {
+     "Space Flight": 30,
+     "Ground Control": 62
+    }
+   }
+  },
+  "label": "ok",
+  "label_note": "A=ok; B=invalid; adjudicated: "
+ },
+ {
+  "id": "OSD-255_lead_049",
+  "shape": "global",
+  "claim": "Downregulated genes tend to have high mean counts in ground controls, such as Sag (39656) and Ubc (10252).",
+  "rows": [
+   "Sag",
+   "Ubc",
+   "Pdzph1",
+   "Glmn",
+   "Dscaml1"
+  ],
+  "why_not_known": "High baseline expression may make downregulation easier to detect, but this bias is not assessed.",
+  "next_step": "Test if downregulated genes have higher baseline expression than upregulated ones.",
+  "dataset": "OSD-255",
+  "table_facts": {
+   "Sag": {
+    "log2fc": -0.64,
+    "padj": 1.19968705898491e-21,
+    "higher_group": "Ground Control",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932693",
+     "GSM3932694",
+     "GSM3932695",
+     "GSM3932696",
+     "GSM3932697",
+     "GSM3932698",
+     "GSM3932699",
+     "GSM3932700"
+    ],
+    "mean_count": {
+     "Space Flight": 25362,
+     "Ground Control": 39656
+    }
+   },
+   "Ubc": {
+    "log2fc": -0.34,
+    "padj": 3.40076186835087e-12,
+    "higher_group": "Ground Control",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932693",
+     "GSM3932694",
+     "GSM3932695",
+     "GSM3932696",
+     "GSM3932697",
+     "GSM3932698",
+     "GSM3932699",
+     "GSM3932700"
+    ],
+    "mean_count": {
+     "Space Flight": 8106,
+     "Ground Control": 10252
+    }
+   },
+   "Pdzph1": {
+    "log2fc": -0.84,
+    "padj": 4.04882663403998e-22,
+    "higher_group": "Ground Control",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932693",
+     "GSM3932694",
+     "GSM3932695",
+     "GSM3932696",
+     "GSM3932697",
+     "GSM3932698",
+     "GSM3932699",
+     "GSM3932700"
+    ],
+    "mean_count": {
+     "Space Flight": 2339,
+     "Ground Control": 4196
+    }
+   },
+   "Glmn": {
+    "log2fc": -0.68,
+    "padj": 3.64605625290873e-14,
+    "higher_group": "Ground Control",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932693",
+     "GSM3932694",
+     "GSM3932695",
+     "GSM3932696",
+     "GSM3932697",
+     "GSM3932698",
+     "GSM3932699",
+     "GSM3932700"
+    ],
+    "mean_count": {
+     "Space Flight": 541,
+     "Ground Control": 867
+    }
+   },
+   "Dscaml1": {
+    "log2fc": -0.45,
+    "padj": 3.39105618505305e-10,
+    "higher_group": "Ground Control",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932693",
+     "GSM3932694",
+     "GSM3932695",
+     "GSM3932696",
+     "GSM3932697",
+     "GSM3932698",
+     "GSM3932699",
+     "GSM3932700"
+    ],
+    "mean_count": {
+     "Space Flight": 2037,
+     "Ground Control": 2790
+    }
+   }
+  },
+  "label": "ok",
+  "label_note": "The claim is supported by high baseline counts in controls (e.g., Sag: 39656, Ubc: 10252) and has a concrete next step to test for expression bias."
+ },
+ {
+  "id": "OSD-255_lead_051",
+  "shape": "global",
+  "claim": "Null genes like Gpr137 (padj=0.59) show minimal change (log2fc=-0.12), supporting the stability of non-responsive genes.",
+  "rows": [
+   "Gpr137",
+   "Adcy2",
+   "Rgs6",
+   "Entpd7",
+   "Osbpl9"
+  ],
+  "why_not_known": "These genes serve as negative controls, but their stability is not formally used to validate the analysis.",
+  "next_step": "Use null genes to estimate false discovery rate empirically.",
+  "dataset": "OSD-255",
+  "table_facts": {
+   "Gpr137": {
+    "log2fc": -0.12,
+    "padj": 0.587767100303481,
+    "higher_group": "Ground Control",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932693",
+     "GSM3932694",
+     "GSM3932695",
+     "GSM3932696",
+     "GSM3932697",
+     "GSM3932698",
+     "GSM3932699",
+     "GSM3932700"
+    ],
+    "mean_count": {
+     "Space Flight": 211,
+     "Ground Control": 230
+    }
+   },
+   "Adcy2": {
+    "log2fc": 0.05,
+    "padj": 0.801407826823359,
+    "higher_group": "Space Flight",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932701",
+     "GSM3932702",
+     "GSM3932703",
+     "GSM3932704",
+     "GSM3932705",
+     "GSM3932706",
+     "GSM3932707",
+     "GSM3932708"
+    ],
+    "mean_count": {
+     "Space Flight": 477,
+     "Ground Control": 461
+    }
+   },
+   "Rgs6": {
+    "log2fc": -0.05,
+    "padj": 0.881361343989861,
+    "higher_group": "Ground Control",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932693",
+     "GSM3932694",
+     "GSM3932695",
+     "GSM3932696",
+     "GSM3932697",
+     "GSM3932698",
+     "GSM3932699",
+     "GSM3932700"
+    ],
+    "mean_count": {
+     "Space Flight": 625,
+     "Ground Control": 645
+    }
+   },
+   "Entpd7": {
+    "log2fc": -0.13,
+    "padj": 0.693850297253548,
+    "higher_group": "Ground Control",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932693",
+     "GSM3932694",
+     "GSM3932695",
+     "GSM3932696",
+     "GSM3932697",
+     "GSM3932698",
+     "GSM3932699",
+     "GSM3932700"
+    ],
+    "mean_count": {
+     "Space Flight": 152,
+     "Ground Control": 167
+    }
+   },
+   "Osbpl9": {
+    "log2fc": 0.02,
+    "padj": 0.943938206945966,
+    "higher_group": "Space Flight",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932701",
+     "GSM3932702",
+     "GSM3932703",
+     "GSM3932704",
+     "GSM3932705",
+     "GSM3932706",
+     "GSM3932707",
+     "GSM3932708"
+    ],
+    "mean_count": {
+     "Space Flight": 612,
+     "Ground Control": 605
+    }
+   }
+  },
+  "label": "untestable",
+  "label_note": "A=untestable; B=ok; adjudicated: "
+ },
+ {
+  "id": "OSD-255_lead_050",
+  "shape": "global",
+  "claim": "Genes with borderline significance (e.g., Gm26244, padj=0.24) show large fold changes (+1.57) but fail FDR correction.",
+  "rows": [
+   "Gm26244",
+   "Ppl",
+   "Gm24924",
+   "n-R5s118",
+   "n-R5s106"
+  ],
+  "why_not_known": "These genes may be false negatives due to high variance, but they are not further analyzed.",
+  "next_step": "Check variance of borderline genes vs. significant ones.",
+  "dataset": "OSD-255",
+  "table_facts": {
+   "Gm26244": {
+    "log2fc": 1.57,
+    "padj": 0.241516862414681,
+    "higher_group": "Space Flight",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932701",
+     "GSM3932702",
+     "GSM3932703",
+     "GSM3932704",
+     "GSM3932705",
+     "GSM3932706",
+     "GSM3932707",
+     "GSM3932708"
+    ],
+    "mean_count": {
+     "Space Flight": 219,
+     "Ground Control": 74
+    }
+   },
+   "Ppl": {
+    "log2fc": -1.57,
+    "padj": 0.117378345497234,
+    "higher_group": "Ground Control",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932693",
+     "GSM3932694",
+     "GSM3932695",
+     "GSM3932696",
+     "GSM3932697",
+     "GSM3932698",
+     "GSM3932699",
+     "GSM3932700"
+    ],
+    "mean_count": {
+     "Space Flight": 148,
+     "Ground Control": 113
+    }
+   },
+   "Gm24924": {
+    "log2fc": 1.43,
+    "padj": 0.245479922046404,
+    "higher_group": "Space Flight",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932701",
+     "GSM3932702",
+     "GSM3932703",
+     "GSM3932704",
+     "GSM3932705",
+     "GSM3932706",
+     "GSM3932707",
+     "GSM3932708"
+    ],
+    "mean_count": {
+     "Space Flight": 275,
+     "Ground Control": 102
+    }
+   },
+   "n-R5s118": {
+    "log2fc": 1.13,
+    "padj": 0.0987632592664394,
+    "higher_group": "Space Flight",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932701",
+     "GSM3932702",
+     "GSM3932703",
+     "GSM3932704",
+     "GSM3932705",
+     "GSM3932706",
+     "GSM3932707",
+     "GSM3932708"
+    ],
+    "mean_count": {
+     "Space Flight": 61,
+     "Ground Control": 28
+    }
+   },
+   "n-R5s106": {
+    "log2fc": 1.13,
+    "padj": 0.0987632592664394,
+    "higher_group": "Space Flight",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932701",
+     "GSM3932702",
+     "GSM3932703",
+     "GSM3932704",
+     "GSM3932705",
+     "GSM3932706",
+     "GSM3932707",
+     "GSM3932708"
+    ],
+    "mean_count": {
+     "Space Flight": 61,
+     "Ground Control": 28
+    }
+   }
+  },
+  "label": "untestable",
+  "label_note": "A=untestable; B=invalid; adjudicated: "
+ },
+ {
+  "id": "OSD-255_lead_036",
+  "shape": "pathway",
+  "claim": "Genes with 'neutral L-amino acid transmembrane transporter activity' (GO:0015175) are enriched among downregulated genes in spaceflight (3 down, 1 up).",
+  "rows": [
+   "GO:0015175"
+  ],
+  "why_not_known": "Amino acid transport is expected to change in spaceflight, but this specific transporter class enrichment is not confirmed.",
+  "next_step": "Measure uptake of neutral amino acids in flight vs. ground cells.",
+  "dataset": "OSD-255",
+  "table_facts": {
+   "GO:0015175": {
+    "name": "neutral L-amino acid transmembrane transporter activity",
+    "genes_in_term": 30,
+    "significant": 4,
+    "up": 1,
+    "down": 3,
+    "enrichment_vs_baseline": 9.29
+   }
+  },
+  "label": "ok",
+  "label_note": "The enrichment ratio of 9.29 with 3 down vs 1 up supports a specific transporter class change not previously confirmed in spaceflight."
+ },
+ {
+  "id": "OSD-255_lead_039",
+  "shape": "pathway",
+  "claim": "Genes with 'amino acid transmembrane transporter activity' (GO:0015171) are enriched among downregulated genes in spaceflight (6 down, 1 up).",
+  "rows": [
+   "GO:0015171"
+  ],
+  "why_not_known": "This is a more specific transporter class, but its strong downregulation in spaceflight has not been functionally validated.",
+  "next_step": "Inhibit these transporters in ground cells and assess stress response.",
+  "dataset": "OSD-255",
+  "table_facts": {
+   "GO:0015171": {
+    "name": "amino acid transmembrane transporter activity",
+    "genes_in_term": 59,
+    "significant": 7,
+    "up": 1,
+    "down": 6,
+    "enrichment_vs_baseline": 8.26
+   }
+  },
+  "label": "ok",
+  "label_note": "The enrichment (6 down, 1 up) is statistically supported with a clear biological claim and concrete next step."
+ },
+ {
+  "id": "OSD-255_lead_040",
+  "shape": "pathway",
+  "claim": "L-amino acid transmembrane transporter activity (GO:0015179) genes are enriched among downregulated genes in spaceflight (4 down, 1 up).",
+  "rows": [
+   "GO:0015179"
+  ],
+  "why_not_known": "This subclass of transporters is specifically suppressed, but the physiological impact is not known.",
+  "next_step": "Supplement L-amino acids in flight and measure gene expression recovery.",
+  "dataset": "OSD-255",
+  "table_facts": {
+   "GO:0015179": {
+    "name": "L-amino acid transmembrane transporter activity",
+    "genes_in_term": 48,
+    "significant": 5,
+    "up": 1,
+    "down": 4,
+    "enrichment_vs_baseline": 7.26
+   }
+  },
+  "label": "ok",
+  "label_note": "The enrichment (7.26-fold) is strong and specific, with a concrete next step to test physiological impact."
+ },
+ {
+  "id": "OSD-255_lead_041",
+  "shape": "pathway",
+  "claim": "Genes in 'obsolete unfolded protein binding' (GO:0051082) are enriched among upregulated genes in spaceflight (2 up, 2 down).",
+  "rows": [
+   "GO:0051082"
+  ],
+  "why_not_known": "This GO term is obsolete, but its enrichment suggests a role in protein folding stress during spaceflight.",
+  "next_step": "Assess ER stress markers like BiP and CHOP in flight samples.",
+  "dataset": "OSD-255",
+  "table_facts": {
+   "GO:0051082": {
+    "name": "obsolete unfolded protein binding",
+    "genes_in_term": 39,
+    "significant": 4,
+    "up": 2,
+    "down": 2,
+    "enrichment_vs_baseline": 7.14
+   }
+  },
+  "label": "ok",
+  "label_note": "A=ok; B=contradicted; adjudicated: "
+ },
+ {
+  "id": "OSD-255_lead_044",
+  "shape": "pathway",
+  "claim": "Neurotransmitter receptor genes are enriched among downregulated genes, based on Gpr88, Dscaml1, and Rgs20.",
+  "rows": [
+   "Gpr88",
+   "Dscaml1",
+   "Rgs20"
+  ],
+  "why_not_known": "These genes are downregulated, but a formal enrichment test for neurotransmitter pathways was not reported.",
+  "next_step": "Perform over-representation analysis on neurotransmitter-related GO terms.",
+  "dataset": "OSD-255",
+  "table_facts": {
+   "Gpr88": {
+    "log2fc": -0.72,
+    "padj": 0.0121346158854815,
+    "higher_group": "Ground Control",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932693",
+     "GSM3932694",
+     "GSM3932695",
+     "GSM3932696",
+     "GSM3932697",
+     "GSM3932698",
+     "GSM3932699",
+     "GSM3932700"
+    ],
+    "mean_count": {
+     "Space Flight": 38,
+     "Ground Control": 64
+    }
+   },
+   "Dscaml1": {
+    "log2fc": -0.45,
+    "padj": 3.39105618505305e-10,
+    "higher_group": "Ground Control",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932693",
+     "GSM3932694",
+     "GSM3932695",
+     "GSM3932696",
+     "GSM3932697",
+     "GSM3932698",
+     "GSM3932699",
+     "GSM3932700"
+    ],
+    "mean_count": {
+     "Space Flight": 2037,
+     "Ground Control": 2790
+    }
+   },
+   "Rgs20": {
+    "log2fc": -0.48,
+    "padj": 4.82954565725397e-08,
+    "higher_group": "Ground Control",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932693",
+     "GSM3932694",
+     "GSM3932695",
+     "GSM3932696",
+     "GSM3932697",
+     "GSM3932698",
+     "GSM3932699",
+     "GSM3932700"
+    ],
+    "mean_count": {
+     "Space Flight": 456,
+     "Ground Control": 637
+    }
+   }
+  },
+  "label": "ok",
+  "label_note": "The claim is supported by three significant genes (padj < 0.05) with consistent downregulation in spaceflight, adequate mean counts (>20), and proposes a concrete next step for pathway validation."
+ },
+ {
+  "id": "OSD-255_lead_024",
+  "shape": "single_gene",
+  "claim": "Sag is downregulated in spaceflight (log2fc = -0.64) and highly expressed in all 8 ground samples.",
+  "rows": [
+   "Sag"
+  ],
+  "why_not_known": "Sag is a retinal protein, but its downregulation in non-retinal tissues during spaceflight is unexplained.",
+  "next_step": "Confirm tissue of origin and check for ectopic expression.",
+  "dataset": "OSD-255",
+  "table_facts": {
+   "Sag": {
+    "log2fc": -0.64,
+    "padj": 1.19968705898491e-21,
+    "higher_group": "Ground Control",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932693",
+     "GSM3932694",
+     "GSM3932695",
+     "GSM3932696",
+     "GSM3932697",
+     "GSM3932698",
+     "GSM3932699",
+     "GSM3932700"
+    ],
+    "mean_count": {
+     "Space Flight": 25362,
+     "Ground Control": 39656
+    }
+   }
+  },
+  "label": "ok",
+  "label_note": "Sag shows strong downregulation (padj 1.2e-21) with high expression in all ground samples, and the claim proposes a novel non-retinal tissue mechanism with a concrete next step."
+ },
+ {
+  "id": "OSD-255_lead_001",
+  "shape": "single_gene",
+  "claim": "Irf7 is upregulated in space flight with a log2 fold change of +1.42 and is detected in all 8 flight samples.",
+  "rows": [
+   "Irf7"
+  ],
+  "why_not_known": "While Irf7 is a known interferon regulator, its consistent upregulation in all flight samples under spaceflight conditions has not been specifically tied to immune activation in this context.",
+  "next_step": "Validate with qPCR in an independent set of spaceflight samples.",
+  "dataset": "OSD-255",
+  "table_facts": {
+   "Irf7": {
+    "log2fc": 1.42,
+    "padj": 6.78891747323859e-19,
+    "higher_group": "Space Flight",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932701",
+     "GSM3932702",
+     "GSM3932703",
+     "GSM3932704",
+     "GSM3932705",
+     "GSM3932706",
+     "GSM3932707",
+     "GSM3932708"
+    ],
+    "mean_count": {
+     "Space Flight": 294,
+     "Ground Control": 111
+    }
+   }
+  },
+  "label": "ok",
+  "label_note": "Strong statistical support (padj 6.8e-19, 8/8 carriers, mean count 294) with a specific novel claim about consistent upregulation in spaceflight immune context and concrete qPCR validation next step."
+ },
+ {
+  "id": "OSD-255_lead_015",
+  "shape": "single_gene",
+  "claim": "Cdcp3 is downregulated in spaceflight (log2fc = -0.70) and highly expressed in all 8 ground samples.",
+  "rows": [
+   "Cdcp3"
+  ],
+  "why_not_known": "Cdcp3 is involved in cell adhesion, but its downregulation in spaceflight has not been tied to epithelial integrity.",
+  "next_step": "Assess epithelial barrier function in flight samples.",
+  "dataset": "OSD-255",
+  "table_facts": {
+   "Cdcp3": {
+    "log2fc": -0.7,
+    "padj": 1.0329073665744602e-09,
+    "higher_group": "Ground Control",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932693",
+     "GSM3932694",
+     "GSM3932695",
+     "GSM3932696",
+     "GSM3932697",
+     "GSM3932698",
+     "GSM3932699",
+     "GSM3932700"
+    ],
+    "mean_count": {
+     "Space Flight": 882,
+     "Ground Control": 1431
+    }
+   }
+  },
+  "label": "ok",
+  "label_note": "The gene is significantly downregulated (padj=1e-09) with high expression (mean count 1431 in controls) and all 8/8 carriers, supporting a novel spaceflight-epithelial integrity hypothesis."
+ },
+ {
+  "id": "OSD-255_lead_017",
+  "shape": "single_gene",
+  "claim": "Gckr is upregulated in spaceflight (log2fc = +0.69) and present in all 8 flight samples.",
+  "rows": [
+   "Gckr"
+  ],
+  "why_not_known": "Gckr regulates glucokinase, but its upregulation in spaceflight has not been tied to glucose metabolism shifts.",
+  "next_step": "Measure blood glucose and insulin levels in flight animals.",
+  "dataset": "OSD-255",
+  "table_facts": {
+   "Gckr": {
+    "log2fc": 0.69,
+    "padj": 0.0031101552618962,
+    "higher_group": "Space Flight",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932701",
+     "GSM3932702",
+     "GSM3932703",
+     "GSM3932704",
+     "GSM3932705",
+     "GSM3932706",
+     "GSM3932707",
+     "GSM3932708"
+    ],
+    "mean_count": {
+     "Space Flight": 220,
+     "Ground Control": 137
+    }
+   }
+  },
+  "label": "ok",
+  "label_note": "The gene is significantly upregulated (padj=0.003) with high expression (mean count 220) and present in all flight samples, supporting a novel glucose metabolism hypothesis with a concrete next step."
+ },
+ {
+  "id": "OSD-255_lead_005",
+  "shape": "single_gene",
+  "claim": "Prss56 is downregulated in spaceflight (log2fc = -0.95) and expressed in all 8 ground samples.",
+  "rows": [
+   "Prss56"
+  ],
+  "why_not_known": "Prss56 is associated with eye development, but its role in spaceflight-related ocular changes is not established.",
+  "next_step": "Examine ocular tissue histology from flight animals for structural changes.",
+  "dataset": "OSD-255",
+  "table_facts": {
+   "Prss56": {
+    "log2fc": -0.95,
+    "padj": 3.84403033054609e-05,
+    "higher_group": "Ground Control",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932693",
+     "GSM3932694",
+     "GSM3932695",
+     "GSM3932696",
+     "GSM3932697",
+     "GSM3932698",
+     "GSM3932699",
+     "GSM3932700"
+    ],
+    "mean_count": {
+     "Space Flight": 44,
+     "Ground Control": 83
+    }
+   }
+  },
+  "label": "ok",
+  "label_note": "Prss56 shows significant downregulation (padj < 0.05) with high expression (mean count 83 in controls) and a concrete next step to examine ocular histology."
+ },
+ {
+  "id": "OSD-255_lead_019",
+  "shape": "single_gene",
+  "claim": "Pros1 is downregulated in spaceflight (log2fc = -0.68) and expressed in all 8 ground samples.",
+  "rows": [
+   "Pros1"
+  ],
+  "why_not_known": "Pros1 has anticoagulant and anti-inflammatory roles, but its downregulation in spaceflight has not been tied to thrombosis risk.",
+  "next_step": "Assess coagulation markers in plasma from flight animals.",
+  "dataset": "OSD-255",
+  "table_facts": {
+   "Pros1": {
+    "log2fc": -0.68,
+    "padj": 0.0361358692449804,
+    "higher_group": "Ground Control",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932693",
+     "GSM3932694",
+     "GSM3932695",
+     "GSM3932696",
+     "GSM3932697",
+     "GSM3932698",
+     "GSM3932699",
+     "GSM3932700"
+    ],
+    "mean_count": {
+     "Space Flight": 83,
+     "Ground Control": 131
+    }
+   }
+  },
+  "label": "ok",
+  "label_note": "The gene is significantly downregulated (padj=0.036) with high expression (mean count 83-131) and all samples show the effect, supporting a novel thrombosis risk hypothesis with a concrete plasma marker validation step."
+ },
+ {
+  "id": "OSD-255_lead_003",
+  "shape": "single_gene",
+  "claim": "Cfap70 is upregulated in spaceflight (log2fc = +1.13) and expressed in all 8 flight samples.",
+  "rows": [
+   "Cfap70"
+  ],
+  "why_not_known": "Cfap70 is associated with cilia, but its upregulation in non-ciliated tissues during spaceflight is unexplored.",
+  "next_step": "Check cilia length and number in tissue samples from flight and ground controls.",
+  "dataset": "OSD-255",
+  "table_facts": {
+   "Cfap70": {
+    "log2fc": 1.13,
+    "padj": 0.005229278610727,
+    "higher_group": "Space Flight",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932701",
+     "GSM3932702",
+     "GSM3932703",
+     "GSM3932704",
+     "GSM3932705",
+     "GSM3932706",
+     "GSM3932707",
+     "GSM3932708"
+    ],
+    "mean_count": {
+     "Space Flight": 80,
+     "Ground Control": 37
+    }
+   }
+  },
+  "label": "ok",
+  "label_note": "The gene shows strong statistical support (padj=0.005, mean count=80) with full carrier consistency (8/8) and a concrete cilia-related follow-up in an unexplored context."
+ },
+ {
+  "id": "OSD-255_lead_016",
+  "shape": "single_gene",
+  "claim": "Jph1 is downregulated in spaceflight (log2fc = -0.70) and expressed in all 8 ground samples.",
+  "rows": [
+   "Jph1"
+  ],
+  "why_not_known": "Jph1 couples plasma and sarcoplasmic membranes in muscle, but its downregulation in spaceflight has not been linked to calcium signaling defects.",
+  "next_step": "Measure calcium transients in muscle cells from flight animals.",
+  "dataset": "OSD-255",
+  "table_facts": {
+   "Jph1": {
+    "log2fc": -0.7,
+    "padj": 0.0312207120895736,
+    "higher_group": "Ground Control",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932693",
+     "GSM3932694",
+     "GSM3932695",
+     "GSM3932696",
+     "GSM3932697",
+     "GSM3932698",
+     "GSM3932699",
+     "GSM3932700"
+    ],
+    "mean_count": {
+     "Space Flight": 31,
+     "Ground Control": 50
+    }
+   }
+  },
+  "label": "ok",
+  "label_note": "Jph1 is significantly downregulated (padj=0.031) with high expression (mean count 50 in controls) and all samples show expression, supporting a novel calcium signaling mechanism claim with a concrete next step."
+ },
+ {
+  "id": "OSD-255_lead_009",
+  "shape": "single_gene",
+  "claim": "Gm16638 is upregulated in spaceflight (log2fc = +0.83) and detected in all 8 flight samples.",
+  "rows": [
+   "Gm16638"
+  ],
+  "why_not_known": "Gm16638 is a predicted gene with no known function, so its response to spaceflight is entirely uncharacterized.",
+  "next_step": "Perform CRISPR knockout and assess viability under simulated microgravity.",
+  "dataset": "OSD-255",
+  "table_facts": {
+   "Gm16638": {
+    "log2fc": 0.83,
+    "padj": 0.0019224000259298,
+    "higher_group": "Space Flight",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932701",
+     "GSM3932702",
+     "GSM3932703",
+     "GSM3932704",
+     "GSM3932705",
+     "GSM3932706",
+     "GSM3932707",
+     "GSM3932708"
+    ],
+    "mean_count": {
+     "Space Flight": 67,
+     "Ground Control": 38
+    }
+   }
+  },
+  "label": "no_mechanism",
+  "label_note": "Gm16638 is a predicted gene with no known function and no mechanism is proposed despite strong statistical support."
+ },
+ {
+  "id": "OSD-255_lead_022",
+  "shape": "single_gene",
+  "claim": "1700001O22Rik is downregulated in spaceflight (log2fc = -0.65) and expressed in all 8 ground samples.",
+  "rows": [
+   "1700001O22Rik"
+  ],
+  "why_not_known": "1700001O22Rik is a RIKEN cDNA with unknown function, so its downregulation in spaceflight is not understood.",
+  "next_step": "Knockout and assess baseline phenotype in normal gravity.",
+  "dataset": "OSD-255",
+  "table_facts": {
+   "1700001O22Rik": {
+    "log2fc": -0.65,
+    "padj": 0.0119308048205215,
+    "higher_group": "Ground Control",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932693",
+     "GSM3932694",
+     "GSM3932695",
+     "GSM3932696",
+     "GSM3932697",
+     "GSM3932698",
+     "GSM3932699",
+     "GSM3932700"
+    ],
+    "mean_count": {
+     "Space Flight": 32,
+     "Ground Control": 50
+    }
+   }
+  },
+  "label": "no_mechanism",
+  "label_note": "The gene 1700001O22Rik is a RIKEN cDNA with unknown function and no mechanism is proposed for its downregulation."
+ },
+ {
+  "id": "OSD-255_lead_020",
+  "shape": "single_gene",
+  "claim": "Dio2 is downregulated in spaceflight (log2fc = -0.67) and expressed in all 8 ground samples.",
+  "rows": [
+   "Dio2"
+  ],
+  "why_not_known": "Dio2 activates thyroid hormone, but its downregulation in spaceflight has not been linked to metabolic rate changes.",
+  "next_step": "Measure oxygen consumption in flight animals.",
+  "dataset": "OSD-255",
+  "table_facts": {
+   "Dio2": {
+    "log2fc": -0.67,
+    "padj": 0.0048518083334815,
+    "higher_group": "Ground Control",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932693",
+     "GSM3932694",
+     "GSM3932695",
+     "GSM3932696",
+     "GSM3932697",
+     "GSM3932698",
+     "GSM3932699",
+     "GSM3932700"
+    ],
+    "mean_count": {
+     "Space Flight": 220,
+     "Ground Control": 351
+    }
+   }
+  },
+  "label": "ok",
+  "label_note": "Dio2 shows significant downregulation (padj=0.0049) with high expression (mean count 220-351) and all samples as carriers, supporting a novel metabolic mechanism hypothesis."
+ },
+ {
+  "id": "OSD-255_lead_002",
+  "shape": "single_gene",
+  "claim": "Ptp4a1 shows increased expression in spaceflight with a log2fc of +1.33 and is present in all 8 flight samples.",
+  "rows": [
+   "Ptp4a1"
+  ],
+  "why_not_known": "Ptp4a1's role in cell migration and stress response is known, but its specific upregulation in spaceflight has not been functionally tested.",
+  "next_step": "Knockdown in vitro and assess cellular stress response under simulated microgravity.",
+  "dataset": "OSD-255",
+  "table_facts": {
+   "Ptp4a1": {
+    "log2fc": 1.33,
+    "padj": 0.0241484061301307,
+    "higher_group": "Space Flight",
+    "carriers": "8/8",
+    "carrier_samples": [
+     "GSM3932701",
+     "GSM3932702",
+     "GSM3932703",
+     "GSM3932704",
+     "GSM3932705",
+     "GSM3932706",
+     "GSM3932707",
+     "GSM3932708"
+    ],
+    "mean_count": {
+     "Space Flight": 993,
+     "Ground Control": 393
+    }
+   }
+  },
+  "label": "ok",
+  "label_note": "Ptp4a1 shows significant upregulation (padj=0.024, log2fc=1.33) with high expression (mean count 993) and presence in all flight samples, supporting a novel spaceflight-specific stress response mechanism."
+ },
+ {
+  "id": "OSD-467_lead_055",
+  "shape": "data_quality",
+  "claim": "Cyp2b10 and Apol11a are both downregulated and liver-specific, suggesting possible liver contamination in the control group.",
+  "rows": [
+   "Cyp2b10",
+   "Apol11a"
+  ],
+  "why_not_known": "Liver genes should not be highly expressed in muscle; their presence may indicate sample mix-up or contamination.",
+  "next_step": "BLAST reads mapping to Cyp2b10 to confirm tissue origin.",
+  "dataset": "OSD-467",
+  "table_facts": {
+   "Cyp2b10": {
+    "log2fc": -1.24,
+    "padj": 0.201918002535436,
+    "higher_group": "Normal Loading Control",
+    "carriers": "9/9",
+    "carrier_samples": [
+     "GSM5194612",
+     "GSM5194613",
+     "GSM5194615",
+     "GSM5194617",
+     "GSM5194618",
+     "GSM5194619",
+     "GSM5194621",
+     "GSM5194622",
+     "GSM5194635"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 9,
+     "Normal Loading Control": 13
+    }
+   },
+   "Apol11a": {
+    "log2fc": -1.34,
+    "padj": 0.208381030412437,
+    "higher_group": "Normal Loading Control",
+    "carriers": "9/9",
+    "carrier_samples": [
+     "GSM5194612",
+     "GSM5194613",
+     "GSM5194615",
+     "GSM5194617",
+     "GSM5194618",
+     "GSM5194619",
+     "GSM5194621",
+     "GSM5194622",
+     "GSM5194635"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 31,
+     "Normal Loading Control": 69
+    }
+   }
+  },
+  "label": "confound",
+  "label_note": "A=confound; B=underpowered; adjudicated: "
+ },
+ {
+  "id": "OSD-467_lead_058",
+  "shape": "data_quality",
+  "claim": "Rps11-ps2 is a pseudogene with stable expression (padj=0.99), supporting accurate detection of non-canonical transcripts.",
+  "rows": [
+   "Rps11-ps2"
+  ],
+  "why_not_known": "Pseudogenes are often mis-mapped; stable detection suggests good specificity.",
+  "next_step": "Check for cross-mapping between Rps11-ps2 and functional Rps11 via read alignment.",
+  "dataset": "OSD-467",
+  "table_facts": {
+   "Rps11-ps2": {
+    "log2fc": -0.03,
+    "padj": 0.993622060857728,
+    "higher_group": "Normal Loading Control",
+    "carriers": "9/9",
+    "carrier_samples": [
+     "GSM5194612",
+     "GSM5194613",
+     "GSM5194615",
+     "GSM5194617",
+     "GSM5194618",
+     "GSM5194619",
+     "GSM5194621",
+     "GSM5194622",
+     "GSM5194635"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 10,
+     "Normal Loading Control": 10
+    }
+   }
+  },
+  "label": "ok",
+  "label_note": "A=ok; B=underpowered; adjudicated: "
+ },
+ {
+  "id": "OSD-467_lead_056",
+  "shape": "data_quality",
+  "claim": "Glra3 is expressed in only 5 of 7 HU samples despite a padj of 0.98, suggesting low or sporadic expression that may be technical noise.",
+  "rows": [
+   "Glra3"
+  ],
+  "why_not_known": "Low carrier rate and non-significance indicate Glra3 signal may not be biologically meaningful.",
+  "next_step": "Filter out genes with <6 carriers in the higher group and reanalyze.",
+  "dataset": "OSD-467",
+  "table_facts": {
+   "Glra3": {
+    "log2fc": 0.17,
+    "padj": 0.98083752624645,
+    "higher_group": "Hindlimb Unloaded",
+    "carriers": "5/7",
+    "carrier_samples": [
+     "GSM5194620",
+     "GSM5194623",
+     "GSM5194626",
+     "GSM5194629",
+     "GSM5194632"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 2,
+     "Normal Loading Control": 3
+    }
+   }
+  },
+  "label": "confound",
+  "label_note": "A=confound; B=underpowered; adjudicated: "
+ },
+ {
+  "id": "OSD-467_lead_060",
+  "shape": "data_quality",
+  "claim": "All significant genes have carrier rates of 7/7 or 9/9 in their respective groups, indicating high reproducibility and low outlier dependence.",
+  "rows": [
+   "Hmga1b",
+   "Mss51",
+   "Gm11266",
+   "Rskr",
+   "Kcnq5",
+   "Pfkfb3",
+   "Pdia6"
+  ],
+  "why_not_known": "Perfect carrier rates reduce concern about false positives driven by single samples.",
+  "next_step": "Perform leave-one-out analysis to confirm stability of DE calls.",
+  "dataset": "OSD-467",
+  "table_facts": {
+   "Hmga1b": {
+    "log2fc": -5.1,
+    "padj": 0.0374471895826543,
+    "higher_group": "Normal Loading Control",
+    "carriers": "9/9",
+    "carrier_samples": [
+     "GSM5194612",
+     "GSM5194613",
+     "GSM5194615",
+     "GSM5194617",
+     "GSM5194618",
+     "GSM5194619",
+     "GSM5194621",
+     "GSM5194622",
+     "GSM5194635"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 9,
+     "Normal Loading Control": 321
+    }
+   },
+   "Mss51": {
+    "log2fc": 1.52,
+    "padj": 1.31089666036318e-06,
+    "higher_group": "Hindlimb Unloaded",
+    "carriers": "7/7",
+    "carrier_samples": [
+     "GSM5194614",
+     "GSM5194616",
+     "GSM5194620",
+     "GSM5194623",
+     "GSM5194626",
+     "GSM5194629",
+     "GSM5194632"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 1071,
+     "Normal Loading Control": 491
+    }
+   },
+   "Gm11266": {
+    "log2fc": 1.39,
+    "padj": 0.0177626619747637,
+    "higher_group": "Hindlimb Unloaded",
+    "carriers": "7/7",
+    "carrier_samples": [
+     "GSM5194614",
+     "GSM5194616",
+     "GSM5194620",
+     "GSM5194623",
+     "GSM5194626",
+     "GSM5194629",
+     "GSM5194632"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 112,
+     "Normal Loading Control": 45
+    }
+   },
+   "Rskr": {
+    "log2fc": -1.38,
+    "padj": 0.0307644669580156,
+    "higher_group": "Normal Loading Control",
+    "carriers": "9/9",
+    "carrier_samples": [
+     "GSM5194612",
+     "GSM5194613",
+     "GSM5194615",
+     "GSM5194617",
+     "GSM5194618",
+     "GSM5194619",
+     "GSM5194621",
+     "GSM5194622",
+     "GSM5194635"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 11,
+     "Normal Loading Control": 17
+    }
+   },
+   "Kcnq5": {
+    "log2fc": 0.99,
+    "padj": 0.0140853797953667,
+    "higher_group": "Hindlimb Unloaded",
+    "carriers": "7/7",
+    "carrier_samples": [
+     "GSM5194614",
+     "GSM5194616",
+     "GSM5194620",
+     "GSM5194623",
+     "GSM5194626",
+     "GSM5194629",
+     "GSM5194632"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 141,
+     "Normal Loading Control": 81
+    }
+   },
+   "Pfkfb3": {
+    "log2fc": 0.74,
+    "padj": 0.0104830446916998,
+    "higher_group": "Hindlimb Unloaded",
+    "carriers": "7/7",
+    "carrier_samples": [
+     "GSM5194614",
+     "GSM5194616",
+     "GSM5194620",
+     "GSM5194623",
+     "GSM5194626",
+     "GSM5194629",
+     "GSM5194632"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 2852,
+     "Normal Loading Control": 1885
+    }
+   },
+   "Pdia6": {
+    "log2fc": -0.41,
+    "padj": 0.002087334078516,
+    "higher_group": "Normal Loading Control",
+    "carriers": "9/9",
+    "carrier_samples": [
+     "GSM5194612",
+     "GSM5194613",
+     "GSM5194615",
+     "GSM5194617",
+     "GSM5194618",
+     "GSM5194619",
+     "GSM5194621",
+     "GSM5194622",
+     "GSM5194635"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 2397,
+     "Normal Loading Control": 2668
+    }
+   }
+  },
+  "label": "ok",
+  "label_note": "A=ok; B=underpowered; adjudicated: "
+ },
+ {
+  "id": "OSD-467_lead_025",
+  "shape": "family",
+  "claim": "Stfa1 and Stfa3 are co-upregulated in hindlimb unloaded mice with similar fold changes (+1.19 and +1.22) and both detected in all HU samples.",
+  "rows": [
+   "Stfa1",
+   "Stfa3"
+  ],
+  "why_not_known": "Stefins are cysteine protease inhibitors; their coordinated upregulation may indicate a specific proteolytic program in unloading.",
+  "next_step": "Promoter alignment to identify shared regulatory elements.",
+  "dataset": "OSD-467",
+  "table_facts": {
+   "Stfa1": {
+    "log2fc": 1.19,
+    "padj": 0.22974637943894,
+    "higher_group": "Hindlimb Unloaded",
+    "carriers": "7/7",
+    "carrier_samples": [
+     "GSM5194614",
+     "GSM5194616",
+     "GSM5194620",
+     "GSM5194623",
+     "GSM5194626",
+     "GSM5194629",
+     "GSM5194632"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 43,
+     "Normal Loading Control": 46
+    }
+   },
+   "Stfa3": {
+    "log2fc": 1.22,
+    "padj": 0.237201093711847,
+    "higher_group": "Hindlimb Unloaded",
+    "carriers": "7/7",
+    "carrier_samples": [
+     "GSM5194614",
+     "GSM5194616",
+     "GSM5194620",
+     "GSM5194623",
+     "GSM5194626",
+     "GSM5194629",
+     "GSM5194632"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 17,
+     "Normal Loading Control": 16
+    }
+   }
+  },
+  "label": "contradicted",
+  "label_note": "Both genes have padj > 0.05 (0.23 and 0.24), failing significance threshold."
+ },
+ {
+  "id": "OSD-467_lead_026",
+  "shape": "family",
+  "claim": "Apol11a and Cyp2b10 are both downregulated in control samples (padj<0.25) and carried by all 9 NLC mice, suggesting a shared regulatory mechanism.",
+  "rows": [
+   "Apol11a",
+   "Cyp2b10"
+  ],
+  "why_not_known": "Both are typically liver-specific; their co-expression here may indicate contamination or ectopic regulation.",
+  "next_step": "Check for albumin or transferrin expression as liver contamination markers.",
+  "dataset": "OSD-467",
+  "table_facts": {
+   "Apol11a": {
+    "log2fc": -1.34,
+    "padj": 0.208381030412437,
+    "higher_group": "Normal Loading Control",
+    "carriers": "9/9",
+    "carrier_samples": [
+     "GSM5194612",
+     "GSM5194613",
+     "GSM5194615",
+     "GSM5194617",
+     "GSM5194618",
+     "GSM5194619",
+     "GSM5194621",
+     "GSM5194622",
+     "GSM5194635"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 31,
+     "Normal Loading Control": 69
+    }
+   },
+   "Cyp2b10": {
+    "log2fc": -1.24,
+    "padj": 0.201918002535436,
+    "higher_group": "Normal Loading Control",
+    "carriers": "9/9",
+    "carrier_samples": [
+     "GSM5194612",
+     "GSM5194613",
+     "GSM5194615",
+     "GSM5194617",
+     "GSM5194618",
+     "GSM5194619",
+     "GSM5194621",
+     "GSM5194622",
+     "GSM5194635"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 9,
+     "Normal Loading Control": 13
+    }
+   }
+  },
+  "label": "confound",
+  "label_note": "A=confound; B=contradicted; adjudicated: "
+ },
+ {
+  "id": "OSD-467_lead_028",
+  "shape": "family",
+  "claim": "Mss51 and Pdia6 are both involved in mitochondrial or ER function and show opposite regulation (Mss51 up, Pdia6 down) in HU mice.",
+  "rows": [
+   "Mss51",
+   "Pdia6"
+  ],
+  "why_not_known": "Opposing regulation of organelle-related genes may reflect compartment-specific stress responses not previously mapped.",
+  "next_step": "Measure mitochondrial and ER morphology via electron microscopy in HU tissue.",
+  "dataset": "OSD-467",
+  "table_facts": {
+   "Mss51": {
+    "log2fc": 1.52,
+    "padj": 1.31089666036318e-06,
+    "higher_group": "Hindlimb Unloaded",
+    "carriers": "7/7",
+    "carrier_samples": [
+     "GSM5194614",
+     "GSM5194616",
+     "GSM5194620",
+     "GSM5194623",
+     "GSM5194626",
+     "GSM5194629",
+     "GSM5194632"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 1071,
+     "Normal Loading Control": 491
+    }
+   },
+   "Pdia6": {
+    "log2fc": -0.41,
+    "padj": 0.002087334078516,
+    "higher_group": "Normal Loading Control",
+    "carriers": "9/9",
+    "carrier_samples": [
+     "GSM5194612",
+     "GSM5194613",
+     "GSM5194615",
+     "GSM5194617",
+     "GSM5194618",
+     "GSM5194619",
+     "GSM5194621",
+     "GSM5194622",
+     "GSM5194635"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 2397,
+     "Normal Loading Control": 2668
+    }
+   }
+  },
+  "label": "ok",
+  "label_note": "The claim is supported by significant differential expression (Mss51 padj=1.3e-6, Pdia6 padj=0.002) with opposite directions and a concrete next step involving electron microscopy."
+ },
+ {
+  "id": "OSD-467_lead_030",
+  "shape": "family",
+  "claim": "Kcnq5 and Pfkfb3 are both upregulated in HU mice and detected in all 7 HU samples, suggesting a coordinated metabolic-excitability shift.",
+  "rows": [
+   "Kcnq5",
+   "Pfkfb3"
+  ],
+  "why_not_known": "No known pathway links potassium channel expression to glycolytic flux in muscle.",
+  "next_step": "Treat cultured myotubes with Pfkfb3 inhibitor and measure Kcnq5 expression.",
+  "dataset": "OSD-467",
+  "table_facts": {
+   "Kcnq5": {
+    "log2fc": 0.99,
+    "padj": 0.0140853797953667,
+    "higher_group": "Hindlimb Unloaded",
+    "carriers": "7/7",
+    "carrier_samples": [
+     "GSM5194614",
+     "GSM5194616",
+     "GSM5194620",
+     "GSM5194623",
+     "GSM5194626",
+     "GSM5194629",
+     "GSM5194632"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 141,
+     "Normal Loading Control": 81
+    }
+   },
+   "Pfkfb3": {
+    "log2fc": 0.74,
+    "padj": 0.0104830446916998,
+    "higher_group": "Hindlimb Unloaded",
+    "carriers": "7/7",
+    "carrier_samples": [
+     "GSM5194614",
+     "GSM5194616",
+     "GSM5194620",
+     "GSM5194623",
+     "GSM5194626",
+     "GSM5194629",
+     "GSM5194632"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 2852,
+     "Normal Loading Control": 1885
+    }
+   }
+  },
+  "label": "ok",
+  "label_note": "Both genes show significant upregulation (padj < 0.05) with high expression (mean counts > 20) in all HU samples, and the proposed mechanism linking potassium channels to glycolytic flux is novel with a concrete experimental follow-up."
+ },
+ {
+  "id": "OSD-467_lead_032",
+  "shape": "family",
+  "claim": "Extl2 and Pdia6 are both involved in glycosylation or disulfide bond formation and show opposite regulation in HU mice.",
+  "rows": [
+   "Extl2",
+   "Pdia6"
+  ],
+  "why_not_known": "Extracellular matrix and ER processing are linked, but their divergent regulation under unloading is unreported.",
+  "next_step": "Assess N-glycosylation status of secreted proteins in HU tissue.",
+  "dataset": "OSD-467",
+  "table_facts": {
+   "Extl2": {
+    "log2fc": 0.29,
+    "padj": 0.798783547171247,
+    "higher_group": "Hindlimb Unloaded",
+    "carriers": "7/7",
+    "carrier_samples": [
+     "GSM5194614",
+     "GSM5194616",
+     "GSM5194620",
+     "GSM5194623",
+     "GSM5194626",
+     "GSM5194629",
+     "GSM5194632"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 406,
+     "Normal Loading Control": 288
+    }
+   },
+   "Pdia6": {
+    "log2fc": -0.41,
+    "padj": 0.002087334078516,
+    "higher_group": "Normal Loading Control",
+    "carriers": "9/9",
+    "carrier_samples": [
+     "GSM5194612",
+     "GSM5194613",
+     "GSM5194615",
+     "GSM5194617",
+     "GSM5194618",
+     "GSM5194619",
+     "GSM5194621",
+     "GSM5194622",
+     "GSM5194635"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 2397,
+     "Normal Loading Control": 2668
+    }
+   }
+  },
+  "label": "contradicted",
+  "label_note": "Extl2 has padj=0.80 > 0.05, so it is not significantly differentially expressed despite the claim."
+ },
+ {
+  "id": "OSD-467_lead_047",
+  "shape": "global",
+  "claim": "The median |log2fc| among significant genes is 1.38, suggesting moderate to strong effect sizes on average.",
+  "rows": [
+   "Hmga1b",
+   "Mss51",
+   "Gm11266",
+   "Rskr",
+   "Kcnq5",
+   "Pfkfb3",
+   "Pdia6"
+  ],
+  "why_not_known": "Median effect size is high for transcriptomic studies, which often have smaller fold changes.",
+  "next_step": "Compare median |log2fc| to other published HU datasets.",
+  "dataset": "OSD-467",
+  "table_facts": {
+   "Hmga1b": {
+    "log2fc": -5.1,
+    "padj": 0.0374471895826543,
+    "higher_group": "Normal Loading Control",
+    "carriers": "9/9",
+    "carrier_samples": [
+     "GSM5194612",
+     "GSM5194613",
+     "GSM5194615",
+     "GSM5194617",
+     "GSM5194618",
+     "GSM5194619",
+     "GSM5194621",
+     "GSM5194622",
+     "GSM5194635"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 9,
+     "Normal Loading Control": 321
+    }
+   },
+   "Mss51": {
+    "log2fc": 1.52,
+    "padj": 1.31089666036318e-06,
+    "higher_group": "Hindlimb Unloaded",
+    "carriers": "7/7",
+    "carrier_samples": [
+     "GSM5194614",
+     "GSM5194616",
+     "GSM5194620",
+     "GSM5194623",
+     "GSM5194626",
+     "GSM5194629",
+     "GSM5194632"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 1071,
+     "Normal Loading Control": 491
+    }
+   },
+   "Gm11266": {
+    "log2fc": 1.39,
+    "padj": 0.0177626619747637,
+    "higher_group": "Hindlimb Unloaded",
+    "carriers": "7/7",
+    "carrier_samples": [
+     "GSM5194614",
+     "GSM5194616",
+     "GSM5194620",
+     "GSM5194623",
+     "GSM5194626",
+     "GSM5194629",
+     "GSM5194632"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 112,
+     "Normal Loading Control": 45
+    }
+   },
+   "Rskr": {
+    "log2fc": -1.38,
+    "padj": 0.0307644669580156,
+    "higher_group": "Normal Loading Control",
+    "carriers": "9/9",
+    "carrier_samples": [
+     "GSM5194612",
+     "GSM5194613",
+     "GSM5194615",
+     "GSM5194617",
+     "GSM5194618",
+     "GSM5194619",
+     "GSM5194621",
+     "GSM5194622",
+     "GSM5194635"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 11,
+     "Normal Loading Control": 17
+    }
+   },
+   "Kcnq5": {
+    "log2fc": 0.99,
+    "padj": 0.0140853797953667,
+    "higher_group": "Hindlimb Unloaded",
+    "carriers": "7/7",
+    "carrier_samples": [
+     "GSM5194614",
+     "GSM5194616",
+     "GSM5194620",
+     "GSM5194623",
+     "GSM5194626",
+     "GSM5194629",
+     "GSM5194632"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 141,
+     "Normal Loading Control": 81
+    }
+   },
+   "Pfkfb3": {
+    "log2fc": 0.74,
+    "padj": 0.0104830446916998,
+    "higher_group": "Hindlimb Unloaded",
+    "carriers": "7/7",
+    "carrier_samples": [
+     "GSM5194614",
+     "GSM5194616",
+     "GSM5194620",
+     "GSM5194623",
+     "GSM5194626",
+     "GSM5194629",
+     "GSM5194632"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 2852,
+     "Normal Loading Control": 1885
+    }
+   },
+   "Pdia6": {
+    "log2fc": -0.41,
+    "padj": 0.002087334078516,
+    "higher_group": "Normal Loading Control",
+    "carriers": "9/9",
+    "carrier_samples": [
+     "GSM5194612",
+     "GSM5194613",
+     "GSM5194615",
+     "GSM5194617",
+     "GSM5194618",
+     "GSM5194619",
+     "GSM5194621",
+     "GSM5194622",
+     "GSM5194635"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 2397,
+     "Normal Loading Control": 2668
+    }
+   }
+  },
+  "label": "untestable",
+  "label_note": "A=untestable; B=invalid; adjudicated: "
+ },
+ {
+  "id": "OSD-467_lead_046",
+  "shape": "global",
+  "claim": "4 out of 7 significant genes show at least 2-fold change, indicating that most significant hits are biologically substantial.",
+  "rows": [
+   "Hmga1b",
+   "Mss51",
+   "Gm11266",
+   "Rskr"
+  ],
+  "why_not_known": "High proportion of large-effect genes is unusual; may reflect strong drivers or selection bias.",
+  "next_step": "Compare effect size distribution to other HU studies.",
+  "dataset": "OSD-467",
+  "table_facts": {
+   "Hmga1b": {
+    "log2fc": -5.1,
+    "padj": 0.0374471895826543,
+    "higher_group": "Normal Loading Control",
+    "carriers": "9/9",
+    "carrier_samples": [
+     "GSM5194612",
+     "GSM5194613",
+     "GSM5194615",
+     "GSM5194617",
+     "GSM5194618",
+     "GSM5194619",
+     "GSM5194621",
+     "GSM5194622",
+     "GSM5194635"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 9,
+     "Normal Loading Control": 321
+    }
+   },
+   "Mss51": {
+    "log2fc": 1.52,
+    "padj": 1.31089666036318e-06,
+    "higher_group": "Hindlimb Unloaded",
+    "carriers": "7/7",
+    "carrier_samples": [
+     "GSM5194614",
+     "GSM5194616",
+     "GSM5194620",
+     "GSM5194623",
+     "GSM5194626",
+     "GSM5194629",
+     "GSM5194632"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 1071,
+     "Normal Loading Control": 491
+    }
+   },
+   "Gm11266": {
+    "log2fc": 1.39,
+    "padj": 0.0177626619747637,
+    "higher_group": "Hindlimb Unloaded",
+    "carriers": "7/7",
+    "carrier_samples": [
+     "GSM5194614",
+     "GSM5194616",
+     "GSM5194620",
+     "GSM5194623",
+     "GSM5194626",
+     "GSM5194629",
+     "GSM5194632"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 112,
+     "Normal Loading Control": 45
+    }
+   },
+   "Rskr": {
+    "log2fc": -1.38,
+    "padj": 0.0307644669580156,
+    "higher_group": "Normal Loading Control",
+    "carriers": "9/9",
+    "carrier_samples": [
+     "GSM5194612",
+     "GSM5194613",
+     "GSM5194615",
+     "GSM5194617",
+     "GSM5194618",
+     "GSM5194619",
+     "GSM5194621",
+     "GSM5194622",
+     "GSM5194635"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 11,
+     "Normal Loading Control": 17
+    }
+   }
+  },
+  "label": "underpowered",
+  "label_note": "A=underpowered; B=invalid; adjudicated: "
+ },
+ {
+  "id": "OSD-467_lead_051",
+  "shape": "global",
+  "claim": "Borderline genes (0.05 <= padj < 0.25) include several with large fold changes (e.g., Calm4 +2.07), suggesting possible false negatives.",
+  "rows": [
+   "Calm4",
+   "Apol11a",
+   "Cyp2b10",
+   "Stfa3",
+   "Stfa1"
+  ],
+  "why_not_known": "High fold changes with borderline significance may reflect low power rather than absence of effect.",
+  "next_step": "Increase sample size and retest these genes.",
+  "dataset": "OSD-467",
+  "table_facts": {
+   "Calm4": {
+    "log2fc": 2.07,
+    "padj": 0.242175654822727,
+    "higher_group": "Hindlimb Unloaded",
+    "carriers": "6/7",
+    "carrier_samples": [
+     "GSM5194614",
+     "GSM5194620",
+     "GSM5194623",
+     "GSM5194626",
+     "GSM5194629",
+     "GSM5194632"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 12,
+     "Normal Loading Control": 4
+    }
+   },
+   "Apol11a": {
+    "log2fc": -1.34,
+    "padj": 0.208381030412437,
+    "higher_group": "Normal Loading Control",
+    "carriers": "9/9",
+    "carrier_samples": [
+     "GSM5194612",
+     "GSM5194613",
+     "GSM5194615",
+     "GSM5194617",
+     "GSM5194618",
+     "GSM5194619",
+     "GSM5194621",
+     "GSM5194622",
+     "GSM5194635"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 31,
+     "Normal Loading Control": 69
+    }
+   },
+   "Cyp2b10": {
+    "log2fc": -1.24,
+    "padj": 0.201918002535436,
+    "higher_group": "Normal Loading Control",
+    "carriers": "9/9",
+    "carrier_samples": [
+     "GSM5194612",
+     "GSM5194613",
+     "GSM5194615",
+     "GSM5194617",
+     "GSM5194618",
+     "GSM5194619",
+     "GSM5194621",
+     "GSM5194622",
+     "GSM5194635"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 9,
+     "Normal Loading Control": 13
+    }
+   },
+   "Stfa3": {
+    "log2fc": 1.22,
+    "padj": 0.237201093711847,
+    "higher_group": "Hindlimb Unloaded",
+    "carriers": "7/7",
+    "carrier_samples": [
+     "GSM5194614",
+     "GSM5194616",
+     "GSM5194620",
+     "GSM5194623",
+     "GSM5194626",
+     "GSM5194629",
+     "GSM5194632"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 17,
+     "Normal Loading Control": 16
+    }
+   },
+   "Stfa1": {
+    "log2fc": 1.19,
+    "padj": 0.22974637943894,
+    "higher_group": "Hindlimb Unloaded",
+    "carriers": "7/7",
+    "carrier_samples": [
+     "GSM5194614",
+     "GSM5194616",
+     "GSM5194620",
+     "GSM5194623",
+     "GSM5194626",
+     "GSM5194629",
+     "GSM5194632"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 43,
+     "Normal Loading Control": 46
+    }
+   }
+  },
+  "label": "underpowered",
+  "label_note": "Calm4 has mean count of only 12 in the higher group, below the 20 threshold for adequate power."
+ },
+ {
+  "id": "OSD-467_lead_050",
+  "shape": "global",
+  "claim": "The most downregulated gene (Hmga1b, log2fc=-5.10) exceeds the most upregulated (Mss51, +1.52) in magnitude, suggesting asymmetric regulation.",
+  "rows": [
+   "Hmga1b",
+   "Mss51"
+  ],
+  "why_not_known": "Transcriptional responses often show symmetric fold changes; this skew may indicate repressive dominance.",
+  "next_step": "Analyze promoter motifs for enrichment of repressor binding sites.",
+  "dataset": "OSD-467",
+  "table_facts": {
+   "Hmga1b": {
+    "log2fc": -5.1,
+    "padj": 0.0374471895826543,
+    "higher_group": "Normal Loading Control",
+    "carriers": "9/9",
+    "carrier_samples": [
+     "GSM5194612",
+     "GSM5194613",
+     "GSM5194615",
+     "GSM5194617",
+     "GSM5194618",
+     "GSM5194619",
+     "GSM5194621",
+     "GSM5194622",
+     "GSM5194635"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 9,
+     "Normal Loading Control": 321
+    }
+   },
+   "Mss51": {
+    "log2fc": 1.52,
+    "padj": 1.31089666036318e-06,
+    "higher_group": "Hindlimb Unloaded",
+    "carriers": "7/7",
+    "carrier_samples": [
+     "GSM5194614",
+     "GSM5194616",
+     "GSM5194620",
+     "GSM5194623",
+     "GSM5194626",
+     "GSM5194629",
+     "GSM5194632"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 1071,
+     "Normal Loading Control": 491
+    }
+   }
+  },
+  "label": "ok",
+  "label_note": "The claim of asymmetric regulation is supported by the data (largest downregulation -5.1 vs largest upregulation +1.52) and includes a concrete next step to analyze promoter motifs."
+ },
+ {
+  "id": "OSD-467_lead_039",
+  "shape": "pathway",
+  "claim": "Glycolysis may be upregulated in HU mice due to Pfkfb3 induction, a key regulator of fructose-2,6-bisphosphate levels.",
+  "rows": [
+   "Pfkfb3"
+  ],
+  "why_not_known": "Pfkfb3 promotes glycolysis, but flux depends on other enzymes; this is indirect evidence.",
+  "next_step": "Measure fructose-2,6-bisphosphate levels in HU muscle.",
+  "dataset": "OSD-467",
+  "table_facts": {
+   "Pfkfb3": {
+    "log2fc": 0.74,
+    "padj": 0.0104830446916998,
+    "higher_group": "Hindlimb Unloaded",
+    "carriers": "7/7",
+    "carrier_samples": [
+     "GSM5194614",
+     "GSM5194616",
+     "GSM5194620",
+     "GSM5194623",
+     "GSM5194626",
+     "GSM5194629",
+     "GSM5194632"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 2852,
+     "Normal Loading Control": 1885
+    }
+   }
+  },
+  "label": "ok",
+  "label_note": "Pfkfb3 is significantly upregulated (log2fc=0.74, padj=0.01) with high expression (mean count 2852) and all 7 HU samples show induction, supporting the glycolysis hypothesis with a concrete next step to measure metabolite levels."
+ },
+ {
+  "id": "OSD-467_lead_041",
+  "shape": "pathway",
+  "claim": "Cysteine-type endopeptidase inhibition (via Stfa1 and Stfa3 upregulation) may be enhanced in HU mice.",
+  "rows": [
+   "Stfa1",
+   "Stfa3"
+  ],
+  "why_not_known": "Stefins inhibit cathepsins, but their role in muscle proteolysis is not established.",
+  "next_step": "Measure cathepsin activity in HU vs control lysates.",
+  "dataset": "OSD-467",
+  "table_facts": {
+   "Stfa1": {
+    "log2fc": 1.19,
+    "padj": 0.22974637943894,
+    "higher_group": "Hindlimb Unloaded",
+    "carriers": "7/7",
+    "carrier_samples": [
+     "GSM5194614",
+     "GSM5194616",
+     "GSM5194620",
+     "GSM5194623",
+     "GSM5194626",
+     "GSM5194629",
+     "GSM5194632"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 43,
+     "Normal Loading Control": 46
+    }
+   },
+   "Stfa3": {
+    "log2fc": 1.22,
+    "padj": 0.237201093711847,
+    "higher_group": "Hindlimb Unloaded",
+    "carriers": "7/7",
+    "carrier_samples": [
+     "GSM5194614",
+     "GSM5194616",
+     "GSM5194620",
+     "GSM5194623",
+     "GSM5194626",
+     "GSM5194629",
+     "GSM5194632"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 17,
+     "Normal Loading Control": 16
+    }
+   }
+  },
+  "label": "contradicted",
+  "label_note": "Both Stfa1 and Stfa3 have padj > 0.05 (0.23 and 0.24 respectively), failing statistical significance."
+ },
+ {
+  "id": "OSD-467_lead_035",
+  "shape": "pathway",
+  "claim": "Genes annotated with 'cellular process' (GO:0009987) are enriched among differentially expressed genes, with 3 out of 6388 significant (2 up, 1 down).",
+  "rows": [
+   "GO:0009987"
+  ],
+  "why_not_known": "This broad term is expected to be enriched by chance; the specific 1.6x increase needs validation.",
+  "next_step": "Perform gene set enrichment analysis (GSEA) using full ranked list.",
+  "dataset": "OSD-467",
+  "table_facts": {
+   "GO:0009987": {
+    "name": "cellular process",
+    "genes_in_term": 6388,
+    "significant": 3,
+    "up": 2,
+    "down": 1,
+    "enrichment_vs_baseline": 1.61
+   }
+  },
+  "label": "untestable",
+  "label_note": "A=untestable; B=ok; adjudicated: "
+ },
+ {
+  "id": "OSD-467_lead_038",
+  "shape": "pathway",
+  "claim": "ER protein processing (via Pdia6 downregulation) is reduced in HU mice, potentially impairing secretory capacity.",
+  "rows": [
+   "Pdia6"
+  ],
+  "why_not_known": "Pdia6 is one of many chaperones; its downregulation alone does not confirm pathway suppression.",
+  "next_step": "Assess global disulfide bond formation in secreted proteins.",
+  "dataset": "OSD-467",
+  "table_facts": {
+   "Pdia6": {
+    "log2fc": -0.41,
+    "padj": 0.002087334078516,
+    "higher_group": "Normal Loading Control",
+    "carriers": "9/9",
+    "carrier_samples": [
+     "GSM5194612",
+     "GSM5194613",
+     "GSM5194615",
+     "GSM5194617",
+     "GSM5194618",
+     "GSM5194619",
+     "GSM5194621",
+     "GSM5194622",
+     "GSM5194635"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 2397,
+     "Normal Loading Control": 2668
+    }
+   }
+  },
+  "label": "ok",
+  "label_note": "The claim is supported by significant downregulation (padj=0.002) with full carrier consistency (9/9) and high expression (mean count 2668), and proposes a concrete mechanism test."
+ },
+ {
+  "id": "OSD-467_lead_037",
+  "shape": "pathway",
+  "claim": "Mitochondrial translation (inferred from Mss51 upregulation) may be increased in HU mice despite overall atrophy.",
+  "rows": [
+   "Mss51"
+  ],
+  "why_not_known": "Atrophy typically reduces mitochondrial content; increased translational activation is paradoxical.",
+  "next_step": "Measure mitochondrial ribosomal RNA levels in HU tissue.",
+  "dataset": "OSD-467",
+  "table_facts": {
+   "Mss51": {
+    "log2fc": 1.52,
+    "padj": 1.31089666036318e-06,
+    "higher_group": "Hindlimb Unloaded",
+    "carriers": "7/7",
+    "carrier_samples": [
+     "GSM5194614",
+     "GSM5194616",
+     "GSM5194620",
+     "GSM5194623",
+     "GSM5194626",
+     "GSM5194629",
+     "GSM5194632"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 1071,
+     "Normal Loading Control": 491
+    }
+   }
+  },
+  "label": "ok",
+  "label_note": "The claim is supported by strong evidence (log2fc=1.52, padj=1.3e-06, 7/7 carriers) and presents a paradoxical finding with a concrete next step to measure mitochondrial ribosomal RNA."
+ },
+ {
+  "id": "OSD-467_lead_015",
+  "shape": "single_gene",
+  "claim": "Meiosin is slightly downregulated (log2fc=-0.50, padj=0.93) in HU mice, detected in 8 of 9 control samples.",
+  "rows": [
+   "Meiosin"
+  ],
+  "why_not_known": "Meiosin initiates meiosis and should not be expressed in somatic muscle tissue; signal may be spurious.",
+  "next_step": "Check for germline cell contamination in RNA samples via Dazl or Sycp3 qPCR.",
+  "dataset": "OSD-467",
+  "table_facts": {
+   "Meiosin": {
+    "log2fc": -0.5,
+    "padj": 0.930120648730538,
+    "higher_group": "Normal Loading Control",
+    "carriers": "8/9",
+    "carrier_samples": [
+     "GSM5194612",
+     "GSM5194615",
+     "GSM5194617",
+     "GSM5194618",
+     "GSM5194619",
+     "GSM5194621",
+     "GSM5194622",
+     "GSM5194635"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 3,
+     "Normal Loading Control": 5
+    }
+   }
+  },
+  "label": "confound",
+  "label_note": "A=confound; B=underpowered; adjudicated: "
+ },
+ {
+  "id": "OSD-467_lead_010",
+  "shape": "single_gene",
+  "claim": "Cyp2b10 is downregulated in hindlimb unloaded mice with a log2fc of -1.24 and padj=0.20, present in all 9 control samples.",
+  "rows": [
+   "Cyp2b10"
+  ],
+  "why_not_known": "Cyp2b10 is primarily hepatic and xenobiotic-metabolizing; its expression in this context is unexplained.",
+  "next_step": "Check for liver contamination in RNA-seq samples via albumin or other liver-specific transcripts.",
+  "dataset": "OSD-467",
+  "table_facts": {
+   "Cyp2b10": {
+    "log2fc": -1.24,
+    "padj": 0.201918002535436,
+    "higher_group": "Normal Loading Control",
+    "carriers": "9/9",
+    "carrier_samples": [
+     "GSM5194612",
+     "GSM5194613",
+     "GSM5194615",
+     "GSM5194617",
+     "GSM5194618",
+     "GSM5194619",
+     "GSM5194621",
+     "GSM5194622",
+     "GSM5194635"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 9,
+     "Normal Loading Control": 13
+    }
+   }
+  },
+  "label": "contradicted",
+  "label_note": "A=contradicted; B=underpowered; adjudicated: "
+ },
+ {
+  "id": "OSD-467_lead_001",
+  "shape": "single_gene",
+  "claim": "Hmga1b expression is lower in hindlimb unloaded mice, with a log2 fold change of -5.10 and detected in all 9 control samples.",
+  "rows": [
+   "Hmga1b"
+  ],
+  "why_not_known": "This large downregulation in a mechanical unloading context has not been previously tied to Hmga1b in muscle or bone studies.",
+  "next_step": "qPCR validation in independent HU samples.",
+  "dataset": "OSD-467",
+  "table_facts": {
+   "Hmga1b": {
+    "log2fc": -5.1,
+    "padj": 0.0374471895826543,
+    "higher_group": "Normal Loading Control",
+    "carriers": "9/9",
+    "carrier_samples": [
+     "GSM5194612",
+     "GSM5194613",
+     "GSM5194615",
+     "GSM5194617",
+     "GSM5194618",
+     "GSM5194619",
+     "GSM5194621",
+     "GSM5194622",
+     "GSM5194635"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 9,
+     "Normal Loading Control": 321
+    }
+   }
+  },
+  "label": "underpowered",
+  "label_note": "A=underpowered; B=ok; adjudicated: "
+ },
+ {
+  "id": "OSD-467_lead_022",
+  "shape": "single_gene",
+  "claim": "Kcnq5 is upregulated (log2fc=+0.99) despite being a neuronal-type potassium channel, suggesting ectopic expression or neuronal infiltration.",
+  "rows": [
+   "Kcnq5"
+  ],
+  "why_not_known": "Kcnq5 is not typically expressed in skeletal muscle, so its regulation here may reflect non-cell-autonomous effects.",
+  "next_step": "Laser capture microdissection of muscle fibers followed by qPCR for Kcnq5.",
+  "dataset": "OSD-467",
+  "table_facts": {
+   "Kcnq5": {
+    "log2fc": 0.99,
+    "padj": 0.0140853797953667,
+    "higher_group": "Hindlimb Unloaded",
+    "carriers": "7/7",
+    "carrier_samples": [
+     "GSM5194614",
+     "GSM5194616",
+     "GSM5194620",
+     "GSM5194623",
+     "GSM5194626",
+     "GSM5194629",
+     "GSM5194632"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 141,
+     "Normal Loading Control": 81
+    }
+   }
+  },
+  "label": "ok",
+  "label_note": "The gene is significantly upregulated (padj=0.014) with strong expression (mean count=141) and all 7/7 carriers, and the claim proposes a novel mechanism (ectopic expression/neuronal infiltration) with a concrete next step (laser capture microdissection)."
+ },
+ {
+  "id": "OSD-467_lead_012",
+  "shape": "single_gene",
+  "claim": "Stfa1 is upregulated in hindlimb unloaded mice with a log2fc of +1.19 and padj=0.23, present in all 7 HU samples.",
+  "rows": [
+   "Stfa1"
+  ],
+  "why_not_known": "Like Stfa3, Stfa1 is a cysteine protease inhibitor with no known role in mechanical unloading.",
+  "next_step": "Co-expression analysis with known atrophy markers like MuRF1.",
+  "dataset": "OSD-467",
+  "table_facts": {
+   "Stfa1": {
+    "log2fc": 1.19,
+    "padj": 0.22974637943894,
+    "higher_group": "Hindlimb Unloaded",
+    "carriers": "7/7",
+    "carrier_samples": [
+     "GSM5194614",
+     "GSM5194616",
+     "GSM5194620",
+     "GSM5194623",
+     "GSM5194626",
+     "GSM5194629",
+     "GSM5194632"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 43,
+     "Normal Loading Control": 46
+    }
+   }
+  },
+  "label": "contradicted",
+  "label_note": "A=contradicted; B=ok; adjudicated: "
+ },
+ {
+  "id": "OSD-467_lead_003",
+  "shape": "single_gene",
+  "claim": "Gm11266 shows increased expression in hindlimb unloaded mice with a log2fc of +1.39, detected in all 7 HU samples.",
+  "rows": [
+   "Gm11266"
+  ],
+  "why_not_known": "Gm11266 is a predicted gene with no known function, so its response to unloading is novel.",
+  "next_step": "CRISPRi knockdown in vitro to assess phenotypic effects under simulated unloading.",
+  "dataset": "OSD-467",
+  "table_facts": {
+   "Gm11266": {
+    "log2fc": 1.39,
+    "padj": 0.0177626619747637,
+    "higher_group": "Hindlimb Unloaded",
+    "carriers": "7/7",
+    "carrier_samples": [
+     "GSM5194614",
+     "GSM5194616",
+     "GSM5194620",
+     "GSM5194623",
+     "GSM5194626",
+     "GSM5194629",
+     "GSM5194632"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 112,
+     "Normal Loading Control": 45
+    }
+   }
+  },
+  "label": "no_mechanism",
+  "label_note": "Gm11266 is a predicted gene with no known function and no mechanism is offered, despite significant expression change."
+ },
+ {
+  "id": "OSD-467_lead_013",
+  "shape": "single_gene",
+  "claim": "Rps11-ps2 shows no change in expression (log2fc=-0.03, padj=0.99), expressed in all 9 control samples.",
+  "rows": [
+   "Rps11-ps2"
+  ],
+  "why_not_known": "Pseudogenes are often assumed to be inactive, but this one is expressed and stable under unloading.",
+  "next_step": "Assess genomic DNA copy number to rule out pseudogene amplification.",
+  "dataset": "OSD-467",
+  "table_facts": {
+   "Rps11-ps2": {
+    "log2fc": -0.03,
+    "padj": 0.993622060857728,
+    "higher_group": "Normal Loading Control",
+    "carriers": "9/9",
+    "carrier_samples": [
+     "GSM5194612",
+     "GSM5194613",
+     "GSM5194615",
+     "GSM5194617",
+     "GSM5194618",
+     "GSM5194619",
+     "GSM5194621",
+     "GSM5194622",
+     "GSM5194635"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 10,
+     "Normal Loading Control": 10
+    }
+   }
+  },
+  "label": "ok",
+  "label_note": "A=ok; B=underpowered; adjudicated: "
+ },
+ {
+  "id": "OSD-467_lead_004",
+  "shape": "single_gene",
+  "claim": "Rskr is downregulated in hindlimb unloaded mice with a log2fc of -1.38, observed in all 9 control samples.",
+  "rows": [
+   "Rskr"
+  ],
+  "why_not_known": "Rskr is poorly characterized and its downregulation during unloading has not been documented.",
+  "next_step": "Assess ribosomal protein phosphorylation status in HU tissue.",
+  "dataset": "OSD-467",
+  "table_facts": {
+   "Rskr": {
+    "log2fc": -1.38,
+    "padj": 0.0307644669580156,
+    "higher_group": "Normal Loading Control",
+    "carriers": "9/9",
+    "carrier_samples": [
+     "GSM5194612",
+     "GSM5194613",
+     "GSM5194615",
+     "GSM5194617",
+     "GSM5194618",
+     "GSM5194619",
+     "GSM5194621",
+     "GSM5194622",
+     "GSM5194635"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 11,
+     "Normal Loading Control": 17
+    }
+   }
+  },
+  "label": "underpowered",
+  "label_note": "Mean count in the higher group (Normal Loading Control) is 17, which is below the 20 threshold."
+ },
+ {
+  "id": "OSD-467_lead_019",
+  "shape": "single_gene",
+  "claim": "Mss51 has the highest statistical confidence (padj=1.3e-06) among all differentially expressed genes in the HU vs NLC comparison.",
+  "rows": [
+   "Mss51"
+  ],
+  "why_not_known": "Despite high confidence, Mss51's mitochondrial role makes its upregulation under atrophy conditions surprising.",
+  "next_step": "Measure mitochondrial DNA copy number in HU samples.",
+  "dataset": "OSD-467",
+  "table_facts": {
+   "Mss51": {
+    "log2fc": 1.52,
+    "padj": 1.31089666036318e-06,
+    "higher_group": "Hindlimb Unloaded",
+    "carriers": "7/7",
+    "carrier_samples": [
+     "GSM5194614",
+     "GSM5194616",
+     "GSM5194620",
+     "GSM5194623",
+     "GSM5194626",
+     "GSM5194629",
+     "GSM5194632"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 1071,
+     "Normal Loading Control": 491
+    }
+   }
+  },
+  "label": "ok",
+  "label_note": "Mss51 shows strong statistical support (padj=1.3e-06, log2fc=1.52, 7/7 carriers) and a concrete mitochondrial mechanism with a specific next step to test DNA copy number."
+ },
+ {
+  "id": "OSD-467_lead_020",
+  "shape": "single_gene",
+  "claim": "Pfkfb3 has the highest mean expression among significantly upregulated genes (mean_count_in_HU=2852) in HU mice.",
+  "rows": [
+   "Pfkfb3"
+  ],
+  "why_not_known": "High expression of a glycolytic regulator in unloaded muscle may indicate a metabolic shift not previously emphasized.",
+  "next_step": "Perform metabolic flux analysis in isolated muscle fibers.",
+  "dataset": "OSD-467",
+  "table_facts": {
+   "Pfkfb3": {
+    "log2fc": 0.74,
+    "padj": 0.0104830446916998,
+    "higher_group": "Hindlimb Unloaded",
+    "carriers": "7/7",
+    "carrier_samples": [
+     "GSM5194614",
+     "GSM5194616",
+     "GSM5194620",
+     "GSM5194623",
+     "GSM5194626",
+     "GSM5194629",
+     "GSM5194632"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 2852,
+     "Normal Loading Control": 1885
+    }
+   }
+  },
+  "label": "ok",
+  "label_note": "Pfkfb3 shows strong upregulation (log2fc=0.74, padj=0.01) with high expression (2852 counts) and full carrier support (7/7), suggesting a novel metabolic shift in unloaded muscle."
+ },
+ {
+  "id": "OSD-467_lead_007",
+  "shape": "single_gene",
+  "claim": "Pdia6 is downregulated in hindlimb unloaded mice with a log2fc of -0.41, present in all 9 control samples.",
+  "rows": [
+   "Pdia6"
+  ],
+  "why_not_known": "Pdia6 is involved in ER stress, and its downregulation suggests reduced protein folding demand, which is counterintuitive in atrophy.",
+  "next_step": "Assay for ER stress markers like BiP and XBP1 splicing in HU samples.",
+  "dataset": "OSD-467",
+  "table_facts": {
+   "Pdia6": {
+    "log2fc": -0.41,
+    "padj": 0.002087334078516,
+    "higher_group": "Normal Loading Control",
+    "carriers": "9/9",
+    "carrier_samples": [
+     "GSM5194612",
+     "GSM5194613",
+     "GSM5194615",
+     "GSM5194617",
+     "GSM5194618",
+     "GSM5194619",
+     "GSM5194621",
+     "GSM5194622",
+     "GSM5194635"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 2397,
+     "Normal Loading Control": 2668
+    }
+   }
+  },
+  "label": "ok",
+  "label_note": "The gene is significantly downregulated (padj=0.002) with high expression (mean count >2000) and present in all control samples, and the ER stress mechanism provides a testable hypothesis."
+ },
+ {
+  "id": "OSD-467_lead_021",
+  "shape": "single_gene",
+  "claim": "Pdia6 is the only significantly downregulated gene with a mean count above 1000 in controls (2668), suggesting high baseline expression.",
+  "rows": [
+   "Pdia6"
+  ],
+  "why_not_known": "The functional impact of losing a highly expressed ER chaperone in unloading is unknown.",
+  "next_step": "Assess global protein secretion rates in HU muscle explants.",
+  "dataset": "OSD-467",
+  "table_facts": {
+   "Pdia6": {
+    "log2fc": -0.41,
+    "padj": 0.002087334078516,
+    "higher_group": "Normal Loading Control",
+    "carriers": "9/9",
+    "carrier_samples": [
+     "GSM5194612",
+     "GSM5194613",
+     "GSM5194615",
+     "GSM5194617",
+     "GSM5194618",
+     "GSM5194619",
+     "GSM5194621",
+     "GSM5194622",
+     "GSM5194635"
+    ],
+    "mean_count": {
+     "Hindlimb Unloaded": 2397,
+     "Normal Loading Control": 2668
+    }
+   }
+  },
+  "label": "ok",
+  "label_note": "The gene is significantly downregulated (padj=0.002) with high expression in controls and a concrete next step to assess protein secretion."
  }
 ]
