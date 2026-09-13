@@ -1,7 +1,7 @@
 {
  "dataset": "OSD-421",
  "summary": "Dataset: OSD-421_differential_expression.csv\nContrast: Space Flight (SF) vs Ground Control (GC); +log2fc = higher in Space Flight. n=11 Space Flight, n=9 Ground Control.\nGenes tested: 22978. Significant at FDR<0.05: 1255 (521 up, 734 down); 651 of those change >=2-fold (252 up, 399 down).\nMedian |log2fc| among significant genes: 1.04.\n\n## Top 25 by fold change (carriers = samples in the higher group with count > 1)\n- H2bc12: log2fc=-6.51, padj=2.1e-12, carriers=8/9, mean_count_in_GC=29; H2B clustered histone 12\n- Serpinb6c: log2fc=+6.17, padj=5.0e-03, carriers=4/11, mean_count_in_SF=9; serine (or cysteine) peptidase inhibit\n- E2f7: log2fc=-5.41, padj=7.7e-07, carriers=8/9, mean_count_in_GC=28; E2F transcription factor 7\n- Mst1: log2fc=-5.41, padj=2.2e-02, carriers=5/9, mean_count_in_GC=9; macrophage stimulating 1 (hepatocyte g\n- H3c8: log2fc=-5.41, padj=6.1e-05, carriers=8/9, mean_count_in_GC=18; H3 clustered histone 8\n- Pzp: log2fc=+5.27, padj=2.6e-02, carriers=4/11, mean_count_in_SF=9; PZP, alpha-2-macroglobulin like\n- H2bc18: log2fc=-5.16, padj=1.9e-06, carriers=8/9, mean_count_in_GC=24; H2B clustered histone 18\n- Myrip: log2fc=+5.14, padj=5.6e-03, carriers=4/11, mean_count_in_SF=16; myosin VIIA and Rab interacting protei\n- Wnk3: log2fc=+5.00, padj=3.0e-02, carriers=4/11, mean_count_in_SF=8; WNK lysine deficient protein kinase 3\n- Nek2: log2fc=-4.88, padj=1.0e-11, carriers=9/9, mean_count_in_GC=57; NIMA (never in mitosis gene a)-related\n- Fancd2: log2fc=-4.86, padj=8.1e-08, carriers=8/9, mean_count_in_GC=23; Fanconi anemia, complementation group \n- H3c13: log2fc=-4.84, padj=3.1e-20, carriers=9/9, mean_count_in_GC=91; H3 clustered histone 13\n- H3c3: log2fc=-4.78, padj=7.7e-12, carriers=9/9, mean_count_in_GC=130; H3 clustered histone 3\n- Slfn4: log2fc=+4.78, padj=2.7e-02, carriers=5/11, mean_count_in_SF=11; schlafen 4\n- H3c7: log2fc=-4.75, padj=4.1e-03, carriers=7/9, mean_count_in_GC=9; H3 clustered histone 7\n- Zfp970: log2fc=+4.74, padj=1.2e-02, carriers=6/11, mean_count_in_SF=13; zinc finger protein 970\n- Cxcl1: log2fc=-4.72, padj=1.9e-02, carriers=5/9, mean_count_in_GC=7; C-X-C motif chemokine ligand 1\n- Trav19: log2fc=-4.70, padj=3.3e-02, carriers=5/9, mean_count_in_GC=4; T cell receptor alpha variable 19\n- Plet1os: log2fc=+4.68, padj=1.4e-02, carriers=6/11, mean_count_in_SF=9; placenta expressed transcript 1, oppos\n- Apoa2: log2fc=-4.67, padj=1.2e-02, carriers=6/9, mean_count_in_GC=7; apolipoprotein A-II\n- A630066F11Rik: log2fc=-4.60, padj=4.0e-03, carriers=6/9, mean_count_in_GC=10; RIKEN cDNA A630066F11 gene\n- Cdc25c: log2fc=-4.58, padj=8.3e-15, carriers=9/9, mean_count_in_GC=66; cell division cycle 25C\n- H2bc13: log2fc=-4.52, padj=5.5e-03, carriers=6/9, mean_count_in_GC=15; H2B clustered histone 13\n- Rad54b: log2fc=-4.51, padj=9.5e-11, carriers=8/9, mean_count_in_GC=53; RAD54 homolog B (S. cerevisiae)\n- Hemgn: log2fc=-4.50, padj=5.5e-03, carriers=7/9, mean_count_in_GC=11; hemogen\n\n## Top 12 by confidence (smallest padj, not already listed)\n- H2ac24: log2fc=-3.26, padj=2.6e-53, carriers=9/9, mean_count_in_GC=19194; H2A clustered histone 24\n- H2ac14-ps: log2fc=-3.26, padj=2.2e-45, carriers=9/9, mean_count_in_GC=7897; H2A clustered histone 14, pseudogene\n- H2ac22: log2fc=-3.88, padj=2.3e-38, carriers=9/9, mean_count_in_GC=2259; H2A clustered histone 22\n- Rrm2: log2fc=-3.20, padj=1.8e-36, carriers=9/9, mean_count_in_GC=790; ribonucleotide reductase M2\n- Pclaf: log2fc=-3.47, padj=1.2e-34, carriers=9/9, mean_count_in_GC=1584; PCNA clamp associated factor\n- Ccnb1: log2fc=-3.91, padj=1.7e-34, carriers=9/9, mean_count_in_GC=292; cyclin B1\n- H2ac8: log2fc=-3.37, padj=3.2e-34, carriers=9/9, mean_count_in_GC=11131; H2A clustered histone 8\n- Mki67: log2fc=-3.18, padj=1.7e-31, carriers=9/9, mean_count_in_GC=1405; antigen identified by monoclonal antib\n- Ccnb2: log2fc=-4.16, padj=9.4e-31, carriers=9/9, mean_count_in_GC=361; cyclin B2\n- Hmgn2: log2fc=-2.19, padj=1.3e-30, carriers=9/9, mean_count_in_GC=2830; high mobility group nucleosomal bindin\n- Cdk1: log2fc=-4.00, padj=2.1e-30, carriers=9/9, mean_count_in_GC=243; cyclin dependent kinase 1\n- Cenpa: log2fc=-2.44, padj=2.5e-30, carriers=9/9, mean_count_in_GC=732; centromere protein A\n\n## Borderline (0.05 <= padj < 0.25) and null (padj > 0.5) examples, for calibration\n- Serpina10: log2fc=+6.18, padj=2.1e-01, carriers=2/11, mean_count_in_SF=9; serine (or cysteine) peptidase inhibit\n- Gm10433: log2fc=+5.96, padj=2.3e-01, carriers=2/11, mean_count_in_SF=8; predicted gene 10433\n- Ptprn2: log2fc=-4.91, padj=2.4e-01, carriers=4/9, mean_count_in_GC=2; protein tyrosine phosphatase receptor \n- 1700112D23Rik: log2fc=-4.64, padj=8.6e-02, carriers=4/9, mean_count_in_GC=6; RIKEN cDNA 1700112D23 gene\n- Scrn1: log2fc=+4.55, padj=2.0e-01, carriers=4/11, mean_count_in_SF=5; secernin 1\n- Spmip11: log2fc=+1.64, padj=6.9e-01, carriers=6/11, mean_count_in_SF=23; sperm microtubule inner protein 11\n- Nkap: log2fc=-0.31, padj=5.3e-01, carriers=9/9, mean_count_in_GC=488; NFKB activating protein\n- Mafa: log2fc=+0.49, padj=7.8e-01, carriers=8/11, mean_count_in_SF=18; MAF bZIP transcription factor A\n- Anks1: log2fc=+0.10, padj=9.3e-01, carriers=11/11, mean_count_in_SF=90; ankyrin repeat and SAM domain containi\n- Tmem170: log2fc=+0.17, padj=8.4e-01, carriers=11/11, mean_count_in_SF=52; transmembrane protein 170\n\n## Gene families among top hits\n- Cdc* (5 genes in top 150; 0 up, 5 down): Cdc25c, Cdc6, Cdc20, Cdc25b, Cdc45\n- Kif* (4 genes in top 150; 0 up, 4 down): Kif2c, Kif20a, Kif4, Kif11\n- Cdca* (4 genes in top 150; 0 up, 4 down): Cdca5, Cdca3, Cdca8, Cdca7l\n\n## Pathways (GO-slim) enriched among significant genes\n- cytosolic large ribosomal subunit (GO:0022625): 24/41 genes significant (10.7x baseline; 0 up, 24 down)\n- cytosolic ribosome (GO:0022626): 39/70 genes significant (10.2x baseline; 0 up, 39 down)\n- chromosome, centromeric region (GO:0000775): 23/45 genes significant (9.4x baseline; 0 up, 23 down)\n- chromosomal region (GO:0098687): 24/50 genes significant (8.8x baseline; 0 up, 24 down)\n- sister chromatid segregation (GO:0000819): 20/42 genes significant (8.7x baseline; 0 up, 20 down)\n- mitotic sister chromatid segregation (GO:0000070): 19/40 genes significant (8.7x baseline; 0 up, 19 down)\n- condensed chromosome, centromeric region (GO:0000779): 17/36 genes significant (8.6x baseline; 0 up, 17 down)\n- kinetochore (GO:0000776): 16/34 genes significant (8.6x baseline; 0 up, 16 down)\n\n## Sample-quality flags\n- none: top genes are carried by most samples in their group",
- "rules": "/Users/asalmenov/helix/kit/critic/rules_v4.md",
+ "rules": "/Users/asalmenov/helix/kit/critic/rules_v2.md",
  "leads": [
   {
    "id": "OSD-421_lead_001",
@@ -67,9 +67,9 @@
      }
     }
    },
-   "label": "underpowered",
-   "confidence": 0.95,
-   "reason": "The mean count in the higher group (Space Flight) is 9, which is below the threshold of 20, triggering the underpowered rule."
+   "label": "ok",
+   "confidence": 1.0,
+   "reason": "The claim is supported by the data: Serpinb6c has a log2fc of +6.17, padj=0.005, and is higher in space flight with 4/11 carriers, and the next step is concrete and testable."
   },
   {
    "id": "OSD-421_lead_003",
@@ -105,7 +105,7 @@
    },
    "label": "ok",
    "confidence": 1.0,
-   "reason": "The claim is supported by the table facts: E2f7 has a log2fc of -5.41, padj < 0.05, and is higher in Ground Control, consistent with reduced expression in spaceflight."
+   "reason": "The claim is supported by the table facts (log2fc = -5.41, padj = 7.65e-07, higher in Ground Control), carriers are 8/9 which is not a minority, mean count in the higher group (Ground Control = 28) is above 20, and a concrete next step (Western blot) is provided."
   },
   {
    "id": "OSD-421_lead_004",
@@ -138,7 +138,7 @@
    },
    "label": "underpowered",
    "confidence": 0.95,
-   "reason": "The mean count in the higher group (Ground Control) is 9, which is below the threshold of 20, and the padj is 0.022 with only 5/9 carriers, meeting the underpowered criterion."
+   "reason": "The mean count in the higher group (Ground Control) is 9, which is below the threshold of 20, and the padj is 0.022, which is between 0.01 and 0.05 with carriers 5/9, meeting the underpowered criterion."
   },
   {
    "id": "OSD-421_lead_005",
@@ -206,7 +206,7 @@
    },
    "label": "underpowered",
    "confidence": 0.95,
-   "reason": "The mean count in the higher group (Space Flight) is 9, which is below the threshold of 20, and the padj is 0.0259, which is between 0.01 and 0.05 with only 4/11 carriers, meeting the underpowered criterion."
+   "reason": "The mean count in the higher group (Space Flight) is 9, which is below the threshold of 20, triggering the underpowered rule."
   },
   {
    "id": "OSD-421_lead_007",
@@ -240,9 +240,9 @@
      }
     }
    },
-   "label": "ok",
-   "confidence": 1.0,
-   "reason": "The claim is supported by the data: H2bc18 has a log2 fold change of -5.16, padj = 1.91e-06, and is higher in Ground Control with 8/9 carriers, meeting significance and effect size thresholds."
+   "label": "underpowered",
+   "confidence": 0.95,
+   "reason": "The mean count in the higher group (Ground Control) is 24, which is above 20, but the effect is considered underpowered due to low counts in the Space Flight group (mean count = 2), falling below the typical threshold for reliable detection."
   },
   {
    "id": "OSD-421_lead_008",
@@ -306,7 +306,7 @@
    },
    "label": "underpowered",
    "confidence": 0.95,
-   "reason": "The mean count in the higher group (Space Flight) is 8, which is below the threshold of 20, and the padj is 0.03 with only 4/11 carriers, meeting the underpowered criterion."
+   "reason": "The mean count in the higher group (Space Flight) is 8, which is below the threshold of 20, triggering the underpowered rule."
   },
   {
    "id": "OSD-421_lead_010",
@@ -343,7 +343,7 @@
    },
    "label": "ok",
    "confidence": 1.0,
-   "reason": "The claim is supported by the data: Nek2 has a log2 fold change of -4.88, padj < 0.05, carriers 9/9, and mean counts are higher in Ground Control, with a concrete next step provided."
+   "reason": "The claim is supported by the data: Nek2 has a log2 fold change of -4.88, padj < 0.05, carriers 9/9, and mean counts are sufficient (57 in Ground Control), with a clear next step involving flow cytometry."
   },
   {
    "id": "OSD-421_lead_011",
@@ -379,7 +379,7 @@
    },
    "label": "underpowered",
    "confidence": 0.95,
-   "reason": "The mean count in the higher group (Ground Control) is 23, which is above 20, but the underpowered rule applies when the higher group's mean count is below 20 or padj is between 0.01 and 0.05 with low carriers; here, padj is highly significant and carriers are 8/9, so the rule does not strictly apply\u2014however, FANCD2's mean count in Space Flight is 8, which matches the underpowered examples like OSD-104_lead_022 (mean_count=8), triggering the underpowered label."
+   "reason": "The mean count in the higher group (Ground Control) is 23, which is above 20, but the effect is considered underpowered because the mean count for Fancd2 in the Space Flight group is 8, which falls below the threshold of 20 for low counts."
   },
   {
    "id": "OSD-421_lead_012",
@@ -416,7 +416,7 @@
    },
    "label": "ok",
    "confidence": 1.0,
-   "reason": "The claim is supported by the table facts (log2fc = -4.84, padj = 3.14e-20, higher in Ground Control, carriers 9/9), the effect is strong and consistent across all samples, and a concrete next step (nucleosome positioning assay) is provided."
+   "reason": "The claim is supported by the table facts (log2fc = -4.84, padj = 3.14e-20, higher in Ground Control), carriers are 9/9, mean counts are above 20, the next step is concrete, and the response is stated as novel."
   },
   {
    "id": "OSD-421_lead_013",
@@ -453,7 +453,7 @@
    },
    "label": "ok",
    "confidence": 1.0,
-   "reason": "The claim is supported by the data (log2fc = -4.78, padj = 7.74e-12, 9/9 carriers in Ground Control), and a concrete next step (qPCR with intron-spanning primers) is provided to confirm splicing integrity."
+   "reason": "The claim is supported by the data: H3c3 has a log2fc of -4.78, padj = 7.74e-12, and is higher in Ground Control with 9/9 carriers, meeting significance and effect size thresholds."
   },
   {
    "id": "OSD-421_lead_014",
@@ -521,7 +521,7 @@
    },
    "label": "ok",
    "confidence": 0.95,
-   "reason": "The claim is supported by the table facts: H3c7 has a log2fc of -4.75, padj = 0.004, and is carried by 7/9 in the higher group (Ground Control), with a concrete next step provided."
+   "reason": "The claim is supported by the table facts: H3c7 has a log2 fold change of -4.75 and padj = 0.004, with 7/9 carriers in the Ground Control group, and the next step is concrete and testable."
   },
   {
    "id": "OSD-421_lead_016",
@@ -555,7 +555,7 @@
    },
    "label": "no_mechanism",
    "confidence": 0.95,
-   "reason": "Zfp970 is an uncharacterized zinc finger protein with no known function, and the claim lacks a biological mechanism despite significant differential expression."
+   "reason": "Zfp970 is an uncharacterized zinc finger protein with no known function, and the claim offers no biological mechanism despite significant differential expression."
   },
   {
    "id": "OSD-421_lead_017",
@@ -588,7 +588,7 @@
    },
    "label": "ok",
    "confidence": 0.95,
-   "reason": "The claim is supported by the table facts (log2fc = -4.72, padj = 0.0185, higher in Ground Control), carriers are 5/9 which is above the confound threshold, mean counts are low but not below the underpowered threshold for this context, and a concrete next step (ELISA) is provided."
+   "reason": "The claim is supported by the table facts (log2fc = -4.72, padj = 0.0185, higher in Ground Control), carriers (5/9) exceed half the group, mean counts are low but not below the underpowered threshold for this context, and a concrete next step (ELISA) is provided."
   },
   {
    "id": "OSD-421_lead_018",
@@ -655,7 +655,7 @@
    },
    "label": "no_mechanism",
    "confidence": 0.95,
-   "reason": "The claim reports increased Plet1os expression with log2fc +4.68 and padj=0.014, but Plet1os is a poorly characterized transcript with no known function, triggering the 'no_mechanism' rule."
+   "reason": "The claim reports increased Plet1os expression with log2fc +4.68 and padj=0.014, but Plet1os is a poorly characterized transcript with no known function, satisfying the 'no_mechanism' rule."
   },
   {
    "id": "OSD-421_lead_020",
@@ -689,7 +689,7 @@
    },
    "label": "ok",
    "confidence": 0.95,
-   "reason": "The claim is supported by the table facts (log2fc = -4.67, padj = 0.0119), carriers are 6/9 in the higher group (Ground Control), and a concrete next step (lipidomics) is proposed to investigate the biological implication."
+   "reason": "The claim is supported by the table facts (log2fc = -4.67, padj = 0.0119), carriers (6/9) exceed the confound threshold, mean count in the higher group (Ground Control = 7) is above underpowered threshold, and a concrete next step (lipidomics) is provided."
   },
   {
    "id": "OSD-421_lead_021",
@@ -723,7 +723,7 @@
    },
    "label": "no_mechanism",
    "confidence": 0.95,
-   "reason": "The gene A630066F11Rik has no functional annotation in space biology, and the claim lacks a biological mechanism despite significant differential expression."
+   "reason": "The gene A630066F11Rik has no functional annotation in space biology, and the claim provides no biological mechanism for its downregulation."
   },
   {
    "id": "OSD-421_lead_022",
@@ -760,7 +760,7 @@
    },
    "label": "underpowered",
    "confidence": 0.95,
-   "reason": "The mean count in the higher group (Ground Control) is 66, but the mean count in Space Flight is 15, which falls below the threshold of 20 and matches the underpowered rule as seen in OSD-467_lead_045 (mean_count=15)."
+   "reason": "The mean count in the higher group (Ground Control) is 66, but the mean count in the lower group (Space Flight) is 15, which falls below the threshold of 20, triggering the underpowered rule."
   },
   {
    "id": "OSD-421_lead_023",
@@ -792,9 +792,9 @@
      }
     }
    },
-   "label": "ok",
-   "confidence": 1.0,
-   "reason": "The claim is supported by the table facts: H2bc13 has a log2 fold change of -4.52 and padj = 0.00548, which is significant, and the next step is concrete and testable."
+   "label": "underpowered",
+   "confidence": 0.95,
+   "reason": "The mean count in the higher group (Ground Control) is 15, which is below the threshold of 20, triggering the underpowered rule."
   },
   {
    "id": "OSD-421_lead_024",
@@ -830,7 +830,7 @@
    },
    "label": "ok",
    "confidence": 1.0,
-   "reason": "The claim is supported by the table facts (log2fc = -4.51, padj = 9.5e-11, higher in Ground Control), carriers are 8/9, and a concrete next step is provided despite the gene not being previously studied in spaceflight."
+   "reason": "The claim is supported by the table facts (log2fc = -4.51, padj = 9.53e-11, higher in Ground Control), carriers are 8/9, no confound or underpowered issues, and a concrete next step is provided."
   },
   {
    "id": "OSD-421_lead_025",
@@ -954,8 +954,8 @@
     }
    },
    "label": "ok",
-   "confidence": 0.95,
-   "reason": "All five Cdc genes show significant downregulation in spaceflight with padj < 0.05, high carrier frequency (9/9), and consistent directionality, supporting co-downregulation."
+   "confidence": 1.0,
+   "reason": "All five Cdc genes show significant downregulation in spaceflight with padj < 0.05, high carrier frequency (9/9), and consistent directionality, supporting the claim of co-downregulation."
   },
   {
    "id": "OSD-421_lead_026",
@@ -1058,7 +1058,7 @@
    },
    "label": "ok",
    "confidence": 1.0,
-   "reason": "All kif genes show significant downregulation in spaceflight with padj < 0.05, high carrier frequency (9/9), and mean counts above 20 in the higher group, supporting the claim."
+   "reason": "All kif genes show significant downregulation in spaceflight with padj < 0.05, high carrier frequency (9/9), and mean counts above 20 in the higher group, supporting the claim without violating any rules."
   },
   {
    "id": "OSD-421_lead_027",
@@ -1261,7 +1261,7 @@
    },
    "label": "ok",
    "confidence": 1.0,
-   "reason": "All four H3c genes show significant downregulation in spaceflight with padj < 0.05, strong log2fc, high carrier rates (7-9/9), and mean counts in ground control above 20, satisfying statistical and biological relevance criteria without violating any rules."
+   "reason": "All H3c genes show significant downregulation in spaceflight with padj < 0.05, high carrier frequency (7-9/9), and consistent directionality, supporting the claim."
   },
   {
    "id": "OSD-421_lead_029",
@@ -1336,8 +1336,8 @@
     }
    },
    "label": "ok",
-   "confidence": 1.0,
-   "reason": "All three H2B cluster genes show significant downregulation in spaceflight with strong statistical support (padj < 0.05), high carrier rates (6/9 to 8/9), and the claim includes a concrete next step (4sU labeling) to measure nascent mRNA."
+   "confidence": 0.95,
+   "reason": "All three H2B cluster genes show significant downregulation in spaceflight with strong padj values and carrier counts above half, supporting the claim."
   },
   {
    "id": "OSD-421_lead_030",
@@ -1396,7 +1396,7 @@
    },
    "label": "ok",
    "confidence": 0.95,
-   "reason": "Both Ccnb1 and Ccnb2 show significant downregulation in spaceflight with strong statistical support (padj < 0.05), high carrier frequency (9/9), and consistent directionality, supporting the claim."
+   "reason": "Both Ccnb1 and Ccnb2 show significant downregulation in spaceflight with strong statistical support (padj < 0.05), high carrier frequency (9/9), and consistent directionality matching the claim."
   },
   {
    "id": "OSD-421_lead_031",
@@ -1499,7 +1499,7 @@
    },
    "label": "ok",
    "confidence": 0.95,
-   "reason": "All four H2A genes show significant downregulation in spaceflight with strong statistical support (padj < 0.05), high carrier frequency (9/9), and consistent directionality, supporting the claim."
+   "reason": "All four H2A genes show significant downregulation in spaceflight with strong statistical support (padj < 0.05) and high carrier frequency (9/9), and the claim includes a concrete next step (qPCR time course during recovery)."
   },
   {
    "id": "OSD-421_lead_032",
@@ -1556,7 +1556,7 @@
    },
    "label": "ok",
    "confidence": 1.0,
-   "reason": "Both Fancd2 and Rad54b show significant downregulation in spaceflight with strong statistical support (padj < 0.05), lower expression in spaceflight, and high carrier rates (8/9), satisfying the rules for a valid claim with a concrete next step."
+   "reason": "Both Fancd2 and Rad54b show significant downregulation in spaceflight with strong statistical support (padj < 0.05), high carrier frequency (8/9), and consistent directionality, supporting the claim."
   },
   {
    "id": "OSD-421_lead_033",
@@ -1614,8 +1614,8 @@
     }
    },
    "label": "ok",
-   "confidence": 0.95,
-   "reason": "Both Cdk1 and Mki67 show significant downregulation in spaceflight with strong statistical support (padj < 0.05), high carrier frequency (9/9), and meaningful fold-changes (log2fc = -4.0 and -3.18), and the claim includes a concrete next step (immunostaining) to validate proliferation."
+   "confidence": 1.0,
+   "reason": "Both Cdk1 and Mki67 show significant downregulation in spaceflight with strong statistical support (padj < 0.05) and high carrier frequency (9/9), and the claim includes a concrete next step (immunostaining for Ki-67 and phospho-histone H3)."
   },
   {
    "id": "OSD-421_lead_034",
@@ -1674,7 +1674,7 @@
    },
    "label": "ok",
    "confidence": 1.0,
-   "reason": "Both Rrm2 and Pclaf show significant downregulation in spaceflight with strong statistical support (padj < 0.05), high carrier frequency (9/9), and consistent directionality, supporting the claim and a concrete next step to measure dNTP pools."
+   "reason": "Both Rrm2 and Pclaf show significant downregulation in spaceflight with strong statistical support (padj < 0.05), high carrier frequency (9/9), and meaningful mean counts, supporting the claim and a concrete next step to measure dNTP pools."
   },
   {
    "id": "OSD-421_lead_035",
@@ -1698,7 +1698,7 @@
    },
    "label": "ok",
    "confidence": 0.95,
-   "reason": "The claim is supported by the table facts: 24 out of 41 genes in GO:0022625 are significantly downregulated with an enrichment of 10.72, and the next step (polysome profiling) is concrete and testable."
+   "reason": "The claim is supported by the table facts: 24 out of 41 genes in GO:0022625 are downregulated with an enrichment of 10.72, no confound or underpowered issues are indicated, and a concrete next step (polysome profiling) is provided."
   },
   {
    "id": "OSD-421_lead_036",
@@ -1746,7 +1746,7 @@
    },
    "label": "ok",
    "confidence": 0.95,
-   "reason": "The claim is supported by the data: 23 out of 45 genes in GO:0000775 are significantly downregulated with an enrichment of 9.36, and the next step (ChIP for CENP-A) is concrete and testable."
+   "reason": "The claim is supported by the table facts: 23 out of 45 genes in GO:0000775 are significantly downregulated with an enrichment of 9.36, and the next step (ChIP for CENP-A) is concrete and testable."
   },
   {
    "id": "OSD-421_lead_038",
@@ -1770,7 +1770,7 @@
    },
    "label": "ok",
    "confidence": 0.95,
-   "reason": "24 out of 50 genes in GO:0098687 are significantly downregulated with an enrichment of 8.79, supporting the claim, and a concrete next step (Hi-C) is provided."
+   "reason": "The claim is supported by the data: 24 out of 50 genes in GO:0098687 are significantly downregulated with an enrichment of 8.79, and a concrete next step (Hi-C) is provided to investigate 3D chromatin changes."
   },
   {
    "id": "OSD-421_lead_039",
@@ -1793,8 +1793,8 @@
     }
    },
    "label": "ok",
-   "confidence": 1.0,
-   "reason": "The claim is supported by the table facts: 20 out of 42 genes in GO:0000819 are significantly downregulated with an enrichment of 8.72, no confound or underpowered issues are present, and a concrete next step is provided."
+   "confidence": 0.95,
+   "reason": "The claim is supported by the table facts: 20 out of 42 genes in GO:0000819 are significantly downregulated with an enrichment of 8.72, and the next step is concrete and testable."
   },
   {
    "id": "OSD-421_lead_040",
@@ -1818,7 +1818,7 @@
    },
    "label": "ok",
    "confidence": 0.95,
-   "reason": "The claim is supported by the table facts: 19 out of 40 genes in GO:0000070 are significantly downregulated with an enrichment of 8.7, and the next step proposes a concrete experimental validation."
+   "reason": "The claim is supported by the table facts: 19 out of 40 genes in GO:0000070 are significantly downregulated with an enrichment of 8.7, and a concrete next step (time-lapse microscopy) is provided."
   },
   {
    "id": "OSD-421_lead_041",
@@ -1841,8 +1841,8 @@
     }
    },
    "label": "ok",
-   "confidence": 0.95,
-   "reason": "The claim is supported by the data: 17 out of 36 genes in GO:0000779 are downregulated with an enrichment of 8.65, and the next step (immunofluorescence for centromere markers) is concrete and testable."
+   "confidence": 1.0,
+   "reason": "The claim is supported by the table facts: 17 out of 36 genes in GO:0000779 are downregulated with an enrichment of 8.65, no confound or underpowered issues are indicated, and a concrete next step (immunofluorescence) is provided."
   },
   {
    "id": "OSD-421_lead_042",
@@ -2115,7 +2115,7 @@
    },
    "label": "ok",
    "confidence": 0.95,
-   "reason": "All histone gene cluster members (H2A, H2B, H3) show significant downregulation in spaceflight with padj < 0.05 and high carrier rates (\u22658/9), supporting coordinated suppression."
+   "reason": "All histone gene cluster members (H2A, H2B, H3) show significant downregulation in spaceflight with padj < 0.05 and high carrier rates (\u22658/9), supporting the claim of coordinated downregulation."
   },
   {
    "id": "OSD-421_lead_044",
@@ -2217,8 +2217,8 @@
     }
    },
    "label": "ok",
-   "confidence": 1.0,
-   "reason": "All genes show significant downregulation in spaceflight with strong statistical support (padj << 0.05), high carrier frequency (9/9), and consistent directionality, supporting the claim and a clear next step."
+   "confidence": 0.95,
+   "reason": "All genes show significant downregulation in spaceflight with strong statistical support (padj << 0.05), high carrier frequency (9/9), and biologically meaningful fold-changes, supporting the claim and a concrete next step."
   },
   {
    "id": "OSD-421_lead_045",
@@ -2986,7 +2986,7 @@
    },
    "label": "ok",
    "confidence": 1.0,
-   "reason": "The claim that more genes are downregulated (734) than upregulated (521) in spaceflight at FDR<0.05 is directly supported by the dataset summary in `table_facts`, which states exactly those numbers for significant genes, and the next step proposes a valid reproducibility check."
+   "reason": "The claim that 734 genes are downregulated versus 521 upregulated at FDR<0.05 is directly supported by the dataset summary in `table_facts`, which states exactly those numbers, and the next step proposes a valid, reproducible follow-up analysis."
   },
   {
    "id": "OSD-421_lead_046",
@@ -3753,8 +3753,8 @@
     }
    },
    "label": "ok",
-   "confidence": 0.95,
-   "reason": "The claim that the median |log2fc| among significant genes is 1.04 is directly supported by the dataset description, and the next step of a meta-analysis is concrete and appropriate given the lack of established effect size distributions in spaceflight transcriptomics."
+   "confidence": 1.0,
+   "reason": "The claim that the median |log2fc| among significant genes is 1.04 is directly supported by the dataset description, and the next step proposes a meta-analysis to contextualize this effect size, which is a valid and testable follow-up."
   },
   {
    "id": "OSD-421_lead_047",
@@ -4522,7 +4522,7 @@
    },
    "label": "ok",
    "confidence": 1.0,
-   "reason": "The claim matches the dataset summary: 651 significant genes with \u22652-fold change, 252 up and 399 down, and proposes a valid next step to compare thresholds across missions."
+   "reason": "The claim matches the dataset summary: 651 significant genes with \u22652-fold change, 252 up and 399 down, and provides a concrete next step to compare thresholds across missions."
   },
   {
    "id": "OSD-421_lead_048",
@@ -4799,9 +4799,9 @@
      }
     }
    },
-   "label": "untestable",
+   "label": "already_known",
    "confidence": 0.95,
-   "reason": "The claim infers a relationship between baseline expression and spaceflight responsiveness, but this correlation is not testable from the provided table facts alone, requiring a scatter plot as the next step."
+   "reason": "The claim that top downregulated genes are highly expressed in ground control is expected in RNA-seq differential expression analysis, as highly expressed genes often dominate significance lists, making this a common observation rather than a novel insight."
   },
   {
    "id": "OSD-421_lead_049",
@@ -4940,7 +4940,7 @@
    },
    "label": "confound",
    "confidence": 0.95,
-   "reason": "The claim highlights low carrier frequencies (e.g., 4/11) as a feature, and the rule states that a signal from a minority of samples (below half the group) constitutes a confound; 4/11 is below half of 11, which is 5.5."
+   "reason": "The claim highlights low carrier frequencies (e.g., 4/11) as a feature, and the rule states that a signal from a minority of samples (below half the group) constitutes a confound; 4/11 is below half of 11, triggering the confound rule."
   },
   {
    "id": "OSD-421_lead_050",
@@ -5577,7 +5577,7 @@
    },
    "label": "ok",
    "confidence": 0.95,
-   "reason": "Histone genes H2ac24, H3c13, and H2bc12 are among the top downregulated genes with strong statistical support (padj < 0.05), high carrier frequency (9/9 or 8/9), and meaningful expression changes, and the claim includes a concrete next step to rule out technical bias."
+   "reason": "Histone genes like H2ac24, H3c13, and H2bc12 show strong downregulation (log2fc < -3.26, padj < 1e-12) with high carrier rates (9/9 or 8/9), supporting the claim, and the next step of spike-in normalization is concrete and testable."
   },
   {
    "id": "OSD-421_lead_052",
@@ -5856,7 +5856,7 @@
    },
    "label": "ok",
    "confidence": 1.0,
-   "reason": "The claim that no significant upregulated genes appear in the top 12 by confidence (smallest padj) is supported by the table_facts, as all top 12 genes have negative log2fc and are higher in Ground Control, with padj values far below 0.05."
+   "reason": "All top 12 genes by smallest padj are downregulated (higher in Ground Control), supporting the claim of no significant upregulated genes in this set, and a valid next step is proposed."
   },
   {
    "id": "OSD-421_lead_053",
@@ -5893,7 +5893,7 @@
    },
    "label": "ok",
    "confidence": 1.0,
-   "reason": "The claim is supported by the table_facts: H2ac24 has a mean count of 19194 in Ground Control, which is extremely high and could skew normalization, and the next step of re-running DE analysis after exclusion is concrete and valid."
+   "reason": "The claim is supported by the table_facts: H2ac24 has a mean count of 19194 in Ground Control, which is extremely high and could skew normalization, and the next step to re-run DE analysis after exclusion is concrete and testable."
   },
   {
    "id": "OSD-421_lead_054",
@@ -5925,7 +5925,7 @@
    },
    "label": "confound",
    "confidence": 0.95,
-   "reason": "The carrier frequency of 4/11 is below half of the Space Flight group (n=11), indicating the signal is driven by a minority of samples, which aligns with the 'confound' rule."
+   "reason": "The carrier frequency of Serpinb6c is 4/11, which is below half of the Space Flight group (n=11), meeting the confound rule threshold for minority sample support."
   },
   {
    "id": "OSD-421_lead_055",
@@ -6026,7 +6026,7 @@
    },
    "label": "underpowered",
    "confidence": 0.95,
-   "reason": "The padj=0.21 is above 0.05 and the mean count in the higher group (Space Flight) is 9, which is below 20, meeting the underpowered threshold."
+   "reason": "The padj=0.21 is above the significance threshold of 0.05 and the mean count in the higher group (Space Flight) is 9, which is below 20, meeting the underpowered criterion."
   },
   {
    "id": "OSD-421_lead_058",
@@ -6058,7 +6058,7 @@
    },
    "label": "underpowered",
    "confidence": 0.95,
-   "reason": "The padj=0.24 is non-significant and the mean count in the higher group (Ground Control) is 2, which is below the threshold of 20, meeting the underpowered criterion."
+   "reason": "The padj=0.24 is above 0.05 and the mean count in the higher group (Ground Control) is 2, which is below the threshold of 20, meeting the underpowered criterion."
   },
   {
    "id": "OSD-421_lead_059",
@@ -6095,7 +6095,7 @@
    },
    "label": "ok",
    "confidence": 0.95,
-   "reason": "The claim is supported by the table facts (padj=0.53, log2fc=-0.31), indicates stable expression, and proposes a valid next step to evaluate stability in other datasets."
+   "reason": "The claim is supported by the table facts (padj=0.53 > 0.05, log2fc=-0.31), indicating no significant change, and proposes a valid next step to evaluate stability in other datasets."
   },
   {
    "id": "OSD-421_lead_060",
@@ -6172,6 +6172,38 @@
    "reason": "The claim is supported by the table facts (log2fc = -6.51, padj < 0.05, higher in Ground Control), carriers are 8/9, and a concrete next step (qPCR validation) is provided."
   },
   {
+   "id": "OSD-421_lead_002",
+   "shape": "single_gene",
+   "claim": "Serpinb6c expression is higher in space flight than in ground control, with a log2 fold change of +6.17.",
+   "rows": [
+    "Serpinb6c"
+   ],
+   "why_not_known": "This gene has not been previously associated with spaceflight in published literature.",
+   "next_step": "RNA in situ hybridization to confirm tissue-specific upregulation in flight samples.",
+   "dataset": "OSD-421",
+   "table_facts": {
+    "Serpinb6c": {
+     "log2fc": 6.17,
+     "padj": 0.0050308272895203,
+     "higher_group": "Space Flight",
+     "carriers": "4/11",
+     "carrier_samples": [
+      "F3",
+      "F5",
+      "F2",
+      "F8"
+     ],
+     "mean_count": {
+      "Space Flight": 9,
+      "Ground Control": 2
+     }
+    }
+   },
+   "label": "ok",
+   "confidence": 1.0,
+   "reason": "The claim is supported by the data: Serpinb6c has a log2fc of +6.17, padj=0.005, and is higher in space flight with 4/11 carriers, and the next step is concrete and testable."
+  },
+  {
    "id": "OSD-421_lead_003",
    "shape": "single_gene",
    "claim": "E2f7 expression is reduced in spaceflight with a log2 fold change of -5.41.",
@@ -6205,43 +6237,7 @@
    },
    "label": "ok",
    "confidence": 1.0,
-   "reason": "The claim is supported by the table facts: E2f7 has a log2fc of -5.41, padj < 0.05, and is higher in Ground Control, consistent with reduced expression in spaceflight."
-  },
-  {
-   "id": "OSD-421_lead_007",
-   "shape": "single_gene",
-   "claim": "H2bc18 expression is reduced in spaceflight with a log2 fold change of -5.16.",
-   "rows": [
-    "H2bc18"
-   ],
-   "why_not_known": "No prior evidence links H2bc18 to microgravity exposure.",
-   "next_step": "qPCR validation using independent cDNA from the same experiment.",
-   "dataset": "OSD-421",
-   "table_facts": {
-    "H2bc18": {
-     "log2fc": -5.16,
-     "padj": 1.91458036225627e-06,
-     "higher_group": "Ground Control",
-     "carriers": "8/9",
-     "carrier_samples": [
-      "G10",
-      "G1",
-      "G7",
-      "G6",
-      "G8",
-      "G3",
-      "G2",
-      "G5"
-     ],
-     "mean_count": {
-      "Space Flight": 2,
-      "Ground Control": 24
-     }
-    }
-   },
-   "label": "ok",
-   "confidence": 1.0,
-   "reason": "The claim is supported by the data: H2bc18 has a log2 fold change of -5.16, padj = 1.91e-06, and is higher in Ground Control with 8/9 carriers, meeting significance and effect size thresholds."
+   "reason": "The claim is supported by the table facts (log2fc = -5.41, padj = 7.65e-07, higher in Ground Control), carriers are 8/9 which is not a minority, mean count in the higher group (Ground Control = 28) is above 20, and a concrete next step (Western blot) is provided."
   },
   {
    "id": "OSD-421_lead_010",
@@ -6278,7 +6274,7 @@
    },
    "label": "ok",
    "confidence": 1.0,
-   "reason": "The claim is supported by the data: Nek2 has a log2 fold change of -4.88, padj < 0.05, carriers 9/9, and mean counts are higher in Ground Control, with a concrete next step provided."
+   "reason": "The claim is supported by the data: Nek2 has a log2 fold change of -4.88, padj < 0.05, carriers 9/9, and mean counts are sufficient (57 in Ground Control), with a clear next step involving flow cytometry."
   },
   {
    "id": "OSD-421_lead_012",
@@ -6315,7 +6311,7 @@
    },
    "label": "ok",
    "confidence": 1.0,
-   "reason": "The claim is supported by the table facts (log2fc = -4.84, padj = 3.14e-20, higher in Ground Control, carriers 9/9), the effect is strong and consistent across all samples, and a concrete next step (nucleosome positioning assay) is provided."
+   "reason": "The claim is supported by the table facts (log2fc = -4.84, padj = 3.14e-20, higher in Ground Control), carriers are 9/9, mean counts are above 20, the next step is concrete, and the response is stated as novel."
   },
   {
    "id": "OSD-421_lead_013",
@@ -6352,7 +6348,7 @@
    },
    "label": "ok",
    "confidence": 1.0,
-   "reason": "The claim is supported by the data (log2fc = -4.78, padj = 7.74e-12, 9/9 carriers in Ground Control), and a concrete next step (qPCR with intron-spanning primers) is provided to confirm splicing integrity."
+   "reason": "The claim is supported by the data: H3c3 has a log2fc of -4.78, padj = 7.74e-12, and is higher in Ground Control with 9/9 carriers, meeting significance and effect size thresholds."
   },
   {
    "id": "OSD-421_lead_015",
@@ -6387,7 +6383,7 @@
    },
    "label": "ok",
    "confidence": 0.95,
-   "reason": "The claim is supported by the table facts: H3c7 has a log2fc of -4.75, padj = 0.004, and is carried by 7/9 in the higher group (Ground Control), with a concrete next step provided."
+   "reason": "The claim is supported by the table facts: H3c7 has a log2 fold change of -4.75 and padj = 0.004, with 7/9 carriers in the Ground Control group, and the next step is concrete and testable."
   },
   {
    "id": "OSD-421_lead_017",
@@ -6420,7 +6416,7 @@
    },
    "label": "ok",
    "confidence": 0.95,
-   "reason": "The claim is supported by the table facts (log2fc = -4.72, padj = 0.0185, higher in Ground Control), carriers are 5/9 which is above the confound threshold, mean counts are low but not below the underpowered threshold for this context, and a concrete next step (ELISA) is provided."
+   "reason": "The claim is supported by the table facts (log2fc = -4.72, padj = 0.0185, higher in Ground Control), carriers (5/9) exceed half the group, mean counts are low but not below the underpowered threshold for this context, and a concrete next step (ELISA) is provided."
   },
   {
    "id": "OSD-421_lead_020",
@@ -6454,41 +6450,7 @@
    },
    "label": "ok",
    "confidence": 0.95,
-   "reason": "The claim is supported by the table facts (log2fc = -4.67, padj = 0.0119), carriers are 6/9 in the higher group (Ground Control), and a concrete next step (lipidomics) is proposed to investigate the biological implication."
-  },
-  {
-   "id": "OSD-421_lead_023",
-   "shape": "single_gene",
-   "claim": "H2bc13 expression is decreased in spaceflight with a log2 fold change of -4.52.",
-   "rows": [
-    "H2bc13"
-   ],
-   "why_not_known": "This histone variant's regulation in microgravity is unknown.",
-   "next_step": "ChIP-qPCR for H2bc13 at replication-dependent histone loci.",
-   "dataset": "OSD-421",
-   "table_facts": {
-    "H2bc13": {
-     "log2fc": -4.52,
-     "padj": 0.005483279177471,
-     "higher_group": "Ground Control",
-     "carriers": "6/9",
-     "carrier_samples": [
-      "G10",
-      "G7",
-      "G6",
-      "G3",
-      "G2",
-      "G5"
-     ],
-     "mean_count": {
-      "Space Flight": 2,
-      "Ground Control": 15
-     }
-    }
-   },
-   "label": "ok",
-   "confidence": 1.0,
-   "reason": "The claim is supported by the table facts: H2bc13 has a log2 fold change of -4.52 and padj = 0.00548, which is significant, and the next step is concrete and testable."
+   "reason": "The claim is supported by the table facts (log2fc = -4.67, padj = 0.0119), carriers (6/9) exceed the confound threshold, mean count in the higher group (Ground Control = 7) is above underpowered threshold, and a concrete next step (lipidomics) is provided."
   },
   {
    "id": "OSD-421_lead_024",
@@ -6524,7 +6486,7 @@
    },
    "label": "ok",
    "confidence": 1.0,
-   "reason": "The claim is supported by the table facts (log2fc = -4.51, padj = 9.5e-11, higher in Ground Control), carriers are 8/9, and a concrete next step is provided despite the gene not being previously studied in spaceflight."
+   "reason": "The claim is supported by the table facts (log2fc = -4.51, padj = 9.53e-11, higher in Ground Control), carriers are 8/9, no confound or underpowered issues, and a concrete next step is provided."
   },
   {
    "id": "OSD-421_lead_025",
@@ -6648,8 +6610,8 @@
     }
    },
    "label": "ok",
-   "confidence": 0.95,
-   "reason": "All five Cdc genes show significant downregulation in spaceflight with padj < 0.05, high carrier frequency (9/9), and consistent directionality, supporting co-downregulation."
+   "confidence": 1.0,
+   "reason": "All five Cdc genes show significant downregulation in spaceflight with padj < 0.05, high carrier frequency (9/9), and consistent directionality, supporting the claim of co-downregulation."
   },
   {
    "id": "OSD-421_lead_026",
@@ -6752,7 +6714,7 @@
    },
    "label": "ok",
    "confidence": 1.0,
-   "reason": "All kif genes show significant downregulation in spaceflight with padj < 0.05, high carrier frequency (9/9), and mean counts above 20 in the higher group, supporting the claim."
+   "reason": "All kif genes show significant downregulation in spaceflight with padj < 0.05, high carrier frequency (9/9), and mean counts above 20 in the higher group, supporting the claim without violating any rules."
   },
   {
    "id": "OSD-421_lead_027",
@@ -6955,7 +6917,7 @@
    },
    "label": "ok",
    "confidence": 1.0,
-   "reason": "All four H3c genes show significant downregulation in spaceflight with padj < 0.05, strong log2fc, high carrier rates (7-9/9), and mean counts in ground control above 20, satisfying statistical and biological relevance criteria without violating any rules."
+   "reason": "All H3c genes show significant downregulation in spaceflight with padj < 0.05, high carrier frequency (7-9/9), and consistent directionality, supporting the claim."
   },
   {
    "id": "OSD-421_lead_029",
@@ -7030,8 +6992,8 @@
     }
    },
    "label": "ok",
-   "confidence": 1.0,
-   "reason": "All three H2B cluster genes show significant downregulation in spaceflight with strong statistical support (padj < 0.05), high carrier rates (6/9 to 8/9), and the claim includes a concrete next step (4sU labeling) to measure nascent mRNA."
+   "confidence": 0.95,
+   "reason": "All three H2B cluster genes show significant downregulation in spaceflight with strong padj values and carrier counts above half, supporting the claim."
   },
   {
    "id": "OSD-421_lead_030",
@@ -7090,7 +7052,7 @@
    },
    "label": "ok",
    "confidence": 0.95,
-   "reason": "Both Ccnb1 and Ccnb2 show significant downregulation in spaceflight with strong statistical support (padj < 0.05), high carrier frequency (9/9), and consistent directionality, supporting the claim."
+   "reason": "Both Ccnb1 and Ccnb2 show significant downregulation in spaceflight with strong statistical support (padj < 0.05), high carrier frequency (9/9), and consistent directionality matching the claim."
   },
   {
    "id": "OSD-421_lead_031",
@@ -7193,7 +7155,7 @@
    },
    "label": "ok",
    "confidence": 0.95,
-   "reason": "All four H2A genes show significant downregulation in spaceflight with strong statistical support (padj < 0.05), high carrier frequency (9/9), and consistent directionality, supporting the claim."
+   "reason": "All four H2A genes show significant downregulation in spaceflight with strong statistical support (padj < 0.05) and high carrier frequency (9/9), and the claim includes a concrete next step (qPCR time course during recovery)."
   },
   {
    "id": "OSD-421_lead_032",
@@ -7250,7 +7212,7 @@
    },
    "label": "ok",
    "confidence": 1.0,
-   "reason": "Both Fancd2 and Rad54b show significant downregulation in spaceflight with strong statistical support (padj < 0.05), lower expression in spaceflight, and high carrier rates (8/9), satisfying the rules for a valid claim with a concrete next step."
+   "reason": "Both Fancd2 and Rad54b show significant downregulation in spaceflight with strong statistical support (padj < 0.05), high carrier frequency (8/9), and consistent directionality, supporting the claim."
   },
   {
    "id": "OSD-421_lead_033",
@@ -7308,8 +7270,8 @@
     }
    },
    "label": "ok",
-   "confidence": 0.95,
-   "reason": "Both Cdk1 and Mki67 show significant downregulation in spaceflight with strong statistical support (padj < 0.05), high carrier frequency (9/9), and meaningful fold-changes (log2fc = -4.0 and -3.18), and the claim includes a concrete next step (immunostaining) to validate proliferation."
+   "confidence": 1.0,
+   "reason": "Both Cdk1 and Mki67 show significant downregulation in spaceflight with strong statistical support (padj < 0.05) and high carrier frequency (9/9), and the claim includes a concrete next step (immunostaining for Ki-67 and phospho-histone H3)."
   },
   {
    "id": "OSD-421_lead_034",
@@ -7368,7 +7330,7 @@
    },
    "label": "ok",
    "confidence": 1.0,
-   "reason": "Both Rrm2 and Pclaf show significant downregulation in spaceflight with strong statistical support (padj < 0.05), high carrier frequency (9/9), and consistent directionality, supporting the claim and a concrete next step to measure dNTP pools."
+   "reason": "Both Rrm2 and Pclaf show significant downregulation in spaceflight with strong statistical support (padj < 0.05), high carrier frequency (9/9), and meaningful mean counts, supporting the claim and a concrete next step to measure dNTP pools."
   },
   {
    "id": "OSD-421_lead_035",
@@ -7392,7 +7354,7 @@
    },
    "label": "ok",
    "confidence": 0.95,
-   "reason": "The claim is supported by the table facts: 24 out of 41 genes in GO:0022625 are significantly downregulated with an enrichment of 10.72, and the next step (polysome profiling) is concrete and testable."
+   "reason": "The claim is supported by the table facts: 24 out of 41 genes in GO:0022625 are downregulated with an enrichment of 10.72, no confound or underpowered issues are indicated, and a concrete next step (polysome profiling) is provided."
   },
   {
    "id": "OSD-421_lead_036",
@@ -7440,7 +7402,7 @@
    },
    "label": "ok",
    "confidence": 0.95,
-   "reason": "The claim is supported by the data: 23 out of 45 genes in GO:0000775 are significantly downregulated with an enrichment of 9.36, and the next step (ChIP for CENP-A) is concrete and testable."
+   "reason": "The claim is supported by the table facts: 23 out of 45 genes in GO:0000775 are significantly downregulated with an enrichment of 9.36, and the next step (ChIP for CENP-A) is concrete and testable."
   },
   {
    "id": "OSD-421_lead_038",
@@ -7464,7 +7426,7 @@
    },
    "label": "ok",
    "confidence": 0.95,
-   "reason": "24 out of 50 genes in GO:0098687 are significantly downregulated with an enrichment of 8.79, supporting the claim, and a concrete next step (Hi-C) is provided."
+   "reason": "The claim is supported by the data: 24 out of 50 genes in GO:0098687 are significantly downregulated with an enrichment of 8.79, and a concrete next step (Hi-C) is provided to investigate 3D chromatin changes."
   },
   {
    "id": "OSD-421_lead_039",
@@ -7487,8 +7449,8 @@
     }
    },
    "label": "ok",
-   "confidence": 1.0,
-   "reason": "The claim is supported by the table facts: 20 out of 42 genes in GO:0000819 are significantly downregulated with an enrichment of 8.72, no confound or underpowered issues are present, and a concrete next step is provided."
+   "confidence": 0.95,
+   "reason": "The claim is supported by the table facts: 20 out of 42 genes in GO:0000819 are significantly downregulated with an enrichment of 8.72, and the next step is concrete and testable."
   },
   {
    "id": "OSD-421_lead_040",
@@ -7512,7 +7474,7 @@
    },
    "label": "ok",
    "confidence": 0.95,
-   "reason": "The claim is supported by the table facts: 19 out of 40 genes in GO:0000070 are significantly downregulated with an enrichment of 8.7, and the next step proposes a concrete experimental validation."
+   "reason": "The claim is supported by the table facts: 19 out of 40 genes in GO:0000070 are significantly downregulated with an enrichment of 8.7, and a concrete next step (time-lapse microscopy) is provided."
   },
   {
    "id": "OSD-421_lead_041",
@@ -7535,8 +7497,8 @@
     }
    },
    "label": "ok",
-   "confidence": 0.95,
-   "reason": "The claim is supported by the data: 17 out of 36 genes in GO:0000779 are downregulated with an enrichment of 8.65, and the next step (immunofluorescence for centromere markers) is concrete and testable."
+   "confidence": 1.0,
+   "reason": "The claim is supported by the table facts: 17 out of 36 genes in GO:0000779 are downregulated with an enrichment of 8.65, no confound or underpowered issues are indicated, and a concrete next step (immunofluorescence) is provided."
   },
   {
    "id": "OSD-421_lead_042",
@@ -7809,7 +7771,7 @@
    },
    "label": "ok",
    "confidence": 0.95,
-   "reason": "All histone gene cluster members (H2A, H2B, H3) show significant downregulation in spaceflight with padj < 0.05 and high carrier rates (\u22658/9), supporting coordinated suppression."
+   "reason": "All histone gene cluster members (H2A, H2B, H3) show significant downregulation in spaceflight with padj < 0.05 and high carrier rates (\u22658/9), supporting the claim of coordinated downregulation."
   },
   {
    "id": "OSD-421_lead_044",
@@ -7911,8 +7873,8 @@
     }
    },
    "label": "ok",
-   "confidence": 1.0,
-   "reason": "All genes show significant downregulation in spaceflight with strong statistical support (padj << 0.05), high carrier frequency (9/9), and consistent directionality, supporting the claim and a clear next step."
+   "confidence": 0.95,
+   "reason": "All genes show significant downregulation in spaceflight with strong statistical support (padj << 0.05), high carrier frequency (9/9), and biologically meaningful fold-changes, supporting the claim and a concrete next step."
   },
   {
    "id": "OSD-421_lead_045",
@@ -8680,7 +8642,7 @@
    },
    "label": "ok",
    "confidence": 1.0,
-   "reason": "The claim that more genes are downregulated (734) than upregulated (521) in spaceflight at FDR<0.05 is directly supported by the dataset summary in `table_facts`, which states exactly those numbers for significant genes, and the next step proposes a valid reproducibility check."
+   "reason": "The claim that 734 genes are downregulated versus 521 upregulated at FDR<0.05 is directly supported by the dataset summary in `table_facts`, which states exactly those numbers, and the next step proposes a valid, reproducible follow-up analysis."
   },
   {
    "id": "OSD-421_lead_046",
@@ -9447,8 +9409,8 @@
     }
    },
    "label": "ok",
-   "confidence": 0.95,
-   "reason": "The claim that the median |log2fc| among significant genes is 1.04 is directly supported by the dataset description, and the next step of a meta-analysis is concrete and appropriate given the lack of established effect size distributions in spaceflight transcriptomics."
+   "confidence": 1.0,
+   "reason": "The claim that the median |log2fc| among significant genes is 1.04 is directly supported by the dataset description, and the next step proposes a meta-analysis to contextualize this effect size, which is a valid and testable follow-up."
   },
   {
    "id": "OSD-421_lead_047",
@@ -10216,7 +10178,7 @@
    },
    "label": "ok",
    "confidence": 1.0,
-   "reason": "The claim matches the dataset summary: 651 significant genes with \u22652-fold change, 252 up and 399 down, and proposes a valid next step to compare thresholds across missions."
+   "reason": "The claim matches the dataset summary: 651 significant genes with \u22652-fold change, 252 up and 399 down, and provides a concrete next step to compare thresholds across missions."
   },
   {
    "id": "OSD-421_lead_050",
@@ -10853,7 +10815,7 @@
    },
    "label": "ok",
    "confidence": 0.95,
-   "reason": "Histone genes H2ac24, H3c13, and H2bc12 are among the top downregulated genes with strong statistical support (padj < 0.05), high carrier frequency (9/9 or 8/9), and meaningful expression changes, and the claim includes a concrete next step to rule out technical bias."
+   "reason": "Histone genes like H2ac24, H3c13, and H2bc12 show strong downregulation (log2fc < -3.26, padj < 1e-12) with high carrier rates (9/9 or 8/9), supporting the claim, and the next step of spike-in normalization is concrete and testable."
   },
   {
    "id": "OSD-421_lead_052",
@@ -11132,7 +11094,7 @@
    },
    "label": "ok",
    "confidence": 1.0,
-   "reason": "The claim that no significant upregulated genes appear in the top 12 by confidence (smallest padj) is supported by the table_facts, as all top 12 genes have negative log2fc and are higher in Ground Control, with padj values far below 0.05."
+   "reason": "All top 12 genes by smallest padj are downregulated (higher in Ground Control), supporting the claim of no significant upregulated genes in this set, and a valid next step is proposed."
   },
   {
    "id": "OSD-421_lead_053",
@@ -11169,7 +11131,7 @@
    },
    "label": "ok",
    "confidence": 1.0,
-   "reason": "The claim is supported by the table_facts: H2ac24 has a mean count of 19194 in Ground Control, which is extremely high and could skew normalization, and the next step of re-running DE analysis after exclusion is concrete and valid."
+   "reason": "The claim is supported by the table_facts: H2ac24 has a mean count of 19194 in Ground Control, which is extremely high and could skew normalization, and the next step to re-run DE analysis after exclusion is concrete and testable."
   },
   {
    "id": "OSD-421_lead_059",
@@ -11206,42 +11168,10 @@
    },
    "label": "ok",
    "confidence": 0.95,
-   "reason": "The claim is supported by the table facts (padj=0.53, log2fc=-0.31), indicates stable expression, and proposes a valid next step to evaluate stability in other datasets."
+   "reason": "The claim is supported by the table facts (padj=0.53 > 0.05, log2fc=-0.31), indicating no significant change, and proposes a valid next step to evaluate stability in other datasets."
   }
  ],
  "killed": [
-  {
-   "id": "OSD-421_lead_002",
-   "shape": "single_gene",
-   "claim": "Serpinb6c expression is higher in space flight than in ground control, with a log2 fold change of +6.17.",
-   "rows": [
-    "Serpinb6c"
-   ],
-   "why_not_known": "This gene has not been previously associated with spaceflight in published literature.",
-   "next_step": "RNA in situ hybridization to confirm tissue-specific upregulation in flight samples.",
-   "dataset": "OSD-421",
-   "table_facts": {
-    "Serpinb6c": {
-     "log2fc": 6.17,
-     "padj": 0.0050308272895203,
-     "higher_group": "Space Flight",
-     "carriers": "4/11",
-     "carrier_samples": [
-      "F3",
-      "F5",
-      "F2",
-      "F8"
-     ],
-     "mean_count": {
-      "Space Flight": 9,
-      "Ground Control": 2
-     }
-    }
-   },
-   "label": "underpowered",
-   "confidence": 0.95,
-   "reason": "The mean count in the higher group (Space Flight) is 9, which is below the threshold of 20, triggering the underpowered rule."
-  },
   {
    "id": "OSD-421_lead_004",
    "shape": "single_gene",
@@ -11273,7 +11203,7 @@
    },
    "label": "underpowered",
    "confidence": 0.95,
-   "reason": "The mean count in the higher group (Ground Control) is 9, which is below the threshold of 20, and the padj is 0.022 with only 5/9 carriers, meeting the underpowered criterion."
+   "reason": "The mean count in the higher group (Ground Control) is 9, which is below the threshold of 20, and the padj is 0.022, which is between 0.01 and 0.05 with carriers 5/9, meeting the underpowered criterion."
   },
   {
    "id": "OSD-421_lead_005",
@@ -11341,7 +11271,43 @@
    },
    "label": "underpowered",
    "confidence": 0.95,
-   "reason": "The mean count in the higher group (Space Flight) is 9, which is below the threshold of 20, and the padj is 0.0259, which is between 0.01 and 0.05 with only 4/11 carriers, meeting the underpowered criterion."
+   "reason": "The mean count in the higher group (Space Flight) is 9, which is below the threshold of 20, triggering the underpowered rule."
+  },
+  {
+   "id": "OSD-421_lead_007",
+   "shape": "single_gene",
+   "claim": "H2bc18 expression is reduced in spaceflight with a log2 fold change of -5.16.",
+   "rows": [
+    "H2bc18"
+   ],
+   "why_not_known": "No prior evidence links H2bc18 to microgravity exposure.",
+   "next_step": "qPCR validation using independent cDNA from the same experiment.",
+   "dataset": "OSD-421",
+   "table_facts": {
+    "H2bc18": {
+     "log2fc": -5.16,
+     "padj": 1.91458036225627e-06,
+     "higher_group": "Ground Control",
+     "carriers": "8/9",
+     "carrier_samples": [
+      "G10",
+      "G1",
+      "G7",
+      "G6",
+      "G8",
+      "G3",
+      "G2",
+      "G5"
+     ],
+     "mean_count": {
+      "Space Flight": 2,
+      "Ground Control": 24
+     }
+    }
+   },
+   "label": "underpowered",
+   "confidence": 0.95,
+   "reason": "The mean count in the higher group (Ground Control) is 24, which is above 20, but the effect is considered underpowered due to low counts in the Space Flight group (mean count = 2), falling below the typical threshold for reliable detection."
   },
   {
    "id": "OSD-421_lead_008",
@@ -11405,7 +11371,7 @@
    },
    "label": "underpowered",
    "confidence": 0.95,
-   "reason": "The mean count in the higher group (Space Flight) is 8, which is below the threshold of 20, and the padj is 0.03 with only 4/11 carriers, meeting the underpowered criterion."
+   "reason": "The mean count in the higher group (Space Flight) is 8, which is below the threshold of 20, triggering the underpowered rule."
   },
   {
    "id": "OSD-421_lead_011",
@@ -11441,7 +11407,7 @@
    },
    "label": "underpowered",
    "confidence": 0.95,
-   "reason": "The mean count in the higher group (Ground Control) is 23, which is above 20, but the underpowered rule applies when the higher group's mean count is below 20 or padj is between 0.01 and 0.05 with low carriers; here, padj is highly significant and carriers are 8/9, so the rule does not strictly apply\u2014however, FANCD2's mean count in Space Flight is 8, which matches the underpowered examples like OSD-104_lead_022 (mean_count=8), triggering the underpowered label."
+   "reason": "The mean count in the higher group (Ground Control) is 23, which is above 20, but the effect is considered underpowered because the mean count for Fancd2 in the Space Flight group is 8, which falls below the threshold of 20 for low counts."
   },
   {
    "id": "OSD-421_lead_014",
@@ -11508,7 +11474,7 @@
    },
    "label": "no_mechanism",
    "confidence": 0.95,
-   "reason": "Zfp970 is an uncharacterized zinc finger protein with no known function, and the claim lacks a biological mechanism despite significant differential expression."
+   "reason": "Zfp970 is an uncharacterized zinc finger protein with no known function, and the claim offers no biological mechanism despite significant differential expression."
   },
   {
    "id": "OSD-421_lead_018",
@@ -11575,7 +11541,7 @@
    },
    "label": "no_mechanism",
    "confidence": 0.95,
-   "reason": "The claim reports increased Plet1os expression with log2fc +4.68 and padj=0.014, but Plet1os is a poorly characterized transcript with no known function, triggering the 'no_mechanism' rule."
+   "reason": "The claim reports increased Plet1os expression with log2fc +4.68 and padj=0.014, but Plet1os is a poorly characterized transcript with no known function, satisfying the 'no_mechanism' rule."
   },
   {
    "id": "OSD-421_lead_021",
@@ -11609,7 +11575,7 @@
    },
    "label": "no_mechanism",
    "confidence": 0.95,
-   "reason": "The gene A630066F11Rik has no functional annotation in space biology, and the claim lacks a biological mechanism despite significant differential expression."
+   "reason": "The gene A630066F11Rik has no functional annotation in space biology, and the claim provides no biological mechanism for its downregulation."
   },
   {
    "id": "OSD-421_lead_022",
@@ -11646,7 +11612,41 @@
    },
    "label": "underpowered",
    "confidence": 0.95,
-   "reason": "The mean count in the higher group (Ground Control) is 66, but the mean count in Space Flight is 15, which falls below the threshold of 20 and matches the underpowered rule as seen in OSD-467_lead_045 (mean_count=15)."
+   "reason": "The mean count in the higher group (Ground Control) is 66, but the mean count in the lower group (Space Flight) is 15, which falls below the threshold of 20, triggering the underpowered rule."
+  },
+  {
+   "id": "OSD-421_lead_023",
+   "shape": "single_gene",
+   "claim": "H2bc13 expression is decreased in spaceflight with a log2 fold change of -4.52.",
+   "rows": [
+    "H2bc13"
+   ],
+   "why_not_known": "This histone variant's regulation in microgravity is unknown.",
+   "next_step": "ChIP-qPCR for H2bc13 at replication-dependent histone loci.",
+   "dataset": "OSD-421",
+   "table_facts": {
+    "H2bc13": {
+     "log2fc": -4.52,
+     "padj": 0.005483279177471,
+     "higher_group": "Ground Control",
+     "carriers": "6/9",
+     "carrier_samples": [
+      "G10",
+      "G7",
+      "G6",
+      "G3",
+      "G2",
+      "G5"
+     ],
+     "mean_count": {
+      "Space Flight": 2,
+      "Ground Control": 15
+     }
+    }
+   },
+   "label": "underpowered",
+   "confidence": 0.95,
+   "reason": "The mean count in the higher group (Ground Control) is 15, which is below the threshold of 20, triggering the underpowered rule."
   },
   {
    "id": "OSD-421_lead_048",
@@ -11923,9 +11923,9 @@
      }
     }
    },
-   "label": "untestable",
+   "label": "already_known",
    "confidence": 0.95,
-   "reason": "The claim infers a relationship between baseline expression and spaceflight responsiveness, but this correlation is not testable from the provided table facts alone, requiring a scatter plot as the next step."
+   "reason": "The claim that top downregulated genes are highly expressed in ground control is expected in RNA-seq differential expression analysis, as highly expressed genes often dominate significance lists, making this a common observation rather than a novel insight."
   },
   {
    "id": "OSD-421_lead_049",
@@ -12064,7 +12064,7 @@
    },
    "label": "confound",
    "confidence": 0.95,
-   "reason": "The claim highlights low carrier frequencies (e.g., 4/11) as a feature, and the rule states that a signal from a minority of samples (below half the group) constitutes a confound; 4/11 is below half of 11, which is 5.5."
+   "reason": "The claim highlights low carrier frequencies (e.g., 4/11) as a feature, and the rule states that a signal from a minority of samples (below half the group) constitutes a confound; 4/11 is below half of 11, triggering the confound rule."
   },
   {
    "id": "OSD-421_lead_054",
@@ -12096,7 +12096,7 @@
    },
    "label": "confound",
    "confidence": 0.95,
-   "reason": "The carrier frequency of 4/11 is below half of the Space Flight group (n=11), indicating the signal is driven by a minority of samples, which aligns with the 'confound' rule."
+   "reason": "The carrier frequency of Serpinb6c is 4/11, which is below half of the Space Flight group (n=11), meeting the confound rule threshold for minority sample support."
   },
   {
    "id": "OSD-421_lead_055",
@@ -12197,7 +12197,7 @@
    },
    "label": "underpowered",
    "confidence": 0.95,
-   "reason": "The padj=0.21 is above 0.05 and the mean count in the higher group (Space Flight) is 9, which is below 20, meeting the underpowered threshold."
+   "reason": "The padj=0.21 is above the significance threshold of 0.05 and the mean count in the higher group (Space Flight) is 9, which is below 20, meeting the underpowered criterion."
   },
   {
    "id": "OSD-421_lead_058",
@@ -12229,7 +12229,7 @@
    },
    "label": "underpowered",
    "confidence": 0.95,
-   "reason": "The padj=0.24 is non-significant and the mean count in the higher group (Ground Control) is 2, which is below the threshold of 20, meeting the underpowered criterion."
+   "reason": "The padj=0.24 is above 0.05 and the mean count in the higher group (Ground Control) is 2, which is below the threshold of 20, meeting the underpowered criterion."
   },
   {
    "id": "OSD-421_lead_060",
