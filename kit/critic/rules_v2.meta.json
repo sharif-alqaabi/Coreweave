@@ -5,6 +5,7 @@
  "change_reason": "iter 1 misses",
  "sections": [
   "underpowered",
-  "already_known"
+  "already_known",
+  "contradicted"
  ]
 }
