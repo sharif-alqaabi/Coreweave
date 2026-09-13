@@ -1,0 +1,3237 @@
+[
+ {
+  "id": "lead_001",
+  "shape": "single_gene",
+  "claim": "Krt17 expression is higher in space flight samples, with a log2 fold change of +21.87.",
+  "rows": [
+   "Krt17"
+  ],
+  "why_not_known": "This extreme fold change is unexpected for a keratin gene in a non-skin tissue context; such magnitude is rare in transcriptomic studies.",
+  "next_step": "Validate with qPCR in the same samples.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Krt17": {
+    "log2fc": 21.87,
+    "padj": 1.4139553306249598e-11,
+    "higher_group": "Space Flight",
+    "carriers": "2/6",
+    "carrier_samples": [
+     "M24",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 35,
+     "Ground Control": 1
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_002",
+  "shape": "single_gene",
+  "claim": "Gcat expression is lower in space flight, with a log2 fold change of -6.45.",
+  "rows": [
+   "Gcat"
+  ],
+  "why_not_known": "Gcat is a mitochondrial enzyme not previously linked to spaceflight stress in this tissue.",
+  "next_step": "Measure glycine metabolism flux in flight vs ground cells.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Gcat": {
+    "log2fc": -6.45,
+    "padj": 4.14885041177288e-06,
+    "higher_group": "Ground Control",
+    "carriers": "5/6",
+    "carrier_samples": [
+     "M33",
+     "M34",
+     "M35",
+     "M37",
+     "M38"
+    ],
+    "mean_count": {
+     "Space Flight": 1,
+     "Ground Control": 18
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_003",
+  "shape": "single_gene",
+  "claim": "Slc4a3 is downregulated in space flight with padj=6.7e-102, one of the most significant changes.",
+  "rows": [
+   "Slc4a3"
+  ],
+  "why_not_known": "Anion exchangers like Slc4a3 are not typically top responders in microgravity studies.",
+  "next_step": "Assess intracellular pH in flight vs ground cells.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Slc4a3": {
+    "log2fc": -2.23,
+    "padj": 6.6995885764414e-102,
+    "higher_group": "Ground Control",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M33",
+     "M34",
+     "M35",
+     "M36",
+     "M37",
+     "M38"
+    ],
+    "mean_count": {
+     "Space Flight": 297,
+     "Ground Control": 1393
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_004",
+  "shape": "single_gene",
+  "claim": "Cntfr is upregulated in space flight with padj=1.7e-68 and log2fc=+2.52.",
+  "rows": [
+   "Cntfr"
+  ],
+  "why_not_known": "CNTF signaling is primarily neural; its activation in non-neural tissue during flight is unexplained.",
+  "next_step": "Test for CNTF ligand presence in culture media or serum.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Cntfr": {
+    "log2fc": 2.52,
+    "padj": 1.7289536077980301e-68,
+    "higher_group": "Space Flight",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26",
+     "M27",
+     "M28"
+    ],
+    "mean_count": {
+     "Space Flight": 1022,
+     "Ground Control": 179
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_005",
+  "shape": "single_gene",
+  "claim": "Apol6 is downregulated in space flight with padj=2.8e-66.",
+  "rows": [
+   "Apol6"
+  ],
+  "why_not_known": "Apolipoprotein L6 has unclear function in non-hepatic tissues; role in spaceflight unknown.",
+  "next_step": "Knock down Apol6 in ground culture and assess stress markers.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Apol6": {
+    "log2fc": -1.05,
+    "padj": 2.80207119811828e-66,
+    "higher_group": "Ground Control",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M33",
+     "M34",
+     "M35",
+     "M36",
+     "M37",
+     "M38"
+    ],
+    "mean_count": {
+     "Space Flight": 2774,
+     "Ground Control": 5738
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_006",
+  "shape": "single_gene",
+  "claim": "Synm expression increases in space flight with log2fc=+0.73 and padj=3.4e-56.",
+  "rows": [
+   "Synm"
+  ],
+  "why_not_known": "Synemin is structural; subtle upregulation may reflect cytoskeletal remodeling not previously documented in microgravity.",
+  "next_step": "Immunostain for synemin protein localization in flight vs ground cells.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Synm": {
+    "log2fc": 0.73,
+    "padj": 3.39407125196582e-56,
+    "higher_group": "Space Flight",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26",
+     "M27",
+     "M28"
+    ],
+    "mean_count": {
+     "Space Flight": 44941,
+     "Ground Control": 27097
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_007",
+  "shape": "single_gene",
+  "claim": "Myoz1 is upregulated in space flight with log2fc=+1.04 and padj=4.1e-53.",
+  "rows": [
+   "Myoz1"
+  ],
+  "why_not_known": "Myozenin 1 is Z-disc associated; its upregulation may indicate early sarcomere stress, not yet reported in spaceflight.",
+  "next_step": "Co-stain for myoz1 and alpha-actinin in flight samples.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Myoz1": {
+    "log2fc": 1.04,
+    "padj": 4.08111519197891e-53,
+    "higher_group": "Space Flight",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26",
+     "M27",
+     "M28"
+    ],
+    "mean_count": {
+     "Space Flight": 27838,
+     "Ground Control": 13494
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_008",
+  "shape": "single_gene",
+  "claim": "Stat5b is upregulated in space flight with log2fc=+0.99 and padj=2.9e-52.",
+  "rows": [
+   "Stat5b"
+  ],
+  "why_not_known": "STAT5b is cytokine-responsive; its activation in spaceflight without known ligand exposure is novel.",
+  "next_step": "Test phosphorylation status of STAT5 in flight lysates.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Stat5b": {
+    "log2fc": 0.99,
+    "padj": 2.86805916593867e-52,
+    "higher_group": "Space Flight",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26",
+     "M27",
+     "M28"
+    ],
+    "mean_count": {
+     "Space Flight": 16385,
+     "Ground Control": 8236
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_009",
+  "shape": "single_gene",
+  "claim": "Lrrc52 is downregulated in space flight with log2fc=-2.85 and padj=3.4e-52.",
+  "rows": [
+   "Lrrc52"
+  ],
+  "why_not_known": "LRRC52 modulates BK channels; link to spaceflight ion homeostasis is unexplored.",
+  "next_step": "Patch-clamp to assess BK current in flight vs ground cells.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Lrrc52": {
+    "log2fc": -2.85,
+    "padj": 3.3947417218583705e-52,
+    "higher_group": "Ground Control",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M33",
+     "M34",
+     "M35",
+     "M36",
+     "M37",
+     "M38"
+    ],
+    "mean_count": {
+     "Space Flight": 102,
+     "Ground Control": 729
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_010",
+  "shape": "single_gene",
+  "claim": "Krt25 is upregulated in space flight with log2fc=+8.35 and padj=2.5e-02.",
+  "rows": [
+   "Krt25"
+  ],
+  "why_not_known": "Krt25 is hair follicle-specific; expression in this tissue under spaceflight is unexpected.",
+  "next_step": "Confirm cell type identity with histology or single-cell RNA-seq.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Krt25": {
+    "log2fc": 8.35,
+    "padj": 0.0251391928748691,
+    "higher_group": "Space Flight",
+    "carriers": "2/6",
+    "carrier_samples": [
+     "M24",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 53,
+     "Ground Control": 1
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_011",
+  "shape": "single_gene",
+  "claim": "Krt14 is upregulated in space flight with log2fc=+8.30 and padj=2.6e-02.",
+  "rows": [
+   "Krt14"
+  ],
+  "why_not_known": "KRT14 is epithelial; its induction in a presumably non-epithelial culture suggests transdifferentiation.",
+  "next_step": "Check for epithelial markers in immunofluorescence.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Krt14": {
+    "log2fc": 8.3,
+    "padj": 0.0262169339776821,
+    "higher_group": "Space Flight",
+    "carriers": "2/6",
+    "carrier_samples": [
+     "M24",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 63,
+     "Ground Control": 1
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_012",
+  "shape": "single_gene",
+  "claim": "Krt71 is upregulated in space flight with log2fc=+7.87 and padj=3.9e-03.",
+  "rows": [
+   "Krt71"
+  ],
+  "why_not_known": "Krt71 is hair-specific; its upregulation may indicate aberrant differentiation in microgravity.",
+  "next_step": "Assess hair follicle differentiation markers in bulk RNA-seq.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Krt71": {
+    "log2fc": 7.87,
+    "padj": 0.0038902504510511,
+    "higher_group": "Space Flight",
+    "carriers": "4/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 80,
+     "Ground Control": 1
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_013",
+  "shape": "single_gene",
+  "claim": "Krt35 is upregulated in space flight with log2fc=+7.65 and padj=4.4e-02.",
+  "rows": [
+   "Krt35"
+  ],
+  "why_not_known": "Krt35 is not typically expressed outside hair cortex; relevance in this model is unknown.",
+  "next_step": "Validate with hair-specific immunostaining.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Krt35": {
+    "log2fc": 7.65,
+    "padj": 0.0439382666013942,
+    "higher_group": "Space Flight",
+    "carriers": "3/6",
+    "carrier_samples": [
+     "M24",
+     "M25",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 34,
+     "Ground Control": 1
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_014",
+  "shape": "single_gene",
+  "claim": "Krt5 is upregulated in space flight with log2fc=+7.45 and padj=1.1e-02.",
+  "rows": [
+   "Krt5"
+  ],
+  "why_not_known": "KRT5 is basal epithelial; its induction suggests epithelial reprogramming in space.",
+  "next_step": "Flow cytometry for KRT5 protein in live cells.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Krt5": {
+    "log2fc": 7.45,
+    "padj": 0.0109858885675145,
+    "higher_group": "Space Flight",
+    "carriers": "2/6",
+    "carrier_samples": [
+     "M24",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 111,
+     "Ground Control": 2
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_015",
+  "shape": "single_gene",
+  "claim": "Dsc3 is upregulated in space flight with log2fc=+6.19 and padj=4.1e-02.",
+  "rows": [
+   "Dsc3"
+  ],
+  "why_not_known": "Desmocollin 3 is a desmosomal cadherin; not previously linked to mechanical unloading in space.",
+  "next_step": "Electron microscopy to assess desmosome density.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Dsc3": {
+    "log2fc": 6.19,
+    "padj": 0.0414824440324257,
+    "higher_group": "Space Flight",
+    "carriers": "4/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 25,
+     "Ground Control": 2
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_016",
+  "shape": "single_gene",
+  "claim": "Pkp1 is upregulated in space flight with log2fc=+6.01 and padj=1.2e-02.",
+  "rows": [
+   "Pkp1"
+  ],
+  "why_not_known": "Plakophilin 1 is a desmosomal plaque protein; its upregulation may reflect junctional remodeling.",
+  "next_step": "Co-immunoprecipitation of desmosomal complexes.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Pkp1": {
+    "log2fc": 6.01,
+    "padj": 0.011784743453593,
+    "higher_group": "Space Flight",
+    "carriers": "3/6",
+    "carrier_samples": [
+     "M24",
+     "M26",
+     "M27"
+    ],
+    "mean_count": {
+     "Space Flight": 28,
+     "Ground Control": 1
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_017",
+  "shape": "single_gene",
+  "claim": "Spink1 is upregulated in space flight with log2fc=+5.65 and padj=3.2e-04.",
+  "rows": [
+   "Spink1"
+  ],
+  "why_not_known": "SPINK1 is a protease inhibitor linked to inflammation; its role in spaceflight stress is unclear.",
+  "next_step": "Measure trypsin-like activity in conditioned media.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Spink1": {
+    "log2fc": 5.65,
+    "padj": 0.0003179179516928,
+    "higher_group": "Space Flight",
+    "carriers": "5/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M27",
+     "M28"
+    ],
+    "mean_count": {
+     "Space Flight": 18,
+     "Ground Control": 1
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_018",
+  "shape": "single_gene",
+  "claim": "Gm23925 is downregulated in space flight with log2fc=-5.53 and padj=2.1e-04.",
+  "rows": [
+   "Gm23925"
+  ],
+  "why_not_known": "Gm23925 is uncharacterized; no prior link to environmental stress.",
+  "next_step": "CRISPRi knockdown to assess phenotypic effect.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Gm23925": {
+    "log2fc": -5.53,
+    "padj": 0.0002082096785762,
+    "higher_group": "Ground Control",
+    "carriers": "5/6",
+    "carrier_samples": [
+     "M34",
+     "M35",
+     "M36",
+     "M37",
+     "M38"
+    ],
+    "mean_count": {
+     "Space Flight": 1,
+     "Ground Control": 10
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_019",
+  "shape": "single_gene",
+  "claim": "Krt75 is upregulated in space flight with log2fc=+5.08 and padj=8.5e-03.",
+  "rows": [
+   "Krt75"
+  ],
+  "why_not_known": "Krt75 is hair follicle-specific; ectopic expression in microgravity is unexplained.",
+  "next_step": "Check for hair keratin co-expression network activation.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Krt75": {
+    "log2fc": 5.08,
+    "padj": 0.0085019063531654,
+    "higher_group": "Space Flight",
+    "carriers": "4/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 9,
+     "Ground Control": 1
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_020",
+  "shape": "single_gene",
+  "claim": "Calhm4 is upregulated in space flight with log2fc=+4.94 and padj=1.1e-02.",
+  "rows": [
+   "Calhm4"
+  ],
+  "why_not_known": "CALHM4 is involved in calcium and ATP release; role in spaceflight calcium signaling is unknown.",
+  "next_step": "Measure extracellular ATP in flight vs ground cultures.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Calhm4": {
+    "log2fc": 4.94,
+    "padj": 0.0105916803009494,
+    "higher_group": "Space Flight",
+    "carriers": "4/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M26",
+     "M27"
+    ],
+    "mean_count": {
+     "Space Flight": 8,
+     "Ground Control": 1
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_021",
+  "shape": "single_gene",
+  "claim": "Sox21 is upregulated in space flight with log2fc=+4.76 and padj=1.4e-02.",
+  "rows": [
+   "Sox21"
+  ],
+  "why_not_known": "Sox21 regulates epidermal differentiation; its role in microgravity is unexplored.",
+  "next_step": "Assess differentiation status with lineage markers.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Sox21": {
+    "log2fc": 4.76,
+    "padj": 0.0138423909626732,
+    "higher_group": "Space Flight",
+    "carriers": "4/6",
+    "carrier_samples": [
+     "M24",
+     "M25",
+     "M26",
+     "M27"
+    ],
+    "mean_count": {
+     "Space Flight": 8,
+     "Ground Control": 1
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_022",
+  "shape": "single_gene",
+  "claim": "Msx2 is upregulated in space flight with log2fc=+4.69 and padj=5.2e-03.",
+  "rows": [
+   "Msx2"
+  ],
+  "why_not_known": "Msx2 is a homeobox gene in development; reactivation in adult cells in space is novel.",
+  "next_step": "Test for developmental gene network enrichment.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Msx2": {
+    "log2fc": 4.69,
+    "padj": 0.0051790233246063,
+    "higher_group": "Space Flight",
+    "carriers": "5/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26",
+     "M27"
+    ],
+    "mean_count": {
+     "Space Flight": 7,
+     "Ground Control": 1
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_023",
+  "shape": "single_gene",
+  "claim": "Esrp1 is upregulated in space flight with log2fc=+4.40 and padj=2.7e-03.",
+  "rows": [
+   "Esrp1"
+  ],
+  "why_not_known": "Esrp1 controls epithelial splicing; its upregulation suggests splicing reprogramming in space.",
+  "next_step": "Analyze alternative splicing of known ESRP1 targets.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Esrp1": {
+    "log2fc": 4.4,
+    "padj": 0.0026690172083623,
+    "higher_group": "Space Flight",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26",
+     "M27",
+     "M28"
+    ],
+    "mean_count": {
+     "Space Flight": 13,
+     "Ground Control": 2
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_024",
+  "shape": "single_gene",
+  "claim": "Samd7 is upregulated in space flight with log2fc=+4.17 and padj=3.9e-10.",
+  "rows": [
+   "Samd7"
+  ],
+  "why_not_known": "Samd7 is a transcriptional repressor with no known role in mechanical stress response.",
+  "next_step": "ChIP-seq to identify Samd7 binding sites in flight cells.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Samd7": {
+    "log2fc": 4.17,
+    "padj": 3.9035176258152004e-10,
+    "higher_group": "Space Flight",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26",
+     "M27",
+     "M28"
+    ],
+    "mean_count": {
+     "Space Flight": 28,
+     "Ground Control": 2
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_025",
+  "shape": "family",
+  "claim": "Keratin genes Krt17, Krt25, Krt14, Krt71, Krt35, Krt5 are co-upregulated in space flight.",
+  "rows": [
+   "Krt17",
+   "Krt25",
+   "Krt14",
+   "Krt71",
+   "Krt35",
+   "Krt5"
+  ],
+  "why_not_known": "Coordinated upregulation of multiple hair and epithelial keratins suggests a novel differentiation shift not previously seen in spaceflight.",
+  "next_step": "Gene set enrichment analysis of epithelial differentiation pathways.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Krt17": {
+    "log2fc": 21.87,
+    "padj": 1.4139553306249598e-11,
+    "higher_group": "Space Flight",
+    "carriers": "2/6",
+    "carrier_samples": [
+     "M24",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 35,
+     "Ground Control": 1
+    }
+   },
+   "Krt25": {
+    "log2fc": 8.35,
+    "padj": 0.0251391928748691,
+    "higher_group": "Space Flight",
+    "carriers": "2/6",
+    "carrier_samples": [
+     "M24",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 53,
+     "Ground Control": 1
+    }
+   },
+   "Krt14": {
+    "log2fc": 8.3,
+    "padj": 0.0262169339776821,
+    "higher_group": "Space Flight",
+    "carriers": "2/6",
+    "carrier_samples": [
+     "M24",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 63,
+     "Ground Control": 1
+    }
+   },
+   "Krt71": {
+    "log2fc": 7.87,
+    "padj": 0.0038902504510511,
+    "higher_group": "Space Flight",
+    "carriers": "4/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 80,
+     "Ground Control": 1
+    }
+   },
+   "Krt35": {
+    "log2fc": 7.65,
+    "padj": 0.0439382666013942,
+    "higher_group": "Space Flight",
+    "carriers": "3/6",
+    "carrier_samples": [
+     "M24",
+     "M25",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 34,
+     "Ground Control": 1
+    }
+   },
+   "Krt5": {
+    "log2fc": 7.45,
+    "padj": 0.0109858885675145,
+    "higher_group": "Space Flight",
+    "carriers": "2/6",
+    "carrier_samples": [
+     "M24",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 111,
+     "Ground Control": 2
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_026",
+  "shape": "family",
+  "claim": "Desmosomal genes Dsc3, Pkp1, and Dsg1a show coordinated upregulation in space flight.",
+  "rows": [
+   "Dsc3",
+   "Pkp1",
+   "Dsg1a"
+  ],
+  "why_not_known": "Dsg1a is borderline significant (padj=6.5e-02), but combined with Dsc3 and Pkp1, suggests desmosome remodeling.",
+  "next_step": "Test for enrichment of desmosome-related GO terms.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Dsc3": {
+    "log2fc": 6.19,
+    "padj": 0.0414824440324257,
+    "higher_group": "Space Flight",
+    "carriers": "4/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 25,
+     "Ground Control": 2
+    }
+   },
+   "Pkp1": {
+    "log2fc": 6.01,
+    "padj": 0.011784743453593,
+    "higher_group": "Space Flight",
+    "carriers": "3/6",
+    "carrier_samples": [
+     "M24",
+     "M26",
+     "M27"
+    ],
+    "mean_count": {
+     "Space Flight": 28,
+     "Ground Control": 1
+    }
+   },
+   "Dsg1a": {
+    "log2fc": 7.1,
+    "padj": 0.0648711561034244,
+    "higher_group": "Space Flight",
+    "carriers": "2/6",
+    "carrier_samples": [
+     "M24",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 46,
+     "Ground Control": 1
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_027",
+  "shape": "family",
+  "claim": "Slc family genes Slc10a1, Slc13a1, Slc6a20b, Slc22a8, Slc27a2, Slc17a3 are upregulated in space flight.",
+  "rows": [
+   "Slc10a1",
+   "Slc13a1",
+   "Slc6a20b",
+   "Slc22a8",
+   "Slc27a2",
+   "Slc17a3"
+  ],
+  "why_not_known": "Multiple solute carriers upregulated; may reflect metabolic adaptation, but specific transporters are not classically linked to microgravity.",
+  "next_step": "Measure uptake of substrates for these transporters.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Slc10a1": {
+    "log2fc": 3.98,
+    "padj": 0.0230752859214549,
+    "higher_group": "Space Flight",
+    "carriers": "4/6",
+    "carrier_samples": [
+     "M24",
+     "M25",
+     "M26",
+     "M27"
+    ],
+    "mean_count": {
+     "Space Flight": 6,
+     "Ground Control": 1
+    }
+   },
+   "Slc13a1": {
+    "log2fc": 3.36,
+    "padj": 0.0142712593935564,
+    "higher_group": "Space Flight",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26",
+     "M27",
+     "M28"
+    ],
+    "mean_count": {
+     "Space Flight": 9,
+     "Ground Control": 2
+    }
+   },
+   "Slc6a20b": {
+    "log2fc": 2.78,
+    "padj": 0.0224406679588737,
+    "higher_group": "Space Flight",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26",
+     "M27",
+     "M28"
+    ],
+    "mean_count": {
+     "Space Flight": 12,
+     "Ground Control": 3
+    }
+   },
+   "Slc22a8": {
+    "log2fc": 2.56,
+    "padj": 0.0496504432918089,
+    "higher_group": "Space Flight",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26",
+     "M27",
+     "M28"
+    ],
+    "mean_count": {
+     "Space Flight": 7,
+     "Ground Control": 2
+    }
+   },
+   "Slc27a2": {
+    "log2fc": 2.54,
+    "padj": 0.0202868605029059,
+    "higher_group": "Space Flight",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26",
+     "M27",
+     "M28"
+    ],
+    "mean_count": {
+     "Space Flight": 156,
+     "Ground Control": 28
+    }
+   },
+   "Slc17a3": {
+    "log2fc": 2.54,
+    "padj": 0.0193538136414181,
+    "higher_group": "Space Flight",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26",
+     "M27",
+     "M28"
+    ],
+    "mean_count": {
+     "Space Flight": 15,
+     "Ground Control": 3
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_028",
+  "shape": "family",
+  "claim": "Keratin-associated proteins Krtap11-1 and Krt28 are upregulated in space flight.",
+  "rows": [
+   "Krtap11-1",
+   "Krt28"
+  ],
+  "why_not_known": "Keratin-associated proteins are structural; their upregulation with keratins suggests coordinated hair follicle program activation.",
+  "next_step": "Check for enrichment of hair keratin gene promoters.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Krtap11-1": {
+    "log2fc": 4.17,
+    "padj": 0.0462554590628718,
+    "higher_group": "Space Flight",
+    "carriers": "3/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 7,
+     "Ground Control": 1
+    }
+   },
+   "Krt28": {
+    "log2fc": 4.23,
+    "padj": 0.0142268375638708,
+    "higher_group": "Space Flight",
+    "carriers": "5/6",
+    "carrier_samples": [
+     "M24",
+     "M25",
+     "M26",
+     "M27",
+     "M28"
+    ],
+    "mean_count": {
+     "Space Flight": 22,
+     "Ground Control": 2
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_029",
+  "shape": "family",
+  "claim": "Homeobox genes Msx2 and Dlx3 are co-upregulated in space flight.",
+  "rows": [
+   "Msx2",
+   "Dlx3"
+  ],
+  "why_not_known": "Both are developmental regulators; co-activation may indicate dedifferentiation or reprogramming.",
+  "next_step": "Assess expression of other homeobox genes in the dataset.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Msx2": {
+    "log2fc": 4.69,
+    "padj": 0.0051790233246063,
+    "higher_group": "Space Flight",
+    "carriers": "5/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26",
+     "M27"
+    ],
+    "mean_count": {
+     "Space Flight": 7,
+     "Ground Control": 1
+    }
+   },
+   "Dlx3": {
+    "log2fc": 4.1,
+    "padj": 0.0134981968757127,
+    "higher_group": "Space Flight",
+    "carriers": "4/6",
+    "carrier_samples": [
+     "M24",
+     "M26",
+     "M27",
+     "M28"
+    ],
+    "mean_count": {
+     "Space Flight": 15,
+     "Ground Control": 2
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_030",
+  "shape": "family",
+  "claim": "Calcium-binding genes S100a14 and Calhm4 are upregulated in space flight.",
+  "rows": [
+   "S100a14",
+   "Calhm4"
+  ],
+  "why_not_known": "S100 proteins and CALHM channels both modulate calcium; potential synergy in calcium signaling during flight.",
+  "next_step": "Monitor intracellular calcium dynamics in live cells.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "S100a14": {
+    "log2fc": 4.33,
+    "padj": 0.0084968548833905,
+    "higher_group": "Space Flight",
+    "carriers": "5/6",
+    "carrier_samples": [
+     "M24",
+     "M25",
+     "M26",
+     "M27",
+     "M28"
+    ],
+    "mean_count": {
+     "Space Flight": 11,
+     "Ground Control": 2
+    }
+   },
+   "Calhm4": {
+    "log2fc": 4.94,
+    "padj": 0.0105916803009494,
+    "higher_group": "Space Flight",
+    "carriers": "4/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M26",
+     "M27"
+    ],
+    "mean_count": {
+     "Space Flight": 8,
+     "Ground Control": 1
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_031",
+  "shape": "family",
+  "claim": "Intermediate filament genes Synm and Krt17 are upregulated in space flight.",
+  "rows": [
+   "Synm",
+   "Krt17"
+  ],
+  "why_not_known": "Synemin is muscle-related, Krt17 is epithelial; dual upregulation suggests cytoskeletal chaos or hybrid state.",
+  "next_step": "Co-immunostaining for synemin and keratin filaments.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Synm": {
+    "log2fc": 0.73,
+    "padj": 3.39407125196582e-56,
+    "higher_group": "Space Flight",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26",
+     "M27",
+     "M28"
+    ],
+    "mean_count": {
+     "Space Flight": 44941,
+     "Ground Control": 27097
+    }
+   },
+   "Krt17": {
+    "log2fc": 21.87,
+    "padj": 1.4139553306249598e-11,
+    "higher_group": "Space Flight",
+    "carriers": "2/6",
+    "carrier_samples": [
+     "M24",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 35,
+     "Ground Control": 1
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_032",
+  "shape": "family",
+  "claim": "Predicted genes Gm23925 and Gm5532 are both downregulated in space flight.",
+  "rows": [
+   "Gm23925",
+   "Gm5532"
+  ],
+  "why_not_known": "Both are uncharacterized; co-downregulation may indicate a shared regulatory element responsive to gravity.",
+  "next_step": "Check for conserved promoter motifs between Gm23925 and Gm5532.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Gm23925": {
+    "log2fc": -5.53,
+    "padj": 0.0002082096785762,
+    "higher_group": "Ground Control",
+    "carriers": "5/6",
+    "carrier_samples": [
+     "M34",
+     "M35",
+     "M36",
+     "M37",
+     "M38"
+    ],
+    "mean_count": {
+     "Space Flight": 1,
+     "Ground Control": 10
+    }
+   },
+   "Gm5532": {
+    "log2fc": -2.07,
+    "padj": 5.21590793760654e-99,
+    "higher_group": "Ground Control",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M33",
+     "M34",
+     "M35",
+     "M36",
+     "M37",
+     "M38"
+    ],
+    "mean_count": {
+     "Space Flight": 208,
+     "Ground Control": 867
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_033",
+  "shape": "family",
+  "claim": "LIM domain genes Ablim1 and Fermt1 show opposite regulation in space flight.",
+  "rows": [
+   "Ablim1",
+   "Fermt1"
+  ],
+  "why_not_known": "Ablim1 is down, Fermt1 is up; both bind actin, suggesting complex cytoskeletal reorganization.",
+  "next_step": "Assess actin filament organization in flight cells.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Ablim1": {
+    "log2fc": -1.76,
+    "padj": 1.10739928671315e-65,
+    "higher_group": "Ground Control",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M33",
+     "M34",
+     "M35",
+     "M36",
+     "M37",
+     "M38"
+    ],
+    "mean_count": {
+     "Space Flight": 11864,
+     "Ground Control": 40096
+    }
+   },
+   "Fermt1": {
+    "log2fc": 4.06,
+    "padj": 0.0225051385039304,
+    "higher_group": "Space Flight",
+    "carriers": "4/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M26",
+     "M28"
+    ],
+    "mean_count": {
+     "Space Flight": 7,
+     "Ground Control": 1
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_034",
+  "shape": "family",
+  "claim": "Z-disc genes Myoz1 and Fermt1 are upregulated in space flight.",
+  "rows": [
+   "Myoz1",
+   "Fermt1"
+  ],
+  "why_not_known": "Z-disc proteins are mechanosensitive; their upregulation may reflect altered tension sensing in microgravity.",
+  "next_step": "FRET-based tension sensor imaging at Z-discs.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Myoz1": {
+    "log2fc": 1.04,
+    "padj": 4.08111519197891e-53,
+    "higher_group": "Space Flight",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26",
+     "M27",
+     "M28"
+    ],
+    "mean_count": {
+     "Space Flight": 27838,
+     "Ground Control": 13494
+    }
+   },
+   "Fermt1": {
+    "log2fc": 4.06,
+    "padj": 0.0225051385039304,
+    "higher_group": "Space Flight",
+    "carriers": "4/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M26",
+     "M28"
+    ],
+    "mean_count": {
+     "Space Flight": 7,
+     "Ground Control": 1
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_035",
+  "shape": "pathway",
+  "claim": "Genes in contractile muscle fiber (GO:0043292) are enriched among significant genes with 37/54 significant.",
+  "rows": [
+   "GO:0043292"
+  ],
+  "why_not_known": "Muscle fiber genes are expected to change, but 3.3x baseline enrichment is higher than typical spaceflight atrophy studies.",
+  "next_step": "Quantify sarcomere length in electron micrographs.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "GO:0043292": {
+    "name": "contractile muscle fiber",
+    "genes_in_term": 54,
+    "significant": 37,
+    "up": 17,
+    "down": 20,
+    "enrichment_vs_baseline": 3.34
+   }
+  }
+ },
+ {
+  "id": "lead_036",
+  "shape": "pathway",
+  "claim": "Myofibril (GO:0030016) genes are enriched among significant genes with 35/52 significant.",
+  "rows": [
+   "GO:0030016"
+  ],
+  "why_not_known": "Myofibril disassembly is known in space, but 3.3x enrichment suggests broader transcriptional impact than expected.",
+  "next_step": "Assess myosin heavy chain protein levels.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "GO:0030016": {
+    "name": "myofibril",
+    "genes_in_term": 52,
+    "significant": 35,
+    "up": 16,
+    "down": 19,
+    "enrichment_vs_baseline": 3.28
+   }
+  }
+ },
+ {
+  "id": "lead_037",
+  "shape": "pathway",
+  "claim": "Sarcomere (GO:0030017) genes are enriched among significant genes with 31/47 significant.",
+  "rows": [
+   "GO:0030017"
+  ],
+  "why_not_known": "Sarcomere genes are mechanosensitive, but coordinated transcriptional change in microgravity is not fully characterized.",
+  "next_step": "Measure passive tension in single myofibers.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "GO:0030017": {
+    "name": "sarcomere",
+    "genes_in_term": 47,
+    "significant": 31,
+    "up": 14,
+    "down": 17,
+    "enrichment_vs_baseline": 3.21
+   }
+  }
+ },
+ {
+  "id": "lead_038",
+  "shape": "pathway",
+  "claim": "I band (GO:0031674) genes are enriched among significant genes with 20/32 significant.",
+  "rows": [
+   "GO:0031674"
+  ],
+  "why_not_known": "I-band contains titin; enrichment may reflect titin splicing or turnover changes in space.",
+  "next_step": "Analyze Ttn isoform expression by long-read RNA-seq.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "GO:0031674": {
+    "name": "I band",
+    "genes_in_term": 32,
+    "significant": 20,
+    "up": 8,
+    "down": 12,
+    "enrichment_vs_baseline": 3.05
+   }
+  }
+ },
+ {
+  "id": "lead_039",
+  "shape": "pathway",
+  "claim": "Z disc (GO:0030018) genes are enriched among significant genes with 19/31 significant.",
+  "rows": [
+   "GO:0030018"
+  ],
+  "why_not_known": "Z-disc is a signaling hub; enrichment suggests active remodeling beyond atrophy.",
+  "next_step": "Phosphoproteomics of Z-disc associated proteins.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "GO:0030018": {
+    "name": "Z disc",
+    "genes_in_term": 31,
+    "significant": 19,
+    "up": 8,
+    "down": 11,
+    "enrichment_vs_baseline": 2.99
+   }
+  }
+ },
+ {
+  "id": "lead_040",
+  "shape": "pathway",
+  "claim": "Muscle cell development (GO:0055001) genes are enriched among significant genes with 18/30 significant.",
+  "rows": [
+   "GO:0055001"
+  ],
+  "why_not_known": "Developmental genes reactivating in adult muscle during spaceflight could indicate dedifferentiation.",
+  "next_step": "Check for fetal isoform expression (e.g., Myh3).",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "GO:0055001": {
+    "name": "muscle cell development",
+    "genes_in_term": 30,
+    "significant": 18,
+    "up": 11,
+    "down": 7,
+    "enrichment_vs_baseline": 2.92
+   }
+  }
+ },
+ {
+  "id": "lead_041",
+  "shape": "pathway",
+  "claim": "Muscle structure development (GO:0061061) genes are enriched among significant genes with 30/52 significant.",
+  "rows": [
+   "GO:0061061"
+  ],
+  "why_not_known": "Structural development genes changing in microgravity may reflect attempted adaptation or repair.",
+  "next_step": "Assess satellite cell activation markers.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "GO:0061061": {
+    "name": "muscle structure development",
+    "genes_in_term": 52,
+    "significant": 30,
+    "up": 18,
+    "down": 12,
+    "enrichment_vs_baseline": 2.81
+   }
+  }
+ },
+ {
+  "id": "lead_042",
+  "shape": "pathway",
+  "claim": "Muscle cell differentiation (GO:0042692) genes are enriched among significant genes with 21/37 significant.",
+  "rows": [
+   "GO:0042692"
+  ],
+  "why_not_known": "Differentiation genes changing in mature cells may indicate reprogramming under microgravity.",
+  "next_step": "Test for myogenin and MyoD expression changes.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "GO:0042692": {
+    "name": "muscle cell differentiation",
+    "genes_in_term": 37,
+    "significant": 21,
+    "up": 13,
+    "down": 8,
+    "enrichment_vs_baseline": 2.77
+   }
+  }
+ },
+ {
+  "id": "lead_043",
+  "shape": "pathway",
+  "claim": "Solute carrier (Slc) genes are overrepresented among top 150 differentially expressed genes.",
+  "rows": [
+   "Slc10a1",
+   "Slc13a1",
+   "Slc6a20b",
+   "Slc22a8",
+   "Slc27a2",
+   "Slc17a3"
+  ],
+  "why_not_known": "Multiple Slc genes upregulated; may indicate systemic metabolic shift not previously emphasized in space biology.",
+  "next_step": "Metabolomics to identify altered nutrient levels.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Slc10a1": {
+    "log2fc": 3.98,
+    "padj": 0.0230752859214549,
+    "higher_group": "Space Flight",
+    "carriers": "4/6",
+    "carrier_samples": [
+     "M24",
+     "M25",
+     "M26",
+     "M27"
+    ],
+    "mean_count": {
+     "Space Flight": 6,
+     "Ground Control": 1
+    }
+   },
+   "Slc13a1": {
+    "log2fc": 3.36,
+    "padj": 0.0142712593935564,
+    "higher_group": "Space Flight",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26",
+     "M27",
+     "M28"
+    ],
+    "mean_count": {
+     "Space Flight": 9,
+     "Ground Control": 2
+    }
+   },
+   "Slc6a20b": {
+    "log2fc": 2.78,
+    "padj": 0.0224406679588737,
+    "higher_group": "Space Flight",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26",
+     "M27",
+     "M28"
+    ],
+    "mean_count": {
+     "Space Flight": 12,
+     "Ground Control": 3
+    }
+   },
+   "Slc22a8": {
+    "log2fc": 2.56,
+    "padj": 0.0496504432918089,
+    "higher_group": "Space Flight",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26",
+     "M27",
+     "M28"
+    ],
+    "mean_count": {
+     "Space Flight": 7,
+     "Ground Control": 2
+    }
+   },
+   "Slc27a2": {
+    "log2fc": 2.54,
+    "padj": 0.0202868605029059,
+    "higher_group": "Space Flight",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26",
+     "M27",
+     "M28"
+    ],
+    "mean_count": {
+     "Space Flight": 156,
+     "Ground Control": 28
+    }
+   },
+   "Slc17a3": {
+    "log2fc": 2.54,
+    "padj": 0.0193538136414181,
+    "higher_group": "Space Flight",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26",
+     "M27",
+     "M28"
+    ],
+    "mean_count": {
+     "Space Flight": 15,
+     "Ground Control": 3
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_044",
+  "shape": "pathway",
+  "claim": "Keratin (Krt) genes are overrepresented among top 150 differentially expressed genes.",
+  "rows": [
+   "Krt17",
+   "Krt25",
+   "Krt14",
+   "Krt71",
+   "Krt35",
+   "Krt5"
+  ],
+  "why_not_known": "Keratin upregulation in a non-epithelial model suggests contamination or transdifferentiation.",
+  "next_step": "Single-cell RNA-seq to confirm cell identity.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Krt17": {
+    "log2fc": 21.87,
+    "padj": 1.4139553306249598e-11,
+    "higher_group": "Space Flight",
+    "carriers": "2/6",
+    "carrier_samples": [
+     "M24",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 35,
+     "Ground Control": 1
+    }
+   },
+   "Krt25": {
+    "log2fc": 8.35,
+    "padj": 0.0251391928748691,
+    "higher_group": "Space Flight",
+    "carriers": "2/6",
+    "carrier_samples": [
+     "M24",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 53,
+     "Ground Control": 1
+    }
+   },
+   "Krt14": {
+    "log2fc": 8.3,
+    "padj": 0.0262169339776821,
+    "higher_group": "Space Flight",
+    "carriers": "2/6",
+    "carrier_samples": [
+     "M24",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 63,
+     "Ground Control": 1
+    }
+   },
+   "Krt71": {
+    "log2fc": 7.87,
+    "padj": 0.0038902504510511,
+    "higher_group": "Space Flight",
+    "carriers": "4/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 80,
+     "Ground Control": 1
+    }
+   },
+   "Krt35": {
+    "log2fc": 7.65,
+    "padj": 0.0439382666013942,
+    "higher_group": "Space Flight",
+    "carriers": "3/6",
+    "carrier_samples": [
+     "M24",
+     "M25",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 34,
+     "Ground Control": 1
+    }
+   },
+   "Krt5": {
+    "log2fc": 7.45,
+    "padj": 0.0109858885675145,
+    "higher_group": "Space Flight",
+    "carriers": "2/6",
+    "carrier_samples": [
+     "M24",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 111,
+     "Ground Control": 2
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_045",
+  "shape": "global",
+  "claim": "More genes are downregulated (2505) than upregulated (2099) in space flight vs ground.",
+  "rows": [
+   "Krt17",
+   "Gcat",
+   "Slc4a3",
+   "Cntfr",
+   "Apol6",
+   "Ablim1",
+   "Ostn",
+   "Synm",
+   "Slc43a2",
+   "Myoz1",
+   "Stat5b",
+   "Lrrc52"
+  ],
+  "why_not_known": "Global downregulation bias is not consistently reported in spaceflight transcriptomics.",
+  "next_step": "Compare with other spaceflight RNA-seq datasets for consistency.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Krt17": {
+    "log2fc": 21.87,
+    "padj": 1.4139553306249598e-11,
+    "higher_group": "Space Flight",
+    "carriers": "2/6",
+    "carrier_samples": [
+     "M24",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 35,
+     "Ground Control": 1
+    }
+   },
+   "Gcat": {
+    "log2fc": -6.45,
+    "padj": 4.14885041177288e-06,
+    "higher_group": "Ground Control",
+    "carriers": "5/6",
+    "carrier_samples": [
+     "M33",
+     "M34",
+     "M35",
+     "M37",
+     "M38"
+    ],
+    "mean_count": {
+     "Space Flight": 1,
+     "Ground Control": 18
+    }
+   },
+   "Slc4a3": {
+    "log2fc": -2.23,
+    "padj": 6.6995885764414e-102,
+    "higher_group": "Ground Control",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M33",
+     "M34",
+     "M35",
+     "M36",
+     "M37",
+     "M38"
+    ],
+    "mean_count": {
+     "Space Flight": 297,
+     "Ground Control": 1393
+    }
+   },
+   "Cntfr": {
+    "log2fc": 2.52,
+    "padj": 1.7289536077980301e-68,
+    "higher_group": "Space Flight",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26",
+     "M27",
+     "M28"
+    ],
+    "mean_count": {
+     "Space Flight": 1022,
+     "Ground Control": 179
+    }
+   },
+   "Apol6": {
+    "log2fc": -1.05,
+    "padj": 2.80207119811828e-66,
+    "higher_group": "Ground Control",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M33",
+     "M34",
+     "M35",
+     "M36",
+     "M37",
+     "M38"
+    ],
+    "mean_count": {
+     "Space Flight": 2774,
+     "Ground Control": 5738
+    }
+   },
+   "Ablim1": {
+    "log2fc": -1.76,
+    "padj": 1.10739928671315e-65,
+    "higher_group": "Ground Control",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M33",
+     "M34",
+     "M35",
+     "M36",
+     "M37",
+     "M38"
+    ],
+    "mean_count": {
+     "Space Flight": 11864,
+     "Ground Control": 40096
+    }
+   },
+   "Ostn": {
+    "log2fc": -1.67,
+    "padj": 1.27331797914046e-57,
+    "higher_group": "Ground Control",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M33",
+     "M34",
+     "M35",
+     "M36",
+     "M37",
+     "M38"
+    ],
+    "mean_count": {
+     "Space Flight": 1085,
+     "Ground Control": 3443
+    }
+   },
+   "Synm": {
+    "log2fc": 0.73,
+    "padj": 3.39407125196582e-56,
+    "higher_group": "Space Flight",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26",
+     "M27",
+     "M28"
+    ],
+    "mean_count": {
+     "Space Flight": 44941,
+     "Ground Control": 27097
+    }
+   },
+   "Slc43a2": {
+    "log2fc": -1.1,
+    "padj": 3.24125969518009e-54,
+    "higher_group": "Ground Control",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M33",
+     "M34",
+     "M35",
+     "M36",
+     "M37",
+     "M38"
+    ],
+    "mean_count": {
+     "Space Flight": 4305,
+     "Ground Control": 9236
+    }
+   },
+   "Myoz1": {
+    "log2fc": 1.04,
+    "padj": 4.08111519197891e-53,
+    "higher_group": "Space Flight",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26",
+     "M27",
+     "M28"
+    ],
+    "mean_count": {
+     "Space Flight": 27838,
+     "Ground Control": 13494
+    }
+   },
+   "Stat5b": {
+    "log2fc": 0.99,
+    "padj": 2.86805916593867e-52,
+    "higher_group": "Space Flight",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26",
+     "M27",
+     "M28"
+    ],
+    "mean_count": {
+     "Space Flight": 16385,
+     "Ground Control": 8236
+    }
+   },
+   "Lrrc52": {
+    "log2fc": -2.85,
+    "padj": 3.3947417218583705e-52,
+    "higher_group": "Ground Control",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M33",
+     "M34",
+     "M35",
+     "M36",
+     "M37",
+     "M38"
+    ],
+    "mean_count": {
+     "Space Flight": 102,
+     "Ground Control": 729
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_046",
+  "shape": "global",
+  "claim": "The median |log2fc| among significant genes is 0.36, indicating mostly subtle expression changes.",
+  "rows": [
+   "Krt17",
+   "Gcat",
+   "Slc4a3",
+   "Cntfr",
+   "Apol6",
+   "Ablim1",
+   "Ostn",
+   "Synm",
+   "Slc43a2",
+   "Myoz1",
+   "Stat5b",
+   "Lrrc52"
+  ],
+  "why_not_known": "Despite extreme fold changes in some genes, most changes are small; biological impact may be cumulative.",
+  "next_step": "Gene set analysis to detect coordinated subtle changes.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Krt17": {
+    "log2fc": 21.87,
+    "padj": 1.4139553306249598e-11,
+    "higher_group": "Space Flight",
+    "carriers": "2/6",
+    "carrier_samples": [
+     "M24",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 35,
+     "Ground Control": 1
+    }
+   },
+   "Gcat": {
+    "log2fc": -6.45,
+    "padj": 4.14885041177288e-06,
+    "higher_group": "Ground Control",
+    "carriers": "5/6",
+    "carrier_samples": [
+     "M33",
+     "M34",
+     "M35",
+     "M37",
+     "M38"
+    ],
+    "mean_count": {
+     "Space Flight": 1,
+     "Ground Control": 18
+    }
+   },
+   "Slc4a3": {
+    "log2fc": -2.23,
+    "padj": 6.6995885764414e-102,
+    "higher_group": "Ground Control",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M33",
+     "M34",
+     "M35",
+     "M36",
+     "M37",
+     "M38"
+    ],
+    "mean_count": {
+     "Space Flight": 297,
+     "Ground Control": 1393
+    }
+   },
+   "Cntfr": {
+    "log2fc": 2.52,
+    "padj": 1.7289536077980301e-68,
+    "higher_group": "Space Flight",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26",
+     "M27",
+     "M28"
+    ],
+    "mean_count": {
+     "Space Flight": 1022,
+     "Ground Control": 179
+    }
+   },
+   "Apol6": {
+    "log2fc": -1.05,
+    "padj": 2.80207119811828e-66,
+    "higher_group": "Ground Control",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M33",
+     "M34",
+     "M35",
+     "M36",
+     "M37",
+     "M38"
+    ],
+    "mean_count": {
+     "Space Flight": 2774,
+     "Ground Control": 5738
+    }
+   },
+   "Ablim1": {
+    "log2fc": -1.76,
+    "padj": 1.10739928671315e-65,
+    "higher_group": "Ground Control",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M33",
+     "M34",
+     "M35",
+     "M36",
+     "M37",
+     "M38"
+    ],
+    "mean_count": {
+     "Space Flight": 11864,
+     "Ground Control": 40096
+    }
+   },
+   "Ostn": {
+    "log2fc": -1.67,
+    "padj": 1.27331797914046e-57,
+    "higher_group": "Ground Control",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M33",
+     "M34",
+     "M35",
+     "M36",
+     "M37",
+     "M38"
+    ],
+    "mean_count": {
+     "Space Flight": 1085,
+     "Ground Control": 3443
+    }
+   },
+   "Synm": {
+    "log2fc": 0.73,
+    "padj": 3.39407125196582e-56,
+    "higher_group": "Space Flight",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26",
+     "M27",
+     "M28"
+    ],
+    "mean_count": {
+     "Space Flight": 44941,
+     "Ground Control": 27097
+    }
+   },
+   "Slc43a2": {
+    "log2fc": -1.1,
+    "padj": 3.24125969518009e-54,
+    "higher_group": "Ground Control",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M33",
+     "M34",
+     "M35",
+     "M36",
+     "M37",
+     "M38"
+    ],
+    "mean_count": {
+     "Space Flight": 4305,
+     "Ground Control": 9236
+    }
+   },
+   "Myoz1": {
+    "log2fc": 1.04,
+    "padj": 4.08111519197891e-53,
+    "higher_group": "Space Flight",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26",
+     "M27",
+     "M28"
+    ],
+    "mean_count": {
+     "Space Flight": 27838,
+     "Ground Control": 13494
+    }
+   },
+   "Stat5b": {
+    "log2fc": 0.99,
+    "padj": 2.86805916593867e-52,
+    "higher_group": "Space Flight",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26",
+     "M27",
+     "M28"
+    ],
+    "mean_count": {
+     "Space Flight": 16385,
+     "Ground Control": 8236
+    }
+   },
+   "Lrrc52": {
+    "log2fc": -2.85,
+    "padj": 3.3947417218583705e-52,
+    "higher_group": "Ground Control",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M33",
+     "M34",
+     "M35",
+     "M36",
+     "M37",
+     "M38"
+    ],
+    "mean_count": {
+     "Space Flight": 102,
+     "Ground Control": 729
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_047",
+  "shape": "global",
+  "claim": "581 genes show >=2-fold change in space flight, with 329 up and 252 down.",
+  "rows": [
+   "Krt17",
+   "Krt25",
+   "Krt14",
+   "Krt71",
+   "Krt35",
+   "Krt5",
+   "Gcat",
+   "Gm23925"
+  ],
+  "why_not_known": "High number of 2-fold changers suggests strong perturbation, but many are keratins of unclear relevance.",
+  "next_step": "Filter 2-fold changers by tissue-specific expression.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Krt17": {
+    "log2fc": 21.87,
+    "padj": 1.4139553306249598e-11,
+    "higher_group": "Space Flight",
+    "carriers": "2/6",
+    "carrier_samples": [
+     "M24",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 35,
+     "Ground Control": 1
+    }
+   },
+   "Krt25": {
+    "log2fc": 8.35,
+    "padj": 0.0251391928748691,
+    "higher_group": "Space Flight",
+    "carriers": "2/6",
+    "carrier_samples": [
+     "M24",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 53,
+     "Ground Control": 1
+    }
+   },
+   "Krt14": {
+    "log2fc": 8.3,
+    "padj": 0.0262169339776821,
+    "higher_group": "Space Flight",
+    "carriers": "2/6",
+    "carrier_samples": [
+     "M24",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 63,
+     "Ground Control": 1
+    }
+   },
+   "Krt71": {
+    "log2fc": 7.87,
+    "padj": 0.0038902504510511,
+    "higher_group": "Space Flight",
+    "carriers": "4/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 80,
+     "Ground Control": 1
+    }
+   },
+   "Krt35": {
+    "log2fc": 7.65,
+    "padj": 0.0439382666013942,
+    "higher_group": "Space Flight",
+    "carriers": "3/6",
+    "carrier_samples": [
+     "M24",
+     "M25",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 34,
+     "Ground Control": 1
+    }
+   },
+   "Krt5": {
+    "log2fc": 7.45,
+    "padj": 0.0109858885675145,
+    "higher_group": "Space Flight",
+    "carriers": "2/6",
+    "carrier_samples": [
+     "M24",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 111,
+     "Ground Control": 2
+    }
+   },
+   "Gcat": {
+    "log2fc": -6.45,
+    "padj": 4.14885041177288e-06,
+    "higher_group": "Ground Control",
+    "carriers": "5/6",
+    "carrier_samples": [
+     "M33",
+     "M34",
+     "M35",
+     "M37",
+     "M38"
+    ],
+    "mean_count": {
+     "Space Flight": 1,
+     "Ground Control": 18
+    }
+   },
+   "Gm23925": {
+    "log2fc": -5.53,
+    "padj": 0.0002082096785762,
+    "higher_group": "Ground Control",
+    "carriers": "5/6",
+    "carrier_samples": [
+     "M34",
+     "M35",
+     "M36",
+     "M37",
+     "M38"
+    ],
+    "mean_count": {
+     "Space Flight": 1,
+     "Ground Control": 10
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_048",
+  "shape": "global",
+  "claim": "Genes with high mean count (e.g., Synm, Ablim1) show significant differential expression.",
+  "rows": [
+   "Synm",
+   "Ablim1",
+   "Myoz1",
+   "Stat5b"
+  ],
+  "why_not_known": "High-abundance structural genes changing significantly may reflect large-scale remodeling.",
+  "next_step": "Correlate fold change with baseline expression level.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Synm": {
+    "log2fc": 0.73,
+    "padj": 3.39407125196582e-56,
+    "higher_group": "Space Flight",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26",
+     "M27",
+     "M28"
+    ],
+    "mean_count": {
+     "Space Flight": 44941,
+     "Ground Control": 27097
+    }
+   },
+   "Ablim1": {
+    "log2fc": -1.76,
+    "padj": 1.10739928671315e-65,
+    "higher_group": "Ground Control",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M33",
+     "M34",
+     "M35",
+     "M36",
+     "M37",
+     "M38"
+    ],
+    "mean_count": {
+     "Space Flight": 11864,
+     "Ground Control": 40096
+    }
+   },
+   "Myoz1": {
+    "log2fc": 1.04,
+    "padj": 4.08111519197891e-53,
+    "higher_group": "Space Flight",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26",
+     "M27",
+     "M28"
+    ],
+    "mean_count": {
+     "Space Flight": 27838,
+     "Ground Control": 13494
+    }
+   },
+   "Stat5b": {
+    "log2fc": 0.99,
+    "padj": 2.86805916593867e-52,
+    "higher_group": "Space Flight",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26",
+     "M27",
+     "M28"
+    ],
+    "mean_count": {
+     "Space Flight": 16385,
+     "Ground Control": 8236
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_049",
+  "shape": "global",
+  "claim": "Carriers for top upregulated genes are often low (e.g., 2/6 for Krt17), suggesting heterogeneity.",
+  "rows": [
+   "Krt17",
+   "Krt25",
+   "Krt14",
+   "Krt35",
+   "Krt5"
+  ],
+  "why_not_known": "Low carrier count for extreme fold changes may indicate rare cell populations or noise.",
+  "next_step": "Single-cell RNA-seq to assess heterogeneity.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Krt17": {
+    "log2fc": 21.87,
+    "padj": 1.4139553306249598e-11,
+    "higher_group": "Space Flight",
+    "carriers": "2/6",
+    "carrier_samples": [
+     "M24",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 35,
+     "Ground Control": 1
+    }
+   },
+   "Krt25": {
+    "log2fc": 8.35,
+    "padj": 0.0251391928748691,
+    "higher_group": "Space Flight",
+    "carriers": "2/6",
+    "carrier_samples": [
+     "M24",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 53,
+     "Ground Control": 1
+    }
+   },
+   "Krt14": {
+    "log2fc": 8.3,
+    "padj": 0.0262169339776821,
+    "higher_group": "Space Flight",
+    "carriers": "2/6",
+    "carrier_samples": [
+     "M24",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 63,
+     "Ground Control": 1
+    }
+   },
+   "Krt35": {
+    "log2fc": 7.65,
+    "padj": 0.0439382666013942,
+    "higher_group": "Space Flight",
+    "carriers": "3/6",
+    "carrier_samples": [
+     "M24",
+     "M25",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 34,
+     "Ground Control": 1
+    }
+   },
+   "Krt5": {
+    "log2fc": 7.45,
+    "padj": 0.0109858885675145,
+    "higher_group": "Space Flight",
+    "carriers": "2/6",
+    "carrier_samples": [
+     "M24",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 111,
+     "Ground Control": 2
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_050",
+  "shape": "global",
+  "claim": "Genes with padj < 1e-50 (e.g., Mettl21e, Slc4a3, Gm5532) are strongly and consistently regulated.",
+  "rows": [
+   "Mettl21e",
+   "Slc4a3",
+   "Gm5532",
+   "Lbh",
+   "Cntfr",
+   "Apol6"
+  ],
+  "why_not_known": "Such extreme significance suggests robust regulation, but biological relevance is unclear for some genes.",
+  "next_step": "Check if these genes share regulatory motifs.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Mettl21e": {
+    "log2fc": 4.08,
+    "padj": 3.3461333604203397e-28,
+    "higher_group": "Space Flight",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26",
+     "M27",
+     "M28"
+    ],
+    "mean_count": {
+     "Space Flight": 1064,
+     "Ground Control": 64
+    }
+   },
+   "Slc4a3": {
+    "log2fc": -2.23,
+    "padj": 6.6995885764414e-102,
+    "higher_group": "Ground Control",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M33",
+     "M34",
+     "M35",
+     "M36",
+     "M37",
+     "M38"
+    ],
+    "mean_count": {
+     "Space Flight": 297,
+     "Ground Control": 1393
+    }
+   },
+   "Gm5532": {
+    "log2fc": -2.07,
+    "padj": 5.21590793760654e-99,
+    "higher_group": "Ground Control",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M33",
+     "M34",
+     "M35",
+     "M36",
+     "M37",
+     "M38"
+    ],
+    "mean_count": {
+     "Space Flight": 208,
+     "Ground Control": 867
+    }
+   },
+   "Lbh": {
+    "log2fc": -1.42,
+    "padj": 7.99764802435579e-85,
+    "higher_group": "Ground Control",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M33",
+     "M34",
+     "M35",
+     "M36",
+     "M37",
+     "M38"
+    ],
+    "mean_count": {
+     "Space Flight": 916,
+     "Ground Control": 2449
+    }
+   },
+   "Cntfr": {
+    "log2fc": 2.52,
+    "padj": 1.7289536077980301e-68,
+    "higher_group": "Space Flight",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26",
+     "M27",
+     "M28"
+    ],
+    "mean_count": {
+     "Space Flight": 1022,
+     "Ground Control": 179
+    }
+   },
+   "Apol6": {
+    "log2fc": -1.05,
+    "padj": 2.80207119811828e-66,
+    "higher_group": "Ground Control",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M33",
+     "M34",
+     "M35",
+     "M36",
+     "M37",
+     "M38"
+    ],
+    "mean_count": {
+     "Space Flight": 2774,
+     "Ground Control": 5738
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_051",
+  "shape": "global",
+  "claim": "Borderline genes like Krt85 (padj=5.9e-02) have high log2fc (+7.24) but fail FDR threshold.",
+  "rows": [
+   "Krt85",
+   "Dsg1a",
+   "Flg",
+   "Krt27",
+   "Krt31"
+  ],
+  "why_not_known": "High fold change with borderline significance may indicate real effect with high variance.",
+  "next_step": "Increase sample size to retest Krt85.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Krt85": {
+    "log2fc": 7.24,
+    "padj": 0.0587578483533551,
+    "higher_group": "Space Flight",
+    "carriers": "2/6",
+    "carrier_samples": [
+     "M24",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 44,
+     "Ground Control": 1
+    }
+   },
+   "Dsg1a": {
+    "log2fc": 7.1,
+    "padj": 0.0648711561034244,
+    "higher_group": "Space Flight",
+    "carriers": "2/6",
+    "carrier_samples": [
+     "M24",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 46,
+     "Ground Control": 1
+    }
+   },
+   "Flg": {
+    "log2fc": 6.84,
+    "padj": 0.0782993722002228,
+    "higher_group": "Space Flight",
+    "carriers": "2/6",
+    "carrier_samples": [
+     "M24",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 20,
+     "Ground Control": 1
+    }
+   },
+   "Krt27": {
+    "log2fc": 6.78,
+    "padj": 0.0817965023572929,
+    "higher_group": "Space Flight",
+    "carriers": "2/6",
+    "carrier_samples": [
+     "M24",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 20,
+     "Ground Control": 1
+    }
+   },
+   "Krt31": {
+    "log2fc": 6.75,
+    "padj": 0.0834097573208617,
+    "higher_group": "Space Flight",
+    "carriers": "2/6",
+    "carrier_samples": [
+     "M24",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 20,
+     "Ground Control": 1
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_052",
+  "shape": "global",
+  "claim": "Null genes like Ctsl (padj=7.4e-01) show near-zero log2fc (+0.06), validating stable expression.",
+  "rows": [
+   "Ctsl",
+   "Gm12174",
+   "Rbm24",
+   "Med6",
+   "Capn10"
+  ],
+  "why_not_known": "These can serve as negative controls; their stability supports data quality.",
+  "next_step": "Use Ctsl as reference gene in qPCR validation.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Ctsl": {
+    "log2fc": 0.06,
+    "padj": 0.740026112223573,
+    "higher_group": "Space Flight",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26",
+     "M27",
+     "M28"
+    ],
+    "mean_count": {
+     "Space Flight": 5820,
+     "Ground Control": 5577
+    }
+   },
+   "Gm12174": {
+    "log2fc": -0.03,
+    "padj": 0.965319494509787,
+    "higher_group": "Ground Control",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M33",
+     "M34",
+     "M35",
+     "M36",
+     "M37",
+     "M38"
+    ],
+    "mean_count": {
+     "Space Flight": 13,
+     "Ground Control": 13
+    }
+   },
+   "Rbm24": {
+    "log2fc": 0.0,
+    "padj": 0.977933770573737,
+    "higher_group": "Space Flight",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26",
+     "M27",
+     "M28"
+    ],
+    "mean_count": {
+     "Space Flight": 10633,
+     "Ground Control": 10607
+    }
+   },
+   "Med6": {
+    "log2fc": 0.03,
+    "padj": 0.893821478543414,
+    "higher_group": "Space Flight",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26",
+     "M27",
+     "M28"
+    ],
+    "mean_count": {
+     "Space Flight": 233,
+     "Ground Control": 229
+    }
+   },
+   "Capn10": {
+    "log2fc": -0.08,
+    "padj": 0.676871259258773,
+    "higher_group": "Ground Control",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M33",
+     "M34",
+     "M35",
+     "M36",
+     "M37",
+     "M38"
+    ],
+    "mean_count": {
+     "Space Flight": 176,
+     "Ground Control": 187
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_053",
+  "shape": "data_quality",
+  "claim": "Sample M24 is a carrier for 4 of the top 50 genes, suggesting it drives extreme fold changes.",
+  "rows": [
+   "Krt17",
+   "Krt25",
+   "Krt14",
+   "Krt35"
+  ],
+  "why_not_known": "If M24 is an outlier, it may bias results; needs verification.",
+  "next_step": "Re-run differential expression excluding M24.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Krt17": {
+    "log2fc": 21.87,
+    "padj": 1.4139553306249598e-11,
+    "higher_group": "Space Flight",
+    "carriers": "2/6",
+    "carrier_samples": [
+     "M24",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 35,
+     "Ground Control": 1
+    }
+   },
+   "Krt25": {
+    "log2fc": 8.35,
+    "padj": 0.0251391928748691,
+    "higher_group": "Space Flight",
+    "carriers": "2/6",
+    "carrier_samples": [
+     "M24",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 53,
+     "Ground Control": 1
+    }
+   },
+   "Krt14": {
+    "log2fc": 8.3,
+    "padj": 0.0262169339776821,
+    "higher_group": "Space Flight",
+    "carriers": "2/6",
+    "carrier_samples": [
+     "M24",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 63,
+     "Ground Control": 1
+    }
+   },
+   "Krt35": {
+    "log2fc": 7.65,
+    "padj": 0.0439382666013942,
+    "higher_group": "Space Flight",
+    "carriers": "3/6",
+    "carrier_samples": [
+     "M24",
+     "M25",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 34,
+     "Ground Control": 1
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_054",
+  "shape": "data_quality",
+  "claim": "Sample M26 is a carrier for 4 of the top 50 genes, similar to M24, indicating potential outlier status.",
+  "rows": [
+   "Krt17",
+   "Krt25",
+   "Krt14",
+   "Krt35"
+  ],
+  "why_not_known": "Two samples (M24, M26) may disproportionately influence top hits.",
+  "next_step": "PCA to check clustering of M24 and M26.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Krt17": {
+    "log2fc": 21.87,
+    "padj": 1.4139553306249598e-11,
+    "higher_group": "Space Flight",
+    "carriers": "2/6",
+    "carrier_samples": [
+     "M24",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 35,
+     "Ground Control": 1
+    }
+   },
+   "Krt25": {
+    "log2fc": 8.35,
+    "padj": 0.0251391928748691,
+    "higher_group": "Space Flight",
+    "carriers": "2/6",
+    "carrier_samples": [
+     "M24",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 53,
+     "Ground Control": 1
+    }
+   },
+   "Krt14": {
+    "log2fc": 8.3,
+    "padj": 0.0262169339776821,
+    "higher_group": "Space Flight",
+    "carriers": "2/6",
+    "carrier_samples": [
+     "M24",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 63,
+     "Ground Control": 1
+    }
+   },
+   "Krt35": {
+    "log2fc": 7.65,
+    "padj": 0.0439382666013942,
+    "higher_group": "Space Flight",
+    "carriers": "3/6",
+    "carrier_samples": [
+     "M24",
+     "M25",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 34,
+     "Ground Control": 1
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_055",
+  "shape": "data_quality",
+  "claim": "Krt17 has mean_count_in_SF=35 but only 2/6 carriers, suggesting sparse expression.",
+  "rows": [
+   "Krt17"
+  ],
+  "why_not_known": "Low carrier count with moderate mean count may indicate technical artifact or rare cells.",
+  "next_step": "Check raw read counts per sample for Krt17.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Krt17": {
+    "log2fc": 21.87,
+    "padj": 1.4139553306249598e-11,
+    "higher_group": "Space Flight",
+    "carriers": "2/6",
+    "carrier_samples": [
+     "M24",
+     "M26"
+    ],
+    "mean_count": {
+     "Space Flight": 35,
+     "Ground Control": 1
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_056",
+  "shape": "data_quality",
+  "claim": "Gcat has 5/6 carriers in GC and mean_count_in_GC=18, supporting reliable detection.",
+  "rows": [
+   "Gcat"
+  ],
+  "why_not_known": "High carrier count and moderate expression suggest Gcat result is robust.",
+  "next_step": "Validate Gcat with digital PCR.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Gcat": {
+    "log2fc": -6.45,
+    "padj": 4.14885041177288e-06,
+    "higher_group": "Ground Control",
+    "carriers": "5/6",
+    "carrier_samples": [
+     "M33",
+     "M34",
+     "M35",
+     "M37",
+     "M38"
+    ],
+    "mean_count": {
+     "Space Flight": 1,
+     "Ground Control": 18
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_057",
+  "shape": "data_quality",
+  "claim": "Esrp1 has 6/6 carriers in SF and mean_count_in_SF=13, indicating consistent upregulation.",
+  "rows": [
+   "Esrp1"
+  ],
+  "why_not_known": "Perfect carrier rate supports biological consistency of Esrp1 upregulation.",
+  "next_step": "Test Esrp1 splicing targets for consistent changes.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Esrp1": {
+    "log2fc": 4.4,
+    "padj": 0.0026690172083623,
+    "higher_group": "Space Flight",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26",
+     "M27",
+     "M28"
+    ],
+    "mean_count": {
+     "Space Flight": 13,
+     "Ground Control": 2
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_058",
+  "shape": "data_quality",
+  "claim": "Samd7 has 6/6 carriers in SF and padj=3.9e-10, indicating highly reproducible upregulation.",
+  "rows": [
+   "Samd7"
+  ],
+  "why_not_known": "High reproducibility across all flight samples strengthens confidence in Samd7 result.",
+  "next_step": "Assess Samd7 protein levels in all SF samples.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Samd7": {
+    "log2fc": 4.17,
+    "padj": 3.9035176258152004e-10,
+    "higher_group": "Space Flight",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26",
+     "M27",
+     "M28"
+    ],
+    "mean_count": {
+     "Space Flight": 28,
+     "Ground Control": 2
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_059",
+  "shape": "data_quality",
+  "claim": "Mettl21e has 6/6 carriers in SF and mean_count_in_SF=1064, supporting robust detection.",
+  "rows": [
+   "Mettl21e"
+  ],
+  "why_not_known": "High expression and perfect carrier rate make Mettl21e a strong candidate for follow-up.",
+  "next_step": "Measure METTL21E methyltransferase activity in flight lysates.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Mettl21e": {
+    "log2fc": 4.08,
+    "padj": 3.3461333604203397e-28,
+    "higher_group": "Space Flight",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26",
+     "M27",
+     "M28"
+    ],
+    "mean_count": {
+     "Space Flight": 1064,
+     "Ground Control": 64
+    }
+   }
+  }
+ },
+ {
+  "id": "lead_060",
+  "shape": "data_quality",
+  "claim": "Null genes like Rbm24 have padj=9.8e-01 and log2fc=0.00, supporting lack of technical bias.",
+  "rows": [
+   "Rbm24",
+   "Med6",
+   "Ctsl",
+   "Gm12174",
+   "Capn10"
+  ],
+  "why_not_known": "Stable expression of housekeeping genes indicates good normalization.",
+  "next_step": "Use Rbm24 as a control in downstream analyses.",
+  "dataset": "OSD-104",
+  "table_facts": {
+   "Rbm24": {
+    "log2fc": 0.0,
+    "padj": 0.977933770573737,
+    "higher_group": "Space Flight",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26",
+     "M27",
+     "M28"
+    ],
+    "mean_count": {
+     "Space Flight": 10633,
+     "Ground Control": 10607
+    }
+   },
+   "Med6": {
+    "log2fc": 0.03,
+    "padj": 0.893821478543414,
+    "higher_group": "Space Flight",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26",
+     "M27",
+     "M28"
+    ],
+    "mean_count": {
+     "Space Flight": 233,
+     "Ground Control": 229
+    }
+   },
+   "Ctsl": {
+    "log2fc": 0.06,
+    "padj": 0.740026112223573,
+    "higher_group": "Space Flight",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M23",
+     "M24",
+     "M25",
+     "M26",
+     "M27",
+     "M28"
+    ],
+    "mean_count": {
+     "Space Flight": 5820,
+     "Ground Control": 5577
+    }
+   },
+   "Gm12174": {
+    "log2fc": -0.03,
+    "padj": 0.965319494509787,
+    "higher_group": "Ground Control",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M33",
+     "M34",
+     "M35",
+     "M36",
+     "M37",
+     "M38"
+    ],
+    "mean_count": {
+     "Space Flight": 13,
+     "Ground Control": 13
+    }
+   },
+   "Capn10": {
+    "log2fc": -0.08,
+    "padj": 0.676871259258773,
+    "higher_group": "Ground Control",
+    "carriers": "6/6",
+    "carrier_samples": [
+     "M33",
+     "M34",
+     "M35",
+     "M36",
+     "M37",
+     "M38"
+    ],
+    "mean_count": {
+     "Space Flight": 176,
+     "Ground Control": 187
+    }
+   }
+  }
+ }
+]
