@@ -41,6 +41,7 @@ def run_iteration(n, leads, table, critic, args, prev_precision):
         w = csv.writer(f)
         if f.tell() == 0: w.writerow(["iteration", "rules_version", "kill_precision", "false_kill_rate", "reason_accuracy", "misses"])
         w.writerow([n, n, m["screening/kill_precision"], m["screening/false_kill_rate"], m["screening/reason_accuracy"], len(result["misses"])])
+    result["metrics"]["screening/eval_complete"] = 1          # the automation trigger signal
     log_iteration(n, result, rules, {"critic/model": critic.model, "critic/dry_run": critic.dry_run,
                                       "architect": "aria" if args.patch_dir else "claude"},
                   prev_rules_path=f"kit/critic/rules_v{n-1}.md" if n else None)
