@@ -21,9 +21,16 @@ REQUIRED = {"id", "shape", "claim", "rows", "why_not_known", "next_step"}
 
 
 def best_rules():
-    """Trained rules: best train reason-accuracy per results/metrics.csv, else the newest version."""
-    mpath = os.path.join(ROOT, "results", "metrics.csv")
+    """Rules the product ships: best HOLDOUT reason accuracy (results/holdout_rules_v*.json), because the
+    loop promotes by train score and that overfits (v4: train 0.84 but holdout 0.64; v2: 0.81 / 0.73).
+    Falls back to best train score, then to the newest version."""
     versions = sorted(glob.glob(os.path.join(ROOT, "kit/critic/rules_v*.md")), key=lambda p: int(p.split("_v")[1][:-3]))
+    holdout = glob.glob(os.path.join(ROOT, "results", "holdout_rules_v*.json"))
+    if holdout:
+        score = lambda f: json.load(open(f))["metrics"]["screening/reason_accuracy"] or 0
+        best = max(holdout, key=score)
+        return os.path.join(ROOT, f"kit/critic/rules_v{best.split('_v')[-1][:-5]}.md")
+    mpath = os.path.join(ROOT, "results", "metrics.csv")
     if os.path.exists(mpath):
         rows = list(csv.DictReader(open(mpath)))
         best = max(rows, key=lambda r: (float(r["reason_accuracy"] or 0), float(r["kill_precision"] or 0)))
