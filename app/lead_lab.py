@@ -23,7 +23,11 @@ def _():
 
 @app.cell
 def _(mo, best_rules, glob, os):
-    versions = sorted(glob.glob("kit/critic/rules_v*.md"), key=lambda p: int(p.split("_v")[1][:-3]))
+    versions, seen = [], set()                      # one entry per distinct rules text: the loop copies the
+    for v in sorted(glob.glob("kit/critic/rules_v*.md"), key=lambda p: int(p.split("_v")[1][:-3])):   # base forward unchanged
+        text = open(v).read()                       # when no candidate beats it, so v5..v8 can equal v4
+        if text not in seen:
+            seen.add(text); versions.append(v)
     mo.vstack([
         mo.md("# OSDR Lead Lab"),
         mo.md("Upload a NASA OSDR **differential expression** CSV (any of the 243 studies in `data/osdr_catalog.csv`). "
@@ -36,7 +40,9 @@ def _(mo, best_rules, glob, os):
 @app.cell
 def _(mo, versions, best_rules, os):
     upload = mo.ui.file(filetypes=[".csv"], multiple=False, kind="area", max_size=500_000_000, label="Choose a *_differential_expression*.csv")
-    rules_pick = mo.ui.dropdown(options={os.path.basename(v): v for v in versions}, value=os.path.basename(best_rules()), label="Rules version")
+    best_text = open(best_rules()).read()          # best_rules() may name a copy (e.g. v6 == v4); pick the listed twin
+    default = next((v for v in versions if open(v).read() == best_text), versions[-1])
+    rules_pick = mo.ui.dropdown(options={os.path.basename(v): v for v in versions}, value=os.path.basename(default), label="Rules version")
     n_leads = mo.ui.slider(12, 60, value=60, step=12, label="Leads to propose")
     run = mo.ui.run_button(label="Run pipeline", kind="success")
     mo.vstack([upload, mo.hstack([rules_pick, n_leads, run], justify="start")])
@@ -64,10 +70,13 @@ def _(mo, result, os):
     if result is None:
         out = mo.md("_Results appear here after a run._")
     else:
+        def padj(lead):                             # smallest adjusted p-value among the genes the claim cites
+            ps = [f["padj"] for f in lead.get("table_facts", {}).values() if isinstance(f, dict) and "padj" in f]
+            return f"{min(ps):.2g}" if ps else ""     # pathway / global claims cite no single gene
         surv = [{"lead": s["id"].split("_", 1)[1], "shape": s["shape"], "claim": s["claim"], "why new": s["why_not_known"][:120],
-                 "next step": s["next_step"][:120], "confidence": s["confidence"], "critic": s["reason"][:120]} for s in result["survivors"]]
+                 "next step": s["next_step"][:120], "padj": padj(s), "critic": s["reason"][:120]} for s in result["survivors"]]
         kill = [{"lead": k["id"].split("_", 1)[1], "reason code": k["label"], "claim": k["claim"][:110], "critic": k["reason"][:140],
-                 "confidence": k["confidence"]} for k in result["killed"]]
+                 "padj": padj(k)} for k in result["killed"]]
         out = mo.vstack([
             mo.md(f"## {result['dataset']}: **{len(surv)} leads survive**, {len(kill)} killed "
                   f"(rules {os.path.basename(result['rules'])}, {result['seconds']} s)"),
