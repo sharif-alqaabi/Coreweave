@@ -90,44 +90,47 @@ first 40 seconds, then go to the live screens. No second slide.
 
 ---
 
-## 3-minute script. Simple version. Say this one.
+## 3-minute script. One browser tab: the deck at localhost:2721. Say this one.
 
-Three ideas, in this order: it proposes and checks against real numbers; it rewrites its own rules from
-its mistakes; it tests every rewrite on data it never saw, and that caught a bad one. Nothing else.
+`marimo run app/deck.py -p 2721`. Six slides as tabs across the top. Everything is preloaded; nothing
+runs live. Slide 1 needs `results/naive_OSD-255.json` (already built and committed).
 
-**0:00 · Slide up · 25 s**
+**0:00 · Slide 1, "The problem", findings table showing · 35 s**
 "NASA has 243 gene-expression studies from mice that flew in space. Too many for any scientist to read.
-An LLM will read them, and invent findings, because nothing tells it no. Helix is an agent that tells
-itself no, and gets better at it."
+So you hand one to an LLM research assistant. Here's what you get: sixty findings from a retina study.
+Confident, specific, with a suggested experiment for each. None of it checked, because nothing in the
+loop can say no." Press **Reveal**. "Same sixty. Helix attached the real numbers and let a critic judge.
+Most die, and every kill cites the number that decided it. And look at what survived: Drd4, Sag. The
+scout never saw the paper. Those are the published paper's headline findings."
 
-**0:25 · Slide, point at the middle band · 40 s**
-"Three steps. One: a model reads a table and proposes leads. We didn't teach it what a good lead is. We
-let it propose, and let the numbers sort. Two: code attaches the real numbers, and a separate critic kills
-any lead the numbers don't support, and says why. About half survive; that's the honest ratio for an LLM
-reading data. Three: the critic's rulebook is plain text, and after every round, architects rewrite it
-from the critic's mistakes. That's the loop. Propose, judge, rewrite the rules, repeat."
+**0:35 · Slide 2, "How it works" · 30 s**
+Point at the middle band. "Three steps. A model proposes leads. We didn't teach it good; we let the
+numbers sort. Code attaches the real numbers and a separate critic kills what they don't support, and
+says why. The critic's rulebook is plain text, and after every round three architects rewrite it from
+the critic's mistakes. Propose, judge, rewrite the rules, repeat."
 
-**1:00 · Tab 1, Lead Lab, run already finished · 30 s**
-"Here's a real table from a retina study. Fifty leads survive. Ten killed." Read one kill. "Every kill
-cites a number from the data. The model never gets to make numbers up. And this gene here, Drd4, is the
-headline finding of the published paper. The scout found it from the table alone. Never saw the paper."
+**1:05 · Slide 3, "The product" · 20 s**
+"Any table in, judged leads out, a hundred seconds. Different study, thymus this time. Thirty-eight
+survive, twenty-two killed, each with the number."
 
-**1:30 · Tab 2, Weave Evals, four holdout rows in Compare · 50 s. The pitch.**
-"Now the part that matters. Four versions of the rulebook. We score each one on 90 leads it never
-trained on. Version zero lets 20 bad leads through. Versions one and two catch more. Version four
-scored best on the training data. On the unseen data, it's worse: it kills seven more good leads for
-nothing. It had memorised the training set. This page caught it. It didn't ship. We ship version two."
+**1:25 · Slide 4, "Does it learn?", charts showing · 50 s. The pitch.**
+Point at the orange line. "Four versions of the rulebook, each scored on ninety leads it never trained
+on. Version zero lets twenty bad leads through. One and two catch more. Version four scored best on the
+training data. On unseen data, it's worse: seven more good leads killed for nothing. It had memorised
+the training set." Scroll to the v4 diff tab. "Here's the rewrite. Two lines out, one in, and the new
+line names training leads by id. This page caught it. It didn't ship. We ship version two."
 
-**2:20 · Tab 3, dashboard, v4 diff · 20 s**
-"Here's the rewrite that failed. Two lines out, one in, and the new line names training leads by id.
-Every version is a W&B artifact. Every verdict, 5,800 of them, is a Weave trace. This is all live."
+**2:15 · Slide 5, "The proof" · 20 s**
+"Every verdict is a Weave trace, five thousand eight hundred of them. Every rulebook is a W&B artifact.
+Every version on every set is an evaluation." Click the Evals button if there's time; otherwise just point.
+"Zero published NASA findings killed, by any version."
 
-**2:40 · Close · 20 s**
+**2:35 · Slide 6, "Close" · 20 s**
 "Agents drift. Usually a person notices, after trusting it. Here the loop noticed first, on data nobody
 tuned for, and the bad version never reached a user. That's what we built this weekend."
 
-Words not to say in the room unless asked: jury, holdout, tournament, ARIA, padj, reason accuracy. Say
-"unseen data," "the numbers," "architects," "the rulebook."
+Words not to say unless asked: jury, holdout, tournament, ARIA, padj, reason accuracy. Say "unseen data,"
+"the numbers," "architects," "the rulebook."
 
 ### The detailed version (for questions, not for the room)
 
@@ -271,21 +274,18 @@ distinct rulebook with a red/green diff against its predecessor and the author.
 
 ---
 
-## Optional opener: the naive baseline (localhost:2720, `marimo run app/naive_lab.py -p 2720`)
+## The naive baseline, live version (localhost:2720, `marimo run app/naive_lab.py -p 2720`)
 
-Same scout, same table, no numbers attached, no critic. Every lead is shown as a "finding". Have it
-already run before the room. Show it for 15 seconds: "This is what an LLM research assistant gives you.
-Sixty findings, all confident, none checked." Then press "Now run Helix's critic on these" and let it
-run in the background while you talk; come back at the end to the kill count. On the bone table it
-killed 38 of 60. Only use this if the rest of the script is under 2:30; it costs about 30 seconds of
-talking plus the reveal. Never run the "Generate findings" step live: the scout can take two minutes.
+Slide 1 of the deck shows the baseline from a cached run. If a judge wants to see it live on a table
+of their choosing, this page does it: upload, Generate findings (1 to 2 minutes), then "Now run Helix's
+critic on these." Bone table: 38 of 60 killed. Not for the 3-minute slot.
 
 ## Before the room
 
-- Restart all servers: `marimo run app/lead_lab.py -p 2719`, `marimo run app/dashboard.py -p 2718`, `marimo run app/naive_lab.py -p 2720`.
+- Restart all servers: deck `marimo run app/deck.py -p 2721` (the one you present from), plus `app/lead_lab.py -p 2719`, `app/dashboard.py -p 2718`, `app/naive_lab.py -p 2720` for questions.
 - Run Lead Lab once on a CSV from `data/raw/` and leave it up. Never run live in the room.
-- Traces filtered to Critic.judge, saved as a view. Evals with the four holdout rows ticked and Compare
-  open; delete the N/A row. Dashboard scrolled to the v4 diff tab.
+- Deck open on slide 1 with the findings loaded, Reveal not yet pressed. Second browser tab: W&B Evals with
+  the four holdout rows ticked and Compare open, the N/A row deleted, in case a judge asks to see it.
 - Diagram screenshot as the one slide. README "Results so far" open as the network-failure fallback.
 - Zoom installed, or share.zoom.us tested, for the final round.
 - Make the repo public before submitting. Every member: signed in, survey done.
