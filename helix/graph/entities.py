@@ -72,3 +72,35 @@ def findings():
     for l in json.load(open(os.path.join(ROOT, "ledger/leads_all_enriched.json"))):
         add(l, "lead", labs.get(l["id"], ""))
     return out
+
+
+# ---------------------------------------------------------------- vocabularies
+def gene_vocab():
+    """UPPER -> display symbol, from every DGE table on disk. Cached; delete data/corpus/gene_vocab.json to rebuild."""
+    if os.path.exists(VOCAB):
+        return json.load(open(VOCAB))
+    import pandas as pd
+    vocab = {}
+    for p in glob.glob(os.path.join(ROOT, "data/raw/OSD-*.csv")):
+        for s in pd.read_csv(p, usecols=["SYMBOL"], low_memory=False)["SYMBOL"].dropna().astype(str):
+            if 3 <= len(s) <= 15 and re.match(r"^[A-Za-z][A-Za-z0-9\-]+$", s) and not s.startswith(("Gm", "LOC")) and "Rik" not in s:
+                vocab.setdefault(s.upper(), s)
+    json.dump(vocab, open(VOCAB, "w"))
+    return vocab
+
+
+def english_words():
+    try:
+        return {w.strip().lower() for w in open("/usr/share/dict/words") if len(w.strip()) >= 3}
+    except FileNotFoundError:
+        return set()
+
+
+def catalog_tissue(osd_id):
+    """Entity ids for a catalog study's material, via the same regexes used on passages."""
+    row = next((r for r in csv.DictReader(open(CATALOG)) if r["osd_id"] == osd_id), None)
+    if not row:
+        return [], []
+    text = row["material"] + " " + row["factors"]
+    return ([t for t, rx in TISSUES.items() if re.search(rx, text, re.I)],
+            [f for f, rx in FACTORS.items() if re.search(rx, text, re.I)])
