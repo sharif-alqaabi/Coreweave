@@ -46,7 +46,7 @@ def _(mo, pd, refresh, json, glob):
 @app.cell
 def _(mo, json, glob, refresh):
     refresh.value
-    files = sorted(glob.glob("results/iter*.json"), key=lambda p: int(p[12:-5]))
+    files = sorted([f for f in glob.glob("results/iter*.json") if ".run." not in f], key=lambda p: int(p[12:-5]))
     latest = json.load(open(files[-1])) if files else {"verdicts": [], "misses": []}
     survivors = [v for v in latest["verdicts"] if v["label"] == "ok"]
     mo.vstack([
@@ -99,7 +99,10 @@ def _(mo, glob, os, json):
         tabs[name] = mo.vstack([mo.md(head + f" · diff against {os.path.basename(prev)}"),
                                 mo.Html(github_diff(diff)),
                                 mo.accordion({"full text": mo.md(open(v).read())})])
-    mo.vstack([mo.md("## Rules versions: what each architect changed"), mo.ui.tabs(tabs)])
+    charts = open("docs/helix-charts.html").read()
+    charts = charts[charts.index("<style>"):]                       # drop the <title>; keep style + markup
+    mo.vstack([mo.md("## Rules versions: what each rewrite did to the score"), mo.Html(charts),
+               mo.md("## Rules versions: what each architect changed"), mo.ui.tabs(tabs)])
     return
 
 

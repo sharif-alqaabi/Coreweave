@@ -85,49 +85,64 @@ fires ARIA when an iteration's evaluation completes. No RL environment, no A2A.
 
 ## Slide (one, the diagram)
 
-`docs/helix-flow-pitch.html`, screenshot. Two bands: the loop, what ships. Leave it up for the
+`docs/helix-flow.html`, screenshot. Three bands: once, every round, what ships. Leave it up for the
 first 40 seconds, then go to the live screens. No second slide.
 
 ---
 
-## 3-minute script. Simple version. Say this one.
+## 3-minute script. One browser tab: the deck. Say this one.
 
-Three ideas, in this order: it proposes and checks against real numbers; it rewrites its own rules from
-its mistakes; it tests every rewrite on data it never saw, and that caught a bad one. Nothing else.
+`marimo run app/deck.py -p 2721`, or the hosted copy. Seven slides as tabs. Everything is preloaded.
+Nothing runs live. Arrow keys move between slides.
 
-**0:00 · Slide up · 25 s**
+**0:00 · Slide 1, "The problem" · 40 s**
 "NASA has 243 gene-expression studies from mice that flew in space. Too many for any scientist to read.
-An LLM will read them, and invent findings, because nothing tells it no. Helix is an agent that tells
-itself no, and gets better at it."
+So you hand one to an LLM research assistant. Here's what you get: sixty findings from a retina study.
+Confident, specific, a suggested experiment for each. Thirteen of them have a problem plain code can
+see: the table contradicts the number, or the gene is one nobody has characterised. No rules, no model,
+just the CSV. And fourteen more cite no gene at all, so nothing can check them." Scroll to "Look closer". "We checked four by
+hand. This one lists four genes moving together; one of them goes the other way. This one's own number
+says padj 0.099, not significant, sold as ribosomal stress. This one is novel because nobody knows what
+the gene does. They all read like the other fifty-six. That's the problem: believable, and nobody
+checked. Hold that thought."
 
-**0:25 · Slide, point at the middle band · 40 s**
-"Three steps. One: a model reads a table and proposes leads. We didn't teach it what a good lead is. We
-let it propose, and let the numbers sort. Two: code attaches the real numbers, and a separate critic kills
-any lead the numbers don't support, and says why. About half survive; that's the honest ratio for an LLM
-reading data. Three: the critic's rulebook is plain text, and after every round, architects rewrite it
-from the critic's mistakes. That's the loop. Propose, judge, rewrite the rules, repeat."
+**0:30 · Slide 2, "How it works" · 30 s**
+Point at the middle band. "Three steps. A model proposes leads. We didn't teach it good; we let the
+numbers sort. Code attaches the real numbers and a separate critic kills what they don't support, and
+says why. The critic's rulebook is plain text, and after every round three architects rewrite it from
+the critic's mistakes. Propose, judge, rewrite the rules, repeat."
 
-**1:00 · Tab 1, Lead Lab, run already finished · 30 s**
-"Here's a real table from a retina study. Fifty leads survive. Ten killed." Read one kill. "Every kill
-cites a number from the data. The model never gets to make numbers up. And this gene here, Drd4, is the
-headline finding of the published paper. The scout found it from the table alone. Never saw the paper."
+**1:00 · Slide 3, "The product" · 20 s**
+"Any table in, judged leads out, a hundred seconds. A different study, thymus. Thirty-eight survive,
+twenty-two killed." Pick one killed lead from the dropdown. "Every kill cites the number."
 
-**1:30 · Tab 2, Weave Evals, four holdout rows in Compare · 50 s. The pitch.**
-"Now the part that matters. Four versions of the rulebook. We score each one on 90 leads it never
-trained on. Version zero lets 20 bad leads through. Versions one and two catch more. Version four
-scored best on the training data. On the unseen data, it's worse: it kills seven more good leads for
-nothing. It had memorised the training set. This page caught it. It didn't ship. We ship version two."
+**1:20 · Slide 4, "Does it learn?" · 45 s. The pitch.**
+Click v2, then v4. "Four rulebooks, each scored on ninety leads it never trained on. Version two is the
+best on unseen data. Version four scored best on the training data and, on unseen data, kills seven
+more good leads for nothing. It named training leads by id: memorising, not learning. This caught it.
+It didn't ship." (If asked where v3 is: "a copy of v2, no candidate beat it that round; it's in the
+picker.")
 
-**2:20 · Tab 3, dashboard, v4 diff · 20 s**
-"Here's the rewrite that failed. Two lines out, one in, and the new line names training leads by id.
-Every version is a W&B artifact. Every verdict, 5,800 of them, is a Weave trace. This is all live."
+**2:05 · Slide 5, "The proof" · 15 s**
+"Every verdict is a Weave trace, five thousand eight hundred of them. Every rulebook a W&B artifact.
+Every version on every set an evaluation. Zero published NASA findings killed, by any version."
 
-**2:40 · Close · 20 s**
+**2:20 · Slide 6, "Helix on" · 25 s. The payoff.**
+"Remember the sixty findings. Here they are through Helix. With no critic, zero were killed. With our
+hand-written starting rules, eight. With the rulebook the loop learned, fourteen, each with the number
+that decided it, including all four we checked by hand. That gap, eight to fourteen, is what the loop
+earned." (If asked how 13 flagged became 14 killed: "It killed ten of the thirteen; the other three
+correctly describe a gene as unchanged and the crude check misread them. And it killed four the check
+can't see: a false claim about the whole table, a confound, an untestable one, a gene with no
+mechanism. Same floor, better judgment.") And look what survived: Drd4, Sag. The scout never saw the paper. Those are
+the published paper's headline findings."
+
+**2:45 · Slide 7, "Close" · 15 s**
 "Agents drift. Usually a person notices, after trusting it. Here the loop noticed first, on data nobody
 tuned for, and the bad version never reached a user. That's what we built this weekend."
 
-Words not to say in the room unless asked: jury, holdout, tournament, ARIA, padj, reason accuracy. Say
-"unseen data," "the numbers," "architects," "the rulebook."
+Words not to say unless asked: jury, holdout, tournament, padj, reason accuracy. Say "unseen data,"
+"the numbers," "architects," "the rulebook."
 
 ### The detailed version (for questions, not for the room)
 
@@ -196,12 +211,30 @@ Stop talking at 3:00. If you are over at 2:15, cut the NASA rows and say the sen
 
 ---
 
+## Live training on video: `bash scripts/live_train.sh` (about 90 seconds, real)
+
+One real round from the hand-written rules_v0 on a 30-lead slice of the retina study, inside a
+throwaway copy of the repo at /tmp/helix-live. Nothing in the real kit/ or results/ changes. Test run
+on 13 Sep: 1 min 24 s total; critic missed 5 of 30 with v0; ARIA gave no patch within 45 s; DeepSeek's
+patch scored 0.97 (fixed 5, broke 1) and was promoted to rules_v1; Qwen's scored 0.80 and lost. The
+script ends by printing the v0 to v1 diff: underpowered threshold widened, untestable rule extended,
+an examples section added.
+
+Three windows while it runs: the terminal (the star: misses, "waiting for ARIA", candidate scores,
+promotion, diff), W&B Runs filtered to group "video" (a run appears after the judge phase), and the
+dashboard on the copy (`cd /tmp/helix-live && marimo run app/dashboard.py -p 2722`, reload after the
+round to see the rules_v1 tab). In the video keep three cuts: the misses line, the two candidate lines,
+the diff. Narrate one sentence per cut: "the critic finds what it got wrong"; "three architects
+propose, the same critic scores each on the same leads"; "the winner's edit, in red and green."
+
+If a run ends with "no candidate beat", run it again; the round is real and can refuse to promote.
+
 ## Screen recording, under 2 minutes (do this in the morning, one take)
 
 Voiceover is the 2-minute speech below. Shots, in order:
 1. 0:00 Diagram, full screen, 20 s.
 2. 0:20 Lead Lab with a finished run: scroll survivors, then the kill table, hover one reason, 25 s.
-3. 0:45 Weave Traces filtered to Critic.judge, open one call, show claim, table_facts, rules, output, 20 s.
+3. 0:45 Live training, three cuts from scripts/live_train.sh: misses, candidate scores, diff, 25 s.
 4. 1:05 Weave Evals: four holdout rows, Compare, then the two NASA rows, 30 s.
 5. 1:35 Dashboard v4 diff tab, 15 s.
 6. 1:50 Back to the diagram, last line of the speech.
@@ -271,12 +304,28 @@ distinct rulebook with a red/green diff against its predecessor and the author.
 
 ---
 
+## The naive baseline, live version (localhost:2720, `marimo run app/naive_lab.py -p 2720`)
+
+Slide 1 of the deck shows the baseline from a cached run. If a judge wants to see it live on a table
+of their choosing, this page does it: upload, Generate findings (1 to 2 minutes), then "Now run Helix's
+critic on these." Bone table: 38 of 60 killed. Not for the 3-minute slot.
+
 ## Before the room
 
-- Restart both servers: `marimo run app/lead_lab.py -p 2719`, `marimo run app/dashboard.py -p 2718`.
+- Restart all servers: deck `marimo run app/deck.py -p 2721` (the one you present from), plus `app/lead_lab.py -p 2719`, `app/dashboard.py -p 2718`, `app/naive_lab.py -p 2720` for questions.
 - Run Lead Lab once on a CSV from `data/raw/` and leave it up. Never run live in the room.
-- Traces filtered to Critic.judge, saved as a view. Evals with the four holdout rows ticked and Compare
-  open; delete the N/A row. Dashboard scrolled to the v4 diff tab.
+- Deck open on slide 1, scrolled to the top. Use the arrow keys to move between slides. Second browser tab: W&B Evals with
+  the four holdout rows ticked and Compare open, the N/A row deleted, in case a judge asks to see it.
 - Diagram screenshot as the one slide. README "Results so far" open as the network-failure fallback.
 - Zoom installed, or share.zoom.us tested, for the final round.
 - Make the repo public before submitting. Every member: signed in, survey done.
+
+
+## Optional bonus after the seven-slide close: TypeSafe
+
+Open tab 8 only if time allows. “We also check whether surviving leads appear in other studies.
+TypeSafe judges comparability; code checks the numbers. In this saved OSD-421 run, all 38 survivors
+were checked: 35 had a replication signal in at least one comparable table and 3 were not replicated
+in the tables checked.” These are evidence checks, not experimental validation.
+The tab uses saved results and needs no live API request. Graph Lab is available separately at
+`marimo run app/graph_lab.py`; keep live rebuilds outside the timed presentation.

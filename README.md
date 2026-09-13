@@ -1,132 +1,161 @@
 # Helix
 
-**A self-improving multi-agent loop that turns NASA spaceflight gene-expression tables into research leads, kills the ones the numbers do not support, and rewrites its own critic rulebook every iteration.**
+**A self-improving multi-agent loop that combs scientific data, finds leads, kills the bad ones, and rewrites its own playbook every iteration.**
 
 <p align="center">
   <img src="https://img.shields.io/badge/status-hackathon-ff6b35?style=for-the-badge" alt="hackathon" />
   <img src="https://img.shields.io/badge/loop-self--evolving-7c5cff?style=for-the-badge" alt="self-evolving" />
-  <img src="https://img.shields.io/badge/domain-NASA%20OSDR-00c2a8?style=for-the-badge" alt="nasa osdr" />
+  <img src="https://img.shields.io/badge/domain-scientific%20discovery-00c2a8?style=for-the-badge" alt="science" />
   <img src="https://img.shields.io/badge/observability-W%26B%20Weave-ffbe0b?style=for-the-badge" alt="weave" />
-  <img src="https://img.shields.io/badge/architect-ARIA-7c5cff?style=for-the-badge" alt="aria" />
-  <img src="https://img.shields.io/badge/ui-marimo-ff4d6d?style=for-the-badge" alt="marimo" />
-  <img src="https://img.shields.io/badge/verdicts-TypeLock-00c2a8?style=for-the-badge" alt="typelock" />
 </p>
 
 <p align="center">
   <strong>Scout → Critique → Evolve → Repeat</strong><br/>
-  <em>Leads that survive the critic get promoted. Rules that overfit get refused.</em>
+  <em>Leads that survive the critic get promoted. Skills that fail get rewritten by Aria.</em>
 </p>
 
 **One sentence.** LLM agents drift, and you usually find out from a disappointed human. Helix scores every rewrite of its own rulebook on data it never trained on, and that is how it caught a rewrite that looked better and was worse, before it shipped.
 
-Repo: [github.com/sharif-alqaabi/Coreweave](https://github.com/sharif-alqaabi/Coreweave/tree/golden-set) · branch `golden-set` · built 12–13 Sep 2026 at CoreWeave Hacks.
+## Why this exists
 
----
+Scientific data is dense, noisy, and full of almost-signals. Humans miss leads because they cannot read every paper, table, spectrum, and assay at once. Naive LLM agents invent leads because nothing is allowed to say **no**.
 
-## Hackathon submission
+Helix is a closed loop with three jobs that should never live in the same model:
 
-Built this weekend. Public repo. W&B is required and used for real work, not a two-line import. No pre-hackathon product being extended; git history is the weekend.
+| Role | Agent | Job |
+| :--- | :--- | :--- |
+| **Scout** | **Weave** | Read data. Propose leads. Emit telemetry for every claim. |
+| **Critic** | Separate LLM | Shut down weak leads. Demand evidence. Score survival. |
+| **Architect** | **Aria** | After each iteration, evaluate the *loop itself* and mint new rules, skills, and tools for Weave. |
 
-| Field | Value |
-| :--- | :--- |
-| **Team name** | Helix |
-| **Tracks** | Best Loop Design (all projects). Also: Best Use of Weave, Best Use of ARIA, Best Use of marimo, Best Use of TypeSafe AI. |
-| **Who it is for** | A space-biology scientist staring at any of NASA OSDR's 243 differential-expression tables. |
-| **Live demo** | `marimo run app/lead_lab.py` (product). `marimo run app/dashboard.py` (training diffs). `python3 loop.py --holdout --compare` (v0 vs shipped rules on 90 unseen leads). |
-| **Orchestration** | Thin Python loop (`loop.py`) + MCP server (`helix/mcp_server.py`) so ARIA can act as an architect. |
-| **Frameworks** | Python 3.11+, pydantic, pandas, W&B / Weave, marimo, MCP, TypeSafe TypeLock. |
+The point is not “an agent that finds hypotheses.” The point is an agent that **gets better at finding hypotheses** because the loop is observable, adversarial, and allowed to rewrite its own instruments.
 
-### 2–3 sentence summary
-
-Helix turns a NASA GeneLab differential-expression CSV into research leads a scientist can act on, and every lead is judged against the real table numbers by a critic whose rulebook rewrites itself from its own mistakes. Three architects (Qwen, DeepSeek, and ARIA) compete each round to improve that rulebook. Every version is then scored on 90 leads the loop never saw and on 54 findings from published NASA papers — a check that caught a rewrite which scored best on training data and worse on unseen data, so it never shipped.
-
----
-
-## What it does
-
-Upload a NASA OSDR `*_differential_expression*.csv`. In about 90–100 seconds the pipeline:
-
-1. **Summarizes** the table in code (pandas), not in a model.
-2. **Proposes** ~60 short, falsifiable leads (scout LLM).
-3. **Attaches the real numbers** (padj, fold change, carriers) to every lead in code. The model never invents a statistic.
-4. **Judges** each lead against those numbers and a plain-text rulebook. The verdict is a TypeLock Choice: one typed label plus a confidence.
-5. **Shows** survivors and kills in Lead Lab.
-
-Three things make that trustworthy:
-
-- Numbers are attached by code, so the model cannot invent one.
-- The critic's rules were learned across three tissues and **chosen by score on unseen leads**, not by recency.
-- The same rules were checked against 54 claims from two published NASA papers: **zero supported published findings killed** by any version; every unsupported claim killed with the number that decided it.
-
-On the way the loop surfaced that GeneLab's reprocessing does not reproduce 13 of the bone paper's confirmed genes. That is the kind of thing this tool exists to find.
+Yes — this is plausible. The hard parts are discipline, not magic: keep generation and judgment in different models, log everything, and let a third agent mutate the toolkit instead of the raw prompt.
 
 ---
 
 ## The loop
 
-Generation, judgment, and meta-improvement never share a prompt.
-
 ```text
- NASA OSDR CSV
-        |
-        v
- +------------+   candidate leads + table_facts
- |   SCOUT    |----------------------------------+
- |  summarize |                                  |
- |  + propose |                                  v
- +-----^------+                           +------------+
-       |                                  |   CRITIC   |
-       |                                  | TypeLock   |
-  new rules                               |  Choice    |
-  (plain Markdown)                        +-----+------+
-       |                                        |
-       |                                  scored ledger
-       |                                  + misses
-       |   +------------------------------------+
-       |   |
- +-----+---v------+
- |  ARCHITECTS    |   tournament: Qwen + DeepSeek + ARIA
- |  patch rules   |   score every candidate on TRAIN
- |  from misses   |   then gate what SHIPS on HOLDOUT
- +----------------+
-        |
-        v
-  iteration n+1 uses the new rulebook
-  (or the previous one, if the patch is worse)
+                    ┌─────────────────────────────────────────┐
+                    │              iteration n                 │
+                    │                                         │
+   scientific       │   ┌──────────┐      candidate leads     │
+   data ───────────►│   │  WEAVE   │──────────────────┐       │
+   papers, tables,  │   │  scout   │                  │       │
+   assays, traces   │   │ + tools  │                  ▼       │
+                    │   └────▲─────┘            ┌──────────┐  │
+                    │        │                  │  CRITIC  │  │
+                    │        │                  │  veto /  │  │
+                    │   new rules               │  survive │  │
+                    │   skills                  └────┬─────┘  │
+                    │   tools                        │        │
+                    │        │                       ▼        │
+                    │   ┌────┴─────┐          scored ledger   │
+                    │   │   ARIA   │◄──── telemetry + evals   │
+                    │   │  evolve  │                          │
+                    │   └──────────┘                          │
+                    └──────────────────────┬──────────────────┘
+                                           │
+                                           ▼
+                                    iteration n+1
+                                    Weave runs with
+                                    a different kit
 ```
 
-1. **Scout** reads a code-made table summary and proposes leads. It is not allowed to be the source of truth for any number.
-2. **Critic** never generates. TypeLock returns exactly one label (`ok`, `contradicted`, `underpowered`, `confound`, `already_known`, `untestable`, `no_mechanism`) and a confidence. The reason must cite a table number or a named rule.
-3. **Architects** hunt failure modes in the critic, not papers. Each writes a patch of at most two rule sections. A tournament scores the patches on the training set. What ships is the version with the best **holdout** score.
+1. **Weave** ingest scientific sources, proposes leads, and writes a full trace (inputs, tools, citations, confidence, cost).
+2. **Critic** never generates. It only rejects, demotes, or conditionally promotes. Survival requires evidence, novelty, and a testable next step.
+3. **Aria** does not hunt papers. It hunts *failure modes in the loop*: which skills wasted tokens, which tools hallucinated schema, which rules let junk through. Then it ships a patch — new rules, skills, tools — into Weave’s next kit.
 
-| Role | Who | Job |
-| :--- | :--- | :--- |
-| Scout | Separate LLM (W&B Inference) | Propose leads from the table summary. |
-| Critic | TypeLock Choice + `kit/critic/rules_v{n}.md` | Kill or keep. One typed label. Cite a number. |
-| Architects | Qwen3-235B, DeepSeek-V3.1, **ARIA** | Rewrite the rulebook from misses. |
-| Numbers | pandas (`helix/critic_payload.py`) | Attach padj / log2fc / carriers. Never an LLM. |
-| Promotion | `helix/product.py` | Ship the holdout winner, not the newest file. |
+Every cycle should leave behind a tighter scout, not just a longer list of ideas.
+
+---
+
+## Agents in detail
+
+### Weave — scout + telemetry
+
+Weave is the working scientist and the black box that is no longer a black box.
+
+- Reads corpora, datasets, figures-as-text, and structured records.
+- Proposes **leads**: short, cited, falsifiable claims with a suggested follow-up.
+- Runs domain tools (retrievers, stats, plot readers, knowledge-graph hops).
+- Logs every step into W&B Weave: sessions, turns, tool calls, tokens, latency, cost, and lead objects as first-class artifacts.
+
+A lead that cannot be traced is not a lead. It is a vibe.
+
+```text
+Lead
+├── claim
+├── evidence[]          # paper / table / figure / row ids
+├── confidence
+├── novelty vs prior ledger
+├── suggested experiment or analysis
+└── weave_trace_id      # mandatory
+```
+
+### Critic — the shutdown valve
+
+A different model, different prompt, different incentives.
+
+The critic is paid to be unimpressed.
+
+| Verdict | Meaning |
+| :--- | :--- |
+| **Kill** | Unsupported, circular, already known, or untestable. |
+| **Park** | Interesting but under-evidenced. Do not promote. |
+| **Survive** | Cited, novel enough, and has a cheap next measurement. |
+| **Escalate** | High-value; needs a human or a heavier tool next round. |
+
+Typical kill reasons the critic is required to name:
+
+- claim does not follow from the cited rows
+- lead restates a textbook result as a discovery
+- no operational next step
+- tool output was treated as ground truth without a sanity check
+- same lead already died last iteration
+
+Survivors go on the **ledger**. Everything else is still logged — failures are training data for Aria.
+
+### Aria — loop architect
+
+Aria evaluates the *system*, not the science.
+
+After each iteration it reads:
+
+- Weave traces and cost curves
+- critic verdicts and disagreement cases
+- which tools were called, which returned garbage
+- which rules the scout ignored
+- lead yield: proposed vs survived vs later falsified
+
+Then it writes a patch set:
+
+| Artifact | What Aria may mint |
+| :--- | :--- |
+| **Rules** | Hard constraints Weave must obey next round (“never propose a lead without a primary table id”). |
+| **Skills** | Playbooks for recurring jobs (“read an RNA-seq contrast and extract only statistically backed leads”). |
+| **Tools** | New or revised functions the scout can call (schema validators, duplicate-lead detectors, cheap statistical screens). |
+
+Aria’s output is versioned. If a patch drops survival quality, roll it back. The loop is allowed to evolve; it is not allowed to forget what used to work.
 
 ---
 
 ## Why the three-way split
 
 ```text
-same model   →  eloquent nonsense survives
+same model  →  eloquent nonsense survives
 split models →  eloquence is not evidence
-holdout gate →  a better train score is not a better critic
-typed verdict →  architects patch rules, not scraped prose
 ```
 
 | Coupling | Failure mode |
 | :--- | :--- |
 | Scout + critic in one LLM | Self-justifying leads |
-| Model-written statistics | Invented padj values |
-| Parsed chat as a verdict | The loop cannot score or patch reliably |
-| No telemetry | You cannot tell why a lead appeared |
-| No architect | The same mistakes replay forever |
-| Promote by recency or train score | Overfit rulebooks ship (this happened: v4) |
-| Architect edits science instead of rules | The architect starts hallucinating biology |
+| No telemetry | You cannot tell *why* a lead appeared |
+| No Aria | The prompt rots; the same mistakes replay forever |
+| Aria edits science instead of tools | The architect starts hallucinating biology |
+
+Helix keeps generation, judgment, and meta-improvement on separate seats. Weave is instrumented so Aria has receipts, not vibes.
 
 ---
 
@@ -136,19 +165,21 @@ Not a paragraph. A structured object that can die cleanly.
 
 ```json
 {
-  "id": "OSD-421_lead_012",
-  "shape": "gene",
-  "claim": "Drd4 is upregulated in spaceflight retina.",
-  "rows": ["Drd4"],
-  "why_not_known": "Circadian receptor change is not the study headline.",
-  "next_step": "Check whether the Drd4 padj survives a batch covariate.",
-  "table_facts": {"Drd4": {"padj": 1.2e-4, "log2fc": 1.1, "carriers": "6/6"}},
-  "label": "ok",
-  "reason": "Drd4 padj=1.2e-4, direction matches the claim."
+  "id": "lead_0841",
+  "iteration": 7,
+  "claim": "Gene X upregulation co-occurs with pathway Y only in cohort Z under treatment T.",
+  "evidence": [
+    {"source": "GEO:GSEXXXX", "artifact": "table_de_results", "rows": ["X"]},
+    {"source": "pmid:12345678", "quote_span": "…"}
+  ],
+  "why_not_known": "Prior reviews cover Y in general, not the T × Z interaction.",
+  "next_step": "Recompute the contrast with batch covariate B; check if X remains at q < 0.05.",
+  "critic": {"verdict": "survive", "score": 0.74},
+  "trace": "weave://project/helix/call/..."
 }
 ```
 
-`table_facts` are attached by code after the scout writes the claim. The critic must trust `table_facts` over anything the scout quoted. The label is a TypeLock Choice, not a sentence the loop has to parse.
+The ledger is the product. Papers, dashboards, and follow-up experiments are downstream of a ledger that has already been attacked.
 
 ---
 
@@ -169,28 +200,28 @@ Not a paragraph. A structured object that can die cleanly.
 │   ├── mcp_server.py        # MCP tools so ARIA can read misses and apply a patch
 │   └── aria_channel.py      # read ARIA's patch back off the W&B run
 ├── agents/
-│   ├── weave_scout/         # scout prompts
-│   ├── critic/              # critic prompts
-│   └── aria/                # architect prompts
-├── kit/critic/              # living rulebooks: rules_v0.md … rules_v8.md + .meta.json
-├── app/
-│   ├── lead_lab.py          # marimo product UI
-│   └── dashboard.py         # marimo training UI (metrics + red/green rule diffs)
-├── data/
-│   ├── raw/                 # OSD-104, OSD-255, OSD-421, OSD-467 DGE CSVs
-│   └── golden/              # train / holdout / NASA paper claim sets
-├── results/                 # per-iteration metrics, holdout scores, product dumps
-└── scripts/                 # jury labels, NASA golden set, ARIA automation, Weave evals
+│   ├── weave_scout/        # retrieval, tool use, lead writer
+│   ├── critic/             # verdict-only judge
+│   └── aria/               # trace miner + patch writer
+├── kit/                    # living toolkit Aria mutates
+│   ├── rules/
+│   ├── skills/
+│   └── tools/
+├── ledger/                 # surviving + killed leads
+├── traces/                 # W&B Weave project
+└── loop.py                 # one iteration = scout → critic → aria → swap kit
 ```
 
 **One training iteration** (`python3 loop.py`)
 
-1. Judge the train set with `kit/critic/rules_v{n}.md`.
-2. Score reason accuracy / kill precision / false-kill rate. Write `results/iter{n}.json` and `results/metrics.csv`.
-3. Log a W&B run with those metrics and a versioned `critic-rules` artifact. Logging `screening/eval_complete=1` fires the ARIA automation.
-4. Architects (Qwen, DeepSeek, and ARIA if `--wait-for-aria`) each propose a patch. Guardrails reject illegal patches.
-5. Tournament: score every candidate on all train leads. Keep it only if it beats the current train score.
-6. Rollback if precision collapses. The product path ignores train score and ships the holdout winner.
+1. Load current `kit/` (rules, skills, tools).
+2. Run Weave over a data shard. Emit leads + traces.
+3. Run Critic over each lead. Write verdicts to the ledger.
+4. Run Aria over traces + verdicts. Propose a kit diff.
+5. Validate the diff (schema, tests, rollback plan).
+6. Promote the new kit. Bump iteration.
+
+Keep iteration cheap. A loop that cannot finish in minutes will not get enough generations to evolve.
 
 ---
 
@@ -198,14 +229,89 @@ Not a paragraph. A structured object that can die cleanly.
 
 Two kinds of test. Same critic, same rules file.
 
-**LLM leads with jury labels.** The scout writes leads from the table summary, told to include borderline ones. An independent two-model jury plus adjudicator labels each lead (`scripts/jury_labels.py`). 90 leads train the rules, 90 unseen leads are the holdout.
+- every scout tool call is a span
+- every lead is an object with a parent trace
+- every critic verdict is feedback on that object
+- every Aria patch is a versioned artifact tied to the iteration that produced it
 
 **Published NASA claims.** Claims transcribed from each study's primary paper (`scripts/make_nasa_golden.py`), then checked against GeneLab's reprocessed table. A paper claim the table supports must pass; one the table does not reproduce must be killed with a stated reason.
 
 - OSD-255 (retina, Mao 2019): 12 of 32 named genes reproduce at padj < 0.05.
 - OSD-467 (bone, Chowdhury 2021): only Pfkfb3 reproduces; 13 named genes agree in direction but not significance. Never used in training.
 
-| Set | Rules v0 | Rules v2 (**ships**) | Rules v4 (best on train) |
+---
+
+## Plausibility notes
+
+What is already real:
+
+- Multi-agent scientific workflows that separate literature, analysis, and review
+- Trace-first agent stacks (W&B Weave sessions, turns, tools, evals)
+- Skill files and tool registries that an agent can rewrite between runs
+- Adversarial judges that raise precision on generated hypotheses
+
+What this project has to prove in a hackathon window:
+
+- A lead schema strict enough to kill slop automatically
+- A critic that does not rubber-stamp the scout
+- An Aria step that emits *executable* kit changes, not advice
+- At least one visible improvement across iterations (higher survive-rate at equal or lower cost, or fewer duplicate kills)
+
+What we are not claiming:
+
+- Autonomous discovery of a Nature paper by Sunday
+- Replacing wet lab, statisticians, or domain review
+- That Aria should have write access to production data
+
+---
+
+## Success criteria
+
+A demo is winning if judges can watch **three iterations** and see the system change its own behavior.
+
+| Signal | Good | Bad |
+| :--- | :--- | :--- |
+| Yield | Fewer proposals, more survivors | More proposals, same junk |
+| Critic | Named kill reasons, stable rubric | “Looks good” / “not sure” |
+| Aria | Diff in `kit/` that Weave actually loads | A paragraph of suggestions |
+| Telemetry | Every lead has a trace id | Screenshots of a chat |
+| Safety | Kit changes are reviewed / test-gated | Silent prompt injection into the scout |
+
+---
+
+## Roadmap
+
+**V0 — weekend spine**
+- [ ] Lead schema + ledger
+- [ ] Weave scout on one corpus (papers + one tabular dataset)
+- [ ] Critic with kill / park / survive
+- [ ] Weave tracing on all LLM and tool calls
+- [ ] Aria writes one new rule and one new skill per iteration
+
+**V1 — teeth**
+- [ ] Duplicate-lead detector as a first-class tool
+- [ ] Statistical sanity tool (effect size, multiple-testing, leakage checks)
+- [ ] Kit validation tests before promotion
+- [ ] Rollback if survive-rate collapses
+
+**V2 — science, not demo**
+- [ ] Domain packs (bio / materials / astro) as swappable kits
+- [ ] Human escalate queue
+- [ ] Longitudinal falsification: survivors that die later punish the skill that minted them
+
+---
+
+A full-flow diagram is in `docs/helix-flow.html` and the per-version charts (train vs unseen score, mistakes by kind) in `docs/helix-charts.html`; both also render in the dashboard.
+
+## Results so far (12-13 Sep 2026)
+
+Two kinds of test, because they catch different mistakes. Both are judged by the same critic with the same rules file.
+
+**LLM leads with jury labels.** The scout writes leads from the table summary, with an explicit instruction to include borderline ones. An independent two-model jury plus adjudicator labels each lead with one of seven reason codes (`scripts/jury_labels.py`). Of the 30 bad labels that have a numeric definition, 26 match the table mechanically. This set is the production distribution: messy, all six kill reasons present. 90 leads train the rules, 90 unseen leads are the holdout.
+
+**Published NASA claims.** Claims transcribed by hand from a study's primary paper (`scripts/make_nasa_golden.py`), then checked against GeneLab's reprocessed table. A paper claim the table supports must pass; one the table does not reproduce must be killed with a stated reason. OSD-255 (retina, Mao 2019): 12 of 32 named genes reproduce at padj < 0.05 in GeneLab, direction agrees for 495 of the authors' 498 DEGs. OSD-467 (bone, Chowdhury 2021): only Pfkfb3 reproduces; 13 named genes agree in direction but not significance. This set proves the critic does not kill real biology. It cannot teach the six reason codes, because a paper never contains a merged gene symbol or a restated median.
+
+| Set | Rules v0 | Rules v2 (ships) | Rules v4 (best on train) |
 | :--- | :--- | :--- | :--- |
 | LLM holdout, 90 unseen leads | reason acc 0.60, 6 false kills, 20 missed | **0.73**, 8 false kills, 8 missed | 0.64, 15 false kills, 8 missed |
 | OSD-255 paper, 34 claims | 0 false kills, 12 wrong reasons | 0 false kills, 4 wrong reasons | 0 false kills, 2 wrong reasons |
@@ -260,61 +366,59 @@ cp .env.example .env   # set WANDB_API_KEY
 # plumbing only, no keys
 python3 loop.py --iterations 1 --dry-run
 
-# product path: one NASA table → judged leads (~90 s, needs inference)
-python3 -m helix.product data/raw/OSD-421_differential_expression.csv
-
-# score shipped rules vs v0 on the 90 unseen leads
-python3 loop.py --holdout --compare
-
-# live UI
-marimo run app/lead_lab.py
-marimo run app/dashboard.py
+python loop.py --data ./data/shard_01 --iterations 3
 ```
 
-Useful loop flags:
-
-```bash
-python3 loop.py --iterations 4 --wait-for-aria 120
-python3 loop.py --judge 4 --group demo
-python3 loop.py --revise 4 --wait-for-aria 30
-python3 loop.py --holdout --holdout-file data/golden/nasa_OSD-467.json --compare
-```
-
-Publish Weave Evaluations (Evals tab):
-
-```bash
-python3 scripts/weave_eval.py data/golden/holdout.json 0 4
-```
-
-MCP server if ARIA (or any client) should talk to the kit directly:
-
-```bash
-python3 helix/mcp_server.py          # http://0.0.0.0:8765/mcp
-```
+Open the Weave project. You should see three traces, a ledger file, and a `kit/` diff between iteration 1 and 3.
 
 ---
 
 ## Design principles
 
 1. **Generation and judgment never share a brain.**
-2. **The model never touches a number.** pandas attaches padj / fold change / carriers.
-3. **A verdict is a typed Choice, not a paragraph.** TypeLock returns one label and a confidence.
-4. **No lead without a trace.** Every critic call is a Weave op.
-5. **Architects edit the rulebook, not the biology.**
-6. **Killed leads are assets.** They are the training data.
-7. **Train score proposes. Holdout score ships.**
-8. **Rollback is a feature.** Evolution without memory is drift.
+2. **No lead without a trace.**
+3. **Aria edits instruments, not conclusions.**
+4. **Killed leads are assets.** They teach the next kit.
+5. **Cheap iterations beat clever prompts.**
+6. **Rollback is a feature.** Evolution without memory is drift.
 
 ---
 
 ## What we are not claiming
 
-- Autonomous discovery of a Nature paper by Sunday.
-- Replacing wet lab, statisticians, or domain review.
-- That every NASA GeneLab reprocessing agrees with the original paper. It does not; Helix is useful partly because it surfaces that.
+| Layer | Choice |
+| :--- | :--- |
+| Scout traces + evals | [W&B Weave](https://wandb.ai/site/weave/) |
+| Scout / critic / architect | Separate LLMs (swap freely) |
+| Kit format | Versioned rules + skills + tools on disk |
+| Orchestration | Thin Python loop (`loop.py`) |
+| Ledger | JSONL / structured store, one object per lead |
+
+Models are interchangeable. The architecture is not.
 
 ---
 
 ## License
 
 MIT. Science wants forks.
+
+---
+
+<p align="center">
+  <sub>Built for a hackathon. Aimed at a loop that outlives the weekend.</sub>
+</p>
+
+
+## Optional TypeSafe verification and research graph
+
+The core presentation is `app/deck.py`; its eighth tab adds saved TypeSafe results without making API calls.
+Run it with `marimo run app/deck.py -p 2721`. Regenerate the static notebook with
+`python3 scripts/build_deck_site.py`, then run `marimo export html-wasm deck_site.py -o ../site --mode run`
+from `app/` so the stylesheet is included.
+
+`app/lead_lab.py` adds verification of surviving leads against comparable OSDR studies.
+`app/graph_lab.py` explores saved relationships among findings, paper passages, and datasets.
+Both can display saved results; set `TYPESAFE_API_KEY` in `.env` to run new TypeSafe checks.
+Install dependencies from `requirements.txt`. To rebuild the graph, run
+`python3 -m helix.graph.build --no-explain`; this calls TypeSafe and may fetch missing corpus data.
+TypeSafe verification supplements the critic's decisions and does not replace the holdout evaluation.

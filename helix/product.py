@@ -50,6 +50,23 @@ def generate(summary_text, dataset, n=60, prompt_path=None):
     return leads
 
 
+def run_naive(csv_path, n_leads=60):
+    """The baseline for the demo: scout only. No numbers attached, no critic, every lead is a 'finding'."""
+    dataset = os.path.basename(csv_path).split("_")[0]
+    summary = summarize(csv_path)
+    return {"dataset": dataset, "summary": summary, "leads": generate(summary, dataset, n_leads)}
+
+
+def judge_leads(leads, csv_path, rules_path=None):
+    """Attach the real numbers and run the critic on leads that already exist (the reveal after run_naive)."""
+    table = Table(csv_path); enrich(leads, table)
+    rules = rules_path or best_rules()
+    verdicts = Critic().judge_all(leads, table, rules)
+    by_id = {l["id"]: l for l in leads}
+    judged = [{**by_id[v["lead_id"]], "label": v["label"], "confidence": v["confidence"], "reason": v["reason"]} for v in verdicts]
+    return {"rules": rules, "survivors": [j for j in judged if j["label"] == "ok"], "killed": [j for j in judged if j["label"] != "ok"]}
+
+
 def run_pipeline(csv_path, rules_path=None, n_leads=60, progress=print):
     t0 = time.time()
     dataset = os.path.basename(csv_path).split("_")[0]

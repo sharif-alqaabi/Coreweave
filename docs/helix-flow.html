@@ -1,0 +1,248 @@
+<title>Helix Loop Diagram</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  .flow-root {
+    --bg: #fbfbf9; --ink: #1c2126; --muted: #5d6670; --line: #d7dbd6;
+    --band: #f1f3ef; --ship: #0f766e; --ship-bg: #d9f0ec; --catch: #b42318; --catch-bg: #fbe1dd;
+    --code-bg: #eceee9;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .flow-root {
+      --bg: #15181b; --ink: #e8eae6; --muted: #a2a9b0; --line: #3a4046;
+      --band: #1d2126; --ship: #5ed3c4; --ship-bg: #123c38; --catch: #ff8a7a; --catch-bg: #4a1f1a;
+      --code-bg: #262b30;
+    }
+  }
+  :root[data-theme="dark"] .flow-root {
+    --bg: #15181b; --ink: #e8eae6; --muted: #a2a9b0; --line: #3a4046;
+    --band: #1d2126; --ship: #5ed3c4; --ship-bg: #123c38; --catch: #ff8a7a; --catch-bg: #4a1f1a;
+    --code-bg: #262b30;
+  }
+  .flow-root { background: var(--bg); color: var(--ink); font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+         padding-block: 32px; padding-inline: 24px; }
+  .flow-root main { max-width: 1440px; margin: 0 auto; display: grid; gap: 20px; }
+  .flow-root h1 { font-size: 26px; font-weight: 600; margin: 0; letter-spacing: -0.01em; text-wrap: balance; }
+  .flow-root p.lede { margin: 0; max-width: 68ch; color: var(--muted); font-size: 15px; line-height: 1.5; }
+  .flow-root figure { margin: 0; overflow-x: auto; }
+  .flow-root svg { display: block; width: 100%; max-width: 1440px; height: auto; color: var(--ink); font-family: inherit; }
+  .flow-root svg .box { fill: var(--bg); stroke: currentColor; stroke-width: 1.4; }
+  .flow-root svg .code { fill: var(--code-bg); stroke: currentColor; stroke-width: 1.4; }
+  .flow-root svg .band { fill: var(--band); stroke: none; }
+  .flow-root svg .ship { fill: var(--ship-bg); stroke: var(--ship); stroke-width: 2; }
+  .flow-root svg .catch { fill: var(--catch-bg); stroke: var(--catch); stroke-width: 2; }
+  .flow-root svg text { fill: currentColor; font-size: 13px; }
+  .flow-root svg .t-sub { font-size: 11px; fill: var(--muted); }
+  .flow-root svg .t-band { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; fill: var(--muted); }
+  .flow-root svg .t-bold { font-weight: 600; }
+  .flow-root svg .t-mono { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; font-size: 12.5px; }
+  .flow-root svg .t-ship { fill: var(--ship); font-weight: 600; }
+  .flow-root svg .t-catch { fill: var(--catch); font-weight: 600; }
+  .flow-root svg .edge { fill: none; stroke: currentColor; stroke-width: 1.4; }
+  .flow-root svg .edge-ship { fill: none; stroke: var(--ship); stroke-width: 2; }
+  .flow-root svg .edge-catch { fill: none; stroke: var(--catch); stroke-width: 2; }
+  .flow-root figcaption { font-size: 13px; color: var(--muted); max-width: 90ch; line-height: 1.5; margin-top: 12px; }
+  .flow-root dl { display: grid; grid-template-columns: max-content 1fr; gap: 6px 18px; font-size: 14px; max-width: 80ch; margin: 0; }
+  .flow-root dt { font-weight: 600; } .flow-root dd { margin: 0; color: var(--muted); }
+  @media (max-width: 700px) { .flow-root dl { grid-template-columns: 1fr; } }
+</style>
+
+<div class="flow-root"><main>
+  <h1>Helix: how the loop runs, and what decides what ships</h1>
+  <p class="lede">One scout proposes, one critic judges, three architects rewrite the critic's rulebook. Each rewrite is promoted on training data and then checked on data it never saw. The check is the point.</p>
+
+  <figure tabindex="0" role="region" aria-label="Helix loop diagram; scroll horizontally to inspect all stages">
+    <svg viewBox="0 0 1440 1000" role="img" aria-label="Three phases: once before training (scout writes 180 leads, jury labels them, split into 90 train and 90 holdout; 54 claims transcribed from NASA papers); every round (critic judges train leads with the current rules, code finds misses, three architects propose patches, the critic re-judges each candidate, best wins only if it beats the current rules); outside the loop (every promoted version is scored on the holdout and on the NASA claims; v2 ships with the best holdout score; v4 is caught as overfit).">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+        </marker>
+        <marker id="arrow-ship" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="var(--ship)"/>
+        </marker>
+        <marker id="arrow-catch" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="var(--catch)"/>
+        </marker>
+      </defs>
+
+      <!-- band 1 -->
+      <rect class="band" x="20" y="20" width="1400" height="270" rx="6"/>
+      <text class="t-band" x="40" y="46">1 · Once, before training</text>
+
+      <rect class="box" x="40" y="110" width="150" height="80" rx="4"/>
+      <text x="115" y="140" text-anchor="middle" class="t-bold">3 OSDR tables</text>
+      <text x="115" y="158" text-anchor="middle" class="t-sub">OSD-104, 255, 467</text>
+      <text x="115" y="173" text-anchor="middle" class="t-sub">~20,000 genes each</text>
+
+      <path class="edge" d="M190,150 L250,150" marker-end="url(#arrow)"/>
+      <text x="220" y="140" text-anchor="middle" class="t-sub">summary (code)</text>
+
+      <rect class="box" x="250" y="110" width="160" height="80" rx="4"/>
+      <text x="330" y="140" text-anchor="middle" class="t-bold">Scout · Qwen</text>
+      <text x="330" y="158" text-anchor="middle" class="t-sub">60 leads per table</text>
+      <text x="330" y="173" text-anchor="middle" class="t-sub">told to include weak ones</text>
+
+      <path class="edge" d="M410,150 L470,150" marker-end="url(#arrow)"/>
+      <text x="440" y="140" text-anchor="middle" class="t-sub">180 leads</text>
+
+      <rect class="code" x="470" y="110" width="160" height="80" rx="4"/>
+      <text x="550" y="140" text-anchor="middle" class="t-bold">Attach numbers · code</text>
+      <text x="550" y="158" text-anchor="middle" class="t-sub">log2fc, padj, carriers</text>
+      <text x="550" y="173" text-anchor="middle" class="t-sub">looked up per cited gene</text>
+
+      <path class="edge" d="M630,150 L690,150" marker-end="url(#arrow)"/>
+
+      <rect class="box" x="690" y="110" width="170" height="80" rx="4"/>
+      <text x="775" y="140" text-anchor="middle" class="t-bold">Jury · 3 models</text>
+      <text x="775" y="158" text-anchor="middle" class="t-sub">DeepSeek, gpt-oss, Kimi</text>
+      <text x="775" y="173" text-anchor="middle" class="t-sub">1 of 7 labels per lead</text>
+
+      <path class="edge" d="M860,150 L920,150" marker-end="url(#arrow)"/>
+      <text x="890" y="140" text-anchor="middle" class="t-sub">split once</text>
+
+      <rect class="box" x="920" y="100" width="140" height="46" rx="4"/>
+      <text x="990" y="122" text-anchor="middle" class="t-bold">train · 90</text>
+      <text x="990" y="138" text-anchor="middle" class="t-sub">44 ok, 46 bad</text>
+      <rect class="box" x="920" y="156" width="140" height="46" rx="4"/>
+      <text x="990" y="178" text-anchor="middle" class="t-bold">holdout · 90</text>
+      <text x="990" y="194" text-anchor="middle" class="t-sub">never trained on</text>
+
+      <rect class="box" x="1120" y="110" width="130" height="80" rx="4"/>
+      <text x="1185" y="140" text-anchor="middle" class="t-bold">2 NASA papers</text>
+      <text x="1185" y="158" text-anchor="middle" class="t-sub">retina (OSD-255)</text>
+      <text x="1185" y="173" text-anchor="middle" class="t-sub">bone (OSD-467)</text>
+
+      <path class="edge" d="M1250,150 L1290,150" marker-end="url(#arrow)"/>
+      <rect class="box" x="1290" y="110" width="120" height="80" rx="4"/>
+      <text x="1350" y="140" text-anchor="middle" class="t-bold">54 claims</text>
+      <text x="1350" y="158" text-anchor="middle" class="t-sub">typed by hand,</text>
+      <text x="1350" y="173" text-anchor="middle" class="t-sub">numbers attached</text>
+
+      <text x="40" y="250" class="t-sub">Nothing in this band ever changes again. The scout's prompt is fixed; only the critic's rulebook learns.</text>
+
+      <!-- band 2 -->
+      <rect class="band" x="20" y="310" width="1400" height="330" rx="6"/>
+      <text class="t-band" x="40" y="336">2 · Every round n</text>
+
+      <rect class="code" x="40" y="440" width="120" height="70" rx="4"/>
+      <text x="100" y="470" text-anchor="middle" class="t-mono">rules_v<tspan font-style="italic">n</tspan>.md</text>
+      <text x="100" y="492" text-anchor="middle" class="t-sub">the critic's rulebook</text>
+
+      <path class="edge" d="M160,475 L210,475" marker-end="url(#arrow)"/>
+
+      <rect class="box" x="210" y="430" width="180" height="90" rx="4"/>
+      <text x="300" y="458" text-anchor="middle" class="t-bold">Critic · Qwen</text>
+      <text x="300" y="476" text-anchor="middle" class="t-sub">judges the 90 train leads</text>
+      <text x="300" y="491" text-anchor="middle" class="t-sub">sees claim + numbers + rules</text>
+      <text x="300" y="506" text-anchor="middle" class="t-sub">answers ok or a kill reason</text>
+
+      <!-- train feed from band 1 -->
+      <path class="edge" d="M990,202 L990,280 L300,280 L300,430" marker-end="url(#arrow)"/>
+      <text x="640" y="272" text-anchor="middle" class="t-sub">train 90, every round</text>
+
+      <path class="edge" d="M390,475 L440,475" marker-end="url(#arrow)"/>
+      <text x="415" y="465" text-anchor="middle" class="t-sub">verdicts</text>
+
+      <rect class="code" x="440" y="430" width="160" height="90" rx="4"/>
+      <text x="520" y="458" text-anchor="middle" class="t-bold">Compare to labels</text>
+      <text x="520" y="476" text-anchor="middle" class="t-sub">code, deterministic</text>
+      <text x="520" y="494" text-anchor="middle" class="t-sub">score + list of misses</text>
+      <text x="520" y="509" text-anchor="middle" class="t-sub">(15 to 25 leads)</text>
+
+      <path class="edge" d="M600,452 L660,415" marker-end="url(#arrow)"/>
+      <path class="edge" d="M600,475 L660,475" marker-end="url(#arrow)"/>
+      <path class="edge" d="M600,498 L660,535" marker-end="url(#arrow)"/>
+      <text x="630" y="460" text-anchor="middle" class="t-sub">misses</text>
+
+      <rect class="box" x="660" y="392" width="190" height="46" rx="4"/>
+      <text x="755" y="412" text-anchor="middle" class="t-bold">Architect · Qwen</text>
+      <text x="755" y="428" text-anchor="middle" class="t-sub">proposes a rules patch</text>
+      <rect class="box" x="660" y="452" width="190" height="46" rx="4"/>
+      <text x="755" y="472" text-anchor="middle" class="t-bold">Architect · DeepSeek</text>
+      <text x="755" y="488" text-anchor="middle" class="t-sub">proposes a rules patch</text>
+      <rect class="box" x="660" y="512" width="190" height="46" rx="4"/>
+      <text x="755" y="532" text-anchor="middle" class="t-bold">Architect · ARIA</text>
+      <text x="755" y="548" text-anchor="middle" class="t-sub">via W&amp;B automation, 90 s wait</text>
+
+      <path class="edge" d="M850,415 L910,452" marker-end="url(#arrow)"/>
+      <path class="edge" d="M850,475 L910,475" marker-end="url(#arrow)"/>
+      <path class="edge" d="M850,535 L910,498" marker-end="url(#arrow)"/>
+      <text x="880" y="462" text-anchor="middle" class="t-sub">3 patches</text>
+
+      <rect class="box" x="910" y="430" width="190" height="90" rx="4"/>
+      <text x="1005" y="458" text-anchor="middle" class="t-bold">Tournament</text>
+      <text x="1005" y="476" text-anchor="middle" class="t-sub">same critic re-judges all 90</text>
+      <text x="1005" y="491" text-anchor="middle" class="t-sub">train leads with each candidate</text>
+      <text x="1005" y="506" text-anchor="middle" class="t-sub">rulebook; code scores each</text>
+
+      <path class="edge" d="M1100,475 L1180,475" marker-end="url(#arrow)"/>
+      <text x="1140" y="455" text-anchor="middle" class="t-sub">best score,</text>
+      <text x="1140" y="468" text-anchor="middle" class="t-sub">only if &gt; v<tspan font-style="italic">n</tspan></text>
+
+      <rect class="code" x="1180" y="440" width="130" height="70" rx="4"/>
+      <text x="1245" y="470" text-anchor="middle" class="t-mono">rules_v<tspan font-style="italic">n</tspan>+1.md</text>
+      <text x="1245" y="492" text-anchor="middle" class="t-sub">author recorded in .meta</text>
+
+      <!-- loop back -->
+      <path class="edge" d="M1245,510 L1245,590 L100,590 L100,510" marker-end="url(#arrow)"/>
+      <text x="670" y="582" text-anchor="middle" class="t-sub">next round starts from the new rulebook · if no candidate wins, v<tspan font-style="italic">n</tspan> is copied forward (that made v3, v5–v8)</text>
+
+      <text x="40" y="622" class="t-sub">Who won: v1 Qwen · v2 ARIA · v3 nobody · v4 Qwen. The critic never writes rules; the architects never judge leads.</text>
+
+      <!-- band 3 -->
+      <rect class="band" x="20" y="660" width="1400" height="250" rx="6"/>
+      <text class="t-band" x="40" y="686">3 · Outside the loop: what ships</text>
+
+      <!-- feed from promoted versions -->
+      <path class="edge" d="M1310,475 L1400,475 L1400,650 L130,650 L130,720" marker-end="url(#arrow)"/>
+      <text x="765" y="643" text-anchor="middle" class="t-sub">every promoted version, once</text>
+
+      <rect class="box" x="40" y="720" width="180" height="90" rx="4"/>
+      <text x="130" y="748" text-anchor="middle" class="t-bold">Critic on holdout 90</text>
+      <text x="130" y="766" text-anchor="middle" class="t-sub">leads the loop never saw</text>
+      <text x="130" y="784" text-anchor="middle" class="t-sub">mistakes: v0 27 · v1 21</text>
+      <text x="130" y="799" text-anchor="middle" class="t-sub">v2 18 · v4 23</text>
+
+      <rect class="box" x="260" y="720" width="180" height="90" rx="4"/>
+      <text x="350" y="748" text-anchor="middle" class="t-bold">Critic on 54 NASA claims</text>
+      <text x="350" y="766" text-anchor="middle" class="t-sub">published findings, bone</text>
+      <text x="350" y="781" text-anchor="middle" class="t-sub">study never trained on</text>
+      <text x="350" y="799" text-anchor="middle" class="t-sub">false kills: 0, every version</text>
+
+      <path class="edge" d="M220,765 L260,765" marker-end="url(#arrow)"/>
+
+      <path class="edge-ship" d="M440,750 L520,750" marker-end="url(#arrow-ship)"/>
+      <path class="edge-catch" d="M440,785 L520,785" marker-end="url(#arrow-catch)"/>
+
+      <rect class="ship" x="520" y="708" width="300" height="64" rx="4"/>
+      <text x="670" y="732" text-anchor="middle" class="t-ship">ARIA ships: <tspan class="t-mono">rules_v2.md</tspan></text>
+      <text x="670" y="752" text-anchor="middle" class="t-sub">best holdout score · 10 false kills, 8 missed</text>
+
+      <rect class="catch" x="520" y="782" width="300" height="64" rx="4"/>
+      <text x="670" y="806" text-anchor="middle" class="t-catch">Caught: <tspan class="t-mono">rules_v4.md</tspan></text>
+      <text x="670" y="826" text-anchor="middle" class="t-sub">best on train (0.84), worse on holdout · 15 false kills</text>
+
+      <path class="edge-ship" d="M820,740 L900,740" marker-end="url(#arrow-ship)"/>
+      <rect class="box" x="900" y="708" width="500" height="64" rx="4"/>
+      <text x="1150" y="732" text-anchor="middle" class="t-bold">Lead Lab · any new OSDR CSV</text>
+      <text x="1150" y="752" text-anchor="middle" class="t-sub">scout → attach numbers → critic with rules_v2 → survivors, and kills with the number that decided each</text>
+
+      <text x="900" y="806" class="t-sub">Why this matters: an LLM change usually gets caught late, by a</text>
+      <text x="900" y="822" class="t-sub">disappointed human. Here the holdout caught it before it shipped.</text>
+
+      <text x="40" y="880" class="t-sub">The 90 holdout leads test all six kill reasons on production-style input. The 54 paper claims test one thing the holdout cannot: that no real published finding gets killed.</text>
+
+      <!-- weave band -->
+      <rect class="code" x="20" y="930" width="1400" height="50" rx="6"/>
+      <text x="40" y="951" class="t-bold">W&amp;B Weave, under everything</text>
+      <text x="40" y="969" class="t-sub">every scout, critic and architect call traced (14,380 so far, 5,845 of them verdicts) · each rulebook version a W&amp;B artifact · each version × lead set an Evaluation</text>
+    </svg>
+    <figcaption>Three phases. Data is prepared once. Each round the critic is judged against fixed labels, three architects compete to rewrite its rulebook, and the winner is promoted on training score. Outside the loop, every version is re-scored on unseen leads and on published NASA claims, and that is what decides what ships.</figcaption>
+  </figure>
+
+  <dl>
+    <dt>Scout</dt><dd>Qwen 235B. Reads a code-made summary of the table, never the raw rows. Prompt fixed.</dd>
+    <dt>Critic</dt><dd>Qwen 235B, different prompt. Sees one lead, the real numbers code attached, and the rulebook. One model, run once per lead per rulebook.</dd>
+    <dt>Architects</dt><dd>Qwen, DeepSeek, ARIA. Equal contestants. Each turns the misses into a patch; the tournament picks by score.</dd>
+    <dt>Jury</dt><dd>DeepSeek, gpt-oss, Kimi. Made the labels once. Separate from the critic on purpose.</dd>
+  </dl>
+</main></div>

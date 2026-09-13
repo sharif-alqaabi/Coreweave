@@ -1,0 +1,118 @@
+<title>Helix Rulebook Charts</title>
+<style>
+  .viz-root { color-scheme: light; --surface-1:#fcfcfb; --text-primary:#0b0b0b; --text-secondary:#52514e; --grid:#e6e5e1;
+              --series-1:#2a78d6; --series-2:#eb6834; --catch:#b42318;
+              font-family: "IBM Plex Sans","Helvetica Neue",Arial,sans-serif; color: var(--text-primary); background: var(--surface-1); padding: 8px 0; }
+  @media (prefers-color-scheme: dark) { :root:where(:not([data-theme="light"])) .viz-root { color-scheme: dark; --surface-1:#1a1a19; --text-primary:#ffffff; --text-secondary:#c3c2b7; --grid:#33332f; --series-1:#3987e5; --series-2:#d95926; --catch:#ff8a7a; } }
+  :root[data-theme="dark"] .viz-root { color-scheme: dark; --surface-1:#1a1a19; --text-primary:#ffffff; --text-secondary:#c3c2b7; --grid:#33332f; --series-1:#3987e5; --series-2:#d95926; --catch:#ff8a7a; }
+  .viz-root .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
+  .viz-root figure { margin: 0; }
+  .viz-root svg { width: 100%; height: auto; display: block; font-family: inherit; }
+  .viz-root text { fill: var(--text-primary); font-size: 12px; }
+  .viz-root .t-sec { fill: var(--text-secondary); font-size: 11px; }
+  .viz-root .t-title { font-size: 14px; font-weight: 600; }
+  .viz-root .gridline { stroke: var(--grid); stroke-width: 1; }
+  .viz-root .axis { stroke: var(--text-secondary); stroke-width: 1; }
+  .viz-root .l1 { fill: none; stroke: var(--series-1); stroke-width: 2; }
+  .viz-root .l2 { fill: none; stroke: var(--series-2); stroke-width: 2; }
+  .viz-root .m1 { fill: var(--series-1); stroke: var(--surface-1); stroke-width: 2; }
+  .viz-root .m2 { fill: var(--series-2); stroke: var(--surface-1); stroke-width: 2; }
+  .viz-root .b1 { fill: var(--series-1); }
+  .viz-root .b2 { fill: var(--series-2); }
+  .viz-root .catch { stroke: var(--catch); fill: none; stroke-width: 1.5; stroke-dasharray: 4 3; }
+  .viz-root .t-catch { fill: var(--catch); font-weight: 600; }
+  .viz-root figcaption { font-size: 12px; color: var(--text-secondary); margin-top: 6px; line-height: 1.45; }
+  .viz-root table { border-collapse: collapse; font-size: 12px; margin-top: 10px; font-variant-numeric: tabular-nums; }
+  .viz-root th, .viz-root td { text-align: right; padding: 3px 10px; border-bottom: 1px solid var(--grid); color: var(--text-primary); }
+  .viz-root th { color: var(--text-secondary); font-weight: 500; }
+  .viz-root .t-onbar { fill: #ffffff; font-weight: 600; }
+  .viz-root th:first-child, .viz-root td:first-child { text-align: left; }
+</style>
+<div class="viz-root">
+<div class="grid">
+
+<figure>
+<svg viewBox="0 0 640 360" role="img" aria-label="Reason accuracy per rulebook version on the training set and on the unseen holdout. Training rises every version to 0.84 at v4; holdout rises to 0.71 at v2 then falls to 0.64 at v4.">
+  <text x="60" y="22" class="t-title">Score on training leads vs. leads never seen</text>
+  <text x="60" y="38" class="t-sec">reason accuracy, 90 leads each</text>
+  <g>
+    <line class="gridline" x1="60" y1="300" x2="600" y2="300"/><text class="t-sec" x="52" y="304" text-anchor="end">0.5</text>
+    <line class="gridline" x1="60" y1="235" x2="600" y2="235"/><text class="t-sec" x="52" y="239" text-anchor="end">0.6</text>
+    <line class="gridline" x1="60" y1="170" x2="600" y2="170"/><text class="t-sec" x="52" y="174" text-anchor="end">0.7</text>
+    <line class="gridline" x1="60" y1="105" x2="600" y2="105"/><text class="t-sec" x="52" y="109" text-anchor="end">0.8</text>
+    <line class="gridline" x1="60" y1="40" x2="600" y2="40"/><text class="t-sec" x="52" y="44" text-anchor="end">0.9</text>
+  </g>
+  <rect class="catch" x="500" y="60" width="80" height="230" rx="4"/>
+  <text class="t-catch" x="540" y="54" text-anchor="middle">the catch</text>
+  <polyline class="l1" points="120,183 260,144 400,98.5 540,79"/>
+  <polyline class="l2" points="120,248 260,209 400,163.5 540,209"/>
+  <circle class="m1" cx="120" cy="183" r="5"><title>v0 train 0.68</title></circle>
+  <circle class="m1" cx="260" cy="144" r="5"><title>v1 train 0.74</title></circle>
+  <circle class="m1" cx="400" cy="98.5" r="5"><title>v2 train 0.81</title></circle>
+  <circle class="m1" cx="540" cy="79" r="5"><title>v4 train 0.84</title></circle>
+  <circle class="m2" cx="120" cy="248" r="5"><title>v0 holdout 0.58</title></circle>
+  <circle class="m2" cx="260" cy="209" r="5"><title>v1 holdout 0.64</title></circle>
+  <circle class="m2" cx="400" cy="163.5" r="5"><title>v2 holdout 0.71</title></circle>
+  <circle class="m2" cx="540" cy="209" r="5"><title>v4 holdout 0.64</title></circle>
+  <text x="556" y="76">0.84 training</text>
+  <text x="556" y="214">0.64 unseen</text>
+  <text x="412" y="160" class="t-sec">0.71</text>
+  <text x="120" y="320" text-anchor="middle">v0</text><text x="260" y="320" text-anchor="middle">v1</text>
+  <text x="400" y="320" text-anchor="middle">v2</text><text x="540" y="320" text-anchor="middle">v4</text>
+  <text class="t-sec" x="60" y="320">rulebook</text>
+  <g transform="translate(60,352)">
+    <line class="l1" x1="0" y1="0" x2="18" y2="0"/><text x="24" y="4">training leads</text>
+    <line class="l2" x1="120" y1="0" x2="138" y2="0"/><text x="144" y="4">unseen leads (holdout)</text>
+  </g>
+</svg>
+<figcaption>Every rewrite scored higher on the leads it was tuned on. On unseen leads the gain stopped at v2 and reversed at v4. The gap at v4 is the overfit the holdout caught.</figcaption>
+</figure>
+
+<figure>
+<svg viewBox="0 0 640 360" role="img" aria-label="Mistakes on the 90 unseen leads per rulebook version, split into good leads killed and bad leads passed. Totals 27, 21, 18, 23 for v0, v1, v2, v4. v4 kills five more good leads than v2 while passing the same number of bad ones.">
+  <text x="60" y="22" class="t-title">Mistakes on unseen leads, by kind</text>
+  <text x="60" y="38" class="t-sec">90 holdout leads per version</text>
+  <g>
+    <line class="gridline" x1="60" y1="300" x2="600" y2="300"/><text class="t-sec" x="52" y="304" text-anchor="end">0</text>
+    <line class="gridline" x1="60" y1="213.3" x2="600" y2="213.3"/><text class="t-sec" x="52" y="217" text-anchor="end">10</text>
+    <line class="gridline" x1="60" y1="126.7" x2="600" y2="126.7"/><text class="t-sec" x="52" y="130" text-anchor="end">20</text>
+    <line class="gridline" x1="60" y1="40" x2="600" y2="40"/><text class="t-sec" x="52" y="44" text-anchor="end">30</text>
+  </g>
+  <!-- v0: missed 20, false 7 -->
+  <rect class="b1" x="80" y="126.7" width="80" height="173.3"><title>v0: 20 bad leads passed</title></rect>
+  <rect class="b2" x="80" y="64" width="80" height="60.7" rx="3"><title>v0: 7 good leads killed</title></rect>
+  <text x="120" y="56" text-anchor="middle">27</text>
+  <!-- v1: missed 13, false 8 -->
+  <rect class="b1" x="220" y="187.3" width="80" height="112.7"><title>v1: 13 bad leads passed</title></rect>
+  <rect class="b2" x="220" y="116" width="80" height="69.3" rx="3"><title>v1: 8 good leads killed</title></rect>
+  <text x="260" y="108" text-anchor="middle">21</text>
+  <!-- v2: missed 8, false 10 -->
+  <rect class="b1" x="360" y="230.7" width="80" height="69.3"><title>v2: 8 bad leads passed</title></rect>
+  <rect class="b2" x="360" y="142" width="80" height="86.7" rx="3"><title>v2: 10 good leads killed</title></rect>
+  <text x="400" y="134" text-anchor="middle">18</text>
+  <!-- v4: missed 8, false 15 -->
+  <rect class="b1" x="500" y="230.7" width="80" height="69.3"><title>v4: 8 bad leads passed</title></rect>
+  <rect class="b2" x="500" y="98.7" width="80" height="130" rx="3"><title>v4: 15 good leads killed</title></rect>
+  <text x="540" y="90" text-anchor="middle">23</text>
+  <text class="t-onbar" x="540" y="166" text-anchor="middle">15 good</text>
+  <text class="t-onbar" x="540" y="180" text-anchor="middle">leads killed</text>
+  <text x="120" y="320" text-anchor="middle">v0</text><text x="260" y="320" text-anchor="middle">v1</text>
+  <text x="400" y="320" text-anchor="middle">v2</text><text x="540" y="320" text-anchor="middle">v4</text>
+  <text class="t-sec" x="60" y="320">rulebook</text>
+  <g transform="translate(60,352)">
+    <rect class="b2" x="0" y="-8" width="12" height="12" rx="2"/><text x="18" y="3">good leads killed (false kills)</text>
+    <rect class="b1" x="210" y="-8" width="12" height="12" rx="2"/><text x="228" y="3">bad leads passed (missed kills)</text>
+  </g>
+</svg>
+<figcaption>Each rewrite from v0 to v2 caught more bad leads at a small cost in good ones: 27, 21, 18. v4 caught no more bad leads and killed five more good ones: back to 23.</figcaption>
+</figure>
+
+</div>
+<table>
+  <tr><th>rulebook</th><th>author</th><th>train accuracy</th><th>unseen accuracy</th><th>good leads killed</th><th>bad leads passed</th><th>total mistakes</th></tr>
+  <tr><td>v0</td><td>hand-written seed</td><td>0.68</td><td>0.58</td><td>7</td><td>20</td><td>27</td></tr>
+  <tr><td>v1</td><td>Qwen</td><td>0.74</td><td>0.64</td><td>8</td><td>13</td><td>21</td></tr>
+  <tr><td>v2 (ships)</td><td>ARIA</td><td>0.81</td><td>0.71</td><td>10</td><td>8</td><td>18</td></tr>
+  <tr><td>v4 (caught)</td><td>Qwen</td><td>0.84</td><td>0.64</td><td>15</td><td>8</td><td>23</td></tr>
+</table>
+</div>

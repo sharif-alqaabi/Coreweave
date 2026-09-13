@@ -18,3 +18,6 @@ data/raw/OSD-515_*.csv
 # Corpus pulled from OSDR / PubMed / PMC by helix.graph.corpus (16 MB of paper text; rebuilds in ~5 min). Keep the small caches.
 data/corpus/papers.json
 data/corpus/passages.jsonl
+
+# Static presentation export
+site/

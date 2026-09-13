@@ -25,6 +25,7 @@ def fetch_aria_patch(run_id, n, timeout_s=120, poll_s=10, project=None, entity=N
     while time.time() < deadline:
         try:
             run = api.run(f"{path}/{run_id}")
+            run.load(force=True)                       # Api caches run objects; without this every poll re-reads the first, stale summary
             for text in (run.summary.get("aria/patch"), run.notes):
                 if _looks_like_patch(text):
                     return text
