@@ -152,7 +152,7 @@ label:has(> input[type="radio"]) {
 .flow-root.flow-root { --bg: var(--hx-surface); --ink: var(--hx-ink); --muted: var(--hx-muted); --line: var(--hx-line); --band: var(--hx-soft); --ship: var(--hx-good); --ship-bg: var(--hx-good-bg); --catch: var(--hx-bad); --catch-bg: var(--hx-bad-bg); --code-bg: var(--hx-soft); padding: 24px 0; }
 .viz-root.viz-root { --surface-1: var(--hx-surface); --text-primary: var(--hx-ink); --text-secondary: var(--hx-muted); --grid: var(--hx-line); --catch: var(--hx-bad); }
 .flow-root figure { scrollbar-width: thin; scrollbar-color: var(--hx-muted) var(--hx-soft); }
-.flow-root svg { min-width: 1200px; }
+.flow-root svg { min-width: 960px; }
 .viz-root.viz-root .grid { grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr)); }
 .viz-root.viz-root table { width: 100%; }
 .viz-root.viz-root :is(th, td) { padding: 10px 12px; }
