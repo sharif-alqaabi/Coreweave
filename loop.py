@@ -157,7 +157,9 @@ def main():
         rules = args.rules or best_rules(); print(f"holdout with {rules}" + ("" if args.rules else " (best train score)"))
         result = evaluate(critic.judge_all(leads, table, rules), leads)
         print("HOLDOUT", {k: round(v, 3) for k, v in result["metrics"].items() if k.startswith("screening/") and isinstance(v, float)})
-        json.dump({"rules": rules, "metrics": result["metrics"], "misses": result["misses"]}, open(RESULTS / "holdout.json", "w"), indent=1)
+        payload = {"rules": rules, "n": len(leads), "metrics": result["metrics"], "misses": result["misses"]}
+        json.dump(payload, open(RESULTS / "holdout.json", "w"), indent=1)                       # latest
+        json.dump(payload, open(RESULTS / f"holdout_{os.path.basename(rules)[:-3]}.json", "w"), indent=1)   # per version
         log_iteration(99, result, rules, {"critic/model": critic.model, "split": "holdout"}, group=f"{args.group}-holdout")
         return
     leads = json.load(open(args.train))

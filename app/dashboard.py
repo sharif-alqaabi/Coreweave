@@ -22,7 +22,7 @@ def _(mo):
 
 
 @app.cell
-def _(mo, pd, refresh, json):
+def _(mo, pd, refresh, json, glob):
     refresh.value
     metrics = pd.read_csv("results/metrics.csv") if __import__("os").path.exists("results/metrics.csv") else pd.DataFrame()
     alt = __import__("altair")
@@ -33,14 +33,12 @@ def _(mo, pd, refresh, json):
             x="iteration:O", y=alt.Y("value:Q", scale={"domain": [0, 1]}), color="metric:N",
             tooltip=["iteration", "metric", "value"]).properties(height=260)
     ) if len(metrics) else mo.md("_No iterations yet. Run `python3 loop.py`._")
-    hold = {}
-    for name in ("holdout_v0", "holdout"):
-        p = f"results/{name}.json"
-        if __import__("os").path.exists(p):
-            h = json.load(open(p)); hold[h["rules"].split("/")[-1]] = h["metrics"]
-    hold_md = mo.md("**Holdout (30 leads never seen by the loop):** " + " | ".join(
-        f"{k}: reason accuracy {v['screening/reason_accuracy']:.2f}, kill precision {v['screening/kill_precision']:.2f}"
-        for k, v in hold.items())) if hold else mo.md("_Holdout not run yet._")
+    hold, n_hold = {}, 0
+    for p in sorted(glob.glob("results/holdout_rules_v*.json"), key=lambda p: int(p.split("_v")[-1][:-5])):
+        h = json.load(open(p)); hold[h["rules"].split("/")[-1]] = h["metrics"]; n_hold = h.get("n", 0)
+    hold_md = mo.md(f"**Holdout ({n_hold} leads never seen by the loop):** " + " | ".join(
+        f"{k}: reason accuracy {v['screening/reason_accuracy']:.2f}, kill recall {v['screening/kill_recall']:.2f}, "
+        f"kill precision {v['screening/kill_precision']:.2f}" for k, v in hold.items())) if hold else mo.md("_Holdout not run yet._")
     mo.vstack([chart, hold_md])
     return metrics, chart
 
