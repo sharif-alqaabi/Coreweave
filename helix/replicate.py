@@ -114,3 +114,39 @@ def fetch_dge(osd_id, progress=print):
     progress(f"downloading {osd_id}")
     urllib.request.urlretrieve(row["dge_url"], path)
     return path
+
+
+def numeric_facts(lead, table):
+    return {k: table.facts(k) for k in lead.get("rows", [])}
+
+
+def _direction(f):
+    """+1 / -1 / 0 (not significant) / None (not measured) for one gene or GO-term fact."""
+    if not isinstance(f, dict) or "error" in f:
+        return None
+    if "log2fc" in f:
+        p = f.get("padj")
+        if p is None or p != p:                                    # NaN: the pipeline did not test it
+            return None
+        return (1 if f["log2fc"] > 0 else -1) if p < 0.05 else 0
+    if "up" in f:                                                  # GO term: majority direction of significant members
+        if f["significant"] == 0:
+            return 0
+        return 1 if f["up"] >= f["down"] else -1
+    return None
+
+
+def agreement(lead_facts, other_facts):
+    """Pure arithmetic: per gene, does the other table point the same way, the opposite way, show no change, or lack it."""
+    tally = {"same": 0, "opposite": 0, "no_change": 0, "not_measured": 0}
+    for k, f in lead_facts.items():
+        d0, d1 = _direction(f), _direction(other_facts.get(k))
+        if d0 in (None, 0) or d1 is None:
+            tally["not_measured"] += 1
+        elif d1 == 0:
+            tally["no_change"] += 1
+        elif d1 == d0:
+            tally["same"] += 1
+        else:
+            tally["opposite"] += 1
+    return tally
