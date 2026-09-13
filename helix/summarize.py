@@ -9,21 +9,48 @@ from collections import Counter, defaultdict
 import pandas as pd
 
 GO_CACHE = "data/go_names.json"
-TAG = {"Space Flight": "_FLT_", "Ground Control": "_GC_"}   # OSD sample-name codes
+ANNOT = {"ENSEMBL", "SYMBOL", "GENENAME", "REFSEQ", "ENTREZID", "STRING_id", "GOSLIM_IDS"}
+
+
+def pick_contrast(lfcs):
+    """Prefer treatment-vs-control so +log2fc = up in treatment; else the first contrast."""
+    def score(c):
+        a, b = re.match(r"Log2fc_\((.*)\)v\((.*)\)", c).groups()
+        return ("control" in b.lower()) + ("flight" in a.lower()) - ("control" in a.lower())
+    return max(lfcs, key=score)
+
+
+def assign_groups(df, samples):
+    """Map each sample column to the group whose Group.Mean_ column it correlates with best.
+    Works for any group names / any number of groups; needs no sample-naming convention."""
+    means = {re.match(r"Group\.Mean_\((.*)\)$", c).group(1): c
+             for c in df.columns if c.startswith("Group.Mean_(")}
+    X = df[samples + list(means.values())].apply(pd.to_numeric, errors="coerce").fillna(0)
+    X = (X + 1).apply(lambda col: col.map(lambda v: v if v > 0 else 0)) ** 0.5   # damp huge counts
+    corr = X.corr()
+    grp = {g: [] for g in means}
+    for smp in samples:
+        best = max(means, key=lambda g: corr.loc[smp, means[g]])
+        grp[best].append(smp)
+    return grp
 
 
 def load(path):
-    """Return the table plus the column names that describe the flight-vs-ground contrast."""
+    """Return the table, the chosen contrast's columns, its two group names, and sample->group."""
     df = pd.read_csv(path, low_memory=False)
     lfcs = [c for c in df.columns if c.startswith("Log2fc_(")]
-    lfc = next((c for c in lfcs if c.startswith("Log2fc_(Space Flight)")), lfcs[0])
+    lfc = pick_contrast(lfcs)
     padj = "Adj.p.value_" + lfc[len("Log2fc_"):]
     a, b = re.match(r"Log2fc_\((.*)\)v\((.*)\)", lfc).groups()
     first_stat = list(df.columns).index(lfcs[0])
-    samples = [c for c in df.columns[:first_stat] if df[c].dtype != object and c != "ENTREZID"]
-    grp = {a: [c for c in samples if TAG.get(a, a) in c],
-           b: [c for c in samples if TAG.get(b, b) in c]}
+    samples = [c for c in df.columns[:first_stat] if c not in ANNOT and df[c].dtype != object]
+    grp = assign_groups(df, samples)
     return df, lfc, padj, a, b, grp
+
+
+def short(name):
+    """'Normal Loading Control' -> 'NLC'; 'Space Flight' -> 'SF'."""
+    return "".join(w[0] for w in re.findall(r"[A-Za-z0-9]+", name)).upper()[:6]
 
 
 def gene_line(r, lfc, padj, a, b, grp):
@@ -32,7 +59,7 @@ def gene_line(r, lfc, padj, a, b, grp):
     carriers = int((r[grp[hi]] > 1).sum())
     mean_hi = r[grp[hi]].mean()
     return (f"- {r['SYMBOL']}: log2fc={r[lfc]:+.2f}, padj={r[padj]:.1e}, "
-            f"carriers={carriers}/{len(grp[hi])}, mean_count_in_{'FLT' if hi == a else 'GC'}={mean_hi:.0f}; "
+            f"carriers={carriers}/{len(grp[hi])}, mean_count_in_{short(hi)}={mean_hi:.0f}; "
             f"{str(r['GENENAME'])[:38]}")
 
 
@@ -46,12 +73,14 @@ def families(sig, lfc, min_size=3, pool=150):
             fam[m.group()].append(r)
     lines = []
     for name, rows in sorted(fam.items(), key=lambda kv: -len(kv[1])):
+        if name == "Gm":                                   # "predicted gene" prefix, not a family
+            continue
         if len(rows) < min_size:
             break
         up = sum(r[lfc] > 0 for r in rows)
         syms = ", ".join(r["SYMBOL"] for r in rows[:6])
         lines.append(f"- {name}* ({len(rows)} genes in top {pool}; {up} up, {len(rows)-up} down): {syms}")
-    return lines
+    return lines or ["- none with >= 3 members among the top hits"]
 
 
 def go_names(ids):
@@ -73,7 +102,7 @@ def go_names(ids):
     return {i: cache.get(i, i) for i in ids}
 
 
-def pathways(df, sig, lfc, min_genes=30, top=8):
+def pathways(df, sig, lfc, min_genes=30, min_hits=3, top=8):
     """GO-slim terms where significant genes are over-represented vs the whole table."""
     def terms(s): return str(s).split("|") if isinstance(s, str) else []
     all_ct = Counter(t for s in df["GOSLIM_IDS"] for t in terms(s))
@@ -83,10 +112,12 @@ def pathways(df, sig, lfc, min_genes=30, top=8):
     rows = []
     for t, n in all_ct.items():
         k = sig_up[t] + sig_dn[t]
-        if n >= min_genes and k:
+        if n >= min_genes and k >= min_hits:
             rows.append((k / n / base, t, k, n, sig_up[t], sig_dn[t]))
     rows.sort(reverse=True)
     names = go_names([t for _, t, *_ in rows[:top]])
+    if not rows:
+        return [f"- none: no GO-slim term has >= {min_hits} significant genes"]
     return [f"- {names[t]} ({t}): {k}/{n} genes significant ({ratio:.1f}x baseline; {up} up, {dn} down)"
             for ratio, t, k, n, up, dn in rows[:top]]
 
@@ -113,8 +144,10 @@ def significant(df, padj, alpha=0.05):
 def header(name, df, sig, lfc, a, b, grp, alpha=0.05):
     """Four lines describing the whole experiment; reused in every critic payload."""
     big = sig[sig[lfc].abs() > 1]
+    others = {g: len(v) for g, v in grp.items() if g not in (a, b)}
     return [f"Dataset: {name}",
-            f"Contrast: {a} vs {b}; +log2fc = higher in {a}. n={len(grp[a])} {a}, n={len(grp[b])} {b}.",
+            f"Contrast: {a} ({short(a)}) vs {b} ({short(b)}); +log2fc = higher in {a}. "
+            f"n={len(grp[a])} {a}, n={len(grp[b])} {b}" + (f"; other groups: {others}" if others else "") + ".",
             f"Genes tested: {len(df)}. Significant at FDR<{alpha}: {len(sig)} "
             f"({(sig[lfc] > 0).sum()} up, {(sig[lfc] < 0).sum()} down); "
             f"{len(big)} of those change >=2-fold ({(big[lfc] > 0).sum()} up, {(big[lfc] < 0).sum()} down).",
@@ -155,4 +188,10 @@ def summarize(path, alpha=0.05, n_lfc=25, n_padj=12):
 
 
 if __name__ == "__main__":
-    print(summarize(sys.argv[1]))
+    import os
+    text = summarize(sys.argv[1])
+    name = os.path.basename(sys.argv[1]).split("_")[0]                 # OSD-104_... -> OSD-104
+    out = sys.argv[2] if len(sys.argv) > 2 else f"data/summaries/{name}.md"
+    os.makedirs(os.path.dirname(out) or ".", exist_ok=True)
+    open(out, "w").write(text)
+    print(text); print(f"\n[wrote {out}]", file=sys.stderr)

@@ -30,9 +30,9 @@ class Table:
         hi = self.a if r[self.lfc] > 0 else self.b
         carriers = [c.split("_")[-1] for c in self.grp[hi] if r[c] > 1]
         return {"log2fc": round(float(r[self.lfc]), 2), "padj": float(r[self.padj]),
-                "carriers": f"{len(carriers)}/{len(self.grp[hi])}", "carrier_samples": carriers,
-                "mean_count_FLT": round(float(r[self.grp[self.a]].mean())),
-                "mean_count_GC": round(float(r[self.grp[self.b]].mean()))}
+                "higher_group": hi, "carriers": f"{len(carriers)}/{len(self.grp[hi])}",
+                "carrier_samples": carriers,
+                "mean_count": {g: round(float(r[self.grp[g]].mean())) for g in (self.a, self.b)}}
 
 
 def enrich(leads, table):
