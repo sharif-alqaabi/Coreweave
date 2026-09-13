@@ -100,8 +100,9 @@ runs live. Slide 1 needs `results/naive_OSD-255.json` (already built and committ
 So you hand one to an LLM research assistant. Here's what you get: sixty findings from a retina study.
 Confident, specific, with a suggested experiment for each. None of it checked, because nothing in the
 loop can say no." Press **Reveal**. "Same sixty. Helix attached the real numbers and let a critic judge.
-Most die, and every kill cites the number that decided it. And look at what survived: Drd4, Sag. The
-scout never saw the paper. Those are the published paper's headline findings."
+Fourteen die, every one with the number that decided it. On a noisier study, bone, it was thirty-eight
+of sixty. And look at what survived here: Drd4, Sag. The scout never saw the paper. Those are the
+published paper's headline findings."
 
 **0:35 · Slide 2, "How it works" · 30 s**
 Point at the middle band. "Three steps. A model proposes leads. We didn't teach it good; we let the
