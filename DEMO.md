@@ -15,7 +15,11 @@ Utility, Technical execution, Sponsor usage. Plus "Most Production-Ready" two we
    holdout. It named training leads by id. It did not ship. That is the demo.
 4. **Ground truth from outside the LLM.** 54 claims from published NASA papers: zero real findings
    killed, every unsupported claim killed with a reason.
-5. **Sponsor tools are the argument, not a checkbox.** The Weave Evals page is where the catch is
+5. **The scout rediscovers what the scientists published.** Given only the table, it proposed each
+   paper's headline gene on its own: Drd4 (retina, circadian), Hist1h2bc (retina, aging), Sag (retinitis
+   pigmentosa), Pfkfb3 (bone, glycolysis), and the critic passed every one. It also proposed Stfa1, which
+   the bone paper reported but GeneLab's table does not reproduce, and the critic killed it citing padj 0.23.
+6. **Sponsor tools are the argument, not a checkbox.** The Weave Evals page is where the catch is
    visible; each rulebook is a W&B artifact; ARIA is a contestant whose patch is in the repo.
 
 ## The one sentence
@@ -133,6 +137,10 @@ Stop talking at 3:00. If you are over at 2:15, cut the NASA rows and say the sen
   numeric threshold, padj under 0.05, carriers in more than half the samples, mean count over 20. The
   jury labelled with that rubric and the critic started from it. Then we tested the definition against
   reality: 54 findings from two published NASA papers. The critic passed every one the table supports."
+- **"Do the leads match what NASA's scientists actually found?"** "Yes. From the table alone, the scout
+  proposed the headline gene of each paper, Drd4 for the retina study and Pfkfb3 for the bone study, and
+  the critic passed them. It also proposed Stfa1, which the bone paper reported but the table doesn't
+  reproduce, and the critic killed it with the number."
 - **"Why trust the critic?"** "Zero false kills on 54 published NASA claims, one study never trained on,
   next to holdout numbers that show it isn't a rubber stamp."
 - **"The paper and GeneLab disagree on some genes, who's right?"** "We don't know and the tool doesn't
