@@ -30,7 +30,7 @@
   .flow-root svg .band { fill: var(--band); stroke: none; }
   .flow-root svg .ship { fill: var(--ship-bg); stroke: var(--ship); stroke-width: 2; }
   .flow-root svg .catch { fill: var(--catch-bg); stroke: var(--catch); stroke-width: 2; }
-  svg text { fill: currentColor; font-size: 13px; }
+  .flow-root svg text { fill: currentColor; font-size: 13px; }
   .flow-root svg .t-sub { font-size: 11px; fill: var(--muted); }
   .flow-root svg .t-band { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; fill: var(--muted); }
   .flow-root svg .t-bold { font-weight: 600; }
@@ -42,7 +42,7 @@
   .flow-root svg .edge-catch { fill: none; stroke: var(--catch); stroke-width: 2; }
   .flow-root figcaption { font-size: 13px; color: var(--muted); max-width: 90ch; line-height: 1.5; margin-top: 12px; }
   .flow-root dl { display: grid; grid-template-columns: max-content 1fr; gap: 6px 18px; font-size: 14px; max-width: 80ch; margin: 0; }
-  .flow-root dt { font-weight: 600; } dd { margin: 0; color: var(--muted); }
+  .flow-root dt { font-weight: 600; } .flow-root dd { margin: 0; color: var(--muted); }
   @media (max-width: 700px) { .flow-root dl { grid-template-columns: 1fr; } }
 </style>
 
@@ -50,7 +50,7 @@
   <h1>Helix: how the loop runs, and what decides what ships</h1>
   <p class="lede">One scout proposes, one critic judges, three architects rewrite the critic's rulebook. Each rewrite is promoted on training data and then checked on data it never saw. The check is the point.</p>
 
-  <figure>
+  <figure tabindex="0" role="region" aria-label="Helix loop diagram; scroll horizontally to inspect all stages">
     <svg viewBox="0 0 1440 1000" role="img" aria-label="Three phases: once before training (scout writes 180 leads, jury labels them, split into 90 train and 90 holdout; 54 claims transcribed from NASA papers); every round (critic judges train leads with the current rules, code finds misses, three architects propose patches, the critic re-judges each candidate, best wins only if it beats the current rules); outside the loop (every promoted version is scored on the holdout and on the NASA claims; v2 ships with the best holdout score; v4 is caught as overfit).">
       <defs>
         <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">

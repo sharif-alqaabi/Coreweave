@@ -91,7 +91,7 @@ def _(mo):
                    f'<div class="hx-num">{_html_2.escape(l["reason"][:150])}</div>') if judged else ""
             out.append(f'<div class="{klass}"><div class="hx-claim">{_html_2.escape(l["claim"])}</div>'
                        f'<div class="hx-why">{_html_2.escape(l["why_not_known"][:140])}</div>{tag}</div>')
-        return mo.Html('<div class="hx-cards">' + "".join(out) + "</div>")
+        return mo.Html('<div class="hx-cards" tabindex="0" role="region" aria-label="Research findings">' + "".join(out) + "</div>")
 
     def stat(value, label, caption="", kind=""):
         return mo.Html(f'<div class="hx-stat {kind}"><div class="hx-v">{value}</div><div class="hx-l">{label}</div><div class="hx-c">{caption}</div></div>')
@@ -230,14 +230,14 @@ def _(mo, DATA, VERSIONS, difflib, stat, stats, version_pick):
 
     def _github_diff(lines):
         import html as _html_9
-        style = {"+": "background:#e6ffec;color:#1a7f37", "-": "background:#ffebe9;color:#cf222e", "@": "background:#ddf4ff;color:#0550ae", " ": "color:#57606a"}
+        style = {"+": "hx-diff-add", "-": "hx-diff-remove", "@": "hx-diff-hunk", " ": ""}
         rows = []
         for ln in lines:
             if ln.startswith(("+++", "---")): continue
             k = ln[:1] if ln[:1] in style else " "
-            rows.append(f'<div style="{style[k]};display:flex;font:13px/1.5 ui-monospace,Menlo,monospace"><span style="width:1.4em;flex:none;text-align:center">{_html_9.escape(k.strip())}</span>'
-                        f'<span style="white-space:pre-wrap;word-break:break-word">{_html_9.escape(ln[1:] if k != " " else ln)}</span></div>')
-        return '<div style="border:1px solid #d0d7de;border-radius:6px;overflow:hidden;background:#fff;color:#1f2328">' + "".join(rows) + "</div>"
+            rows.append(f'<div class="hx-diff-row {style[k]}"><span class="hx-diff-sign">{_html_9.escape(k.strip())}</span>'
+                        f'<span class="hx-diff-text">{_html_9.escape(ln[1:] if k != " " else ln)}</span></div>')
+        return '<div class="hx-diff">' + "".join(rows) + "</div>"
     if _v.get("copy_of"):
         _change = mo.callout(mo.md(f"**{_v['name']} is byte-for-byte identical to {_v['copy_of']}.** In round 2, three architects proposed patches and none scored higher "
                                    "than v2 on the training leads, so the loop copied v2 forward unchanged. The same happened for v5 to v8 after v4: three more rounds, no winner. "
@@ -318,9 +318,12 @@ def _(mo, DATA, stat, stats):
 def _(mo, slide1, slide2, slide3, slide4, slide5, slide6, slide7, slide8):
     _keys = mo.Html('<iframe style="display:none" srcdoc="<script>'
                     'parent.document.addEventListener(&quot;keydown&quot;, function(e){'
-                    'if (e.target && /INPUT|TEXTAREA|SELECT/.test(e.target.tagName)) return;'
+                    'if (e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;'
+                    'if (e.composedPath().some(function(el){return el.matches && el.matches(&quot;input,textarea,select,button,[role=tablist],[role=combobox],[role=radio],[contenteditable=true]&quot;);})) return;'
                     'var d = (e.key===&quot;ArrowRight&quot;||e.key===&quot;PageDown&quot;) ? 1 : (e.key===&quot;ArrowLeft&quot;||e.key===&quot;PageUp&quot;) ? -1 : 0;'
-                    'if (!d) return; var tabs = Array.from(parent.document.querySelectorAll(&quot;[role=tab]&quot;)); if (!tabs.length) return;'
+                    'if (!d) return; var host = parent.document.querySelector(&quot;marimo-tabs&quot;);'
+                    'var root = (host && host.shadowRoot) || parent.document;'
+                    'var tabs = Array.from(root.querySelectorAll(&quot;[role=tab]&quot;)); if (!tabs.length) return;'
                     'var i = tabs.findIndex(function(t){return t.getAttribute(&quot;aria-selected&quot;)===&quot;true&quot; || t.dataset.state===&quot;active&quot;;});'
                     'var n = Math.min(Math.max(i + d, 0), tabs.length - 1); if (n !== i) { tabs[n].click(); e.preventDefault(); window.parent.scrollTo(0,0); }'
                     '});</script>"></iframe>')
