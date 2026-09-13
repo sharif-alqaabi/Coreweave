@@ -9,3 +9,4 @@ kit/.history/
 .DS_Store
 wandb/
 .marimo/
+runs/

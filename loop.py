@@ -16,7 +16,10 @@ from dotenv import load_dotenv
 from helix.critic_payload import Table
 from helix.critic import Critic
 from helix.evaluate import evaluate
-from helix.reflect import apply_patch, propose_patch_claude
+from helix.reflect import apply_patch, propose_patch_claude, render_patch
+from concurrent.futures import ThreadPoolExecutor
+ARCHITECTS = [m for m in os.getenv("ARCHITECT_MODELS", "deepseek-ai/DeepSeek-V3.1,Qwen/Qwen3-235B-A22B-Instruct-2507").split(",") if m]
+NOISE = 2 / 30                                      # critic noise ~1 lead; roll back only on a >= 2-lead drop
 from helix.wandb_log import log_iteration
 
 load_dotenv()
@@ -38,11 +41,39 @@ def best_rules():
     return f"kit/critic/rules_v{best['rules_version']}.md"
 
 
-def patch_fixes(critic, table, misses, leads_by_id, new_rules):
-    """Re-judge only the missed leads with the candidate rules. Returns how many now match the human label."""
-    sub = [leads_by_id[m["hypothesis_id"]] for m in misses]
-    verdicts = critic.judge_all(sub, table, new_rules)
-    return sum(v["label"] == leads_by_id[v["lead_id"]]["label"] for v in verdicts)
+def candidate(model, misses, base, critic, table, leads, tmpdir):
+    """One architect proposes a patch; score it on ALL train leads. Returns dict or None."""
+    for attempt in range(2):
+        try:
+            patch = propose_patch_claude(misses, base, model=model)
+            text, changed = render_patch(base, patch)
+            path = f"{tmpdir}/rules_v{900 + hash(model) % 90}.md"; Path(path).write_text(text)
+            r = evaluate(critic.judge_all(leads, table, path), leads)
+            return {"model": model, "patch": patch, "sections": changed, "acc": r["metrics"]["screening/reason_accuracy"],
+                    "misses": {m["hypothesis_id"] for m in r["misses"]}}
+        except ValueError as e:                       # guardrail rejection: one retry with the reason
+            if attempt: return None
+            misses = misses + [{"hypothesis_id": "feedback", "hypothesis_text": f"previous patch rejected: {e}",
+                                "human_reason_code": "-", "critic_reason_code": "-"}]
+        except Exception as e:
+            print(f"  architect {model} failed: {str(e)[:80]}"); return None
+
+
+def tournament(misses, base, critic, table, leads, current_acc):
+    """All architects propose in parallel; the best candidate that beats current_acc wins."""
+    tmp = Path("results/_candidates"); tmp.mkdir(parents=True, exist_ok=True)
+    with ThreadPoolExecutor(len(ARCHITECTS)) as pool:
+        cands = [c for c in pool.map(lambda m: candidate(m, misses, base, critic, table, leads, tmp), ARCHITECTS) if c]
+    before = {m["hypothesis_id"] for m in misses}
+    for c in sorted(cands, key=lambda c: -c["acc"]):
+        print(f"  candidate {c['model'].split('/')[-1]:34} {c['sections']} -> {c['acc']:.2f} "
+              f"(fixed {len(before - c['misses'])}, broke {len(c['misses'] - before)})")
+    best = max(cands, key=lambda c: c["acc"], default=None)
+    return best if best and best["acc"] > current_acc else None
+
+
+def current_version(path):
+    return int(path.split("_v")[1][:-3])
 
 
 def run_iteration(n, leads, table, critic, args, prev_precision):
@@ -66,11 +97,13 @@ def run_iteration(n, leads, table, critic, args, prev_precision):
     result["metrics"]["screening/eval_complete"] = 1          # the automation trigger signal
     log_iteration(n, result, rules, {"critic/model": critic.model, "critic/dry_run": critic.dry_run,
                                       "architect": "aria" if args.patch_dir else "claude"},
-                  prev_rules_path=f"kit/critic/rules_v{n-1}.md" if n else None)
+                  prev_rules_path=f"kit/critic/rules_v{n-1}.md" if n else None, group=args.group)
     # ---- revise rules for the next iteration ----
     base = rules
-    if prev_precision is not None and (m["screening/kill_precision"] or 0) < prev_precision:
-        base = f"kit/critic/rules_v{n-1}.md"; print(f"  precision dropped: rolling back to v{n-1} as base")
+    acc = m["screening/reason_accuracy"]
+    if prev_precision is not None and acc < prev_precision - NOISE:     # prev_precision carries reason accuracy
+        base = f"kit/critic/rules_v{n-1}.md"; print(f"  accuracy dropped ({prev_precision:.2f} -> {acc:.2f}): rolling back to v{n-1} as base")
+        acc = prev_precision
     next_rules = Path(f"kit/critic/rules_v{n+1}.md")
     if args.wait_for_aria and not next_rules.exists():      # ARIA writes it via the MCP tool
         import time
@@ -86,29 +119,21 @@ def run_iteration(n, leads, table, critic, args, prev_precision):
     elif args.dry_run:
         print("  dry run, no patch file: copying rules unchanged"); patch, author = "", "none"
     else:
-        patch, author = propose_patch_claude(result["misses"], base), "claude"
+        best = tournament(result["misses"], base, critic, table, leads, acc)
+        patch, author = (best["patch"], best["model"].split("/")[-1]) if best else ("", "none")
+        if not best:
+            print(f"  no candidate beat {acc:.2f}: keeping rules unchanged")
     out = f"kit/critic/rules_v{n+1}.md"
-    for attempt in range(2):                      # guardrails may reject; retry once with the reason
-        if not patch.strip():
-            break
+    if patch.strip():
         try:
             out = apply_patch(base, patch, change_reason=f"iter {n} misses" + (" (rolled back)" if base != rules else ""),
                               author=author, out_version=n + 1)
-            if critic.dry_run or not result["misses"]:
-                break
-            fixed = patch_fixes(critic, table, result["misses"], {l["id"]: l for l in leads}, out)
-            print(f"  patch validation: fixes {fixed}/{len(result['misses'])} of this iteration's misses")
-            if fixed > 0:
-                break
-            Path(out).unlink(); Path(out.replace(".md", ".meta.json")).unlink(missing_ok=True)
-            raise ValueError("patch fixes none of the misses it was written for")
         except ValueError as e:
-            print(f"  patch rejected ({e}); {'retrying' if attempt == 0 else 'keeping rules unchanged'}")
-            patch = propose_patch_claude(result["misses"], base, feedback=f"Your previous patch was rejected: {e}. Fix that.") if attempt == 0 and author == "claude" else ""
+            print(f"  patch rejected ({e}); keeping rules unchanged"); author = "none"
     if not Path(out).exists():
-        Path(out).write_text(Path(base).read_text()); author = "none"
+        Path(out).write_text(Path(base).read_text())
     print(f"  -> {out} (author={author})")
-    return m["screening/kill_precision"]
+    return acc
 
 
 def main():
@@ -121,6 +146,7 @@ def main():
     ap.add_argument("--table", default="data/raw/OSD-104_rna_seq_differential_expression.csv")
     ap.add_argument("--patch-dir", default=None)
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--group", default="helix-osd104", help="W&B run group (use e.g. demo-1 for a live run)")
     ap.add_argument("--wait-for-aria", type=int, default=0, metavar="SECONDS",
                     help="after logging, wait this long for ARIA to write the next rules via MCP before falling back")
     args = ap.parse_args()
@@ -132,7 +158,7 @@ def main():
         result = evaluate(critic.judge_all(leads, table, rules), leads)
         print("HOLDOUT", {k: round(v, 3) for k, v in result["metrics"].items() if k.startswith("screening/") and isinstance(v, float)})
         json.dump({"rules": rules, "metrics": result["metrics"], "misses": result["misses"]}, open(RESULTS / "holdout.json", "w"), indent=1)
-        log_iteration(99, result, rules, {"critic/model": critic.model, "split": "holdout"}, group="helix-osd104-holdout")
+        log_iteration(99, result, rules, {"critic/model": critic.model, "split": "holdout"}, group=f"{args.group}-holdout")
         return
     leads = json.load(open(args.train))
     prev = None

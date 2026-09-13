@@ -56,12 +56,12 @@ class Critic:
             label, conf, reason = "ok", 0.0, f"invalid label from critic: {label}"
         return {"label": label, "confidence": conf, "reason": reason}
 
-    def judge_all(self, leads, table, rules_path):
+    def judge_all(self, leads, table, rules_path, workers=8):
+        """Judge every lead; calls are independent so they run in parallel (order preserved)."""
+        from concurrent.futures import ThreadPoolExecutor
         rules_dir, fname = os.path.split(rules_path)
         version = int(re.search(r"v(\d+)", fname).group(1))
-        out = []
-        for lead in leads:
-            payload = build_payload(lead, table, rules_dir=rules_dir, rules_file=fname)
-            v = self.judge(payload)
-            out.append({"lead_id": lead["id"], "rules_version": version, **v})
-        return out
+        payloads = [build_payload(lead, table, rules_dir=rules_dir, rules_file=fname) for lead in leads]
+        with ThreadPoolExecutor(workers if not self.dry_run else 1) as pool:
+            verdicts = list(pool.map(self.judge, payloads))
+        return [{"lead_id": lead["id"], "rules_version": version, **v} for lead, v in zip(leads, verdicts)]

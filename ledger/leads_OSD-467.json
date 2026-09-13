@@ -1,0 +1,711 @@
+[
+ {
+  "id": "lead_001",
+  "shape": "single_gene",
+  "claim": "Hmga1b expression is lower in hindlimb unloaded mice, with a log2 fold change of -5.10 and detected in all 9 control samples.",
+  "rows": [
+   "Hmga1b"
+  ],
+  "why_not_known": "This large downregulation in a mechanical unloading context has not been previously tied to Hmga1b in muscle or bone studies.",
+  "next_step": "qPCR validation in independent HU samples.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_002",
+  "shape": "single_gene",
+  "claim": "Mss51 is upregulated in hindlimb unloaded mice with a log2fc of +1.52, present in all 7 HU samples.",
+  "rows": [
+   "Mss51"
+  ],
+  "why_not_known": "Mss51 is mitochondrial and its upregulation under mechanical unloading is unexpected and not previously reported.",
+  "next_step": "Measure mitochondrial mass or activity in HU muscle tissue.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_003",
+  "shape": "single_gene",
+  "claim": "Gm11266 shows increased expression in hindlimb unloaded mice with a log2fc of +1.39, detected in all 7 HU samples.",
+  "rows": [
+   "Gm11266"
+  ],
+  "why_not_known": "Gm11266 is a predicted gene with no known function, so its response to unloading is novel.",
+  "next_step": "CRISPRi knockdown in vitro to assess phenotypic effects under simulated unloading.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_004",
+  "shape": "single_gene",
+  "claim": "Rskr is downregulated in hindlimb unloaded mice with a log2fc of -1.38, observed in all 9 control samples.",
+  "rows": [
+   "Rskr"
+  ],
+  "why_not_known": "Rskr is poorly characterized and its downregulation during unloading has not been documented.",
+  "next_step": "Assess ribosomal protein phosphorylation status in HU tissue.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_005",
+  "shape": "single_gene",
+  "claim": "Kcnq5 expression increases in hindlimb unloaded mice with a log2fc of +0.99, present in all 7 HU samples.",
+  "rows": [
+   "Kcnq5"
+  ],
+  "why_not_known": "Kcnq5 is a voltage-gated potassium channel not typically associated with mechanical loading in muscle.",
+  "next_step": "Patch-clamp recordings in muscle fibers from HU mice to assess excitability changes.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_006",
+  "shape": "single_gene",
+  "claim": "Pfkfb3 is upregulated in hindlimb unloaded mice with a log2fc of +0.74, detected in all 7 HU samples.",
+  "rows": [
+   "Pfkfb3"
+  ],
+  "why_not_known": "Pfkfb3 promotes glycolysis, and its upregulation contradicts expectations of reduced metabolism in unloading.",
+  "next_step": "Measure lactate and ATP levels in HU muscle tissue.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_007",
+  "shape": "single_gene",
+  "claim": "Pdia6 is downregulated in hindlimb unloaded mice with a log2fc of -0.41, present in all 9 control samples.",
+  "rows": [
+   "Pdia6"
+  ],
+  "why_not_known": "Pdia6 is involved in ER stress, and its downregulation suggests reduced protein folding demand, which is counterintuitive in atrophy.",
+  "next_step": "Assay for ER stress markers like BiP and XBP1 splicing in HU samples.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_008",
+  "shape": "single_gene",
+  "claim": "Calm4 shows a log2fc of +2.07 in hindlimb unloaded mice, though not statistically significant (padj=0.24), and is expressed in 6 of 7 HU samples.",
+  "rows": [
+   "Calm4"
+  ],
+  "why_not_known": "Calmodulin family members are calcium sensors, and such a large increase without significance may reflect high variance or early signaling shift.",
+  "next_step": "Measure intracellular calcium transients in HU muscle fibers.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_009",
+  "shape": "single_gene",
+  "claim": "Apol11a is downregulated in hindlimb unloaded mice with a log2fc of -1.34 and padj=0.21, detected in all 9 control samples.",
+  "rows": [
+   "Apol11a"
+  ],
+  "why_not_known": "Apol11a is liver-enriched and its presence in this tissue and regulation by loading is unexpected.",
+  "next_step": "Confirm tissue specificity via RNA in situ hybridization.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_010",
+  "shape": "single_gene",
+  "claim": "Cyp2b10 is downregulated in hindlimb unloaded mice with a log2fc of -1.24 and padj=0.20, present in all 9 control samples.",
+  "rows": [
+   "Cyp2b10"
+  ],
+  "why_not_known": "Cyp2b10 is primarily hepatic and xenobiotic-metabolizing; its expression in this context is unexplained.",
+  "next_step": "Check for liver contamination in RNA-seq samples via albumin or other liver-specific transcripts.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_011",
+  "shape": "single_gene",
+  "claim": "Stfa3 is upregulated in hindlimb unloaded mice with a log2fc of +1.22 and padj=0.24, detected in all 7 HU samples.",
+  "rows": [
+   "Stfa3"
+  ],
+  "why_not_known": "Stefins are cysteine protease inhibitors; their upregulation may reflect altered proteolysis but is not established in unloading.",
+  "next_step": "Measure cathepsin activity in HU muscle lysates.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_012",
+  "shape": "single_gene",
+  "claim": "Stfa1 is upregulated in hindlimb unloaded mice with a log2fc of +1.19 and padj=0.23, present in all 7 HU samples.",
+  "rows": [
+   "Stfa1"
+  ],
+  "why_not_known": "Like Stfa3, Stfa1 is a cysteine protease inhibitor with no known role in mechanical unloading.",
+  "next_step": "Co-expression analysis with known atrophy markers like MuRF1.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_013",
+  "shape": "single_gene",
+  "claim": "Rps11-ps2 shows no change in expression (log2fc=-0.03, padj=0.99), expressed in all 9 control samples.",
+  "rows": [
+   "Rps11-ps2"
+  ],
+  "why_not_known": "Pseudogenes are often assumed to be inactive, but this one is expressed and stable under unloading.",
+  "next_step": "Assess genomic DNA copy number to rule out pseudogene amplification.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_014",
+  "shape": "single_gene",
+  "claim": "Glra3 shows a small increase in expression (log2fc=+0.17, padj=0.98) in HU mice, detected in 5 of 7 samples.",
+  "rows": [
+   "Glra3"
+  ],
+  "why_not_known": "Glycine receptors are typically neuronal; expression in this tissue may indicate contamination or ectopic expression.",
+  "next_step": "Perform immunohistochemistry for Glra3 in muscle sections.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_015",
+  "shape": "single_gene",
+  "claim": "Meiosin is slightly downregulated (log2fc=-0.50, padj=0.93) in HU mice, detected in 8 of 9 control samples.",
+  "rows": [
+   "Meiosin"
+  ],
+  "why_not_known": "Meiosin initiates meiosis and should not be expressed in somatic muscle tissue; signal may be spurious.",
+  "next_step": "Check for germline cell contamination in RNA samples via Dazl or Sycp3 qPCR.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_016",
+  "shape": "single_gene",
+  "claim": "Rap1gap shows no change in expression (log2fc=-0.16, padj=0.98), present in all 9 control samples.",
+  "rows": [
+   "Rap1gap"
+  ],
+  "why_not_known": "Rap1gap regulates small GTPases involved in adhesion; its stability under unloading is unexpected.",
+  "next_step": "Assess Rap1 activity via pull-down assay in HU tissue.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_017",
+  "shape": "single_gene",
+  "claim": "Extl2 is slightly upregulated (log2fc=+0.29, padj=0.80) in HU mice, detected in all 7 HU samples.",
+  "rows": [
+   "Extl2"
+  ],
+  "why_not_known": "Extl2 is involved in heparan sulfate synthesis, which may affect extracellular matrix, but its role in unloading is unknown.",
+  "next_step": "Stain for heparan sulfate proteoglycans in HU muscle sections.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_018",
+  "shape": "single_gene",
+  "claim": "Hmga1b is the most strongly downregulated gene (log2fc=-5.10) among all tested genes in the hindlimb unloading model.",
+  "rows": [
+   "Hmga1b"
+  ],
+  "why_not_known": "Hmga1b has not been previously linked to musculoskeletal unloading despite its large effect size.",
+  "next_step": "Analyze Hmga1b knockout mice under normal loading to assess baseline muscle phenotype.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_019",
+  "shape": "single_gene",
+  "claim": "Mss51 has the highest statistical confidence (padj=1.3e-06) among all differentially expressed genes in the HU vs NLC comparison.",
+  "rows": [
+   "Mss51"
+  ],
+  "why_not_known": "Despite high confidence, Mss51's mitochondrial role makes its upregulation under atrophy conditions surprising.",
+  "next_step": "Measure mitochondrial DNA copy number in HU samples.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_020",
+  "shape": "single_gene",
+  "claim": "Pfkfb3 has the highest mean expression among significantly upregulated genes (mean_count_in_HU=2852) in HU mice.",
+  "rows": [
+   "Pfkfb3"
+  ],
+  "why_not_known": "High expression of a glycolytic regulator in unloaded muscle may indicate a metabolic shift not previously emphasized.",
+  "next_step": "Perform metabolic flux analysis in isolated muscle fibers.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_021",
+  "shape": "single_gene",
+  "claim": "Pdia6 is the only significantly downregulated gene with a mean count above 1000 in controls (2668), suggesting high baseline expression.",
+  "rows": [
+   "Pdia6"
+  ],
+  "why_not_known": "The functional impact of losing a highly expressed ER chaperone in unloading is unknown.",
+  "next_step": "Assess global protein secretion rates in HU muscle explants.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_022",
+  "shape": "single_gene",
+  "claim": "Kcnq5 is upregulated (log2fc=+0.99) despite being a neuronal-type potassium channel, suggesting ectopic expression or neuronal infiltration.",
+  "rows": [
+   "Kcnq5"
+  ],
+  "why_not_known": "Kcnq5 is not typically expressed in skeletal muscle, so its regulation here may reflect non-cell-autonomous effects.",
+  "next_step": "Laser capture microdissection of muscle fibers followed by qPCR for Kcnq5.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_023",
+  "shape": "single_gene",
+  "claim": "Gm11266 is upregulated (log2fc=+1.39) with no known orthologs or functional domains, limiting prior biological context.",
+  "rows": [
+   "Gm11266"
+  ],
+  "why_not_known": "Gm11266 is uncharacterized, so any regulation is inherently novel.",
+  "next_step": "Use antisense oligonucleotides to knock down Gm11266 in vitro and assess cell morphology.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_024",
+  "shape": "single_gene",
+  "claim": "Rskr is downregulated (log2fc=-1.38) and belongs to the ribosomal S6 kinase family, but is not the canonical Rps6kb1.",
+  "rows": [
+   "Rskr"
+  ],
+  "why_not_known": "Rskr is a lesser-known kinase and its specific regulation separate from mTORC1 signaling is unconfirmed.",
+  "next_step": "Compare phospho-S6 levels in HU tissue to assess mTORC1 activity.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_025",
+  "shape": "family",
+  "claim": "Stfa1 and Stfa3 are co-upregulated in hindlimb unloaded mice with similar fold changes (+1.19 and +1.22) and both detected in all HU samples.",
+  "rows": [
+   "Stfa1",
+   "Stfa3"
+  ],
+  "why_not_known": "Stefins are cysteine protease inhibitors; their coordinated upregulation may indicate a specific proteolytic program in unloading.",
+  "next_step": "Promoter alignment to identify shared regulatory elements.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_026",
+  "shape": "family",
+  "claim": "Apol11a and Cyp2b10 are both downregulated in control samples (padj<0.25) and carried by all 9 NLC mice, suggesting a shared regulatory mechanism.",
+  "rows": [
+   "Apol11a",
+   "Cyp2b10"
+  ],
+  "why_not_known": "Both are typically liver-specific; their co-expression here may indicate contamination or ectopic regulation.",
+  "next_step": "Check for albumin or transferrin expression as liver contamination markers.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_027",
+  "shape": "family",
+  "claim": "Calm4 shows a large upregulation (log2fc=+2.07) while other calmodulin genes are not differentially expressed, suggesting isoform-specific regulation.",
+  "rows": [
+   "Calm4"
+  ],
+  "why_not_known": "Calmodulin genes are often assumed redundant; selective induction of Calm4 is unexpected.",
+  "next_step": "Compare Calm1, Calm2, Calm3 expression levels in the same dataset to confirm specificity.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_028",
+  "shape": "family",
+  "claim": "Mss51 and Pdia6 are both involved in mitochondrial or ER function and show opposite regulation (Mss51 up, Pdia6 down) in HU mice.",
+  "rows": [
+   "Mss51",
+   "Pdia6"
+  ],
+  "why_not_known": "Opposing regulation of organelle-related genes may reflect compartment-specific stress responses not previously mapped.",
+  "next_step": "Measure mitochondrial and ER morphology via electron microscopy in HU tissue.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_029",
+  "shape": "family",
+  "claim": "Hmga1b and Rskr are both downregulated (log2fc < -1.3) and detected in all control samples, suggesting a shared repression mechanism.",
+  "rows": [
+   "Hmga1b",
+   "Rskr"
+  ],
+  "why_not_known": "No known common transcription factor regulates both; this co-repression is novel.",
+  "next_step": "Motif enrichment analysis in promoters of downregulated genes.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_030",
+  "shape": "family",
+  "claim": "Kcnq5 and Pfkfb3 are both upregulated in HU mice and detected in all 7 HU samples, suggesting a coordinated metabolic-excitability shift.",
+  "rows": [
+   "Kcnq5",
+   "Pfkfb3"
+  ],
+  "why_not_known": "No known pathway links potassium channel expression to glycolytic flux in muscle.",
+  "next_step": "Treat cultured myotubes with Pfkfb3 inhibitor and measure Kcnq5 expression.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_031",
+  "shape": "family",
+  "claim": "Stfa1 and Stfa3 are both upregulated and belong to the stefin family, which has not been previously linked to mechanical unloading.",
+  "rows": [
+   "Stfa1",
+   "Stfa3"
+  ],
+  "why_not_known": "Stefins are more commonly associated with immune or epithelial cells, not muscle atrophy.",
+  "next_step": "Assess cathepsin B and L activity in HU muscle lysates.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_032",
+  "shape": "family",
+  "claim": "Extl2 and Pdia6 are both involved in glycosylation or disulfide bond formation and show opposite regulation in HU mice.",
+  "rows": [
+   "Extl2",
+   "Pdia6"
+  ],
+  "why_not_known": "Extracellular matrix and ER processing are linked, but their divergent regulation under unloading is unreported.",
+  "next_step": "Assess N-glycosylation status of secreted proteins in HU tissue.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_033",
+  "shape": "family",
+  "claim": "Rps11-ps2 and Rap1gap are both stably expressed (padj > 0.9) and detected in all control samples, suggesting housekeeping-like behavior.",
+  "rows": [
+   "Rps11-ps2",
+   "Rap1gap"
+  ],
+  "why_not_known": "Rps11-ps2 is a pseudogene and Rap1gap is regulatory; their stability may make them better controls than traditional genes.",
+  "next_step": "Compare variance of these genes to Actb and Gapdh in the dataset.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_034",
+  "shape": "family",
+  "claim": "Glra3 and Kcnq5 are both ion channel subunits upregulated in HU mice, suggesting altered membrane excitability.",
+  "rows": [
+   "Glra3",
+   "Kcnq5"
+  ],
+  "why_not_known": "Glycine and potassium channels are not typically co-regulated in muscle; this may indicate neuronal influence.",
+  "next_step": "Perform single-cell RNA-seq to determine if these are expressed in the same cells.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_035",
+  "shape": "pathway",
+  "claim": "Genes annotated with 'cellular process' (GO:0009987) are enriched among differentially expressed genes, with 3 out of 6388 significant (2 up, 1 down).",
+  "rows": [
+   "GO:0009987"
+  ],
+  "why_not_known": "This broad term is expected to be enriched by chance; the specific 1.6x increase needs validation.",
+  "next_step": "Perform gene set enrichment analysis (GSEA) using full ranked list.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_036",
+  "shape": "pathway",
+  "claim": "Genes in 'cellular anatomical structure' (GO:0110165) are enriched among DEGs with 3 out of 9067 significant (2 up, 1 down), 1.1x baseline.",
+  "rows": [
+   "GO:0110165"
+  ],
+  "why_not_known": "This term is very general; enrichment may reflect structural remodeling but is weakly supported.",
+  "next_step": "Manually curate structural gene list and test enrichment.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_037",
+  "shape": "pathway",
+  "claim": "Mitochondrial translation (inferred from Mss51 upregulation) may be increased in HU mice despite overall atrophy.",
+  "rows": [
+   "Mss51"
+  ],
+  "why_not_known": "Atrophy typically reduces mitochondrial content; increased translational activation is paradoxical.",
+  "next_step": "Measure mitochondrial ribosomal RNA levels in HU tissue.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_038",
+  "shape": "pathway",
+  "claim": "ER protein processing (via Pdia6 downregulation) is reduced in HU mice, potentially impairing secretory capacity.",
+  "rows": [
+   "Pdia6"
+  ],
+  "why_not_known": "Pdia6 is one of many chaperones; its downregulation alone does not confirm pathway suppression.",
+  "next_step": "Assess global disulfide bond formation in secreted proteins.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_039",
+  "shape": "pathway",
+  "claim": "Glycolysis may be upregulated in HU mice due to Pfkfb3 induction, a key regulator of fructose-2,6-bisphosphate levels.",
+  "rows": [
+   "Pfkfb3"
+  ],
+  "why_not_known": "Pfkfb3 promotes glycolysis, but flux depends on other enzymes; this is indirect evidence.",
+  "next_step": "Measure fructose-2,6-bisphosphate levels in HU muscle.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_040",
+  "shape": "pathway",
+  "claim": "Potassium channel activity (via Kcnq5 upregulation) may be increased in HU mice, altering membrane potential.",
+  "rows": [
+   "Kcnq5"
+  ],
+  "why_not_known": "Kcnq5 is not a major muscle channel; functional impact requires electrophysiological validation.",
+  "next_step": "Patch-clamp to measure M-current in HU muscle fibers.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_041",
+  "shape": "pathway",
+  "claim": "Cysteine-type endopeptidase inhibition (via Stfa1 and Stfa3 upregulation) may be enhanced in HU mice.",
+  "rows": [
+   "Stfa1",
+   "Stfa3"
+  ],
+  "why_not_known": "Stefins inhibit cathepsins, but their role in muscle proteolysis is not established.",
+  "next_step": "Measure cathepsin activity in HU vs control lysates.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_042",
+  "shape": "pathway",
+  "claim": "Heparan sulfate biosynthesis (via Extl2 upregulation) may be increased in HU mice, affecting ECM signaling.",
+  "rows": [
+   "Extl2"
+  ],
+  "why_not_known": "Extl2 is one of several enzymes in the pathway; its upregulation alone is insufficient to confirm flux increase.",
+  "next_step": "Quantify heparan sulfate chains via mass spectrometry.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_043",
+  "shape": "pathway",
+  "claim": "Calcium signaling may be altered in HU mice due to Calm4 upregulation (log2fc=+2.07, padj=0.24).",
+  "rows": [
+   "Calm4"
+  ],
+  "why_not_known": "Calm4 is one of several calmodulins; its borderline significance limits confidence.",
+  "next_step": "Measure calcium transients in single fibers from HU mice.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_044",
+  "shape": "pathway",
+  "claim": "Xenobiotic metabolism (via Cyp2b10 downregulation) may be reduced in HU mice, though its tissue origin is uncertain.",
+  "rows": [
+   "Cyp2b10"
+  ],
+  "why_not_known": "Cyp2b10 is hepatic; its presence here may be due to contamination rather than true regulation.",
+  "next_step": "Check for liver-specific transcripts in RNA-seq data.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_045",
+  "shape": "global",
+  "claim": "Only 7 genes are significant at FDR<0.05, indicating a highly specific transcriptional response to hindlimb unloading.",
+  "rows": [
+   "Hmga1b",
+   "Mss51",
+   "Gm11266",
+   "Rskr",
+   "Kcnq5",
+   "Pfkfb3",
+   "Pdia6"
+  ],
+  "why_not_known": "The small number of hits may reflect low power or a truly sparse response, which is unusual for unloading studies.",
+  "next_step": "Power analysis to determine if n=7 HU mice were sufficient to detect moderate effects.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_046",
+  "shape": "global",
+  "claim": "4 out of 7 significant genes show at least 2-fold change, indicating that most significant hits are biologically substantial.",
+  "rows": [
+   "Hmga1b",
+   "Mss51",
+   "Gm11266",
+   "Rskr"
+  ],
+  "why_not_known": "High proportion of large-effect genes is unusual; may reflect strong drivers or selection bias.",
+  "next_step": "Compare effect size distribution to other HU studies.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_047",
+  "shape": "global",
+  "claim": "The median |log2fc| among significant genes is 1.38, suggesting moderate to strong effect sizes on average.",
+  "rows": [
+   "Hmga1b",
+   "Mss51",
+   "Gm11266",
+   "Rskr",
+   "Kcnq5",
+   "Pfkfb3",
+   "Pdia6"
+  ],
+  "why_not_known": "Median effect size is high for transcriptomic studies, which often have smaller fold changes.",
+  "next_step": "Compare median |log2fc| to other published HU datasets.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_048",
+  "shape": "global",
+  "claim": "All top differentially expressed genes are carried by all or nearly all samples in their group, indicating high reproducibility within groups.",
+  "rows": [
+   "Hmga1b",
+   "Mss51",
+   "Gm11266",
+   "Rskr",
+   "Kcnq5",
+   "Pfkfb3",
+   "Pdia6"
+  ],
+  "why_not_known": "High carrier rates reduce concern about outlier-driven results, but may mask heterogeneity.",
+  "next_step": "Perform PCA to assess within-group clustering.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_049",
+  "shape": "global",
+  "claim": "No gene family has three or more members among the top hits, suggesting no broad pathway-level activation.",
+  "rows": [
+   "Hmga1b",
+   "Mss51",
+   "Gm11266",
+   "Rskr",
+   "Kcnq5",
+   "Pfkfb3",
+   "Pdia6"
+  ],
+  "why_not_known": "Sparse family representation contrasts with typical unloading studies showing coordinated gene programs.",
+  "next_step": "Test for enrichment of known gene families (e.g., ubiquitin ligases) in DEG list.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_050",
+  "shape": "global",
+  "claim": "The most downregulated gene (Hmga1b, log2fc=-5.10) exceeds the most upregulated (Mss51, +1.52) in magnitude, suggesting asymmetric regulation.",
+  "rows": [
+   "Hmga1b",
+   "Mss51"
+  ],
+  "why_not_known": "Transcriptional responses often show symmetric fold changes; this skew may indicate repressive dominance.",
+  "next_step": "Analyze promoter motifs for enrichment of repressor binding sites.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_051",
+  "shape": "global",
+  "claim": "Borderline genes (0.05 <= padj < 0.25) include several with large fold changes (e.g., Calm4 +2.07), suggesting possible false negatives.",
+  "rows": [
+   "Calm4",
+   "Apol11a",
+   "Cyp2b10",
+   "Stfa3",
+   "Stfa1"
+  ],
+  "why_not_known": "High fold changes with borderline significance may reflect low power rather than absence of effect.",
+  "next_step": "Increase sample size and retest these genes.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_052",
+  "shape": "global",
+  "claim": "Pseudogene Rps11-ps2 shows stable expression (padj=0.99), suggesting technical reliability in detecting non-coding transcripts.",
+  "rows": [
+   "Rps11-ps2"
+  ],
+  "why_not_known": "Pseudogenes are often filtered out; their detectable and stable expression supports data quality.",
+  "next_step": "Compare pseudogene detection rate to other RNA-seq studies with similar depth.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_053",
+  "shape": "data_quality",
+  "claim": "Hmga1b is detected in all 9 control samples but not in any HU sample, raising the possibility of dropout or batch effect.",
+  "rows": [
+   "Hmga1b"
+  ],
+  "why_not_known": "Complete absence in one group could reflect technical failure rather than biological loss.",
+  "next_step": "Check raw read counts and mapping quality for Hmga1b in HU samples.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_054",
+  "shape": "data_quality",
+  "claim": "Mss51 has the lowest padj (1.3e-06) and is detected in all 7 HU samples, supporting high technical reliability of the DE call.",
+  "rows": [
+   "Mss51"
+  ],
+  "why_not_known": "High statistical confidence and full carrier rate reduce concern about false positives.",
+  "next_step": "Inspect IGV tracks for Mss51 to confirm clean read alignment.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_055",
+  "shape": "data_quality",
+  "claim": "Cyp2b10 and Apol11a are both downregulated and liver-specific, suggesting possible liver contamination in the control group.",
+  "rows": [
+   "Cyp2b10",
+   "Apol11a"
+  ],
+  "why_not_known": "Liver genes should not be highly expressed in muscle; their presence may indicate sample mix-up or contamination.",
+  "next_step": "BLAST reads mapping to Cyp2b10 to confirm tissue origin.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_056",
+  "shape": "data_quality",
+  "claim": "Glra3 is expressed in only 5 of 7 HU samples despite a padj of 0.98, suggesting low or sporadic expression that may be technical noise.",
+  "rows": [
+   "Glra3"
+  ],
+  "why_not_known": "Low carrier rate and non-significance indicate Glra3 signal may not be biologically meaningful.",
+  "next_step": "Filter out genes with <6 carriers in the higher group and reanalyze.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_057",
+  "shape": "data_quality",
+  "claim": "Meiosin is expressed in 8 of 9 control samples but should not be active in somatic tissue, indicating possible germline contamination.",
+  "rows": [
+   "Meiosin"
+  ],
+  "why_not_known": "Meiosis genes are restricted to gonads; their detection here suggests sample purity issue.",
+  "next_step": "Test for Ddx4 or Sycp3 expression as germline markers.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_058",
+  "shape": "data_quality",
+  "claim": "Rps11-ps2 is a pseudogene with stable expression (padj=0.99), supporting accurate detection of non-canonical transcripts.",
+  "rows": [
+   "Rps11-ps2"
+  ],
+  "why_not_known": "Pseudogenes are often mis-mapped; stable detection suggests good specificity.",
+  "next_step": "Check for cross-mapping between Rps11-ps2 and functional Rps11 via read alignment.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_059",
+  "shape": "data_quality",
+  "claim": "Extl2 is upregulated (log2fc=+0.29) and detected in all 7 HU samples despite padj=0.80, indicating consistent but non-significant trend.",
+  "rows": [
+   "Extl2"
+  ],
+  "why_not_known": "High carrier rate with non-significance may reflect low variance and true small effect.",
+  "next_step": "Perform power calculation to estimate sample size needed for significance.",
+  "dataset": "OSD-467"
+ },
+ {
+  "id": "lead_060",
+  "shape": "data_quality",
+  "claim": "All significant genes have carrier rates of 7/7 or 9/9 in their respective groups, indicating high reproducibility and low outlier dependence.",
+  "rows": [
+   "Hmga1b",
+   "Mss51",
+   "Gm11266",
+   "Rskr",
+   "Kcnq5",
+   "Pfkfb3",
+   "Pdia6"
+  ],
+  "why_not_known": "Perfect carrier rates reduce concern about false positives driven by single samples.",
+  "next_step": "Perform leave-one-out analysis to confirm stability of DE calls.",
+  "dataset": "OSD-467"
+ }
+]
