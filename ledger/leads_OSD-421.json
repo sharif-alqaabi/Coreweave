@@ -1,0 +1,713 @@
+[
+ {
+  "id": "lead_001",
+  "shape": "single_gene",
+  "claim": "H2bc12 is downregulated in space flight with a log2 fold change of -6.51 and is detected in 8 out of 9 ground control samples.",
+  "rows": [
+   "H2bc12"
+  ],
+  "why_not_known": "While histone genes are known to respond to stress, this specific paralog's extreme downregulation in spaceflight has not been previously reported in this context.",
+  "next_step": "Validate by qPCR in an independent set of spaceflight and ground samples.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_002",
+  "shape": "single_gene",
+  "claim": "Serpinb6c is upregulated in space flight with a log2 fold change of +6.17 and is detected in 4 out of 11 flight samples.",
+  "rows": [
+   "Serpinb6c"
+  ],
+  "why_not_known": "Serpinb6c has not been linked to spaceflight stress responses in prior studies; its low carrier rate raises questions about consistency.",
+  "next_step": "Test protein-level expression via Western blot to confirm translation.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_003",
+  "shape": "single_gene",
+  "claim": "E2f7 is downregulated in space flight with a log2 fold change of -5.41 and is detected in 8 out of 9 ground control samples.",
+  "rows": [
+   "E2f7"
+  ],
+  "why_not_known": "E2f7 is a transcription factor involved in cell cycle arrest, but its strong suppression in spaceflight has not been quantified before.",
+  "next_step": "Assess cell cycle phase distribution in flight vs. ground cells to infer functional impact.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_004",
+  "shape": "single_gene",
+  "claim": "Mst1 is downregulated in space flight with a log2 fold change of -5.41 and is detected in 5 out of 9 ground control samples.",
+  "rows": [
+   "Mst1"
+  ],
+  "why_not_known": "Mst1 is involved in immune regulation and apoptosis, but its downregulation in spaceflight is not established.",
+  "next_step": "Measure downstream immune markers to assess functional consequence.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_005",
+  "shape": "single_gene",
+  "claim": "H3c8 is downregulated in space flight with a log2 fold change of -5.41 and is detected in 8 out of 9 ground control samples.",
+  "rows": [
+   "H3c8"
+  ],
+  "why_not_known": "Core histones are often co-regulated, but this specific H3 variant shows exceptional change magnitude.",
+  "next_step": "Compare chromatin accessibility in flight vs. ground samples.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_006",
+  "shape": "single_gene",
+  "claim": "Pzp is upregulated in space flight with a log2 fold change of +5.27 and is detected in 4 out of 11 flight samples.",
+  "rows": [
+   "Pzp"
+  ],
+  "why_not_known": "Pzp is an acute-phase protein; its induction in spaceflight may reflect systemic stress, but this has not been shown.",
+  "next_step": "Measure serum Pzp levels in astronauts or animal models post-flight.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_007",
+  "shape": "single_gene",
+  "claim": "H2bc18 is downregulated in space flight with a log2 fold change of -5.16 and is detected in 8 out of 9 ground control samples.",
+  "rows": [
+   "H2bc18"
+  ],
+  "why_not_known": "This histone variant is poorly characterized; its strong downregulation suggests a role in spaceflight chromatin remodeling.",
+  "next_step": "Knock down H2bc18 in ground cells and assess proliferation and DNA damage.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_008",
+  "shape": "single_gene",
+  "claim": "Myrip is upregulated in space flight with a log2 fold change of +5.14 and is detected in 4 out of 11 flight samples.",
+  "rows": [
+   "Myrip"
+  ],
+  "why_not_known": "Myrip regulates vesicle trafficking; its upregulation in spaceflight has not been reported.",
+  "next_step": "Image intracellular trafficking dynamics in microgravity analogs.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_009",
+  "shape": "single_gene",
+  "claim": "Wnk3 is upregulated in space flight with a log2 fold change of +5.00 and is detected in 4 out of 11 flight samples.",
+  "rows": [
+   "Wnk3"
+  ],
+  "why_not_known": "WNK kinases regulate ion transport; Wnk3's role in spaceflight fluid shifts is unexplored.",
+  "next_step": "Measure ion transporter activity in flight-exposed cells.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_010",
+  "shape": "single_gene",
+  "claim": "Nek2 is downregulated in space flight with a log2 fold change of -4.88 and is detected in all 9 ground control samples.",
+  "rows": [
+   "Nek2"
+  ],
+  "why_not_known": "Nek2 is a mitotic kinase; its near-complete suppression in flight suggests cell cycle disruption.",
+  "next_step": "Assess mitotic spindle formation in microgravity-simulated cells.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_011",
+  "shape": "single_gene",
+  "claim": "Fancd2 is downregulated in space flight with a log2 fold change of -4.86 and is detected in 8 out of 9 ground control samples.",
+  "rows": [
+   "Fancd2"
+  ],
+  "why_not_known": "Fancd2 is critical for DNA repair; its downregulation in spaceflight may increase genomic instability risk.",
+  "next_step": "Expose flight and ground cells to ionizing radiation and compare DNA repair efficiency.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_012",
+  "shape": "single_gene",
+  "claim": "H3c13 is downregulated in space flight with a log2 fold change of -4.84 and is detected in all 9 ground control samples.",
+  "rows": [
+   "H3c13"
+  ],
+  "why_not_known": "This histone gene is highly expressed and strongly suppressed, but its specific role in spaceflight is unknown.",
+  "next_step": "ChIP-seq to determine genomic localization changes in flight conditions.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_013",
+  "shape": "single_gene",
+  "claim": "H3c3 is downregulated in space flight with a log2 fold change of -4.78 and is detected in all 9 ground control samples.",
+  "rows": [
+   "H3c3"
+  ],
+  "why_not_known": "H3c3 is a major H3 variant; its downregulation may reflect global chromatin compaction in spaceflight.",
+  "next_step": "Assess global histone H3 levels by immunofluorescence in flight vs. ground cells.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_014",
+  "shape": "single_gene",
+  "claim": "Slfn4 is upregulated in space flight with a log2 fold change of +4.78 and is detected in 5 out of 11 flight samples.",
+  "rows": [
+   "Slfn4"
+  ],
+  "why_not_known": "Slfn4 is interferon-inducible; its upregulation may indicate innate immune activation in space.",
+  "next_step": "Measure interferon-beta levels in flight samples.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_015",
+  "shape": "single_gene",
+  "claim": "H3c7 is downregulated in space flight with a log2 fold change of -4.75 and is detected in 7 out of 9 ground control samples.",
+  "rows": [
+   "H3c7"
+  ],
+  "why_not_known": "This H3 variant is less studied; its downregulation may contribute to altered nucleosome positioning.",
+  "next_step": "Perform nucleosome positioning assays in flight and ground samples.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_016",
+  "shape": "single_gene",
+  "claim": "Zfp970 is upregulated in space flight with a log2 fold change of +4.74 and is detected in 6 out of 11 flight samples.",
+  "rows": [
+   "Zfp970"
+  ],
+  "why_not_known": "Zfp970 is a poorly characterized zinc finger protein; its induction in spaceflight is novel.",
+  "next_step": "Predict Zfp970 DNA binding motifs and assess enrichment in promoters of downregulated genes.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_017",
+  "shape": "single_gene",
+  "claim": "Cxcl1 is downregulated in space flight with a log2 fold change of -4.72 and is detected in 5 out of 9 ground control samples.",
+  "rows": [
+   "Cxcl1"
+  ],
+  "why_not_known": "Cxcl1 is a chemokine; its suppression may indicate altered immune cell recruitment in space.",
+  "next_step": "Measure neutrophil migration in conditioned media from flight vs. ground cells.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_018",
+  "shape": "single_gene",
+  "claim": "Trav19 is downregulated in space flight with a log2 fold change of -4.70 and is detected in 5 out of 9 ground control samples.",
+  "rows": [
+   "Trav19"
+  ],
+  "why_not_known": "T cell receptor genes are expected to vary with immune cell composition, but this specific V segment's change is unreported.",
+  "next_step": "Perform flow cytometry to assess T cell subset frequencies in flight samples.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_019",
+  "shape": "single_gene",
+  "claim": "Plet1os is upregulated in space flight with a log2 fold change of +4.68 and is detected in 6 out of 11 flight samples.",
+  "rows": [
+   "Plet1os"
+  ],
+  "why_not_known": "Plet1os is an antisense transcript; its function and regulation in spaceflight are unknown.",
+  "next_step": "Determine if Plet1os expression correlates with Plet1 sense transcript levels.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_020",
+  "shape": "single_gene",
+  "claim": "Apoa2 is downregulated in space flight with a log2 fold change of -4.67 and is detected in 6 out of 9 ground control samples.",
+  "rows": [
+   "Apoa2"
+  ],
+  "why_not_known": "Apoa2 is involved in lipid metabolism; its downregulation may reflect metabolic adaptation to spaceflight.",
+  "next_step": "Measure serum lipid profiles in flight vs. ground animals.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_021",
+  "shape": "single_gene",
+  "claim": "A630066F11Rik is downregulated in space flight with a log2 fold change of -4.60 and is detected in 6 out of 9 ground control samples.",
+  "rows": [
+   "A630066F11Rik"
+  ],
+  "why_not_known": "This RIKEN transcript is uncharacterized; its downregulation is statistically strong but functionally opaque.",
+  "next_step": "Use CRISPRi to knock down A630066F11Rik and assess phenotypic effects in ground cells.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_022",
+  "shape": "single_gene",
+  "claim": "Cdc25c is downregulated in space flight with a log2 fold change of -4.58 and is detected in all 9 ground control samples.",
+  "rows": [
+   "Cdc25c"
+  ],
+  "why_not_known": "Cdc25c is a key G2/M phosphatase; its suppression suggests cell cycle arrest in spaceflight.",
+  "next_step": "Flow cytometry to determine G2/M phase accumulation in flight samples.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_023",
+  "shape": "single_gene",
+  "claim": "H2bc13 is downregulated in space flight with a log2 fold change of -4.52 and is detected in 6 out of 9 ground control samples.",
+  "rows": [
+   "H2bc13"
+  ],
+  "why_not_known": "This H2B variant is downregulated but less studied than other histones in spaceflight contexts.",
+  "next_step": "Compare H2bc13 expression to other H2B genes in time-course microgravity experiments.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_024",
+  "shape": "single_gene",
+  "claim": "Rad54b is downregulated in space flight with a log2 fold change of -4.51 and is detected in 8 out of 9 ground control samples.",
+  "rows": [
+   "Rad54b"
+  ],
+  "why_not_known": "Rad54b is involved in homologous recombination; its downregulation may impair DNA repair in space.",
+  "next_step": "Challenge cells with DNA crosslinking agents and compare survival in flight vs. ground.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_025",
+  "shape": "family",
+  "claim": "All five Cdc genes (Cdc25c, Cdc6, Cdc20, Cdc25b, Cdc45) are downregulated in space flight, suggesting coordinated suppression of cell cycle progression.",
+  "rows": [
+   "Cdc25c",
+   "Cdc6",
+   "Cdc20",
+   "Cdc25b",
+   "Cdc45"
+  ],
+  "why_not_known": "While cell cycle arrest is expected, the consistent downregulation of these specific regulators across phases is not established.",
+  "next_step": "Construct a cell cycle reporter system to monitor phase transitions in real time under microgravity.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_026",
+  "shape": "family",
+  "claim": "All four Kif genes (Kif2c, Kif20a, Kif4, Kif11) are downregulated in space flight, indicating potential disruption of mitotic spindle dynamics.",
+  "rows": [
+   "Kif2c",
+   "Kif20a",
+   "Kif4",
+   "Kif11"
+  ],
+  "why_not_known": "Kinesins are essential for mitosis; their collective downregulation in spaceflight has not been documented.",
+  "next_step": "Image mitotic spindles in live cells exposed to simulated microgravity.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_027",
+  "shape": "family",
+  "claim": "All four Cdca genes (Cdca5, Cdca3, Cdca8, Cdca7l) are downregulated in space flight, supporting a global suppression of mitotic entry and progression.",
+  "rows": [
+   "Cdca5",
+   "Cdca3",
+   "Cdca8",
+   "Cdca7l"
+  ],
+  "why_not_known": "These genes are co-expressed in G2/M; their uniform downregulation in spaceflight is a new observation.",
+  "next_step": "Analyze single-cell RNA-seq data to determine if Cdca genes co-vary across individual cells in flight samples.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_028",
+  "shape": "family",
+  "claim": "Histone H2A genes H2ac24, H2ac14-ps, H2ac22, and H2ac8 are all downregulated in space flight with high statistical confidence.",
+  "rows": [
+   "H2ac24",
+   "H2ac14-ps",
+   "H2ac22",
+   "H2ac8"
+  ],
+  "why_not_known": "Histone gene clusters are known to be regulated together, but this specific coordinated downregulation in spaceflight is novel.",
+  "next_step": "Assess histone mRNA stability in flight vs. ground cells.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_029",
+  "shape": "family",
+  "claim": "Cyclins Ccnb1 and Ccnb2 are both downregulated in space flight with padj < 1e-30, indicating strong suppression of mitotic cyclins.",
+  "rows": [
+   "Ccnb1",
+   "Ccnb2"
+  ],
+  "why_not_known": "Cyclin B downregulation is expected during cell cycle arrest, but the magnitude and significance here are extreme.",
+  "next_step": "Measure cyclin B protein levels and subcellular localization in flight samples.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_030",
+  "shape": "family",
+  "claim": "The ribosomal protein genes in GO:0022625 are co-downregulated in space flight, with 24 out of 41 significant and none upregulated.",
+  "rows": [
+   "GO:0022625"
+  ],
+  "why_not_known": "Ribosomal biogenesis is often reduced under stress, but the complete absence of upregulated ribosomal genes in spaceflight is striking.",
+  "next_step": "Measure global translation rates in flight vs. ground samples using puromycin labeling.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_031",
+  "shape": "family",
+  "claim": "Kinetochore genes in GO:0000776 are co-downregulated, with 16 out of 34 significant and none upregulated, suggesting mitotic machinery suppression.",
+  "rows": [
+   "GO:0000776"
+  ],
+  "why_not_known": "Kinetochore disruption in spaceflight has been hypothesized but not demonstrated at the transcript level across multiple components.",
+  "next_step": "Perform immunofluorescence for kinetochore proteins (e.g., CENP-A, NDC80) in mitotic cells from flight samples.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_032",
+  "shape": "family",
+  "claim": "Centromeric region genes in GO:0000775 are co-downregulated, with 23 out of 45 significant and none upregulated, indicating chromatin structural changes.",
+  "rows": [
+   "GO:0000775"
+  ],
+  "why_not_known": "Centromere integrity is crucial for chromosome segregation; its transcriptional suppression in spaceflight is a new finding.",
+  "next_step": "Use ChIP-qPCR to assess CENP-A occupancy at centromeres in flight vs. ground cells.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_033",
+  "shape": "family",
+  "claim": "Sister chromatid segregation genes in GO:0000819 are co-downregulated, with 20 out of 42 significant and none upregulated, pointing to mitotic dysfunction.",
+  "rows": [
+   "GO:0000819"
+  ],
+  "why_not_known": "This pathway's uniform downregulation suggests a systemic block in mitosis, not previously quantified in spaceflight.",
+  "next_step": "Score anaphase lagging chromosomes in flight-exposed cells.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_034",
+  "shape": "family",
+  "claim": "Chromosomal region genes in GO:0098687 are co-downregulated, with 24 out of 50 significant and none upregulated, indicating broad chromatin repression.",
+  "rows": [
+   "GO:0098687"
+  ],
+  "why_not_known": "This broad category's downregulation may reflect global chromatin condensation, a phenomenon not yet confirmed in spaceflight.",
+  "next_step": "Perform ATAC-seq to assess chromatin accessibility genome-wide in flight vs. ground samples.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_035",
+  "shape": "pathway",
+  "claim": "Genes in cytosolic large ribosomal subunit (GO:0022625) are enriched among downregulated genes, with 24/41 significant and 10.7x baseline enrichment.",
+  "rows": [
+   "GO:0022625"
+  ],
+  "why_not_known": "Ribosome biogenesis is energy-intensive; its downregulation in spaceflight may reflect metabolic conservation, but the degree here is extreme.",
+  "next_step": "Quantify 60S ribosomal subunit levels by sucrose gradient centrifugation.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_036",
+  "shape": "pathway",
+  "claim": "Genes in cytosolic ribosome (GO:0022626) are enriched among downregulated genes, with 39/70 significant and 10.2x baseline enrichment.",
+  "rows": [
+   "GO:0022626"
+  ],
+  "why_not_known": "Global ribosomal gene suppression is consistent with stress response, but the near-complete absence of upregulated ribosomal genes is unusual.",
+  "next_step": "Measure polysome profiles to assess translational efficiency in flight samples.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_037",
+  "shape": "pathway",
+  "claim": "Genes in chromosome, centromeric region (GO:0000775) are enriched among downregulated genes, with 23/45 significant and 9.4x baseline enrichment.",
+  "rows": [
+   "GO:0000775"
+  ],
+  "why_not_known": "Centromeric gene suppression may impair chromosome segregation, but this has not been shown in spaceflight transcriptomes.",
+  "next_step": "Assess chromosome missegregation rates in flight-exposed cells.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_038",
+  "shape": "pathway",
+  "claim": "Genes in chromosomal region (GO:0098687) are enriched among downregulated genes, with 24/50 significant and 8.8x baseline enrichment.",
+  "rows": [
+   "GO:0098687"
+  ],
+  "why_not_known": "This broad category suggests widespread chromatin repression, but its functional impact in spaceflight is unknown.",
+  "next_step": "Correlate expression changes with Hi-C data to assess 3D genome architecture changes.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_039",
+  "shape": "pathway",
+  "claim": "Genes in sister chromatid segregation (GO:0000819) are enriched among downregulated genes, with 20/42 significant and 8.7x baseline enrichment.",
+  "rows": [
+   "GO:0000819"
+  ],
+  "why_not_known": "This pathway's suppression may lead to aneuploidy in spaceflight, a risk not yet demonstrated.",
+  "next_step": "Perform karyotyping on flight-exposed cells to assess aneuploidy rates.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_040",
+  "shape": "pathway",
+  "claim": "Genes in mitotic sister chromatid segregation (GO:0000070) are enriched among downregulated genes, with 19/40 significant and 8.7x baseline enrichment.",
+  "rows": [
+   "GO:0000070"
+  ],
+  "why_not_known": "This specific mitotic process is highly sensitive to microgravity, but transcriptomic evidence is new.",
+  "next_step": "Live-cell imaging to quantify sister chromatid separation timing in microgravity analogs.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_041",
+  "shape": "pathway",
+  "claim": "Genes in condensed chromosome, centromeric region (GO:0000779) are enriched among downregulated genes, with 17/36 significant and 8.6x baseline enrichment.",
+  "rows": [
+   "GO:0000779"
+  ],
+  "why_not_known": "This suggests structural chromatin changes in spaceflight, which could affect chromosome stability.",
+  "next_step": "Use super-resolution microscopy to assess centromere compaction in flight samples.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_042",
+  "shape": "pathway",
+  "claim": "Genes in kinetochore (GO:0000776) are enriched among downregulated genes, with 16/34 significant and 8.6x baseline enrichment.",
+  "rows": [
+   "GO:0000776"
+  ],
+  "why_not_known": "Kinetochore dysfunction could explain mitotic errors in space, but this transcript-level evidence is novel.",
+  "next_step": "Test kinetochore-microtubule attachment stability in flight-exposed cells.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_043",
+  "shape": "pathway",
+  "claim": "DNA repair genes including Fancd2, Rad54b, and Cdk1 are downregulated, suggesting impaired DNA damage response in spaceflight.",
+  "rows": [
+   "Fancd2",
+   "Rad54b",
+   "Cdk1"
+  ],
+  "why_not_known": "Space radiation increases DNA damage, so downregulation of repair genes is counterintuitive and potentially critical.",
+  "next_step": "Expose flight and ground cells to gamma radiation and compare \u03b3H2AX foci resolution.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_044",
+  "shape": "pathway",
+  "claim": "Cell cycle genes Ccnb1, Ccnb2, Cdc25c, and Cdk1 are all downregulated, indicating a coordinated arrest at G2/M phase in spaceflight.",
+  "rows": [
+   "Ccnb1",
+   "Ccnb2",
+   "Cdc25c",
+   "Cdk1"
+  ],
+  "why_not_known": "While cell cycle arrest is expected, the uniform downregulation of these core regulators is quantitatively extreme.",
+  "next_step": "Use FUCCI reporters to track cell cycle phase distribution in real time under microgravity.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_045",
+  "shape": "global",
+  "claim": "The median |log2fc| among significant genes is 1.04, indicating that most expression changes in spaceflight are moderate in magnitude.",
+  "rows": [
+   "median |log2fc|"
+  ],
+  "why_not_known": "Large fold changes dominate the top hits, but the median shows most changes are subtle and may be biologically noisy.",
+  "next_step": "Simulate null differential expression to determine if median |log2fc| exceeds expected technical variation.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_046",
+  "shape": "global",
+  "claim": "651 significant genes show at least 2-fold change, with 252 up and 399 down, indicating a bias toward downregulation in spaceflight.",
+  "rows": [
+   "2-fold change"
+  ],
+  "why_not_known": "The asymmetry in up vs. down 2-fold changers suggests a systemic suppression of gene expression in space.",
+  "next_step": "Compare to other stress conditions to see if this bias is unique to spaceflight.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_047",
+  "shape": "global",
+  "claim": "521 genes are upregulated and 734 are downregulated at FDR<0.05, showing a consistent trend of net transcriptional suppression in spaceflight.",
+  "rows": [
+   "FDR<0.05"
+  ],
+  "why_not_known": "The imbalance suggests spaceflight induces a repressive transcriptional environment, not just random changes.",
+  "next_step": "Analyze promoter motifs enriched in downregulated vs. upregulated genes.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_048",
+  "shape": "global",
+  "claim": "Histone genes dominate the top differentially expressed genes, with multiple H2A, H2B, and H3 variants in the top 25.",
+  "rows": [
+   "H2bc12",
+   "H3c8",
+   "H2bc18",
+   "H3c13",
+   "H3c3",
+   "H3c7",
+   "H2bc13",
+   "H2ac24",
+   "H2ac14-ps",
+   "H2ac22",
+   "H2ac8"
+  ],
+  "why_not_known": "Histone downregulation is expected during cell cycle arrest, but their overrepresentation among top hits is striking.",
+  "next_step": "Compare histone gene expression to cell proliferation markers across conditions.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_049",
+  "shape": "global",
+  "claim": "No gene with a carrier rate below 4/9 (ground) or 4/11 (flight) appears in the top 25, suggesting high reproducibility within groups.",
+  "rows": [
+   "carriers"
+  ],
+  "why_not_known": "Low-carrier genes like Serpina10 (2/11) are excluded from top hits, indicating the analysis prioritizes consistency.",
+  "next_step": "Test if low-carrier significant genes are enriched for technical artifacts.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_050",
+  "shape": "global",
+  "claim": "Genes with the smallest padj values (e.g., H2ac24, H2ac14-ps) are all downregulated and have high ground expression, suggesting detection bias.",
+  "rows": [
+   "H2ac24",
+   "H2ac14-ps",
+   "H2ac22",
+   "Rrm2",
+   "Pclaf"
+  ],
+  "why_not_known": "Highly expressed genes are easier to detect as significant; their dominance may reflect statistical power, not biology.",
+  "next_step": "Downsample high-expression genes and re-run differential expression to assess robustness.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_051",
+  "shape": "global",
+  "claim": "All top 12 genes by confidence (smallest padj) are downregulated and have carrier rates of 9/9 in ground, indicating strong group-specific expression.",
+  "rows": [
+   "H2ac24",
+   "H2ac14-ps",
+   "H2ac22",
+   "Rrm2",
+   "Pclaf",
+   "Ccnb1",
+   "H2ac8",
+   "Mki67",
+   "Ccnb2",
+   "Hmgn2",
+   "Cdk1",
+   "Cenpa"
+  ],
+  "why_not_known": "The perfect carrier rate suggests these genes are stably expressed in ground but uniformly suppressed in flight.",
+  "next_step": "Validate expression in a third condition (e.g., 1g centrifuge in space) to isolate microgravity effect.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_052",
+  "shape": "global",
+  "claim": "Upregulated genes in the top 25 (e.g., Serpinb6c, Pzp, Myrip) have lower carrier rates (4-6/11) than downregulated ones, suggesting less consistency.",
+  "rows": [
+   "Serpinb6c",
+   "Pzp",
+   "Myrip",
+   "Wnk3",
+   "Slfn4",
+   "Zfp970",
+   "Plet1os"
+  ],
+  "why_not_known": "This asymmetry may reflect biological variability or weaker induction mechanisms in spaceflight.",
+  "next_step": "Compare variance of upregulated vs. downregulated genes in flight group.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_053",
+  "shape": "data_quality",
+  "claim": "H2ac14-ps is a pseudogene but has a mean count of 7897 in ground, suggesting possible misannotation or genomic DNA contamination.",
+  "rows": [
+   "H2ac14-ps"
+  ],
+  "why_not_known": "Pseudogenes should not be highly expressed; this level suggests technical artifact or functional reclassification.",
+  "next_step": "Check RNA-seq reads for intronic or genomic alignment to detect DNA contamination.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_054",
+  "shape": "data_quality",
+  "claim": "Serpina10 has a log2fc of +6.18 but padj=0.21, and is detected in only 2/11 flight samples, suggesting false-negative risk for low-carrier upregulated genes.",
+  "rows": [
+   "Serpina10"
+  ],
+  "why_not_known": "High fold change with low significance due to low carriers may indicate underpowered detection of rare induction events.",
+  "next_step": "Increase sequencing depth and re-test differential expression.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_055",
+  "shape": "data_quality",
+  "claim": "Ptprn2 has log2fc=-4.91 and padj=0.24, with only 4/9 carriers in ground, suggesting false-positive risk for high-fold-change genes with low reproducibility.",
+  "rows": [
+   "Ptprn2"
+  ],
+  "why_not_known": "Large fold changes with borderline significance may be outliers rather than true effects.",
+  "next_step": "Exclude low-carrier samples and re-calculate fold change to assess stability.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_056",
+  "shape": "data_quality",
+  "claim": "Mafa has padj=0.78 and log2fc=+0.49 with 8/11 carriers, indicating that even moderately changing genes can be non-significant due to variance.",
+  "rows": [
+   "Mafa"
+  ],
+  "why_not_known": "This illustrates the role of within-group variance in determining significance, independent of fold change.",
+  "next_step": "Compare within-group variance of Mafa to significant genes with similar fold change.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_057",
+  "shape": "data_quality",
+  "claim": "Anks1 has padj=0.93 and log2fc=+0.10 with 11/11 carriers in flight, showing that high reproducibility does not guarantee significance if fold change is small.",
+  "rows": [
+   "Anks1"
+  ],
+  "why_not_known": "This gene sets a baseline for minimal detectable change given the sample size and variance.",
+  "next_step": "Use Anks1 as a negative control in validation experiments.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_058",
+  "shape": "data_quality",
+  "claim": "Nkap has padj=0.53 and log2fc=-0.31 with 9/9 carriers in ground, indicating that stable expression in both groups leads to non-significance.",
+  "rows": [
+   "Nkap"
+  ],
+  "why_not_known": "This gene exemplifies high reproducibility but insufficient effect size for detection.",
+  "next_step": "Include Nkap as a housekeeping control in qPCR validation panel.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_059",
+  "shape": "data_quality",
+  "claim": "The top downregulated genes (e.g., H2bc12, H3c13) have high ground counts and large fold changes, suggesting they dominate the signal due to expression level.",
+  "rows": [
+   "H2bc12",
+   "H3c13"
+  ],
+  "why_not_known": "High-abundance transcripts are more likely to yield significant statistics, potentially overshadowing low-abundance regulators.",
+  "next_step": "Normalize by expression level and re-rank genes by effect size relative to mean expression.",
+  "dataset": "OSD-421"
+ },
+ {
+  "id": "lead_060",
+  "shape": "data_quality",
+  "claim": "Borderline genes like 1700112D23Rik (padj=0.086, log2fc=-4.64) have moderate carriers (4/9) and may represent false positives due to sampling noise.",
+  "rows": [
+   "1700112D23Rik"
+  ],
+  "why_not_known": "High fold change with low carrier rate increases false-positive risk, especially in small samples.",
+  "next_step": "Perform bootstrap resampling to estimate confidence interval of fold change.",
+  "dataset": "OSD-421"
+ }
+]
