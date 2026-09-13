@@ -8,6 +8,7 @@ Dry-run mode applies three crude numeric rules so the pipeline can be tested wit
 """
 import json, os, re
 from helix.critic_payload import build_payload, OPTIONS
+from helix import llm
 
 SYSTEM = ("You are a strict scientific critic. Read the lead, the true table facts, and the rules. "
           "Choose exactly one option. Reply with JSON only: "
@@ -39,23 +40,16 @@ except Exception:                                   # weave missing: plain funct
 
 class Critic:
     def __init__(self, model=None, dry_run=False):
-        self.model = model or os.getenv("CRITIC_MODEL", "claude-sonnet-5")
+        self.model = model or os.getenv("CRITIC_MODEL")        # None -> provider default (helix/llm.py)
         self.dry_run = dry_run
-        self.client = None
-        if not dry_run:
-            import anthropic                                   # lazy: only needed for real runs
-            self.client = anthropic.Anthropic()
 
     @traced
     def judge(self, payload):
         if self.dry_run:
             label, conf, reason = _dry_label(payload)
         else:
-            msg = self.client.messages.create(
-                model=self.model, max_tokens=300, system=SYSTEM,
-                messages=[{"role": "user", "content": json.dumps(payload)}])
-            text = msg.content[0].text
-            m = re.search(r"\{.*\}", text, re.S)
+            text = llm.chat(SYSTEM, json.dumps(payload), model=self.model, max_tokens=300)
+            m = re.search(r"\{.*?\}", text, re.S)
             out = json.loads(m.group()) if m else {}
             label, conf, reason = out.get("label", "ok"), float(out.get("confidence", 0.5)), out.get("reason", "")
         if label not in OPTIONS:

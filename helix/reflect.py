@@ -68,12 +68,11 @@ except Exception:                                   # weave missing: plain funct
 @traced
 def propose_patch_claude(misses, rules_path, model=None):
     """Fallback architect. Returns patch text in the same format ARIA is asked for."""
-    import anthropic
+    from helix import llm
     prompt = (f"Current critic rules:\n\n{open(rules_path).read()}\n\n"
               f"Misses this iteration (critic label vs human label):\n{json.dumps(misses, indent=1)[:6000]}\n\n"
               f"Rewrite at most {MAX_SECTIONS} sections so the critic would get these right without "
               "breaking correct cases. Output ONLY the changed sections, each as '## <name>' followed by "
               "the full replacement text. Cite the hypothesis_ids each change fixes inside the text.")
-    msg = anthropic.Anthropic().messages.create(model=model or os.getenv("ARCHITECT_MODEL", "claude-opus-5"),
-                                                max_tokens=1200, messages=[{"role": "user", "content": prompt}])
-    return msg.content[0].text
+    return llm.chat("You are the architect of a scientific critic. Output only the requested sections.",
+                    prompt, model=model or os.getenv("ARCHITECT_MODEL"), max_tokens=1200)
