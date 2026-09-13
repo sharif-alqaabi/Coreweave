@@ -98,9 +98,9 @@ Nothing runs live. Arrow keys move between slides.
 **0:00 · Slide 1, "The problem" · 40 s**
 "NASA has 243 gene-expression studies from mice that flew in space. Too many for any scientist to read.
 So you hand one to an LLM research assistant. Here's what you get: sixty findings from a retina study.
-Confident, specific, a suggested experiment for each. Twenty-seven of them have a problem plain code can
-see: the table contradicts the number, or the gene is one nobody has characterised, or there's no gene
-to check at all. No rules, no model, just the CSV." Scroll to "Look closer". "We checked four by
+Confident, specific, a suggested experiment for each. Thirteen of them have a problem plain code can
+see: the table contradicts the number, or the gene is one nobody has characterised. No rules, no model,
+just the CSV. And fourteen more cite no gene at all, so nothing can check them." Scroll to "Look closer". "We checked four by
 hand. This one lists four genes moving together; one of them goes the other way. This one's own number
 says padj 0.099, not significant, sold as ribosomal stress. This one is novel because nobody knows what
 the gene does. They all read like the other fifty-six. That's the problem: believable, and nobody
@@ -131,7 +131,10 @@ Every version on every set an evaluation. Zero published NASA findings killed, b
 "Remember the sixty findings. Here they are through Helix. With no critic, zero were killed. With our
 hand-written starting rules, eight. With the rulebook the loop learned, fourteen, each with the number
 that decided it, including all four we checked by hand. That gap, eight to fourteen, is what the loop
-earned. And look what survived: Drd4, Sag. The scout never saw the paper. Those are
+earned." (If asked how 13 flagged became 14 killed: "It killed ten of the thirteen; the other three
+correctly describe a gene as unchanged and the crude check misread them. And it killed four the check
+can't see: a false claim about the whole table, a confound, an untestable one, a gene with no
+mechanism. Same floor, better judgment.") And look what survived: Drd4, Sag. The scout never saw the paper. Those are
 the published paper's headline findings."
 
 **2:45 · Slide 7, "Close" · 15 s**

@@ -62,12 +62,12 @@ def _(mo, DATA, REASON, cards, stat, stats):
     _found = [(g, why) for g, why in _paper.items() if any(g in l["rows"] for l in _leads if l["label"] == "ok")]
     _on = False
     _cc = DATA["naive"]["code_check"]
-    _flagged = set(_cc.get("unsupported", [])) | set(_cc.get("uncharacterised", [])) | set(_cc.get("nothing", []))
+    _flagged = set(_cc.get("unsupported", [])) | set(_cc.get("uncharacterised", []))
     _tiles = stats(stat(len(_leads), "findings reported", "from one NASA retina table"),
                    stat(0, "checked by the assistant", "it wrote the numbers too"),
-                   stat(len(_flagged), "have a visible problem", f"{len(_cc.get('unsupported', []))} the table contradicts · {len(_cc.get('uncharacterised', []))} on genes nobody has characterised · {len(_cc.get('nothing', []))} with no gene to check", "hx-bad"))
-    _method = mo.md(f"_The third tile is a plain code check against the table: padj above 0.05 or the wrong direction, a Gm/Rik gene symbol, or no gene cited at all. "
-                    "No rules, no model, no Helix. It is the floor: what anyone with the CSV and ten minutes could find._")
+                   stat(len(_flagged), "have a visible problem", f"{len(_cc.get('unsupported', []))} the table contradicts · {len(_cc.get('uncharacterised', []))} rest on genes nobody has characterised", "hx-bad"))
+    _method = mo.md(f"_The third tile is a plain code check against the table: padj above 0.05 or the wrong direction, or a Gm/Rik gene symbol. No rules, no model, no Helix. "
+                    f"It is the floor, what anyone with the CSV and ten minutes could find. Another {len(_cc.get('nothing', []))} cite no gene at all, so the check cannot reach them._")
     _intro = (mo.md("**Same sixty findings.** Code attached each one's real numbers from the table, and a separate critic judged every one. "
                     "Green survives. Red is killed, with the number.")
               if _on else
@@ -111,11 +111,17 @@ def _(mo, DATA, REASON, cards, stat, stats):
         stats(stat(len(_leads) - len(_killed), "findings survive", "each backed by the table's numbers", "hx-good"),
               stat(len(_found), "published headline genes", "rediscovered from the table alone", "hx-good"),
               stat("4 of 4", "hand-checked tells killed", "the ones from slide 1"))])
+    _cc = DATA["naive"]["code_check"]; _strict = set(_cc.get("unsupported", [])) | set(_cc.get("uncharacterised", []))
+    _kids = {l["id"] for l in _killed}
+    _agree, _spared, _extra = len(_strict & _kids), len(_strict - _kids), len(_kids - _strict)
+    _recon = mo.callout(mo.md(f"**Against the crude check from slide 1.** It flagged {len(_strict)}. The critic killed {_agree} of them and passed {_spared} the check misread: "
+                              f"claims that correctly describe a gene as unchanged. It also killed {_extra} the check cannot see: a false claim about the whole table, "
+                              "a confound, an untestable claim, and a real gene with no mechanism. Same floor, better judgment, and a reason on every one."), kind="neutral")
     _intro = (mo.md("**Same sixty findings.** Code attached each one's real numbers from the table, and a separate critic judged every one with rules_v2. Green survives. Red is killed, with the number.")
               if _on else mo.md("The sixty findings from slide 1, exactly as the assistant wrote them. Nothing has been checked yet."))
     _redisc = (mo.callout(mo.md("**And the survivors include what the scientists actually published.** The scout never saw the paper. From the table alone it proposed, and the critic passed: "
                                 + "; ".join(f"**{g}**, {w}" for g, w in _found) + "."), kind="success") if _on and _found else mo.md(""))
-    slide6 = mo.vstack([mo.md("# The same sixty, through Helix"), _intro, _tiles, cards(_leads, _on, REASON), _redisc])
+    slide6 = mo.vstack([mo.md("# The same sixty, through Helix"), _intro, _tiles, _recon, cards(_leads, _on, REASON), _redisc])
     return (slide6,)
 
 
