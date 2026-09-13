@@ -109,5 +109,40 @@ def _(mo, shown, novelty, os):
     return
 
 
+@app.cell
+def _(mo, shown):
+    check = mo.ui.run_button(label="Verify with TypeSafe", kind="success", disabled=shown is None)
+    mo.vstack([
+        mo.md("---\n# Verification: the survivors against every other OSDR dataset"),
+        mo.md("Every survivor says *why it is new*, usually \"not replicated in other spaceflight studies\". Nobody checks. "
+              "This does, with **TypeSafe (Jev)**, a System One model that returns calibrated probabilities instead of prose. "
+              "**Tier 1** scores how well each same-organism study in the 243-study catalog could replicate or refute the lead "
+              "(no downloads); **Tier 2** looks the lead's genes up in every comparable table on disk and judges what the numbers "
+              "say together. Direction and significance are arithmetic in pandas; Jev supplies the tissue judgment; the verdict is a code rule. "
+              "It verifies the leads above; it does not generate or replace them."),
+        check,
+    ])
+    return (check,)
+
+
+@app.cell
+def _(mo, shown, check, replicate, json, os):
+    # Run on the button; otherwise show the last saved check for this dataset (instant on reload).
+    novelty, note = None, ""
+    if shown is not None:
+        product = f"results/product_{shown['dataset']}.json"
+        cached = f"results/replicate_{shown['dataset']}.json"
+        if check.value:
+            try:
+                with mo.status.spinner(title="Jev is scoring every survivor against the catalog and the tables on disk (about 15 s)"):
+                    novelty = replicate.check_novelty(product, progress=lambda s: None)
+            except Exception as e:                      # no TYPESAFE_API_KEY, network: say so, keep the app up
+                note = f"**Verification failed:** `{type(e).__name__}: {str(e)[:200]}`"
+        elif os.path.exists(cached):
+            novelty = json.load(open(cached)); note = f"_Showing the saved verification `{os.path.basename(cached)}` ({novelty['seconds']} s). Press the button to rerun._"
+    mo.md(note) if note else None
+    return (novelty,)
+
+
 if __name__ == "__main__":
     app.run()
