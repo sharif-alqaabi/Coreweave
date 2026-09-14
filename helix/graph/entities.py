@@ -106,6 +106,23 @@ def catalog_tissue(osd_id):
             [f for f, rx in FACTORS.items() if re.search(rx, text, re.I)])
 
 
+# ---------------------------------------------------------------- optional NER (any field)
+_NER = None
+
+
+def ner_entities(text, labels=("gene", "protein", "tissue", "disease", "chemical")):
+    """Zero-shot NER with GLiNER when HELIX_NER=gliner and the package is installed (needs torch); the way to tag a new
+    field's entities without writing regexes. Returns [(label, span, score)]. Regex tagging stays the default."""
+    global _NER
+    from helix.settings import settings
+    if settings.helix_ner != "gliner":
+        return []
+    if _NER is None:
+        from gliner import GLiNER
+        _NER = GLiNER.from_pretrained("urchade/gliner_medium-v2.1")
+    return [(e["label"], e["text"], round(e["score"], 3)) for e in _NER.predict_entities(text, list(labels), threshold=0.5)]
+
+
 # ---------------------------------------------------------------- tagging passages
 def _gene_hits(text, vocab, words):
     """(symbol_upper, token, ambiguous) for each distinct vocabulary symbol in the text.
@@ -133,6 +150,9 @@ def tag_passages(passages, client=None, progress=print, workers=12):
         p["genes"] = sorted(k for k, (tok, amb) in hits.items() if not amb)
         p["tissues"] = [t for t, rx in TISSUES.items() if re.search(rx, p["text"], re.I)]
         p["factors"] = [f for f, rx in FACTORS.items() if re.search(rx, p["text"], re.I)]
+        ner = ner_entities(p["text"])
+        if ner:
+            p["entities"] = ner
         for k, (tok, amb) in hits.items():
             if amb:
                 todo.append((i, k, tok))

@@ -60,31 +60,42 @@ def _go_stems(name):
     return [w[:6] for w in re.findall(r"[a-z]{5,}", name.lower()) if w not in GENERIC]
 
 
-def passage_pool(f, passages, by_gene, by_text, go_names, f_tissue, f_factor, by_osd, by_tissue):
-    """Broad pool: shared genes, GO-term stems, the finding's own study's papers, and same-tissue same-condition passages.
-    Ranked by a code prior and capped at POOL; Jev's relevance rerank picks the ones worth a relation judgment."""
-    cand = {}
+SEMANTIC_K = 40                 # nearest passages by embedding, added to the pool
+
+
+def passage_pool(f, passages, by_gene, by_text, go_names, f_tissue, f_factor, by_osd, by_tissue, index=None):
+    """Broad pool: shared genes, GO-term stems, the study's own paper, same-tissue same-condition passages, and (when an
+    embedding index is available) the nearest passages by meaning. Ranked by a code prior and capped at POOL; Jev's
+    relevance rerank picks the ones worth a relation judgment. Returns (indices, {index: retrieval sources})."""
+    cand, how = {}, {}
+
+    def add(i, w, src):
+        cand[i] = cand.get(i, 0) + w; how.setdefault(i, set()).add(src)
     for g in {g.upper() for g in f["genes"]}:
         for i in by_gene.get(g, ()):
-            cand[i] = cand.get(i, 0) + 3
+            add(i, 3, "gene")
     for go in f["go"]:
         stems = _go_stems(go_names.get(go, ""))
         if stems:
             for i in by_text(stems):
-                cand[i] = cand.get(i, 0) + 2
+                add(i, 2, "go_term")
     for i in by_osd.get(f["dataset"], ()):                          # the study's own paper: where 'supports' lives
-        cand[i] = cand.get(i, 0) + 1.5
+        add(i, 1.5, "own_study")
     for t in f_tissue:
         for i in by_tissue.get(t, ()):
-            p = passages[i]
-            if set(f_factor) & set(p["factors"]):
-                cand[i] = cand.get(i, 0) + 0.5
+            if set(f_factor) & set(passages[i]["factors"]):
+                add(i, 0.5, "tissue")
+    if index is not None:
+        from helix.graph.index import finding_query
+        for i, score in index.search(finding_query(f), k=SEMANTIC_K):
+            add(i, 1 + score, "semantic")
     scored = []
     for i, prior in cand.items():
         p = passages[i]
         prior += 0.5 * (p["source"] == "abstract") + 0.3 * (p["section"].lower().startswith(("result", "discussion")))
         scored.append((prior, i))
-    return [i for _, i in sorted(scored, reverse=True)[:POOL]]
+    keep = [i for _, i in sorted(scored, reverse=True)[:POOL]]
+    return keep, {i: sorted(how[i]) for i in keep}
 
 
 def rerank(f, state, pool, passages, client, keep=MAX_PASSAGES):
@@ -196,8 +207,15 @@ def numeric_edges(f, own_row, tables, comparability, client):
 
 
 # ---------------------------------------------------------------- driver
-def build_edges(findings, passages, client, progress=print, numeric=True, max_findings=None):
+def build_edges(findings, passages, client, progress=print, numeric=True, max_findings=None, semantic=True):
     go_names = _go_names()
+    index = None
+    if semantic:
+        try:
+            from helix.graph.index import Index
+            index = Index.build(passages, progress=progress)
+        except Exception as e:                                       # no model download, no numpy: entity candidates only
+            progress(f"semantic index unavailable ({type(e).__name__}); entity candidates only")
     by_gene, texts = {}, [p["text"].lower() for p in passages]
     for i, p in enumerate(passages):
         for g in p["genes"]:
@@ -239,11 +257,12 @@ def build_edges(findings, passages, client, progress=print, numeric=True, max_fi
     def one(i):
         f = findings[i]; edges = []
         t, fac = tissue[f["dataset"]]
-        pool = passage_pool(f, passages, by_gene, by_text, go_names, t, fac, by_osd, by_tissue)
+        pool, how = passage_pool(f, passages, by_gene, by_text, go_names, t, fac, by_osd, by_tissue, index)
         pc, rel = rerank(f, states[i], pool, passages, client)
         rel_by_id = {passages[k]["id"]: round(rel[k], 3) for k in pc}
+        how_by_id = {passages[k]["id"]: how[k] for k in pc}
         for e in judge_passages(f, states[i], pc, passages, client):
-            e["p_relevant"] = rel_by_id[e["dst"]]
+            e["p_relevant"] = rel_by_id[e["dst"]]; e["retrieved_by"] = how_by_id[e["dst"]]
             edges.append(e)
         if f["shape"] not in ("global", "data_quality"):              # pattern-level leads make junk peers of single-gene leads
             edges += judge_peers(f, states[i], peer_candidates(f, findings, gene_index, go_index), findings, states, client)

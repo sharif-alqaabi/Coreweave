@@ -1,0 +1,12 @@
+{"finding_id": "OSD-255_nasa_29", "passage_id": "pmid31527661:s2p1:0", "relation": "contradicts", "labeller": "dev-spot-check", "note": "paper: none of the shared disease genes (Abca4, Nmnat1, Casp3, Crb1) were DE in spaceflight"}
+{"finding_id": "OSD-255_nasa_26", "passage_id": "pmid31527661:s2p1:0", "relation": "contradicts", "labeller": "dev-spot-check", "note": "same sentence, Abca4"}
+{"finding_id": "OSD-255_nasa_27", "passage_id": "pmid31527661:s2p1:0", "relation": "contradicts", "labeller": "dev-spot-check", "note": "same sentence, Nmnat1"}
+{"finding_id": "OSD-255_nasa_28", "passage_id": "pmid31527661:s2p1:0", "relation": "contradicts", "labeller": "dev-spot-check", "note": "same sentence, Casp3"}
+{"finding_id": "OSD-255_nasa_01", "passage_id": "pmid31527661:s1p2:0", "relation": "supports", "labeller": "dev-spot-check", "note": "Drd4 upregulated, padj 4.31e-51, log2fc 0.812"}
+{"finding_id": "OSD-255_nasa_01", "passage_id": "pmid31527661:s5p4:0", "relation": "supports", "labeller": "dev-spot-check", "note": "Drd4 restated with the numbers in the discussion"}
+{"finding_id": "OSD-467_nasa_01", "passage_id": "pmid34637435:abs:1", "relation": "supports", "labeller": "dev-spot-check", "note": "increased abundance of Pfkfb3 after HLU"}
+{"finding_id": "OSD-467_nasa_01", "passage_id": "pmid34637435:s4p1:0", "relation": "supports", "labeller": "dev-spot-check", "note": "Nanostring: Pfkfb3 1.8-fold up, p = 0.003"}
+{"finding_id": "OSD-421_lead_003", "passage_id": "pmid31882694:abs:1", "relation": "consistent", "labeller": "dev-spot-check", "note": "cell cycle-regulating genes reduced in thymus; E2f7 not named: pathway-level, not direct"}
+{"finding_id": "OSD-421_lead_030", "passage_id": "pmid31882694:s3p1:0", "relation": "supports", "labeller": "dev-spot-check", "note": "Ccnb, Ccnb2 down-regulated by spaceflight (Fig. 4b)"}
+{"finding_id": "OSD-421_lead_051", "passage_id": "pmid31882694:s3p1:0", "relation": "supports", "labeller": "dev-spot-check", "note": "down-regulated genes in MG included many histone genes"}
+{"finding_id": "OSD-421_lead_051", "passage_id": "pmid31882694:s3p1:1", "relation": "background", "labeller": "dev-spot-check", "note": "figure legend: heat map of histone gene expression; describes the figure, does not state the result"}

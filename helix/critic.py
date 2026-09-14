@@ -4,11 +4,22 @@
     verdicts = critic.judge_all(leads, table, rules_path)
 
 Each verdict: {"lead_id", "label", "confidence", "reason", "rules_version"}.
+The verdict is a validated Verdict model (pydantic, via Instructor): the label must be one of OPTIONS and the confidence
+in [0, 1], or the model is re-prompted with the validation error. The legacy regex parse is the last-resort fallback.
 Dry-run mode applies three crude numeric rules so the pipeline can be tested without a key.
 """
 import json, os, re
+from typing import Literal
+from pydantic import BaseModel, Field
 from helix.critic_payload import build_payload, OPTIONS
 from helix import llm
+
+
+class Verdict(BaseModel):
+    """What the critic must return for one lead. Typed, so nothing is scraped out of prose."""
+    label: Literal["ok", "already_known", "underpowered", "confound", "contradicted", "untestable", "no_mechanism"]
+    confidence: float = Field(ge=0.0, le=1.0, description="0 to 1")
+    reason: str = Field(min_length=1, max_length=600, description="one sentence citing a number or a named rule")
 
 SYSTEM = ("You are a strict scientific critic. Read the lead, the true table facts, and the rules. "
           "Choose exactly one option. Reply with JSON only: "
@@ -48,20 +59,28 @@ class Critic:
         if self.dry_run:
             label, conf, reason = _dry_label(payload)
         else:
-            text = llm.chat(SYSTEM, json.dumps(payload), model=self.model, max_tokens=400)
-            out = {}
-            for m in re.finditer(r"\{.*?\}", text, re.S):          # first parseable JSON object wins
-                try:
-                    out = json.loads(m.group()); break
-                except json.JSONDecodeError:
-                    continue
-            if not out:                                             # truncated / malformed: salvage the label
-                lab = re.search(r'"label"\s*:\s*"(\w+)"', text)
-                out = {"label": lab.group(1) if lab else "ok", "confidence": 0.0, "reason": "unparseable critic output"}
-            label, conf, reason = out.get("label", "ok"), float(out.get("confidence", 0.5)), out.get("reason", "")
+            try:
+                v = llm.chat_typed(SYSTEM, json.dumps(payload), Verdict, model=self.model, max_tokens=400)
+                label, conf, reason = v.label, v.confidence, v.reason
+            except Exception:                                       # provider without structured output, or Instructor gave up
+                label, conf, reason = self._judge_legacy(payload)
         if label not in OPTIONS:
             label, conf, reason = "ok", 0.0, f"invalid label from critic: {label}"
         return {"label": label, "confidence": conf, "reason": reason}
+
+    def _judge_legacy(self, payload):
+        """Regex parse of a chat reply, kept as the fallback when typed output is unavailable."""
+        text = llm.chat(SYSTEM, json.dumps(payload), model=self.model, max_tokens=400)
+        out = {}
+        for m in re.finditer(r"\{.*?\}", text, re.S):              # first parseable JSON object wins
+            try:
+                out = json.loads(m.group()); break
+            except json.JSONDecodeError:
+                continue
+        if not out:                                                 # truncated / malformed: salvage the label
+            lab = re.search(r'"label"\s*:\s*"(\w+)"', text)
+            out = {"label": lab.group(1) if lab else "ok", "confidence": 0.0, "reason": "unparseable critic output"}
+        return out.get("label", "ok"), float(out.get("confidence", 0.5)), out.get("reason", "")
 
     def judge_all(self, leads, table, rules_path, workers=8):
         """Judge every lead; calls are independent so they run in parallel (order preserved)."""

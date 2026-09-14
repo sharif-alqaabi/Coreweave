@@ -21,3 +21,6 @@ data/corpus/passages.jsonl
 
 # Static presentation export
 site/
+# runtime state: LangGraph checkpoints and the embedding index (rebuilt in seconds)
+results/checkpoints.sqlite
+data/corpus/index_*.npz

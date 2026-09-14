@@ -126,6 +126,34 @@ def fetch_papers(studies, fulltext=True, progress=print):
     return papers
 
 
+# ---------------------------------------------------------------- Semantic Scholar
+S2_BATCH = "https://api.semanticscholar.org/graph/v1/paper/batch?fields=citationCount,influentialCitationCount,year,venue"
+
+
+def fetch_citations(papers, progress=print):
+    """Citation counts per paper from Semantic Scholar (no key needed at this volume). Adds papers[pmid]["citations"]
+    = {count, influential, venue}; a paper unknown to S2 gets citations = None so it is not retried every build."""
+    todo = [p for p in papers if "citations" not in papers[p]]
+    for i in range(0, len(todo), 100):
+        batch = todo[i:i + 100]
+        body = json.dumps({"ids": [f"PMID:{p}" for p in batch]}).encode()
+        try:
+            req = urllib.request.Request(S2_BATCH, data=body, headers={"Content-Type": "application/json", "User-Agent": "helix-graph/0.1"})
+            time.sleep(1.1)                                            # S2 unauthenticated: ~1 request/s
+            with urllib.request.urlopen(req, timeout=60) as r:
+                rows = json.loads(r.read())
+        except Exception as e:
+            progress(f"  Semantic Scholar unavailable ({type(e).__name__}); citations skipped"); return papers
+        for pmid, row in zip(batch, rows):
+            papers[pmid]["citations"] = ({"count": row.get("citationCount"), "influential": row.get("influentialCitationCount"),
+                                          "venue": row.get("venue", "")} if row else None)
+    if todo:
+        json.dump(papers, open(os.path.join(DIR, "papers.json"), "w"), indent=1)
+        known = sum(1 for p in papers.values() if p.get("citations"))
+        progress(f"citations for {known}/{len(papers)} papers from Semantic Scholar")
+    return papers
+
+
 # ---------------------------------------------------------------- passages
 _SENT = re.compile(r"(?<=[.!?])\s+(?=[A-Z0-9(])")
 
@@ -175,6 +203,7 @@ def build(fulltext=True, progress=print):
     os.makedirs(DIR, exist_ok=True)
     studies = fetch_studies(progress)
     papers = fetch_papers(studies, fulltext=fulltext, progress=progress)
+    fetch_citations(papers, progress)
     return studies, papers, build_passages(studies, papers, progress)
 
 

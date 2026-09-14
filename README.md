@@ -42,7 +42,7 @@ Built this weekend. Public repo. W&B is used for real work, not a two-line impor
 | **Who it is for** | A researcher staring at a data table they do not have a week to read. First user: a space-biology scientist with any of OSDR's 243 tables. |
 | **Live demo** | `marimo run app/deck.py -p 2721` (the presentation, nine slides, all preloaded). `app/lead_lab.py -p 2719` (product). `app/graph_lab.py -p 2722` (research graph). `app/dashboard.py -p 2718` (training diffs). |
 | **Orchestration** | Thin Python loop (`loop.py`), an MCP server (`helix/mcp_server.py`) so ARIA can act as an architect, TypeSafe for every semantic judgment after the loop. |
-| **Frameworks** | Python 3.11+, pandas, pydantic, W&B Inference / Weave / Automations, marimo, MCP, TypeSafe SDK. |
+| **Frameworks** | Python 3.11+, pandas, pydantic, W&B Inference / Weave / Automations, marimo, MCP, TypeSafe SDK, LangGraph, Instructor, LiteLLM, DSPy, model2vec, DuckDB. |
 
 **Summary.** Helix turns a research data table into findings a scientist can act on. Every finding is judged against the real numbers by a critic whose rulebook rewrites itself from its own mistakes; three architects (Qwen, DeepSeek, and W&B's ARIA) compete each round, and every version is scored on leads the loop never saw and on 54 findings from published papers, a check that caught an overfit rewrite before it shipped. Then TypeSafe checks every survivor against the other 242 datasets in the field and links every finding Helix has ever produced to the passages in 150 papers that support or contradict it.
 
@@ -55,7 +55,7 @@ Upload one table. In about 90 seconds:
 1. **Code summarises** the table (pandas). The model never sees raw rows.
 2. **A scout LLM proposes** ~60 short, falsifiable findings: single variables, families, pathways, global patterns.
 3. **Code attaches the real numbers** to every finding: effect size, adjusted p-value, how many samples carry the signal. The model never writes a statistic.
-4. **A separate critic LLM judges** each finding against those numbers and a plain-text rulebook. One of seven labels: `ok`, `contradicted`, `underpowered`, `confound`, `already_known`, `untestable`, `no_mechanism`, with the number that decided it.
+4. **A separate critic LLM judges** each finding against those numbers and a plain-text rulebook. One of seven labels: `ok`, `contradicted`, `underpowered`, `confound`, `already_known`, `untestable`, `no_mechanism`, with the number that decided it. The verdict is a validated pydantic model (Instructor re-prompts the model with the validation error on a bad reply), so nothing is scraped out of prose.
 5. **Lead Lab shows** survivors and kills, and the **OSDR check**: whether each survivor replicates in any other dataset in the field.
 
 On the OSD-421 thymus table: 38 survive, 22 killed. On the OSD-255 retina table the scout, given only the table, proposed the paper's own headline genes (Drd4, Sag, Hist1h2bc) and the critic passed them; it also proposed Stfa1, which the bone paper reports but the reprocessed table does not reproduce, and the critic killed it citing padj 0.23.
@@ -104,6 +104,8 @@ Generation, judgment and meta-improvement never share a prompt.
 | Jury | DeepSeek, gpt-oss-120b, Kimi-K2 adjudicates | Labelled the training and holdout leads once (`scripts/jury_labels.py`). Never the critic. |
 | Promotion | `helix/product.py` | Ships the version with the best holdout score. |
 
+**As a state graph.** `python -m helix.orchestrate round --n 3 --approve` runs the same round as a checkpointed LangGraph: the architects fan out in parallel, the run resumes from its last completed node after a failure, and `--approve` pauses before promotion until a person answers (`resume --thread round-3`). The graphs are drawn from the code in [docs/orchestration.md](docs/orchestration.md).
+
 **ARIA as an architect.** A W&B Automation fires ARIA when an iteration's evaluation lands (`scripts/create_aria_automation.py`). ARIA reads the run's misses table and the rules artifact, writes a patch onto the run (`helix/aria_channel.py` reads it back), and the patch enters the tournament as a contestant. ARIA authored `rules_v2`, the version that ships. The MCP server (`helix/mcp_server.py`: `list_iterations`, `get_misses`, `get_rules`, `get_dataset_summary`, `propose_rules_patch`, `apply_rules_patch`) is the tool surface for any MCP-capable agent to do the same.
 
 ---
@@ -118,12 +120,12 @@ Every survivor says *why it is new*, usually "not replicated in other studies". 
 
 38 survivors against 120 studies in 15 s. The scout's novelty claim was wrong on 35 of 38: the same genes move the same way in two other spaceflight-thymus flights. Three findings are seen nowhere else, and those are the ones worth a scientist's time. The critic's verdict is never changed by this.
 
-**Research graph (`helix/graph/`).** Every finding Helix has produced or checked (294: leads, survivors, the 54 paper claims) linked to the field's literature. Code fetches the papers the data repository links to its studies (150 papers; abstracts via PubMed, open-access full text via PMC for 140), cuts them into 12,152 passages, and tags entities against a vocabulary built from the tables themselves. Code proposes candidate pairs from shared entities; TypeSafe does the rest:
-- *Rerank.* A pool of up to 120 passages per finding, one relevance probability each, top 30 kept.
+**Research graph (`helix/graph/`).** Every finding Helix has produced or checked (294: leads, survivors, the 54 paper claims) linked to the field's literature. Code fetches the papers the data repository links to its studies (150 papers; abstracts via PubMed, open-access full text via PMC for 140, citation counts from Semantic Scholar), cuts them into 12,152 passages, and tags entities against a vocabulary built from the tables themselves. Code proposes candidate pairs from shared entities and from a semantic index (model2vec static embeddings over every passage, built in 6 s); TypeSafe does the rest:
+- *Rerank.* A pool of up to 120 passages per finding, one relevance probability each, top 30 kept. The embedding index adds passages no entity match can reach: 204 kept edges in the current build come only from it, e.g. "histone genes dominate the downregulated list" → the OSD-289 paper's *"Down-regulated genes in the MG group included many histone genes"*.
 - *Type each pair.* `supports` / `contradicts` / `background` for finding→passage; `replicates` / `contradicts` / `extends` / `rediscovers` for finding→finding; each with dedicated gating probabilities so a passage that merely names the variable cannot count as a contradiction.
 - ~10,000 pair judgments in 90 s. Every edge keeps its full distribution; thresholds are sliders, not reruns. A regular LLM only writes the one-sentence explanation of links already accepted.
 
-What it found: 44 findings contradicted by a passage, for example "Crb1 downregulated in the spaceflight retina" against the retina paper's own sentence, *"None of the disease-associated genes … were differentially expressed in spaceflight"*, the sentence the human labeller had cited. The scout's Drd4, Sag, Pfkfb3 and Stfa1 leads linked automatically to the papers' claims. And semantic, not keyword: E2f7, named in no paper, linked to a thymus paper's "reduced expression of cell cycle-regulating genes" at the pathway level. Explore it in Graph Lab.
+What it found: 75 findings contradicted by a passage (44 before the semantic index), for example "Crb1 downregulated in the spaceflight retina" against the retina paper's own sentence, *"None of the disease-associated genes … were differentially expressed in spaceflight"*, the sentence the human labeller had cited. The scout's Drd4, Sag, Pfkfb3 and Stfa1 leads linked automatically to the papers' claims. And semantic, not keyword: E2f7, named in no paper, linked to a thymus paper's "reduced expression of cell cycle-regulating genes" at the pathway level. Explore it in Graph Lab.
 
 ---
 
@@ -160,7 +162,11 @@ Train metrics from `results/metrics.csv`:
 - *The critic will not tolerate a quoted statistic that differs from the table.* When claims carried the paper's own padj, v4 killed 5 of 15 supported claims as "contradicted" even though direction and significance agreed. With numbers stripped, 12 of 12 pass. Training uses the number-free form; `data/golden/nasa_OSD-255_numbered.json` keeps the evidence.
 - *Training on paper claims alone would be a trap.* If every "ok" came from a paper and every kill from the scout, the architect would learn to read the source, not the table. The mixed train set keeps both sources inside each label. OSD-467 was never trained on.
 
-**Verification and graph, same weekend.** 38 survivors verified against 120 studies in 15 s (35 replicated elsewhere, 3 unique). Graph over 294 findings and 150 papers: 9,557 pairs scored in 90 s; 407 findings supported by a passage, 44 contradicted, 5 rediscoveries, 71 replicated by another dataset's numbers. Saved in `results/replicate_OSD-421.json` and `results/graph.json`.
+**Verification and graph.** 38 survivors verified against 120 studies in 15 s (35 replicated elsewhere, 3 unique). Graph over 294 findings and 150 papers, hackathon build: 9,557 pairs scored in 90 s; 407 findings supported by a passage, 44 contradicted, 5 rediscoveries, 71 replicated by another dataset's numbers. Current build with the semantic index: 9,858 pairs in 117 s; 459 supported, 75 contradicted, 204 kept edges reachable only by embedding. Saved in `results/replicate_OSD-421.json` and `results/graph.json`.
+
+**How good are TypeSafe's judgments?** `python -m helix.graph.evaluate` scores finding–passage relations against human labels in `data/golden/graph_pairs.jsonl` (precision, recall, F1 per relation, confusion matrix). The file currently holds 12 pairs from the developer's spot checks during the build, so its 0.92 accuracy is a smoke test, not a result; `--export 60` writes a stratified sample for a scientist to label, which is the number to quote.
+
+**Is a tournament of LLM architects better than a standard prompt optimiser?** `python -m helix.dspy_baseline` runs the critic as a DSPy program, optimises it on the same train set (BootstrapFewShot or MIPROv2) and scores it on the same holdout, writing a row that sits next to rules_v0 / v2 / v4. Not yet run: it needs an inference key.
 
 ---
 
@@ -179,6 +185,25 @@ The critic prompt, the architects, the jury, the holdout split, `helix/replicate
 
 ---
 
+## Engineering choices
+
+| Need | Choice | Where |
+| :--- | :--- | :--- |
+| Typed verdicts | **Instructor** + pydantic `Verdict` (label ∈ 7 codes, confidence ∈ [0, 1]); regex parse only as the last fallback | `helix/critic.py`, `helix/llm.py` |
+| Any model provider | **LiteLLM** as a fourth route beside Anthropic / W&B Inference / OpenAI-compatible; one `chat()` and one `chat_typed()` | `helix/llm.py`, `LLM_PROVIDER=litellm` |
+| Configuration | **pydantic-settings**: every key and model name in one `Settings`, read from `.env`, same names as before | `helix/settings.py` |
+| Orchestration | **LangGraph** state graphs with a SQLite checkpointer: product pipeline and training round; resume, fan-out, approval interrupt | `helix/orchestrate.py`, `docs/orchestration.md` |
+| Semantic candidates | **model2vec** static embeddings (numpy-only, no torch): 12k passages embedded in 6 s, cosine search in numpy | `helix/graph/index.py` |
+| Judgment evaluation | **scikit-learn** metrics over a human-labelled pair file | `helix/graph/evaluate.py`, `data/golden/graph_pairs.jsonl` |
+| Optimiser baseline | **DSPy** (BootstrapFewShot / MIPROv2) on the same splits as the tournament | `helix/dspy_baseline.py` |
+| Field-wide lookups | **DuckDB** over the CSVs in place: any gene across every table in 2.5 s | `helix/tables.py` |
+| Literature | NCBI E-utilities for PubMed and PMC full text, **Semantic Scholar** for citation counts | `helix/graph/corpus.py` |
+| New-field entities | **GLiNER** zero-shot NER behind `HELIX_NER=gliner` (optional, needs torch); regex vocabularies stay the default | `helix/graph/entities.py` |
+
+Not used, on purpose: LangChain chains and agent frameworks (one `chat()` per stage, nothing to chain; the roles are deliberately not conversational agents), RAG frameworks (the rerank-then-judge design is more specific than what they offer), LangSmith (Weave already traces everything, including the LangGraph runs).
+
+---
+
 ## Architecture
 
 ```text
@@ -191,13 +216,17 @@ The critic prompt, the architects, the jury, the holdout split, `helix/replicate
 │   ├── critic.py            # verdict-only judge, one label + a number, @weave.op
 │   ├── reflect.py           # patch apply + guardrails (max 3 sections)
 │   ├── evaluate.py          # reason accuracy, kill precision, false-kill rate
-│   ├── llm.py               # one chat() for every generative call; provider from .env
+│   ├── llm.py               # one chat() / chat_typed() for every generative call; provider from .env
+│   ├── settings.py          # pydantic-settings: every key and model name
+│   ├── orchestrate.py       # LangGraph: product pipeline and training round, checkpointed
+│   ├── dspy_baseline.py     # the critic as a DSPy program, optimised on train, scored on holdout
+│   ├── tables.py            # DuckDB lookups across every table on disk
 │   ├── wandb_log.py         # one W&B run + critic-rules artifact per iteration
 │   ├── weave_eval.py        # Weave Evaluations: rules version × labelled set
 │   ├── mcp_server.py        # MCP tools so ARIA can read misses and apply a patch
 │   ├── aria_channel.py      # read ARIA's patch back off the W&B run
 │   ├── replicate.py         # TypeSafe: verify every survivor against the field
-│   └── graph/               # TypeSafe: corpus, entities, edges, explain, build
+│   └── graph/               # TypeSafe: corpus, entities, index (embeddings), edges, explain, build, evaluate
 ├── kit/critic/              # living rulebooks: rules_v0.md … rules_v8.md + .meta.json   [adapter: v0]
 ├── app/
 │   ├── deck.py              # the presentation, nine slides, all preloaded
@@ -211,7 +240,7 @@ The critic prompt, the architects, the jury, the holdout split, `helix/replicate
 │   ├── golden/              # train / holdout / paper claim sets
 │   └── corpus/              # fetched papers and passages (cached, not tracked)
 ├── results/                 # per-iteration metrics, holdout scores, product runs, verification, graph
-├── docs/                    # flow diagrams and charts
+├── docs/                    # flow diagrams, charts, orchestration.md (the state graphs)
 ├── scripts/                 # jury labels, golden sets, ARIA automation, Weave evals, deck build
 └── DEMO.md                  # the three-minute script and judge Q&A
 ```
@@ -238,7 +267,7 @@ The critic prompt, the architects, the jury, the holdout split, `helix/replicate
 git clone https://github.com/sharif-alqaabi/Coreweave.git
 cd Coreweave
 python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt openai
+pip install -r requirements.txt
 cp .env.example .env      # WANDB_API_KEY for the scout / critic / architects; TYPESAFE_API_KEY for verification and the graph
 ```
 
@@ -266,6 +295,23 @@ python3 loop.py --holdout --compare
 # one training round; plumbing only with --dry-run
 python3 loop.py --iterations 1 --dry-run
 python3 loop.py --iterations 4 --wait-for-aria 120
+```
+
+```bash
+# the same, as checkpointed state graphs (resume after a failure; pause for approval before promotion)
+python3 -m helix.orchestrate product data/raw/OSD-421_differential_expression.csv
+python3 -m helix.orchestrate round --n 3 --wait-for-aria 120 --approve
+python3 -m helix.orchestrate resume --thread round-3
+
+# how good are the graph's judgments; export a sample for a scientist to label
+python3 -m helix.graph.evaluate
+python3 -m helix.graph.evaluate --export 60
+
+# where else does a gene move, across every table on disk
+python3 -m helix.tables Pfkfb3
+
+# the DSPy baseline for the critic (needs an inference key)
+python3 -m helix.dspy_baseline --optimizer bootstrap
 ```
 
 ---

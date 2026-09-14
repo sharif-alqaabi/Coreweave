@@ -2,7 +2,7 @@
 
     python -m helix.graph.build                    # everything: corpus (cached), entities, TypeSafe edges, LLM explanations
     python -m helix.graph.build --max 40           # first 40 findings, for a quick look
-    python -m helix.graph.build --no-numeric --no-explain
+    python -m helix.graph.build --no-numeric --no-explain --no-semantic   # entity candidates only (no embedding index)
 
 Writes results/graph.json: nodes (finding, passage, paper, dataset, gene, go, tissue) and edges (judged + structural).
 Thresholds that decide which judged edges are kept live in ACCEPT below; every judged edge keeps its probabilities.
@@ -63,7 +63,7 @@ def assemble(findings, passages, edges, papers, studies):
         if p["pmid"]:
             pp = papers.get(p["pmid"], {})
             add("pmid" + p["pmid"], "paper", pp.get("title", "")[:90], title=pp.get("title", ""), journal=pp.get("journal", ""), year=pp.get("year", ""),
-                doi=pp.get("doi", ""), pmid=p["pmid"], osd_ids=pp.get("osd_ids", []))
+                doi=pp.get("doi", ""), pmid=p["pmid"], osd_ids=pp.get("osd_ids", []), citations=(pp.get("citations") or {}).get("count"))
             struct.append({"type": "passage-paper", "relation": "in", "src": pid, "dst": "pmid" + p["pmid"]})
             for o in pp.get("osd_ids", []):
                 struct.append({"type": "paper-dataset", "relation": "about", "src": "pmid" + p["pmid"], "dst": o})
@@ -105,12 +105,14 @@ def main(argv):
         E.tag_passages(passages, client=client)
         findings = E.findings()[:max_f]
         print(f"{len(findings)} findings")
-        edges = X.build_edges(findings, passages, client, numeric="--no-numeric" not in argv)
+        edges = X.build_edges(findings, passages, client, numeric="--no-numeric" not in argv, semantic="--no-semantic" not in argv)
     nodes, all_edges, dropped = assemble(findings, passages, edges, papers, studies)
     if "--no-explain" not in argv:
         EX.explain_edges(all_edges, findings, passages)
+    retrieved = Counter(src for e in all_edges if e["type"] == "finding-passage" for src in e.get("retrieved_by", []))
+    only_semantic = sum(1 for e in all_edges if e["type"] == "finding-passage" and e.get("retrieved_by") == ["semantic"])
     stats = {"nodes": Counter(n["type"] for n in nodes), "edges": Counter(f"{e['type']}:{e['relation']}" for e in all_edges),
-             "judged_dropped": dropped, "seconds": round(time.time() - t0)}
+             "judged_dropped": dropped, "retrieved_by": retrieved, "kept_only_via_semantic": only_semantic, "seconds": round(time.time() - t0)}
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     json.dump({"built": time.strftime("%Y-%m-%d %H:%M"), "stats": stats, "nodes": nodes, "edges": all_edges}, open(OUT, "w"))
     print(json.dumps(stats, indent=1)); print("->", OUT)

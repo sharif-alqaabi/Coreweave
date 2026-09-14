@@ -332,7 +332,7 @@ the ones a scientist should spend time on." Same check lives in Lead Lab as the 
 
 **Slide 8, "Research graph".** "Then we link every finding we've ever produced, 294 of them, to 150 papers
 from the OSDR catalog, twelve thousand passages. TypeSafe reranks and types every pair: ten thousand in
-90 seconds. 44 findings are contradicted by a passage. Crb1 'downregulated in the retina': the retina
+90 seconds. 75 findings are contradicted by a passage (44 before the semantic index). Crb1 'downregulated in the retina': the retina
 paper's own sentence says none of those disease genes changed. That's the sentence our human labeller
 cited, found automatically. And the scout's Drd4, Sag, Pfkfb3 leads link straight to the paper's claims."
 Point at the neighbourhood graph. Live version: Graph Lab, `marimo run app/graph_lab.py -p 2722`.

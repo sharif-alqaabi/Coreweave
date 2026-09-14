@@ -1,10 +1,35 @@
+# core
 pandas
-anthropic
+numpy
+pydantic
+pydantic-settings
 python-dotenv
+pytest
+
+# generative models: one chat() in helix/llm.py, provider chosen in .env
+anthropic
+openai                    # W&B Inference and any OpenAI-compatible endpoint
+litellm                   # LLM_PROVIDER=litellm: any of its providers
+instructor                # validated structured output (the critic's Verdict)
+
+# tracing, evals, ARIA
 wandb
 weave
-marimo
-pydantic
-pytest
 mcp>=2.0
+
+# UIs and the deck
+marimo
+
+# after the loop: TypeSafe verification and the research graph
 typesafe-sdk
+model2vec                 # static embeddings for the graph's semantic candidate pool (numpy-only)
+scikit-learn              # scoring TypeSafe's judgments against human labels
+duckdb                    # field-wide gene lookups across every table on disk
+
+# orchestration and the optimiser baseline
+langgraph
+langgraph-checkpoint-sqlite
+dspy
+
+# optional, not installed by default (needs torch): HELIX_NER=gliner for zero-shot entity tagging in a new field
+# gliner
